@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Forseti GNU</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monospace; font-size:9pt}
+.txtMenu{
+	padding:4px;
+	font-size:10pt;
+	font-weight:normal;
+	color:white;
+	font-style: normal;
+	text-decoration: none;
+}
+.txtSubMenu{
+	padding:4px;
+	font-size:9pt;
+	font-weight:bold;
+	font-style: normal;
+	text-decoration: none;
+}
+.txtPag{
+	padding:4px;
+	font-size:9pt;
+	font-weight:normal;
+	font-style: normal;
+	text-decoration: none;
+}
+.txtEnlTit{
+	padding:4px;
+	font-size:10pt;
+	font-weight:bold;
+	font-style: normal;
+	text-decoration: none;
+}
+.txtTitLight{
+	padding:4px;
+	font-size:14pt;
+	font-weight:lighter;
+	font-style: normal;
+	text-decoration: none;
+}
+.txtEnl{
+	padding:4px;
+	font-size:9pt;
+	font-weight:normal;
+	font-style: normal;
+}
+.txtTit{
+	padding:4px;
+	font-size:14pt;
+	font-weight:bold;
+	font-style: normal;
+	text-decoration: none;
+}
+.txtImp{
+	padding:4px;
+	font-size:12pt;
+	font-weight:lighter;
+	font-style: normal;
+	text-decoration: none;
+}
+.txtPie{
+	padding:4px;
+	font-size:8pt;
+	font-weight:normal;
+	color:#808080;
+	font-style: normal;
+	
+}
+
+.txtTec{
+	padding:4px;
+	font-size:8pt;
+	font-weight:normal;
+	color:#808080;
+	font-style: normal;
+	text-decoration: none;
+	
+}
+</style>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
+<div align="center">
+  <table width="880" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+    <tr> 
+      <td height="20" align="right" valign="middle" class="txtTec"><img src="IMG/facebook.gif" align="absmiddle"> 
+        <img src="IMG/twitter.gif" align="absmiddle"> | <a href="index.html" target="_self" class="txtTec">Inicio</a> 
+        | <a href="fsi-href-donaciones" target="_self" class="txtTec">Donaciones</a> 
+        | <a href="fsi-href-contacto" target="_self" class="txtTec">Contacto</a></td>
+    </tr>
+    <tr> 
+      <td bgcolor="#333333"><img width="880" src="IMG/titulo_sitio.gif"></td>
+    </tr>
+    <tr> 
+      <td>
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr> 
+			
+              <td height="30" align="center" valign="middle" bgcolor="#999999"><a class="txtMenu" href="010101.html" target="_self">Generalidades</a></td>
+			
+
+              <td height="30" align="center" valign="middle" bgcolor="#888888"><a class="txtMenu" href="020101.html" target="_self">Implantaci&oacute;n</a></td>
+			
+
+              <td height="30" align="center" valign="middle" bgcolor="#999999"><a class="txtMenu" href="030101.html" target="_self">Interfaz</a></td>
+			
+
+              <td height="30" align="center" valign="middle" bgcolor="#0099FF"><a class="txtMenu" href="040101.html" target="_self">CEF</a></td>
+			
+
+              <td height="30" align="center" valign="middle" bgcolor="#FF6600"><a class="txtMenu" href="050101.html" target="_self">SAF</a></td>
+			
+
+              <td height="30" align="center" valign="middle" bgcolor="#FFCC00"><a class="txtMenu" href="060101.html" target="_self">REF</a></td>
+			
+
+              <td height="30" align="center" valign="middle" bgcolor="#339933"><a class="txtMenu" href="070101.html" target="_self">SOF</a></td>
+			
+
+              <td height="30" align="center" valign="middle" bgcolor="#888888"><a class="txtMenu" href="080101.html" target="_self">Anexos</a></td>
+			
+
+             
+               </tr>
+          </table>
+      </td>
+    </tr>
+    <tr> 
+      <td>
+	   				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				<table><tbody> <tr>  <td><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js" type="text/javascript"> </script> <script>/** Tutorial Easy slider* Autor: Osiris Magro* Fecha: 15/02/2010* CompÃ¡rtelo como quieras*/var $j = jQuery.noConflict();$j(document).ready(function(){    /*     * Variables     */    var slides, timer;    //Crea un objeto con informaciÃ³n de los slides    slides = $j('#slider .slidesContainer > .slide');    /*     * Funciones     */        //Desplaza el contenedor hacia la direcciÃ³n definida    //@direction = [left,right]    function sliderScroll(direction){       //Calcula la posiciÃ³n actual del contenedor       position = $j('#slider').scrollLeft();       //Calcula la anchura total menos el Ãºltimo slide.       //Se usa para calcular cuando el scroll llega al final.       totalWidth = (slides.length * slides[0].offsetWidth) - slides[0].offsetWidth       //Se comprueba la variable direction para hacer el scroll hacia izquierda o derecha       switch (direction) {            case 'right': //Derecha                if (position+slides[0].offsetWidth > totalWidth){ //Si la siguiente posiciÃ³n se sale del contenedor, vuelve al principio.                    $j('#slider:not(:animated)').animate({scrollLeft:0},1000);                } else { //Si no es el final, suma a la posiciÃ³n actual la anchura del slide.                    $j('#slider:not(:animated)').animate({scrollLeft:position+slides[0].offsetWidth},1000);                }                break;            case 'left': //Izquierda                if (position-slides[0].offsetWidth < 0){ //Si la siguiente posiciÃ³n se sale del contenedor, vuelve al final.                    $j('#slider:not(:animated)').animate({scrollLeft:totalWidth},1000);                } else { //Si no es el final, resta a la posiciÃ³n actual la anchura del slide.                    $j('#slider:not(:animated)').animate({scrollLeft:position-slides[0].offsetWidth},1000);                }                break;        }   }   //FunciÃ³n que crea el temporizador   function initTimer(){        timer = setInterval(function(){sliderScroll('right');}, 5000);   }   /*    * CÃ³digo    */    //Asigna el ancho total de los slides al contenedor    //La anchura total se obtiene multiplicando la medida de un slide por el nÃºmero de slides)    $j('#slider .slidesContainer').css('width',slides[0].offsetWidth * slides.length);    //Click en el botÃ³n "next"    $j('.next').click(function(){        clearInterval(timer); //Desactiva el temporizador        sliderScroll('right'); //Mueve el scroll a la derecha        initTimer(); //Vuelve a activar el temporizador        return false;    });    //Click en el botÃ³n "prev"    $j('.prev').click(function(){        clearInterval(timer); //Desactiva el temporizador        sliderScroll('left'); //Mueve el scroll a la izquierda        initTimer(); //Vuelve a activar el temporizador        return false;    });    //Inicia el temporizador    initTimer();});</script><style type="text/css">.sliderContainer{    width: 874px;    height: 270px;    position: relative;    margin:auto;}.slidesContainer{	border-top: 6px solid white;}#slider {    width: 780px;    height: 250px;    background: #FFF;    overflow: hidden;    position: relative;    margin: auto;}#slider .slide{    width: 780px;    height: 250px;    float: left;}.slide p{        color: #000;        position: relative;        bottom: 45px;        padding: 10px;        border-left: 0px solid green;}.prev, .next{    display: block;    height: 50px;    width: 28px;    position: absolute;    top: 100px;}.prev{    background: url('IMG/anterior.gif') no-repeat;    background-position: 0 0;    left: 0;}.prev:hover{    background-position: 0 1px;}.next{    background: url('IMG/proxima.gif') no-repeat;    background-position: 0 0;    right: 0;}.next:hover{    background-position: 0 1px;}  </style>			<div class="sliderContainer">      <a href="#siguiente" class="next" title="Siguiente"></a>      <a href="#anterior" class="prev" title="Anterior"></a>      <div id="slider">          <div style="width: 5460px;" class="slidesContainer">              <div class="slide"><img src="IMG/sliders1.gif" alt="Imagen 01" /><p><a href="ghghfhgfh.html" class="txtTec">Este es el texto de la imagen 1</a></p></div>              <div class="slide"><img src="IMG/sliders2.gif" alt="Imagen 02" /><p><a href="ghghfhgfh.html" class="txtTec">Este es el texto de la imagen 2</a></p></div>              <div class="slide"><img src="IMG/sliders3.gif" alt="Imagen 01" /><p><a href="ghghfhgfh.html" class="txtTec">Este es el texto de la imagen 3</a></p></div><div class="slide"><img src="IMG/sliders4.gif" alt="Imagen 01" /><p><a href="ghghfhgfh.html" class="txtTec">Este es el texto de la imagen 3</a></p></div><div class="slide"><img src="IMG/sliders5.gif" alt="Imagen 01" /><p><a href="ghghfhgfh.html" class="txtTec">Este es el texto de la imagen 3</a></p></div><div class="slide"><img src="IMG/sliders6.gif" alt="Imagen 01" /><p><a href="ghghfhgfh.html" class="txtTec">Este es el texto de la imagen 3</a></p></div><div class="slide"><img src="IMG/sliders7.gif" alt="Imagen 01" /><p><a href="ghghfhgfh.html" class="txtTec">Este es el texto de la imagen 3</a></p></div>                       </div> <!-- /slidesContainer -->      </div> <!-- /slider -->      </div></td></tr></tbody></table><table width="100%" border="0" cellpadding="5" cellspacing="0">
+<tr>
+<td valign="top" width="30%"><strong>Introducci&oacute;n</strong><br>
+<br><a href="010101.html" class="txtPag" target="_self"><font color="#FF6600">¿ Que es forseti ?</font></a><br><font color="#999999">Información detallada sobre lo que forseti es.</font>
+<br><a href="010102.html" class="txtPag" target="_self"><font color="#FF6600">¿ Porque Forseti y Software libre ?</font></a><br><font color="#999999">Por que migrar a forseti y al software libre.</font>
+<br><a href="010103.html" class="txtPag" target="_self"><font color="#FF6600">¿Quién necesita Forseti ?</font></a><br><font color="#999999">Información sobre los usuarios o empresas que requieren forseti</font>
+<br><a href="010104.html" class="txtPag" target="_self"><font color="#FF6600">¿Cómo se trabaja con Forseti ?</font></a><br><font color="#999999">Explica el diseño del programa en función de las necesidades de la empresa</font>
+<br><a href="010105.html" class="txtPag" target="_self"><font color="#FF6600">¿Es seguro Forseti ?</font></a><br><font color="#999999">Muestra las generalidades en la seguridad de forseti</font>
+<br><a href="010106.html" class="txtPag" target="_self"><font color="#FF6600">Ventajas de la web con certificados digitales</font></a><br><font color="#999999">Muestra las ventajas del diseño cliente - servidor sobre web cifrado sobre otras programaciones</font>
+<br><a href="010107.html" class="txtPag" target="_self"><font color="#FF6600">Flexibilidad de Forseti, vs. paquetería de gestión</font></a><br><font color="#999999">Diferencias del ERP Forseti en comparación con el software de gestion o suites de gestión administrativas</font>
+<br><a href="010108.html" class="txtPag" target="_self"><font color="#FF6600">¿Qué implica la reingeniería de procesos ?</font></a><br><font color="#999999">Implicaciones de la reingeniería de procesos en una empresa que decida incorporar Forseti para optimizar su desempeño</font>
+<br><a href="010109.html" class="txtPag" target="_self"><font color="#FF6600">¿Qué necesito para operar con Forseti ?</font></a><br><font color="#999999">Explica de manera general las necesidades para implantar forseti y poder ponerlo en producción</font>
+</td>
+<td valign="top" width="30%"><strong>Alcance</strong><br>
+<br><a href="010201.html" class="txtPag" target="_self"><font color="#FF6600">Introducción</font></a><br><font color="#999999">Provee una muy breve descripción del alcance de forseti</font>
+<br><a href="010202.html" class="txtPag" target="_self"><font color="#FF6600">Proceso Contable</font></a><br><font color="#999999">Provee información de lo que se puede hacer en la contabilidad</font>
+<br><a href="010203.html" class="txtPag" target="_self"><font color="#FF6600">Cajas y Bancos</font></a><br><font color="#999999">Informacion general de lo que puedes hacer en el módulo de caja y bancos</font>
+<br><a href="010204.html" class="txtPag" target="_self"><font color="#FF6600">Gastos</font></a><br><font color="#999999">Describe brevemente el alcance en el módulo de gastos</font>
+<br><a href="010205.html" class="txtPag" target="_self"><font color="#FF6600">Almacén</font></a><br><font color="#999999">Infomación básica de lo que se puede hacer en el módulo de almacén</font>
+<br><a href="010206.html" class="txtPag" target="_self"><font color="#FF6600">Compras y Gastos</font></a><br><font color="#999999">Da información sobre lo que se puede esperar hacer desde el departamento de compras y gastos</font>
+<br><a href="010207.html" class="txtPag" target="_self"><font color="#FF6600">Ventas</font></a><br><font color="#999999">Información de lo que se puede llegar a hacer desde el departamento de ventas</font>
+<br><a href="010208.html" class="txtPag" target="_self"><font color="#FF6600">Producción</font></a><br><font color="#999999">Breve descripción de lo que podemos hacer en este departamento</font>
+<br><a href="010209.html" class="txtPag" target="_self"><font color="#FF6600">Nómina</font></a><br><font color="#999999">Una descripción de lo que puede hacerce con la nómina forseti</font>
+<br><a href="010210.html" class="txtPag" target="_self"><font color="#FF6600">Alcance en reportes y gráficas</font></a><br><font color="#999999">Breve descripción de los reportes y gráficas del sistema</font>
+<br><a href="010212.html" class="txtPag" target="_self"><font color="#FF6600">Centro de control empresarial</font></a><br><font color="#999999">Permite saber que es y que se puede hacer desde el centro de control</font>
+<br><a href="010213.html" class="txtPag" target="_self"><font color="#FF6600">Sistema Administrativo Forseti</font></a><br><font color="#999999">Da una explicación breve de lo que se hace desde la interfaz SAF para administrar las bases de datos ( empresas ) y el servidor web.</font>
+<br><a href="010214.html" class="txtPag" target="_self"><font color="#FF6600">Recursos Elecrónicos Forseti</font></a><br><font color="#999999">Breve explicación de lo que se puede hacer en la interfaz REF para dar servicio a tus clientes.</font>
+</td>
+</tr>
+
+	  </td>
+    </tr>
+    <tr> 
+      <td height="40" valign="bottom" class="txtPie"><a href="gnu" target="_self" class="txtPie">Licencia 
+        Pública General ( GPL )</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
+        Forseti</a><br>
+        Derechos Reservados &copy; 2001-2013 Organización Forseti A.C. 
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
+

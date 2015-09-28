@@ -1,0 +1,170 @@
+/*
+    Forseti, El ERP Gratuito para PyMEs
+    Copyright (C) 2015 Gabriel Gutiérrez Fuentes.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+TD,P,B,INPUT,DIV{ font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monospace; font-size:7pt; }
+
+#topbar{
+	position:absolute;
+	background-color: #333333;
+	width: 100%;
+	visibility: hidden;
+}
+
+.textostc {
+	background-color: #FFFFFF;
+	border: thin none #FFFFFF;
+	color: #000000;
+}
+
+.clock {
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	background-color: #FF6600;
+	border: thin none #FF6600;
+	color: #FFFFFF;
+}
+
+.clockRef {
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	background-color: #339900;
+	border: thin none #339900;
+	color: #FFFFFF;
+}
+
+.clockCef {
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	background-color: #0099FF;
+	border: thin none #0099FF;
+	color: #FFFFFF;
+}
+
+.titGiganteNar{padding:4px; font-size:28pt; font-weight:normal; color:#FF6600; }
+.titGiganteAzc{padding:4px; font-size:28pt; font-weight:normal; color:#0099FF; }
+.titGiganteVer{padding:4px; font-size:28pt; font-weight:normal; color:#339900; }
+
+.titChico{
+	padding:2px;
+	font-size:10pt;
+	font-weight:bold;
+	color:white;
+	text-decoration: none;
+}
+.titCuerpoBco{padding:4px; font-size:13pt; font-weight:normal; color:white; }
+.titCuerpoAzc{padding:4px; font-size:13pt; font-weight:normal; color:#0099FF; }
+.titCuerpoNar{padding:4px; font-size:13pt; font-weight:normal; color:#FF6600; }
+.titCuerpoVer{padding:4px; font-size:13pt; font-weight:normal; color:#339900; }
+.titCuerpoNeg{padding:4px; font-size:13pt; font-weight:normal; color:black; }
+
+.txtCuerpoBco{padding:4px; font-size:10pt; font-weight:normal; color:white; }
+.txtCuerpoNar{padding:4px; font-size:10pt; font-weight:normal; color:#FF6600; }
+.txtCuerpoAzc{padding:4px; font-size:10pt; font-weight:normal; color:#0099FF; }
+.txtCuerpoVer{padding:4px; font-size:10pt; font-weight:normal; color:#339900}
+.txtCuerpoAz{padding:4px; font-size:10pt; font-weight:normal; color:#000099; }
+.txtCuerpoGr{padding:4px; font-size:10pt; font-weight:normal; color:#333333; }
+.txtCuerpoNg{padding:4px; font-size:10pt; font-weight:normal; color:black; }
+.txtCuerpoRj{padding:4px; font-size:10pt; font-weight:normal; color:red; }
+
+.txtChicoBco{padding:4px; font-size:8pt; font-weight:normal; color:white; }
+.txtChicoNar{padding:4px; font-size:8pt; font-weight:normal; color:#FF6600; }
+.txtChicoAzc{padding:4px; font-size:8pt; font-weight:normal; color:#0099FF; }
+.txtChicoVer{padding:4px; font-size:8pt; font-weight:normal; color:#339900; }
+.txtChicoAz{padding:4px; font-size:8pt; font-weight:normal; color:#000099; }
+.txtChicoGr{padding:4px; font-size:8pt; font-weight:normal; color:#333333; }
+.txtChicoRj{padding:4px; font-size:8pt; font-weight:normal; color:red; }
+
+.titChicoNeg{padding:2px; font-size:10pt; font-weight:bold; color:black; }
+.titChicoNar{padding:2px; font-size:10pt; font-weight:bold; color:#FF6600; }
+.titChicoAzc{padding:2px; font-size:10pt; font-weight:bold; color:#0099FF; }
+.titChicoVer{padding:2px; font-size:10pt; font-weight:bold; color:#339900; }
+.titChicoRj{padding:2px; font-size:10pt; font-weight:bold; color:red; }
+.titChicoAz{padding:2px; font-size:10pt; font-weight:bold; color:#000099; }
+
+.cpoBco {
+	font-size: 7pt;
+	color: #000000;
+	font-weight: normal;
+	background-color: #FFFFFF;
+	font-style: normal;
+
+}
+.cpoBcoAz {
+	font-size: 7pt;
+	color: #0000FF;
+	font-weight: normal;
+	background-color: #FFFFFF;
+	font-style: normal;
+
+}
+.cpoColAz {
+	font-size: 7pt;
+	font-weight: normal;
+	color: #0000FF;
+	background-color: #FFDDC6;
+	font-style: normal;
+
+}
+.cpoCol {
+	font-size: 7pt;
+	font-weight: normal;
+	color: #000000;
+	background-color: #FFDDC6;
+	font-style: normal;
+
+}
+.cpoColAzc {
+	font-size: 7pt;
+	font-weight: normal;
+	color: #000000;
+	background-color: #BBE4FF;
+	font-style: normal;
+}
+.cpoBcoRojo {
+	font-size: 7pt;
+	color: #FF0000;
+	font-weight: normal;
+	background-color: #FFFFFF;
+}
+.cpoColRojo {
+	font-size: 7pt;
+	font-weight: normal;
+	color: #FF0000;
+	background-color: #FFDDC6;
+}
+.cpoBcoNg {
+	font-size: 7pt;
+	color: #000000;
+	font-weight: bold;
+	background-color: #FFFFFF;
+
+}
+.cpoColNg {
+	font-size: 7pt;
+	font-weight: bold;
+	color: #000000;
+	background-color: #FFDDC6;
+}
+.textoGris {
+	font-size: 10pt;
+	font-style: normal;
+	color: #FFFFFF;
+}
+.txtChicoNeg { padding:4px; font-size:8pt; font-weight:normal; color:#000000; }

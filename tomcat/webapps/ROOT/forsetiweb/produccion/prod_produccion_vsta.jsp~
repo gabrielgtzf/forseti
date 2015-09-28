@@ -1,0 +1,126 @@
+<%@ page import="forseti.*, forseti.sets.*"%>
+<%
+	boolean registrado = JUtil.yaRegistradoEnFsi(request, response);
+	// Inicia con registrar el objeto de sesion si no esta registrado
+	if(!registrado) 
+	{ 
+	    RequestDispatcher despachador = getServletContext().getRequestDispatcher("/forsetiweb/registro.jsp");
+      	despachador.forward(request,response);
+ 	}
+	boolean prodProduccionEstablecidos = JUtil.getSesion(request).getProdProduccionEst();
+	if(!prodProduccionEstablecidos)
+	{
+		RequestDispatcher despachador = getServletContext().getRequestDispatcher("/servlet/forseti.produccion.JProdProduccionCtrl");
+      	despachador.forward(request,response);
+	}
+	String prod_produccion = (String)request.getAttribute("prod_produccion");
+	if(prod_produccion == null)
+	{
+		RequestDispatcher despachador = getServletContext().getRequestDispatcher("/servlet/forseti.produccion.JProdProduccionCtrl");
+      	despachador.forward(request,response);
+	}
+	
+	// Parametros de entidad cuando se generan por primera vez
+	String titulo = "PRODUCCION: " + JUtil.getSesion(request).getSesionProdProduccion().generarTitulo();
+	String donde = JUtil.getSesion(request).getSesionProdProduccion().generarWhere();
+	String orden = JUtil.getSesion(request).getSesionProdProduccion().generarOrderBy();
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<script language="JavaScript" type="text/javascript" src="../../forsetiweb/comps.js">
+</script>
+<script language="JavaScript" type="text/javascript">
+<!-- 
+if(top.location == self.location) {
+	top.location.href = "../forseti.html"
+}
+if(parent.tiempo.document.URL.indexOf('prod_produccion_tmp.jsp') == -1) {
+	parent.tiempo.document.location.href = "../../forsetiweb/produccion/prod_produccion_tmp.jsp"
+}
+if(parent.entidad.document.URL.indexOf('prod_produccion_ent.jsp') == -1) {
+	parent.entidad.document.location.href = "../../forsetiweb/produccion/prod_produccion_ent.jsp"
+}
+if(parent.ztatuz.document.URL.indexOf('prod_produccion_sts.jsp') == -1) {
+	parent.ztatuz.document.location.href = "../../forsetiweb/produccion/prod_produccion_sts.jsp"
+}
+-->
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../../forsetiweb/estilos.css" rel="stylesheet" type="text/css">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" link="#FF6600" vlink="#FF0000" alink="#000099" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
+<form action="/servlet/forseti.produccion.JProdProduccionDlg" method="post" enctype="application/x-www-form-urlencoded" name="prod_produccion" target="ventEm">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="titCuerpoBco" align="center" valign="middle" bgcolor="#FF6600"><%= titulo + " " + donde %></td>
+  </tr>
+<%	
+	String mensaje = JUtil.getMensaje(request, response);	
+	out.println(mensaje);
+%>  
+  <tr>
+    <td bgcolor="#999999">
+		<table width="100%" border="0" cellpadding="0" cellspacing="5">
+		 <tr> 
+          <td> 
+		    <div align="right">
+			  <input name="proceso" type="hidden" value="ACTUALIZAR">
+			  <input name="submit" type="image" onClick="javascript:establecerProceso(this.form.proceso, 'AGREGAR',700,400)" src="../../forsetiweb/bbf_agregar.gif" alt="Agrega un reporte de producción nuevo " width="70" height="20" border="0"> 
+                          <img src="../../forsetiweb/btn_gris.gif" width="1" height="20"> 
+			   <input name="submit" type="image" onClick="javascript:establecerProceso(this.form.proceso, 'CONSULTAR',700,400)" src="../../forsetiweb/bbf_consultar.gif" alt="Hace una consulta de los materiales del proceso de producción utilizados " width="70" height="20" border="0"> 
+                          <img src="../../forsetiweb/btn_gris.gif" width="1" height="20"> 
+			  <input name="submit" type="image" onClick="javascript:establecerProceso(this.form.proceso, 'CANCELAR',400,300)" src="../../forsetiweb/bbf_consultar.gif" alt="Cancela el proceso de producción seleccionado " width="70" height="20" border="0"> 
+                          <img src="../../forsetiweb/btn_gris.gif" width="1" height="20"> 
+                          <a href="../../servlet/forseti.produccion.JProdProduccionCtrl" target="_self"><img src="../../forsetiweb/bbf_actualizar.gif" alt="Actualiza la lista actual desde el ltimo cambio " width="70" height="20" border="0"></a> 
+              </div></td>
+        </tr>
+      </table></td>
+  </tr> 
+  <tr>
+    <td bgcolor="#FFFFFF">
+	  <table width="100%" border="0" cellpadding="1" cellspacing="0" bordercolor="#FFFFFF">
+          <tr bgcolor="#999999">
+			<td width="3%" align="center">&nbsp;</td>
+			<td width="5%" align="center"><a class="titChico" href="/servlet/forseti.produccion.JProdProduccionCtrl?orden=Numero">Numero</a></td>
+			<td width="15%" align="center"><a class="titChico" href="/servlet/forseti.produccion.JProdProduccionCtrl?orden=Fecha">Fecha</a></td>
+			<td width="42%" align="left"><a class="titChico" href="/servlet/forseti.produccion.JProdProduccionCtrl?orden=Referencia">Referencia</a></td>
+			<td width="7%" align="center"><a class="titChico" href="/servlet/forseti.produccion.JProdProduccionCtrl?orden=Status">Status</a></td>
+			<td width="3%" align="center"><a class="titChico" href="/servlet/forseti.produccion.JProdProduccionCtrl?orden=CDA">CDA</a></td>
+			<td width="5%" align="center"><a class="titChico" href="/servlet/forseti.produccion.JProdProduccionCtrl?orden=NumProc">NumProc</a></td>
+			<td width="5%" align="center"><a class="titChico" href="/servlet/forseti.produccion.JProdProduccionCtrl?orden=Actual">Actual</a></td>
+			<td width="15%" align="left"><a class="titChico" href="/servlet/forseti.produccion.JProdProduccionCtrl?orden=Pol">Pol</a></td>
+
+          </tr>
+<%
+	JProdProdSetV2 set = new JProdProdSetV2(request);
+	set.m_Where = donde;
+	set.m_OrderBy = orden; 
+	set.Open();
+	for(int i=0; i < set.getNumRows(); i++)
+	{
+		int mod = i % 2;
+%>
+          <tr>
+	      	<td class='<%= (mod == 0) ? ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoBcoRojo" : "cpoBco") : ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoColRojo" : "cpoCol") %>' width="3%" align="center"><input type="checkbox" name="ID" value="<%= set.getAbsRow(i).getID_Reporte() %>"></td>
+			<td class='<%= (mod == 0) ? ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoBcoRojo" : "cpoBco") : ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoColRojo" : "cpoCol") %>' width="5%" align="center"><%= set.getAbsRow(i).getNumero() %></td>
+			<td class='<%= (mod == 0) ? ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoBcoRojo" : "cpoBco") : ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoColRojo" : "cpoCol") %>' width="15%" align="center"><%= set.getAbsRow(i).getFecha() %></td>
+			<td class='<%= (mod == 0) ? ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoBcoRojo" : "cpoBco") : ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoColRojo" : "cpoCol") %>' width="42%" align="left"><%= set.getAbsRow(i).getReferencia() %></td>
+			<td class='<%= (mod == 0) ? ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoBcoRojo" : "cpoBco") : ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoColRojo" : "cpoCol") %>' width="7%" align="center"><%= set.getAbsRow(i).getStatus() %></td>
+			<td class='<%= (mod == 0) ? ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoBcoRojo" : "cpoBco") : ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoColRojo" : "cpoCol") %>' width="3%" align="center"><%= set.getAbsRow(i).getCDA() %></td>
+			<td class='<%= (mod == 0) ? ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoBcoRojo" : "cpoBco") : ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoColRojo" : "cpoCol") %>' width="5%" align="center"><%= set.getAbsRow(i).getNumProc() %></td>
+			<td class='<%= (mod == 0) ? ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoBcoRojo" : "cpoBco") : ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoColRojo" : "cpoCol") %>' width="5%" align="center"><%= set.getAbsRow(i).getActual() %></td>
+			<td class='<%= (mod == 0) ? ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoBcoRojo" : "cpoBco") : ((set.getAbsRow(i).getStatus().equals("C")) ? "cpoColRojo" : "cpoCol") %>' width="15%" align="left"><%= set.getAbsRow(i).getPol() %></td>
+
+          </tr>		
+<%
+	}
+%>		
+     </table>
+	 </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

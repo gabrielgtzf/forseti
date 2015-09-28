@@ -1,0 +1,13 @@
+/* CoolMenus 4 - default styles - do not edit */
+.clCMAbs{position:absolute; visibility:hidden; left:0; top:0}
+/* CoolMenus 4 - default styles - end */
+  
+/*Style for the background-bar*/
+.clBar{position:absolute; width:90; height:150; background-color:#FFFFFF; layer-background-color:#666666; visibility:hidden}
+
+/*Styles for level 0*/
+.clLevel0,.clLevel0over{position:absolute; padding:1px; font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monospace; font-size:9px; font-weight:normal; align:right }
+.clLevel0{background-color:#0099FF; layer-background-color:#333333; color:white;}
+.clLevel0over{background-color:#999999; layer-background-color:#333333; color:white; cursor:pointer; }
+.clLevel0border{position:absolute; visibility:hidden; background-color:#red; layer-background-color:red}
+

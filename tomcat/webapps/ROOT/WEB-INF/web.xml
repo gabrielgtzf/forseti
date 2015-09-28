@@ -1,0 +1,1490 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0"
+  metadata-complete="true">
+
+  <display-name>Welcome to Forseti</display-name>
+  <description>
+     Welcome to Forseti
+  </description>
+
+<!-- Especificaciones para WURFL Database -->
+	<context-param>
+		<param-name>wurfl</param-name>
+		<param-value>WEB-INF/wurfl.zip</param-value>
+	</context-param>
+	
+	<!-- place patches here, separated with ' ' or ','
+	<context-param>
+		<param-name>wurflPatch</param-name>
+		<param-value>/path-to-patches/patch1, /path-to-patches/patch2</param-value>
+	</context-param>
+	-->
+	
+	<listener>
+		<listener-class>
+			net.sourceforge.wurfl.core.web.WURFLServletContextListener
+		</listener-class>
+	</listener>
+    
+	<!-- standard, initialization servlet -->
+	<servlet>
+       		<servlet-name>HelloWorldServlet</servlet-name>
+        	<servlet-class>HelloWorld</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+        	<servlet-name>HelloWorldServlet</servlet-name>
+        	<url-pattern>/servlet/GLBHello</url-pattern>
+    	</servlet-mapping>
+<!--
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+			<taglib-location>tld/c.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
+			<taglib-location>tld/fmt.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jsp/jstl/functions</taglib-uri>
+			<taglib-location>tld/fn.tld</taglib-location>
+		</taglib>
+	</jsp-config> -->
+	<!-- Fin Wurfl Database -->
+<!-- CLASES PARA DESARROLLO, ELIMINAR PARA PRODUCCION-->
+  <servlet>
+        <servlet-name>GLB_Msj</servlet-name>
+        <servlet-class>JMsj</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>GLB_Msj</servlet-name>
+        <url-pattern>/servlet/GLBMsj</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>GLB_Ayu</servlet-name>
+        <servlet-class>JAyu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>GLB_Ayu</servlet-name>
+        <url-pattern>/servlet/GLBAyu</url-pattern>
+  </servlet-mapping>
+<!-- FIN CLASES DESARROLLO -->
+<!-- CLASES GLOBALES -->
+    <servlet>
+        <servlet-name>StickyCaptcha</servlet-name>
+        <servlet-class>forseti.JFsiCaptcha</servlet-class>
+        <!-- The width and height params are optional; 
+        if unspecified they default to 200 and 50 respectively. -->
+        <init-param>
+            <param-name>width</param-name>
+            <param-value>150</param-value>
+        </init-param>
+        <init-param>
+            <param-name>height</param-name>
+            <param-value>50</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StickyCaptcha</servlet-name>
+	<url-pattern>/servlet/stickyImg</url-pattern>
+    </servlet-mapping>
+
+<!-- FIN CLASES GLOBALES -->
+<!-- CLASES DEL REF -->
+  <servlet>
+    <servlet-name>REF_ProcSR</servlet-name>
+    <servlet-class>fsi_b2b.JFsiProcSR</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>REF_ProcSR</servlet-name>
+    <url-pattern>/servlet/REFProcSR</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>REF_ProcSRAgrEmp</servlet-name>
+        <servlet-class>fsi_b2b.JFsiProcSRAgrEmp</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>REF_ProcSRAgrEmp</servlet-name>
+        <url-pattern>/servlet/REFProcSRAgrEmp</url-pattern>
+  </servlet-mapping>
+<!-- FIN CLASES DEL REF -->
+
+<!-- CLASES DEL SAF -->
+  <servlet>
+        <servlet-name>SAF_Registro</servlet-name>
+        <servlet-class>fsi_admin.JFsiRegistro</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_Registro</servlet-name>
+        <url-pattern>/servlet/SAFRegistro</url-pattern>
+  </servlet-mapping>
+ <servlet>
+        <servlet-name>SAF_Salir</servlet-name>
+        <servlet-class>fsi_admin.JFsiSalir</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_Salir</servlet-name>
+        <url-pattern>/servlet/SAFSalir</url-pattern>
+  </servlet-mapping>
+<servlet>
+        <servlet-name>SAF_Barra</servlet-name>
+        <servlet-class>fsi_admin.JFsiBarra</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_Barra</servlet-name>
+        <url-pattern>/servlet/SAFBarra</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>SAF_AyudaTipoCtrl</servlet-name>
+        <servlet-class>fsi_admin.admon.JAyudaTipoCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AyudaTipoCtrl</servlet-name>
+        <url-pattern>/servlet/SAFAyudaTipoCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>SAF_AyudaTipoDlg</servlet-name>
+        <servlet-class>fsi_admin.admon.JAyudaTipoDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AyudaTipoDlg</servlet-name>
+        <url-pattern>/servlet/SAFAyudaTipoDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>SAF_AyudaSubTipoCtrl</servlet-name>
+        <servlet-class>fsi_admin.admon.JAyudaSubTipoCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AyudaSubTipoCtrl</servlet-name>
+        <url-pattern>/servlet/SAFAyudaSubTipoCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>SAF_AyudaSubTipoDlg</servlet-name>
+        <servlet-class>fsi_admin.admon.JAyudaSubTipoDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AyudaSubTipoDlg</servlet-name>
+        <url-pattern>/servlet/SAFAyudaSubTipoDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>SAF_AyudaPaginaCtrl</servlet-name>
+        <servlet-class>fsi_admin.admon.JAyudaPaginaCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AyudaPaginaCtrl</servlet-name>
+        <url-pattern>/servlet/SAFAyudaPaginaCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>SAF_AyudaPaginaDlg</servlet-name>
+        <servlet-class>fsi_admin.admon.JAyudaPaginaDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AyudaPaginaDlg</servlet-name>
+        <url-pattern>/servlet/SAFAyudaPaginaDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>SAF_AdmBDCtrl</servlet-name>
+        <servlet-class>fsi_admin.admon.JAdmBDCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AdmBDCtrl</servlet-name>
+        <url-pattern>/servlet/SAFAdmBDCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>SAF_AdmBDDlg</servlet-name>
+        <servlet-class>fsi_admin.admon.JAdmBDDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AdmBDDlg</servlet-name>
+        <url-pattern>/servlet/SAFAdmBDDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>SAF_AdmSSLCtrl</servlet-name>
+        <servlet-class>fsi_admin.admon.JAdmSSLCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AdmSSLCtrl</servlet-name>
+        <url-pattern>/servlet/SAFAdmSSLCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>SAF_AdmSSLDlg</servlet-name>
+        <servlet-class>fsi_admin.admon.JAdmSSLDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AdmSSLDlg</servlet-name>
+        <url-pattern>/servlet/SAFAdmSSLDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>SAF_AdmUsuariosCtrl</servlet-name>
+        <servlet-class>fsi_admin.admon.JAdmUsuariosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AdmUsuariosCtrl</servlet-name>
+        <url-pattern>/servlet/SAFAdmUsuariosCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>SAF_AdmUsuariosDlg</servlet-name>
+        <servlet-class>fsi_admin.admon.JAdmUsuariosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AdmUsuariosDlg</servlet-name>
+        <url-pattern>/servlet/SAFAdmUsuariosDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>SAF_RegistProcCtrl</servlet-name>
+        <servlet-class>fsi_admin.regist.JRegistProcCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_RegistProcCtrl</servlet-name>
+        <url-pattern>/servlet/SAFRegistProcCtrl</url-pattern>
+  </servlet-mapping>
+ 
+  <servlet>
+        <servlet-name>SAF_RegistProcDlg</servlet-name>
+        <servlet-class>fsi_admin.regist.JRegistProcDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_RegistProcDlg</servlet-name>
+        <url-pattern>/servlet/SAFRegistProcDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>SAF_RegistAdminCtrl</servlet-name>
+        <servlet-class>fsi_admin.regist.JRegistAdminCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_RegistAdminCtrl</servlet-name>
+        <url-pattern>/servlet/SAFRegistAdminCtrl</url-pattern>
+  </servlet-mapping>
+ 
+  <servlet>
+        <servlet-name>SAF_RegistAdminDlg</servlet-name>
+        <servlet-class>fsi_admin.regist.JRegistAdminDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_RegistAdminDlg</servlet-name>
+        <url-pattern>/servlet/SAFRegistAdminDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>SAF_RegistIniSesCtrl</servlet-name>
+        <servlet-class>fsi_admin.regist.JRegistIniSesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_RegistIniSesCtrl</servlet-name>
+        <url-pattern>/servlet/SAFRegistIniSesCtrl</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>SAF_RegistIniSesDlg</servlet-name>
+        <servlet-class>fsi_admin.regist.JRegistIniSesDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_RegistIniSesDlg</servlet-name>
+        <url-pattern>/servlet/SAFRegistIniSesDlg</url-pattern>
+  </servlet-mapping>
+  
+ <servlet>
+        <servlet-name>SAF_PacConn</servlet-name>
+        <servlet-class>fsi_admin.JPacConn</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_PacConn</servlet-name>
+        <url-pattern>/servlet/SAFPacConn</url-pattern>
+  </servlet-mapping>
+ 
+  <servlet>
+        <servlet-name>SAF_SmtpConn</servlet-name>
+        <servlet-class>fsi_admin.JSmtpConn</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_SmtpConn</servlet-name>
+        <url-pattern>/servlet/SAFSmtpConn</url-pattern>
+  </servlet-mapping>
+ 
+  <servlet>
+        <servlet-name>SAF_AwsS3Conn</servlet-name>
+        <servlet-class>fsi_admin.JAwsS3Conn</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AwsS3Conn</servlet-name>
+        <url-pattern>/servlet/SAFAwsS3Conn</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>SAF_ReportesCtrl</servlet-name>
+        <servlet-class>fsi_admin.reportes.JReportesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_ReportesCtrl</servlet-name>
+        <url-pattern>/servlet/SAFReportesCtrl</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>SAF_ReportesDlg</servlet-name>
+        <servlet-class>fsi_admin.reportes.JReportesDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_ReportesDlg</servlet-name>
+        <url-pattern>/servlet/SAFReportesDlg</url-pattern>
+  </servlet-mapping>
+<!-- Fin CLASES SAF -->
+
+  <servlet>
+        <servlet-name>CEF_Registro</servlet-name>
+        <servlet-class>forseti.JSRegistro</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_Registro</servlet-name>
+        <url-pattern>/servlet/CEFRegistro</url-pattern>
+  </servlet-mapping>
+ <servlet>
+        <servlet-name>CEF_Salir</servlet-name>
+        <servlet-class>forseti.JSalir</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_Salir</servlet-name>
+        <url-pattern>/servlet/CEFSalir</url-pattern>
+  </servlet-mapping>
+<servlet>
+        <servlet-name>CEF_Barra</servlet-name>
+        <servlet-class>forseti.JSBarra</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_Barra</servlet-name>
+        <url-pattern>/servlet/CEFBarra</url-pattern>
+  </servlet-mapping>
+ <servlet>
+        <servlet-name>CEF_ContaRubrosCtrl</servlet-name>
+        <servlet-class>forseti.contabilidad.JContaRubrosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ContaRubrosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFContaRubrosCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_ContaRubrosDlg</servlet-name>
+        <servlet-class>forseti.contabilidad.JContaRubrosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ContaRubrosDlg</servlet-name>
+        <url-pattern>/servlet/CEFContaRubrosDlg</url-pattern>
+  </servlet-mapping>
+ <servlet>
+        <servlet-name>CEF_ContaPolizasCtrl</servlet-name>
+        <servlet-class>forseti.contabilidad.JContaPolizasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ContaPolizasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFContaPolizasCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_ContaPolizasDlg</servlet-name>
+        <servlet-class>forseti.contabilidad.JContaPolizasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ContaPolizasDlg</servlet-name>
+        <url-pattern>/servlet/CEFContaPolizasDlg</url-pattern>
+  </servlet-mapping>
+<servlet>
+        <servlet-name>CEF_ContaCatCuentasCtrl</servlet-name>
+        <servlet-class>forseti.contabilidad.JContaCatCuentasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ContaCatCuentasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFContaCatCuentasCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_ContaCatcuentasDlg</servlet-name>
+        <servlet-class>forseti.contabilidad.JContaCatcuentasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ContaCatcuentasDlg</servlet-name>
+        <url-pattern>/servlet/CEFContaCatcuentasDlg</url-pattern>
+  </servlet-mapping>
+<servlet>
+        <servlet-name>CEF_ContaTipoPolizasCtrl</servlet-name>
+        <servlet-class>forseti.contabilidad.JContaTipoPolizasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ContaTipoPolizasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFContaTipoPolizasCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_ContaTipoPolizasDlg</servlet-name>
+        <servlet-class>forseti.contabilidad.JContaTipoPolizasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ContaTipoPolizasDlg</servlet-name>
+        <url-pattern>/servlet/CEFContaTipoPolizasDlg</url-pattern>
+  </servlet-mapping>
+<servlet>
+        <servlet-name>CEF_ContaPolizasCierreCtrl</servlet-name>
+        <servlet-class>forseti.contabilidad.JContaPolizasCierreCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ContaPolizasCierreCtrl</servlet-name>
+        <url-pattern>/servlet/CEFContaPolizasCierreCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_ContaPolizasCierreDlg</servlet-name>
+        <servlet-class>forseti.contabilidad.JContaPolizasCierreDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ContaPolizasCierreDlg</servlet-name>
+        <url-pattern>/servlet/CEFContaPolizasCierreDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_ContaEnlacesCtrl</servlet-name>
+        <servlet-class>forseti.contabilidad.JContaEnlacesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ContaEnlacesCtrl</servlet-name>
+        <url-pattern>/servlet/CEFContaEnlacesCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_ContaEnlacesDlg</servlet-name>
+        <servlet-class>forseti.contabilidad.JContaEnlacesDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ContaEnlacesDlg</servlet-name>
+        <url-pattern>/servlet/CEFContaEnlacesDlg</url-pattern>
+  </servlet-mapping>
+
+  
+  <servlet>
+        <servlet-name>CEF_CatLineasCtrl</servlet-name>
+        <servlet-class>forseti.catalogos.JCatLineasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CatLineasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCatLineasCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_CatLineasDlg</servlet-name>
+        <servlet-class>forseti.catalogos.JCatLineasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CatLineasDlg</servlet-name>
+        <url-pattern>/servlet/CEFCatLineasDlg</url-pattern>
+  </servlet-mapping>
+
+<servlet>
+        <servlet-name>CEF_CatProdCtrl</servlet-name>
+        <servlet-class>forseti.catalogos.JCatProdCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CatProdCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCatProdCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_CatProdDlg</servlet-name>
+        <servlet-class>forseti.catalogos.JCatProdDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CatProdDlg</servlet-name>
+        <url-pattern>/servlet/CEFCatProdDlg</url-pattern>
+  </servlet-mapping>
+
+<servlet>
+        <servlet-name>CEF_CatServCtrl</servlet-name>
+        <servlet-class>forseti.catalogos.JCatServCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CatServCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCatServCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_CatServDlg</servlet-name>
+        <servlet-class>forseti.catalogos.JCatServDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CatServDlg</servlet-name>
+        <url-pattern>/servlet/CEFCatServDlg</url-pattern>
+  </servlet-mapping>
+
+<servlet>
+        <servlet-name>CEF_CatGastosCtrl</servlet-name>
+        <servlet-class>forseti.catalogos.JCatGastosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CatGastosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCatGastosCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_CatGastosDlg</servlet-name>
+        <servlet-class>forseti.catalogos.JCatGastosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CatGastosDlg</servlet-name>
+        <url-pattern>/servlet/CEFCatGastosDlg</url-pattern>
+  </servlet-mapping>
+
+<servlet>
+        <servlet-name>CEF_MovBancariosCtrl</servlet-name>
+        <servlet-class>forseti.caja_y_bancos.JMovBancariosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_MovBancariosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFMovBancariosCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_MovCajaCtrl</servlet-name>
+        <servlet-class>forseti.caja_y_bancos.JMovCajaCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_MovCajaCtrl</servlet-name>
+        <url-pattern>/servlet/CEFMovCajaCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_ValesCajaCtrl</servlet-name>
+        <servlet-class>forseti.caja_y_bancos.JValesCajaCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ValesCajaCtrl</servlet-name>
+        <url-pattern>/servlet/CEFValesCajaCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_CierresCajaCtrl</servlet-name>
+        <servlet-class>forseti.caja_y_bancos.JCierresCajaCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CierresCajaCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCierresCajaCtrl</url-pattern>
+  </servlet-mapping>
+
+<servlet>
+        <servlet-name>CEF_MovBancariosDlg</servlet-name>
+        <servlet-class>forseti.caja_y_bancos.JMovBancariosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_MovBancariosDlg</servlet-name>
+        <url-pattern>/servlet/CEFMovBancariosDlg</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_MovCajaDlg</servlet-name>
+        <servlet-class>forseti.caja_y_bancos.JMovCajaDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_MovCajaDlg</servlet-name>
+        <url-pattern>/servlet/CEFMovCajaDlg</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_ValesCajaDlg</servlet-name>
+        <servlet-class>forseti.caja_y_bancos.JValesCajaDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ValesCajaDlg</servlet-name>
+        <url-pattern>/servlet/CEFValesCajaDlg</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_CierresCajaDlg</servlet-name>
+        <servlet-class>forseti.caja_y_bancos.JCierresCajaDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CierresCajaDlg</servlet-name>
+        <url-pattern>/servlet/CEFCierresCajaDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_AlmMovimientosCtrl</servlet-name>
+        <servlet-class>forseti.almacen.JAlmMovimientosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AlmMovimientosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAlmMovimientosCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AlmMovimPlantCtrl</servlet-name>
+        <servlet-class>forseti.almacen.JAlmMovimPlantCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AlmMovimPlantCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAlmMovimPlantCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AlmTraspasosCtrl</servlet-name>
+        <servlet-class>forseti.almacen.JAlmTraspasosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AlmTraspasosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAlmTraspasosCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AlmRequerimientosCtrl</servlet-name>
+        <servlet-class>forseti.almacen.JAlmRequerimientosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AlmRequerimientosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAlmRequerimientosCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AlmChFisCtrl</servlet-name>
+        <servlet-class>forseti.almacen.JAlmChFisCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AlmChFisCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAlmChFisCtrl</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_AlmMovimientosDlg</servlet-name>
+        <servlet-class>forseti.almacen.JAlmMovimientosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AlmMovimientosDlg</servlet-name>
+        <url-pattern>/servlet/CEFAlmMovimientosDlg</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AlmMovimPlantDlg</servlet-name>
+        <servlet-class>forseti.almacen.JAlmMovimPlantDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AlmMovimPlantDlg</servlet-name>
+        <url-pattern>/servlet/CEFMovimPlantDlg</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AlmTraspasosDlg</servlet-name>
+        <servlet-class>forseti.almacen.JAlmTraspasosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AlmTraspasosDlg</servlet-name>
+        <url-pattern>/servlet/CEFAlmTraspasosDlg</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AlmRequerimientosDlg</servlet-name>
+        <servlet-class>forseti.almacen.JAlmRequerimientosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AlmRequerimientosDlg</servlet-name>
+        <url-pattern>/servlet/CEFAlmRequerimientosDlg</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AlmChFisDlg</servlet-name>
+        <servlet-class>forseti.almacen.JAlmChFisDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AlmChFisDlg</servlet-name>
+        <url-pattern>/servlet/CEFAlmChFisDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_AdmUsuariosCtrl</servlet-name>
+        <servlet-class>forseti.admon.JAdmUsuariosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmUsuariosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAdmUsuariosCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AdmUsuariosDlg</servlet-name>
+        <servlet-class>forseti.admon.JAdmUsuariosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmUsuariosDlg</servlet-name>
+        <url-pattern>/servlet/CEFAdmUsuariosDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_AdmAWSS3Ctrl</servlet-name>
+        <servlet-class>forseti.admon.JAdmAWSS3Ctrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmAWSS3Ctrl</servlet-name>
+        <url-pattern>/servlet/CEFAdmAWSS3Ctrl</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_AdmAWSS3Dlg</servlet-name>
+        <servlet-class>forseti.admon.JAdmAWSS3Dlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmAWSS3Dlg</servlet-name>
+        <url-pattern>/servlet/CEFAdmAWSS3Dlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_AdmVendedoresCtrl</servlet-name>
+        <servlet-class>forseti.admon.JAdmVendedoresCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmVendedoresCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAdmVendedoresCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AdmVendedoresDlg</servlet-name>
+        <servlet-class>forseti.admon.JAdmVendedoresDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmVendedoresDlg</servlet-name>
+        <url-pattern>/servlet/CEFAdmVendedoresDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_AdmEntidadesCtrl</servlet-name>
+        <servlet-class>forseti.admon.JAdmEntidadesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmEntidadesCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAdmEntidadesCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AdmEntidadesDlg</servlet-name>
+        <servlet-class>forseti.admon.JAdmEntidadesDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmEntidadesDlg</servlet-name>
+        <url-pattern>/servlet/CEFAdmEntidadesDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_AdmCFDCtrl</servlet-name>
+        <servlet-class>forseti.admon.JAdmCFDCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmCFDCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAdmCFDCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AdmCFDDlg</servlet-name>
+        <servlet-class>forseti.admon.JAdmCFDDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmCFDDlg</servlet-name>
+        <url-pattern>/servlet/CEFAdmCFDDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_AdmPeriodosCtrl</servlet-name>
+        <servlet-class>forseti.admon.JAdmPeriodosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmPeriodosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAdmPeriodosCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AdmPeriodosDlg</servlet-name>
+        <servlet-class>forseti.admon.JAdmPeriodosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmPeriodosDlg</servlet-name>
+        <url-pattern>/servlet/CEFAdmPeriodosDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_AdmSaldosCtrl</servlet-name>
+        <servlet-class>forseti.admon.JAdmSaldosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmSaldosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAdmSaldosCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AdmSaldosDlg</servlet-name>
+        <servlet-class>forseti.admon.JAdmSaldosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmSaldosDlg</servlet-name>
+        <url-pattern>/servlet/CEFAdmSaldosDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_AdmMonedasCtrl</servlet-name>
+        <servlet-class>forseti.admon.JAdmMonedasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmMonedasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAdmMonedasCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AdmMonedasDlg</servlet-name>
+        <servlet-class>forseti.admon.JAdmMonedasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmMonedasDlg</servlet-name>
+        <url-pattern>/servlet/CEFAdmMonedasDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_AdmVariablesCtrl</servlet-name>
+        <servlet-class>forseti.admon.JAdmVariablesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmVariablesCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAdmVariablesCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AdmVariablesDlg</servlet-name>
+        <servlet-class>forseti.admon.JAdmVariablesDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmVariablesDlg</servlet-name>
+        <url-pattern>/servlet/CEFAdmVariablesDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_AdmFormatosCtrl</servlet-name>
+        <servlet-class>forseti.admon.JAdmFormatosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmFormatosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAdmFormatosCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AdmFormatosDlg</servlet-name>
+        <servlet-class>forseti.admon.JAdmFormatosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AdmFormatosDlg</servlet-name>
+        <url-pattern>/servlet/CEFAdmFormatosDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_VenClientCtrl</servlet-name>
+        <servlet-class>forseti.ventas.JVenClientCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_VenClientCtrl</servlet-name>
+        <url-pattern>/servlet/CEFVenClientCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_VenClientDlg</servlet-name>
+        <servlet-class>forseti.ventas.JVenClientDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_VenClientDlg</servlet-name>
+        <url-pattern>/servlet/CEFVenClientDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_CompProveeCtrl</servlet-name>
+        <servlet-class>forseti.compras.JCompProveeCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CompProveeCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCompProveeCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_CompProveeDlg</servlet-name>
+        <servlet-class>forseti.compras.JCompProveeDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CompProveeDlg</servlet-name>
+        <url-pattern>/servlet/CEFCompProveeDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_VenCXCCtrl</servlet-name>
+        <servlet-class>forseti.ventas.JVenCXCCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_VenCXCCtrl</servlet-name>
+        <url-pattern>/servlet/CEFVenCXCCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_VenCXCDlg</servlet-name>
+        <servlet-class>forseti.ventas.JVenCXCDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_VenCXCDlg</servlet-name>
+        <url-pattern>/servlet/CEFVenCXCDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_CompCXPCtrl</servlet-name>
+        <servlet-class>forseti.compras.JCompCXPCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CompCXPCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCompCXPCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_CompCXPDlg</servlet-name>
+        <servlet-class>forseti.compras.JCompCXPDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CompCXPDlg</servlet-name>
+        <url-pattern>/servlet/CEFCompCXPDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_CompPoliticasCtrl</servlet-name>
+        <servlet-class>forseti.compras.JCompPoliticasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CompPoliticasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCompPoliticasCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_CompPoliticasDlg</servlet-name>
+        <servlet-class>forseti.compras.JCompPoliticasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CompPoliticasDlg</servlet-name>
+        <url-pattern>/servlet/CEFCompPoliticasDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_VenCotizacionesCtrl</servlet-name>
+        <servlet-class>forseti.ventas.JVenCotizacionesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_VenCotizacionesCtrl</servlet-name>
+        <url-pattern>/servlet/CEFVenCotizacionesCtrl</url-pattern>
+  </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CEF_VenPedidosCtrl</servlet-name>
+        <servlet-class>forseti.ventas.JVenPedidosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_VenPedidosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFVenPedidosCtrl</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+        <servlet-name>CEF_VenRemisionesCtrl</servlet-name>
+        <servlet-class>forseti.ventas.JVenRemisionesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_VenRemisionesCtrl</servlet-name>
+        <url-pattern>/servlet/CEFVenRemisionesCtrl</url-pattern>
+  </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CEF_VenFactCtrl</servlet-name>
+        <servlet-class>forseti.ventas.JVenFactCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_VenFactCtrl</servlet-name>
+        <url-pattern>/servlet/CEFVenFactCtrl</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_VenDevolucionesCtrl</servlet-name>
+        <servlet-class>forseti.ventas.JVenDevolucionesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_VenDevolucionesCtrl</servlet-name>
+        <url-pattern>/servlet/CEFVenDevolucionesCtrl</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_VenPoliticasCtrl</servlet-name>
+        <servlet-class>forseti.ventas.JVenPoliticasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_VenPoliticasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFVenPoliticasCtrl</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_VenFactDlg</servlet-name>
+        <servlet-class>forseti.ventas.JVenFactDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_VenFactDlg</servlet-name>
+        <url-pattern>/servlet/CEFVenFactDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_VenPoliticasDlg</servlet-name>
+        <servlet-class>forseti.ventas.JVenPoliticasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_VenPoliticasDlg</servlet-name>
+        <url-pattern>/servlet/CEFVenPoliticasDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_CompOrdenesCtrl</servlet-name>
+        <servlet-class>forseti.compras.JCompOrdenesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CompOrdenesCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCompOrdenesCtrl</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+        <servlet-name>CEF_CompRecepcionesCtrl</servlet-name>
+        <servlet-class>forseti.compras.JCompRecepcionesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CompRecepcionesCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCompRecepcionesCtrl</url-pattern>
+  </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CEF_CompFactCtrl</servlet-name>
+        <servlet-class>forseti.compras.JCompFactCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CompFactCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCompFactCtrl</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_CompDevolucionesCtrl</servlet-name>
+        <servlet-class>forseti.compras.JCompDevolucionesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CompDevolucionesCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCompDevolucionesCtrl</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_CompGastosCtrl</servlet-name>
+        <servlet-class>forseti.compras.JCompGastosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CompGastosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCompGastosCtrl</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_CompFactDlg</servlet-name>
+        <servlet-class>forseti.compras.JCompFactDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CompFactDlg</servlet-name>
+        <url-pattern>/servlet/CEFCompFactDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_ProdFormulasCtrl</servlet-name>
+        <servlet-class>forseti.produccion.JProdFormulasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ProdFormulasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFProdFormulasCtrl</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_ProdFormulasDlg</servlet-name>
+        <servlet-class>forseti.produccion.JProdFormulasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ProdFormulasDlg</servlet-name>
+        <url-pattern>/servlet/CEFProdFormulasDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_ProdProduccionCtrl</servlet-name>
+        <servlet-class>forseti.produccion.JProdProduccionCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ProdProduccionCtrl</servlet-name>
+        <url-pattern>/servlet/CEFProdProduccionCtrl</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_ProdProduccionDlg</servlet-name>
+        <servlet-class>forseti.produccion.JProdProduccionDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ProdProduccionDlg</servlet-name>
+        <url-pattern>/servlet/CEFProdProduccionDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_NomMovimNomCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomMovimNomCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomMovimNomCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomMovimNomCtrl</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+        <servlet-name>CEF_NomCategoriasCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomCategoriasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomCategoriasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomCategoriasCtrl</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+        <servlet-name>CEF_NomDepartamentosCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomDepartamentosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomDepartamentosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomDepartamentosCtrl</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+        <servlet-name>CEF_NomTurnosCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomTurnosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomTurnosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomTurnosCtrl</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+        <servlet-name>CEF_NomEmpleadosCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomEmpleadosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomEmpleadosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomEmpleadosCtrl</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomCredSalCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomCredSalCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomCredSalCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomCredSalCtrl</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomIsrCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomIsrCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomIsrCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomIsrCtrl</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomImssCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomImssCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomImssCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomImssCtrl</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomAguinaldoCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomAguinaldoCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomAguinaldoCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomAguinaldoCtrl</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomVacacionesCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomVacacionesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomVacacionesCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomVacacionesCtrl</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomAsistenciasCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomAsistenciasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomAsistenciasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomAsistenciasCtrl</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomPermisosCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomPermisosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomPermisosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomPermisosCtrl</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_NomPlantillasCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomPlantillasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomPlantillasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomPlantillasCtrl</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+        <servlet-name>CEF_NomFonacotCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomFonacotCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomFonacotCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomFonacotCtrl</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_NomCierreDiarioCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomCierreDiarioCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomCierreDiarioCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomCierreDiarioCtrl</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_NomMovDirCtrl</servlet-name>
+        <servlet-class>forseti.nomina.JNomMovDirCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomMovDirCtrl</servlet-name>
+        <url-pattern>/servlet/CEFNomMovDirCtrl</url-pattern>
+  </servlet-mapping>
+
+  
+  
+  
+  
+  
+  <servlet>
+        <servlet-name>CEF_NomMovimNomDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomMovimNomDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomMovimNomDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomMovimNomDlg</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+        <servlet-name>CEF_NomCategoriasDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomCategoriasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomCategoriasDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomCategoriasDlg</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+        <servlet-name>CEF_NomDepartamentosDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomDepartamentosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomDepartamentosDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomDepartamentosDlg</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+        <servlet-name>CEF_NomTurnosDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomTurnosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomTurnosDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomTurnosDlg</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+        <servlet-name>CEF_NomEmpleadosDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomEmpleadosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomEmpleadosDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomEmpleadosDlg</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomCredSalDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomCredSalDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomCredSalDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomCredSalDlg</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomIsrDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomIsrDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomIsrDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomIsrDlg</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomImssDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomImssDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomImssDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomImssDlg</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomAguinaldoDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomAguinaldoDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomAguinaldoDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomAguinaldoDlg</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomVacacionesDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomVacacionesDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomVacacionesDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomVacacionesDlg</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomAsistenciasDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomAsistenciasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomAsistenciasDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomAsistenciasDlg</url-pattern>
+  </servlet-mapping>
+
+     <servlet>
+        <servlet-name>CEF_NomPermisosDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomPermisosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomPermisosDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomPermisosDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_NomPlantillasDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomPlantillasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomPlantillasDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomPlantillasDlg</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+        <servlet-name>CEF_NomFonacotDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomFonacotDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomFonacotDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomFonacotDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_NomCierreDiarioDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomCierreDiarioDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomCierreDiarioDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomCierreDiarioDlg</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_NomMovDirDlg</servlet-name>
+        <servlet-class>forseti.nomina.JNomMovDirDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_NomMovDirDlg</servlet-name>
+        <url-pattern>/servlet/CEFNomMovDirDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_ReportesDlg</servlet-name>
+        <servlet-class>forseti.reportes.JReportesDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ReportesDlg</servlet-name>
+        <url-pattern>/servlet/CEFReportesDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_ReportesCtrl</servlet-name>
+        <servlet-class>forseti.reportes.JReportesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_ReportesCtrl</servlet-name>
+        <url-pattern>/servlet/CEFReportesCtrl</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>CEF_CRMCompaniasCtrl</servlet-name>
+        <servlet-class>forseti.crm.JCRMCompaniasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CRMCompaniasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCRMCompaniasCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_CRMCompaniasDlg</servlet-name>
+        <servlet-class>forseti.crm.JCRMCompaniasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CRMCompaniasDlg</servlet-name>
+        <url-pattern>/servlet/CEFCRMCompaniasDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_CRMPersonasCtrl</servlet-name>
+        <servlet-class>forseti.crm.JCRMPersonasCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CRMPersonasCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCRMPersonasCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_CRMPersonasDlg</servlet-name>
+        <servlet-class>forseti.crm.JCRMPersonasDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CRMPersonasDlg</servlet-name>
+        <url-pattern>/servlet/CEFCRMPersonasDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_CRMOportunidadesCtrl</servlet-name>
+        <servlet-class>forseti.crm.JCRMOportunidadesCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CRMOportunidadesCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCRMOportunidadesCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_CRMOportunidadesDlg</servlet-name>
+        <servlet-class>forseti.crm.JCRMOportunidadesDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CRMOportunidadesDlg</servlet-name>
+        <url-pattern>/servlet/CEFCRMOportunidadesDlg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>CEF_CRMCalendarioCtrl</servlet-name>
+        <servlet-class>forseti.crm.JCRMCalendarioCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_CRMCalendarioCtrl</servlet-name>
+        <url-pattern>/servlet/CEFCRMCalendarioCtrl</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
