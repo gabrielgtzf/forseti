@@ -76,7 +76,7 @@ public class JVenFactCtrl extends JForsetiApl
         Calendar fecha = GregorianCalendar.getInstance();
         String Tiempo = "date_part('day',Fecha) = " + JUtil.obtDia(fecha) + "  AND date_part('month',Fecha) = " + JUtil.obtMes(fecha) + " AND date_part('year',Fecha) = " + JUtil.obtAno(fecha);
 
-        getSesion(request).EstablecerCEF(request, "ven_fact.png", "VEN_FAC");
+        getSesion(request).EstablecerCEF(request, "ven_fac.png", "VEN_FAC");
         getSesion(request).getSesion("VEN_FAC").setParametros(Entidad, Tiempo, "", set.getAbsRow(0).getDescripcion(), JUtil.Msj("GLB", "GLB", "GLB", "HOY", 3), JUtil.Elm(JUtil.Msj("CEF", "VEN_FAC", "VISTA", "STATUS"),1));
         getSesion(request).getSesion("VEN_FAC").setOrden(p(request.getParameter("etq")),"");
         getSesion(request).getSesion("VEN_FAC").setEspecial(Integer.toString(set.getAbsRow(0).getID_Entidad()));

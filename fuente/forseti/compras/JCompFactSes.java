@@ -497,11 +497,19 @@ public class JCompFactSes extends JVenFactSes
 			}
 			else
 			{
-				JVenFactSesPart part = new JVenFactSesPart(cantidad, m_part_Unidad, m_part_Clave, m_part_Clave, m_part_Descripcion, fprecio, fimporte, 
+				if(m_part_ID_Tipo.equals("G") && fprecio > set.getAbsRow(0).getPrecioMax())
+				{
+					res = 1;
+					mensaje.append("PRECAUCION: El precio de este tipo de insumo o servicio, parece ser mayor al máximo permitido. No se puede agregar el gasto");
+				}
+				else
+				{
+					JVenFactSesPart part = new JVenFactSesPart(cantidad, m_part_Unidad, m_part_Clave, m_part_Clave, m_part_Descripcion, fprecio, fimporte, 
 						fdescuento, fiva, fieps, fivaret, fisrret, fimportedesc, fimporteiva, fimporteieps, fimporteivaret, fimporteisrret, ftotalpart, obs_partida, m_part_ID_Tipo);
-				m_Partidas.addElement(part);
-				establecerResultados();
-				resetearPart();
+					m_Partidas.addElement(part);
+					establecerResultados();
+					resetearPart();
+				}
 			}
 
 		}

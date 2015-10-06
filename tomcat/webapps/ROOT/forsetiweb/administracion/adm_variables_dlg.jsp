@@ -96,7 +96,7 @@ function enviarlo(formAct)
         			<%  } else { %>
         			<input type="submit" name="aceptar" value="<%= JUtil.Msj("GLB","GLB","GLB","ACEPTAR") %>">
        				<%  } %>
-        			<input type="button" name="cancelar" onClick="javascript:window.close()" value="<%= JUtil.Msj("GLB","GLB","GLB","CANCELAR") %>">
+        			<input type="button" name="cancelar" onClick="javascript:document.location.href='/servlet/CEFAdmVariablesCtrl';" value="<%= JUtil.Msj("GLB","GLB","GLB","CANCELAR") %>">
             </td>
           </tr>
         </table> 

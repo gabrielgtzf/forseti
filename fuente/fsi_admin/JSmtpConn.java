@@ -20,11 +20,12 @@ package fsi_admin;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
+//import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStream;
+//import java.io.OutputStream;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -41,8 +42,8 @@ import java.util.Vector;
 //import javax.servlet.FilterChain;
 //import javax.servlet.FilterConfig;
 import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
+//import javax.activation.DataSource;
+//import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -60,8 +61,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.axiom.attachments.ByteArrayDataSource;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.mutable.MutableBoolean;
 import org.apache.commons.lang.mutable.MutableDouble;
 import org.jdom.Document;
@@ -371,18 +374,47 @@ public class JSmtpConn extends HttpServlet /*implements Filter*/
 			{
 				for(int i = 0; i < archivos.size(); i++) 
 				{
-					actual = (FileItem)archivos.elementAt(i);
-	            	
-					messagebodypart = new MimeBodyPart();
-					DataSource source = new FileDataSource(new File(actual.getName()));
-				    	
-					byte[] sourceBytes = actual.get();
-					OutputStream sourceOS = source.getOutputStream();
-					sourceOS.write(sourceBytes);
+					InputStream inputStream = null;
+					try
+					{
+						actual = (FileItem)archivos.elementAt(i);
+						inputStream = actual.getInputStream();
+					    byte[] sourceBytes = IOUtils.toByteArray(inputStream);
+					    String name = actual.getName();
+					    
+					    messagebodypart = new MimeBodyPart();
+					    
+					    ByteArrayDataSource rawData = new ByteArrayDataSource(sourceBytes);
+					    DataHandler data = new DataHandler(rawData);
+					    
+						messagebodypart.setDataHandler(data);
+						messagebodypart.setFileName(name);
+						multipart.addBodyPart(messagebodypart);
+						////////////////////////////////////////////////
+						/*
+						messagebodypart = new MimeBodyPart();
+						DataSource source = new FileDataSource(new File(actual.getName()));
+					    	
+						byte[] sourceBytes = actual.get();
+						OutputStream sourceOS = source.getOutputStream();
+						sourceOS.write(sourceBytes);
+							
+						messagebodypart.setDataHandler(new DataHandler(source));
+						messagebodypart.setFileName(actual.getName());
+						multipart.addBodyPart(messagebodypart);
+						*/
+						///////////////////////////////////////////////////////
 						
-					messagebodypart.setDataHandler(new DataHandler(source));
-					messagebodypart.setFileName(actual.getName());
-					multipart.addBodyPart(messagebodypart);
+					}
+					finally
+					{
+						if(inputStream != null)
+							try {
+								inputStream.close();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+					}
 				}
 				return true;
 			}

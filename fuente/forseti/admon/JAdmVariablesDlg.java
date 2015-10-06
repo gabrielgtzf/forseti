@@ -321,7 +321,7 @@ public class JAdmVariablesDlg extends JForsetiApl
       throws ServletException, IOException
     {
     	JAdmVariablesSet set = new JAdmVariablesSet(request);
-    	set.m_Where = "ID_Variable = '" + request.getParameter("id") + "'";
+    	set.m_Where = "ID_Variable = '" + p(request.getParameter("id")) + "'";
     	set.Open();
 		String tipo = JUtil.Elm(set.getAbsRow(0).getTipo(),1);
 		String ventero ="null", vdecimal = "null", vfecha = "null", valfanumerico = "''";

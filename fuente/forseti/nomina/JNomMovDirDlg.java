@@ -1437,7 +1437,7 @@ public class JNomMovDirDlg extends JForsetiApl
       		  	}
       		  	
       		  	JFsiSMTPClient smtp = new JFsiSMTPClient();
-      		  	smtp.enviarCFDI(request, "NOM", request.getParameter("id"), request.getParameter("idempleado"), set.getAbsRow(0).getNombre(), set.getAbsRow(0).getEMail());
+      		  	smtp.enviarCFDIMPE(request, "NOM", request.getParameter("id"), request.getParameter("idempleado"), set.getAbsRow(0).getNombre(), set.getAbsRow(0).getEMail());
 			  	if(smtp.getStatusSMTP() == JFsiSMTPClient.ERROR)
       		  	{
       		  		idmensaje = 3;

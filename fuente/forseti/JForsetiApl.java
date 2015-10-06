@@ -963,7 +963,7 @@ public abstract class JForsetiApl extends HttpServlet
     			if(set.getAbsRow(0).getSMTP() == 2) // Maneja smtp automático
     			{
     				JFsiSMTPClient smtp = new JFsiSMTPClient();
-    				smtp.enviarCFDI(request, "NOM", Integer.toString(id), esp1, set.getAbsRow(0).getNombre(), set.getAbsRow(0).getEMail());
+    				smtp.enviarCFDIMPE(request, "NOM", Integer.toString(id), esp1, set.getAbsRow(0).getNombre(), set.getAbsRow(0).getEMail());
     				if(smtp.getStatusSMTP() == JFsiSMTPClient.ERROR)
     				{
     					res = 3;
@@ -990,7 +990,7 @@ public abstract class JForsetiApl extends HttpServlet
       		  			else
       		  				nomar = "DSV";
       		  			JFsiSMTPClient smtp = new JFsiSMTPClient();
-      		  			smtp.enviarCFDI(request, nomar, Integer.toString(id), esp1, set.getAbsRow(0).getNombre(), set.getAbsRow(0).getEMail());
+      		  			smtp.enviarCFDIMPE(request, nomar, Integer.toString(id), esp1, set.getAbsRow(0).getNombre(), set.getAbsRow(0).getEMail());
       		  			if(smtp.getStatusSMTP() == JFsiSMTPClient.ERROR)
       		  			{
       		  				res = 3;

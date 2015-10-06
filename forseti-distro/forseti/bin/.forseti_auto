@@ -1,0 +1,8 @@
+HORA=23:59
+ACT=0
+SLDS=0
+RESP=0
+POSTGRESQL=general
+RESPALDOS=NC
+ACTUALIZAR=https://s3-us-west-2.amazonaws.com/forseti.org.mx/descargas/actualizaciones
+TOMCAT=NC

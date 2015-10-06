@@ -17,6 +17,8 @@
 */
 package forseti;
 
+import forseti.sets.JAdmVariablesSet;
+
 public class JSesionPropSQL
 {
   private String m_Apl;	
@@ -40,6 +42,7 @@ public class JSesionPropSQL
   private String m_OrdenTit;
   private String m_ProcesoTit;
   private boolean m_bMobile;
+  private String m_URLAyuda;
   
   public JSesionPropSQL()
   {
@@ -57,6 +60,12 @@ public class JSesionPropSQL
     m_PanelStatus = "STATUS";
     m_OrdenTit = JUtil.Msj("GLB","GLB","GLB","ORDEN");
     m_ProcesoTit = JUtil.Msj("GLB","GLB","GLB","PROCESO");
+    JAdmVariablesSet var = new JAdmVariablesSet(null);
+    var.ConCat(true);
+    var.m_Where = "ID_Variable = 'URLAYUDA'";
+    var.Open();
+    m_URLAyuda = var.getAbsRow(0).getVAlfanumerico();
+    
   }
 
   public JSesionPropSQL(String Modulo)
@@ -75,7 +84,11 @@ public class JSesionPropSQL
     m_PanelStatus = "STATUS";
     m_OrdenTit = JUtil.Msj("GLB","GLB","GLB","ORDEN");
     m_ProcesoTit = JUtil.Msj("GLB","GLB","GLB","PROCESO");
-    
+    JAdmVariablesSet var = new JAdmVariablesSet(null);
+    var.ConCat(true);
+    var.m_Where = "ID_Variable = 'URLAYUDA'";
+    var.Open();
+    m_URLAyuda = var.getAbsRow(0).getVAlfanumerico();
   }
   
   public JSesionPropSQL(String Modulo, String PanelEntidad, String PanelTiempo, String PanelStatus)
@@ -94,7 +107,11 @@ public class JSesionPropSQL
     m_PanelStatus = PanelStatus;
     m_OrdenTit = JUtil.Msj("GLB","GLB","GLB","ORDEN");
     m_ProcesoTit = JUtil.Msj("GLB","GLB","GLB","PROCESO");
-     
+    JAdmVariablesSet var = new JAdmVariablesSet(null);
+    var.ConCat(true);
+    var.m_Where = "ID_Variable = 'URLAYUDA'";
+    var.Open();
+    m_URLAyuda = var.getAbsRow(0).getVAlfanumerico(); 
   }
   
   
@@ -115,6 +132,11 @@ public class JSesionPropSQL
     m_OrdenTit = JUtil.Msj("GLB","GLB","GLB","ORDEN");
     m_ProcesoTit = JUtil.Msj("GLB","GLB","GLB","PROCESO");
     m_bMobile = bMobile;
+    JAdmVariablesSet var = new JAdmVariablesSet(null);
+    var.ConCat(true);
+    var.m_Where = "ID_Variable = 'URLAYUDA'";
+    var.Open();
+    m_URLAyuda = var.getAbsRow(0).getVAlfanumerico();
   }
   
   public void setEspecial(String Especial)
@@ -345,7 +367,7 @@ public class JSesionPropSQL
 	    res += "		<td width=\"15%\" align=\"center\" valign=\"middle\" bgcolor=\"#454545\" class=\"titChico\">" + m_PanelTiempo + "</td>\n";
 	    res += "		<td width=\"15%\" align=\"center\" valign=\"middle\" bgcolor=\"#555555\" class=\"titChico\">" + m_PanelStatus + "</td>\n";
 	    res += "		<td width=\"20%\" align=\"center\" valign=\"middle\" bgcolor=\"#545454\" class=\"titChico\">" + m_OrdenTit + "</td>\n";
-	    res += "		<td width=\"60\" rowspan=\"2\" align=\"center\" valign=\"top\"><a href=\"../forsetidoc/" + m_ID_Modulo + ".html\" target=\"_blank\"><img width=\"48\" height=\"48\" src=\"../imgfsi/" + imgayuda + "\" border=\"0\"></a></td>\n";	
+	    res += "		<td width=\"60\" rowspan=\"2\" align=\"center\" valign=\"top\"><a href=\"" + m_URLAyuda + m_ID_Modulo + ".html\" target=\"_blank\"><img width=\"48\" height=\"48\" src=\"../imgfsi/" + imgayuda + "\" border=\"0\"></a></td>\n";	
 		res += "	   </tr>\n";
 	    res += "	   <tr>\n";
 	    res += "		<td align=\"center\" valign=\"middle\" bgcolor=\"#FFFFFF\" class=\"" + colmodulo + "\">" + m_Modulo + "</td>\n";
@@ -419,7 +441,7 @@ public class JSesionPropSQL
 			res += "	   <tr>\n";
 			res += "		<td align=\"center\" valign=\"middle\" bgcolor=\"#FFFFFF\" class=\"" + colmodulo + "\">" + m_Modulo + "</td>\n";
 			res += "		<td width=\"50%\" align=\"center\" bgcolor=\"#FFFFFF\" valign=\"middle\" class=\"" + colenc + "\">" + proceso + "</td>\n";
-			res += "		<td width=\"60\" rowspan=\"2\" align=\"center\" valign=\"top\"><a href=\"../forsetidoc/" + m_ID_Modulo + ".html#PROC\" target=\"_blank\"><img width=\"48\" height=\"48\" src=\"../imgfsi/" + imgayuda + "\" border=\"0\"></a></td>\n";	
+			res += "		<td width=\"60\" rowspan=\"2\" align=\"center\" valign=\"top\"><a href=\"" + m_URLAyuda + m_ID_Modulo + ".html#PROC\" target=\"_blank\"><img width=\"48\" height=\"48\" src=\"../imgfsi/" + imgayuda + "\" border=\"0\"></a></td>\n";	
 			res += "	   </tr>\n";
 			res += "	  </table>\n";
 		}
@@ -473,7 +495,7 @@ public class JSesionPropSQL
 			res += "	   <tr>\n";
 			res += "		<td align=\"center\" valign=\"middle\" bgcolor=\"#FFFFFF\" class=\"" + colmodulo + "\">" + m_Modulo + "</td>\n";
 			res += "		<td width=\"50%\" align=\"center\" bgcolor=\"#FFFFFF\" valign=\"middle\" class=\"" + colenc + "\">" + proceso + "</td>\n";
-			res += "		<td width=\"60\" rowspan=\"2\" align=\"center\" valign=\"top\"><a href=\"../forsetidoc/" + m_ID_Modulo + ".html#PROC\" target=\"_blank\"><img width=\"48\" height=\"48\" src=\"../imgfsi/" + imgayuda + "\" border=\"0\"></a></td>\n";	
+			res += "		<td width=\"60\" rowspan=\"2\" align=\"center\" valign=\"top\"><a href=\"" + m_URLAyuda + m_ID_Modulo + ".html#PROC\" target=\"_blank\"><img width=\"48\" height=\"48\" src=\"../imgfsi/" + imgayuda + "\" border=\"0\"></a></td>\n";	
 			res += "	   </tr>\n";
 			res += "	  </table>\n";
 		}

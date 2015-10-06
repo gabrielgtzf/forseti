@@ -74,7 +74,7 @@ public class JCompPoliticasCtrl extends JForsetiApl
     		String Entidad = "ID_Tipo = 'P' and Linea = '" + p(set.getAbsRow(0).getClave()) + "' and Status = 'V' and SeProduce = '0'";
     		String Tiempo = "Descripcion ~~* 'A%'";
     	          
-    		getSesion(request).EstablecerCEF(request, "ven_pol.png", "COMP_POL");
+    		getSesion(request).EstablecerCEF(request, "comp_pol.png", "COMP_POL");
     		getSesion(request).getSesion("COMP_POL").setParametros(Entidad, Tiempo, "", set.getAbsRow(0).getDescripcion(), "A", JUtil.Elm(JUtil.Msj("CEF", "COMP_POL", "VISTA", "STATUS", 2),1));
     		getSesion(request).getSesion("COMP_POL").setOrden(p(request.getParameter("etq")),"");
     		getSesion(request).getSesion("COMP_POL").setEspecial("PRODUCTOS");

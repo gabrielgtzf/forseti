@@ -1,0 +1,5 @@
+INIT=false
+ADDR=127.0.0.1
+PORT=5432
+PASS=forseti
+LANG=ES

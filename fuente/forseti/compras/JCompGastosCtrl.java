@@ -75,7 +75,7 @@ public class JCompGastosCtrl extends JForsetiApl
         Calendar fecha = GregorianCalendar.getInstance();
         String Tiempo = "date_part('day',Fecha) = " + JUtil.obtDia(fecha) + "  AND date_part('month',Fecha) = " + JUtil.obtMes(fecha) + " AND date_part('year',Fecha) = " + JUtil.obtAno(fecha);
 
-        getSesion(request).EstablecerCEF(request, "comp_gastos.png", "COMP_GAS");
+        getSesion(request).EstablecerCEF(request, "comp_gas.png", "COMP_GAS");
         getSesion(request).getSesion("COMP_GAS").setParametros(Entidad, Tiempo, "", set.getAbsRow(0).getDescripcion(), JUtil.Msj("GLB", "GLB", "GLB", "HOY", 3), JUtil.Elm(JUtil.Msj("CEF", "COMP_GAS", "VISTA", "STATUS"),1));
         getSesion(request).getSesion("COMP_GAS").setOrden(p(request.getParameter("etq")),"");
         getSesion(request).getSesion("COMP_GAS").setEspecial(Integer.toString(set.getAbsRow(0).getID_Entidad()));

@@ -25,7 +25,7 @@ public class JFonacotDetSet extends JManejadorSet
 {
 	public JFonacotDetSet(HttpServletRequest request)
 	{
-		m_Select = " * FROM TBL_FONACOT_DET";
+		m_Select = " * FROM TBL_NOM_FONACOT_DET";
 		m_PageSize = 50;
 		this.request = request;
 	}

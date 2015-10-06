@@ -18,19 +18,14 @@
 package forseti;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -130,6 +125,7 @@ public class JFsiSMTPClient
     	return m_Error;
     }
     
+    /*
     public void enviarCFDI(HttpServletRequest request, String tipo, String id, String esp1, String nombre, String email) 
     		throws ServletException
     {
@@ -170,7 +166,7 @@ public class JFsiSMTPClient
 			pagina = JUtil.replace(pagina, "[[:nombre:]]", nombre);
 			//Ahora manda el mensaje
 			
-		    /*Prepara el mensaje
+		    /XPrepara el mensaje
 			prepareMsg(obtenerEMail(request), email, SUBJECT, MIMETYPE, pagina);
 			if(m_StatusSMTP != ERROR)
 			{
@@ -183,7 +179,7 @@ public class JFsiSMTPClient
 						sendMsg();
 					}
 				}
-			}*/
+			}X/
 			
 			///////////////////////////////////////////////////////////////////////////
 			String urlParameters = 	"SERVER=" + URLEncoder.encode(m_HOST,"ISO-8859-1") +
@@ -276,6 +272,7 @@ public class JFsiSMTPClient
     		m_Error = "Error de Entrada/Salida SMTP: " + e1.getMessage();
 		}
     }
+	*/
 	
     public void enviarCFDIMPE(HttpServletRequest request, String tipo, String id, String esp1, String nombre, String email) 
     		throws ServletException

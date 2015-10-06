@@ -67,35 +67,44 @@ function editarPartida(idpartida, fechadesc, descuento)
 
 function enviarlo(formAct)
 {
-	if(formAct.proceso.value == "AGREGAR_FONACOT" || formAct.proceso.value == "CAMBIAR_FONACOT")
+	if(formAct.subproceso.value == "AGR_PART" || formAct.subproceso.value == "EDIT_PART")
 	{
-		if(formAct.subproceso.value == "AGR_PART" || formAct.subproceso.value == "EDIT_PART")
-		{
-			if(!esCadena("Fecha del descuento:", formAct.fechadesc.value, 1, 11)  || 
-				!esNumeroDecimal('Descuento:', formAct.descuento.value, 0, 99999999.99, 2) )
-				return false;
-			else
-				return true;
-		}
-		
-		if(!esCadena("Crdito:", formAct.id_credito.value, 1, 10) ||
-				!esCadena("Empleado:", formAct.id_empleado.value, 1, 6)  ||
-				!esNumeroEntero('Faltante:', formAct.meses.value, 0, 99) ||
-				!esNumeroEntero('Plazo:', formAct.plazo.value, 0, 99) ||
-				!esNumeroDecimal('Importe:', formAct.importe.value, 0, 99999999.99, 2) ||  
-				!esNumeroDecimal('Retencin:', formAct.retencion.value, 0, 99999999.99, 2))
+		if(!esCadena("Fecha del descuento:", formAct.fechadesc.value, 1, 11)  || 
+			!esNumeroDecimal('Descuento:', formAct.descuento.value, 0, 99999999.99, 2) )
 			return false;
 		else
+			return true;
+	}
+	else
+	{
+		if(formAct.subproceso.value == "ENVIAR")
 		{
-			if(confirm("<%= JUtil.Msj("GLB","GLB","GLB","CONFIRMACION") %>"))
+			if(formAct.proceso.value == "AGREGAR_FONACOT" || formAct.proceso.value == "CAMBIAR_FONACOT")
 			{
-				formAct.aceptar.disabled = true;
-				return true;
+				if(!esCadena("Crdito:", formAct.id_credito.value, 1, 10) ||
+						!esCadena("Empleado:", formAct.id_empleado.value, 1, 6)  ||
+						!esNumeroEntero('Faltante:', formAct.meses.value, 0, 99) ||
+						!esNumeroEntero('Plazo:', formAct.plazo.value, 0, 99) ||
+						!esNumeroDecimal('Importe:', formAct.importe.value, 0, 99999999.99, 2) ||  
+						!esNumeroDecimal('Retencin:', formAct.retencion.value, 0, 99999999.99, 2))
+					return false;
+				else
+				{
+					if(confirm("<%= JUtil.Msj("GLB","GLB","GLB","CONFIRMACION") %>"))
+					{
+						formAct.aceptar.disabled = true;
+						return true;
+					}
+					else
+						return false;
+					
+				}
 			}
 			else
 				return false;
-			
 		}
+		else
+			return true;
 	}
 }
 -->
@@ -142,8 +151,8 @@ function enviarlo(formAct)
 	       <tr> 
             <td width="20%"><input name="proceso" type="hidden" value="<%= request.getParameter("proceso")%>"> 
               <input name="subproceso" type="hidden" value="ENVIAR"> 
-			  <input name="id" type="hidden" value="<%= request.getParameter("id") %>">
-			  <input type="hidden" name="idpartida" value="<%= request.getParameter("idpartida") %>">
+			  <input name="id" type="hidden" value="<%= request.getParameter("id")%>">
+              <input type="hidden" name="idpartida" value="<%= request.getParameter("idpartida") %>">
               Cr&eacute;dito:</td>
             <td width="30%"><input name="id_credito" type="text" id="id_credito" size="15" maxlength="15"<%= (request.getParameter("proceso").equals("CAMBIAR_FONACOT")) ? " readonly=\"true\"" : "" %>> 
             </td>
@@ -205,12 +214,11 @@ function enviarlo(formAct)
 	{						
 		for(int i = 0; i < rec.numPartidas(); i++)
 		{
-			int mod = i % 2;
 %>
                 <tr> 
-                  <td class="<%= (mod == 0) ? "cpoBco" : "cpoCol" %>"><%= JUtil.obtFechaTxt(rec.getPartida(i).getFechaDesc() ,"dd/MMM/yyyy") %></td>
-                  <td align="right" class="<%= (mod == 0) ? "cpoBco" : "cpoCol" %>"><%= rec.getPartida(i).getDescuento() %></td>
-                  <td align="right" class="<%= (mod == 0) ? "cpoBco" : "cpoCol" %>"><% if(!request.getParameter("proceso").equals("CONSULTAR_FONACOT")) { %><a href="javascript:editarPartida('<%= i %>','<%= JUtil.obtFechaTxt(rec.getPartida(i).getFechaDesc(),"dd/MMM/yyyy") %>','<%= rec.getPartida(i).getDescuento() %>');"><img src="../../imgfsi/lista_ed.gif" alt="" title="este texto alt ed" width="16" height="16" border="0"></a>
+                  <td><%= JUtil.obtFechaTxt(rec.getPartida(i).getFechaDesc() ,"dd/MMM/yyyy") %></td>
+                  <td align="right"><%= rec.getPartida(i).getDescuento() %></td>
+                  <td align="right"><% if(!request.getParameter("proceso").equals("CONSULTAR_FONACOT")) { %><a href="javascript:editarPartida('<%= i %>','<%= JUtil.obtFechaTxt(rec.getPartida(i).getFechaDesc(),"dd/MMM/yyyy") %>','<%= rec.getPartida(i).getDescuento() %>');"><img src="../../imgfsi/lista_ed.gif" alt="" title="este texto alt ed" width="16" height="16" border="0"></a>
               			<input name="submit" type="image" onClick="javascript:this.form.idpartida.value = '<%= i %>'; establecerProcesoSVE(this.form.subproceso, 'BORR_PART');" src="../../imgfsi/lista_el.gif" border="0"><% } else { out.print("&nbsp;"); } %></td>
                 </tr>
 <%

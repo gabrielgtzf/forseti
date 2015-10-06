@@ -15,7 +15,15 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<%@ page import="forseti.JUtil"%>
+<%@ page import="forseti.JUtil, forseti.sets.*"%>
+<%
+	JAdmVariablesSet set = new JAdmVariablesSet(null);
+	set.m_Where = "ID_Variable = 'URLAYUDA'";
+	set.ConCat(true);
+	set.Open();
+	String urlayuda = set.getAbsRow(0).getVAlfanumerico();
+	
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -31,7 +39,7 @@
     			<td><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="1"><img src="../imgfsi/pixel_blanco.gif" width="1" height="34"></td>
-                <td><div align="right"><a href="/servlet/CEFRegistro" target="cuerpo"><img src="../imgfsi/inicio.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",1) %>" width="24" height="24" border="0"></a><img src="../imgfsi/pixel_blanco.gif" width="5" height="24"><a href="/servlet/CEFSalir" target="cuerpo"><img src="../imgfsi/cerrar_sesion.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",2) + " " + JUtil.getSesion(request).getNombreUsuario() %>" width="24" height="24" border="0"></a><img src="../imgfsi/pixel_blanco.gif" width="5" height="24"><a href="../forsetidoc/040101.html" target="_blank"><img src="../imgfsi/ayudacef.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",3) %>" width="24" height="24" border="0"></a></div></td>
+                <td><div align="right"><a href="/servlet/CEFRegistro" target="cuerpo"><img src="../imgfsi/inicio.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",1) %>" width="24" height="24" border="0"></a><img src="../imgfsi/pixel_blanco.gif" width="5" height="24"><a href="/servlet/CEFSalir" target="cuerpo"><img src="../imgfsi/cerrar_sesion.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",2) + " " + JUtil.getSesion(request).getNombreUsuario() %>" width="24" height="24" border="0"></a><img src="../imgfsi/pixel_blanco.gif" width="5" height="24"><a href="<%= urlayuda %>050101.html" target="_blank"><img src="../imgfsi/ayudacef.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",3) %>" width="24" height="24" border="0"></a></div></td>
               </tr>
             </table></td>
   			</tr>
