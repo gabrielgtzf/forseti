@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -162,6 +167,12 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				 </tr>
 				 
 
+              	 <tr>
+				 	<td width="5" valign="top" class="txtSubMenu"><font color="#FF6600">-</font></td>
+                    <td valign="top"><a href="040401.html" class="txtSubMenu" target="_self"><font color="#FF6600">Reportes</font></a></td>
+				 </tr>
+				 
+
 				</table>
 				
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -191,11 +202,31 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				  </tr>
 				  <tr>
 					<td> 
-                    <p>Este módulo está enfocado a empresas que desean modificar el sistema 
+                    
+ 
+				
+ 
+				
+
+<p>Este módulo está enfocado a empresas que desean modificar el sistema 
 forseti. Por ejemplo, una empresa podría obtener el código fuente y 
 desarrollar un módulo extra para sus propias necesidades. Puede utilizar
  el módulo de Documentación de ayuda para documentar su nuevo módulo y 
-así servirle de soporte a sus usuarios. El módulo de "Documentación de 
+así servirle de soporte a sus usuarios. <br />
+</p>
+<p>Antes de poder interactuar con la documentación, hay que dar de alta 
+toda la estructura de ésta a nivel local, para que entonces, podamos 
+empezar a modificarla. La clase JAyu se encarga de generar la 
+documentación del sistema a nivel local. Esto es importante porque para 
+accesar a la documentación del SAF o CEF, en cualquier instalación por 
+defecto, el usuario final solo lo puede hacer través de la&nbsp; página web 
+forseti.org.mx. Al correr el proceso del servicio JAyu, la documentación
+ de tu sistema se guardará en la base&nbsp; de datos y entonces podrá ser 
+accesada localmente. Para poder preparar el sistema para modificar la 
+documentación de ayuda será necesario ingresar al código fuente de la 
+clase JAyu y seguir las instrucciones que en ella se indican. La clase 
+JAyu se encuentra dentro del paquete por defecto del código fuente del proyecto forseti.</p>
+<p>El módulo de "Documentación de 
 ayuda" involucra tres submódulos que son:</p>
 <ol>
  <li> "<strong>Menús principales</strong>"</li>
@@ -208,9 +239,9 @@ secundarios</strong>" <br />
 <p>Para entender como se relacionan 
 estos submódulos entre si, podemos ver que dentro de la documentación 
 general los menús principales engloban a Generalidades, Implantación, 
-Interfaz, SAF, CEF, REF, SOF y Anexos. Dentro de cada uno de ellos, por 
+Interfaz, SAF, CEF, SOF y Anexos. Dentro de cada uno de ellos, por 
 ejemplo al hacer click en SAF, aparecerán del lado izquierdo 
-Introducción, Administración y Registros. Estos son menús secundarios 
+Introducción, Administración, Registros y Reportes. Estos son menús secundarios 
 del menú principal SAF. Al presionar un menú secundario como Registros, 
 aparecerán del lado derecho las páginas de ayuda pertenecientes a 
 Registros del SAF.</p>
@@ -218,17 +249,23 @@ Registros del SAF.</p>
 generan. Para esto, forseti utiliza una plantilla llamada 
 "forseti_doc.html" que se encuentra dentro del directorio forseti_doc y 
 este a su vez dentro del directorio bin de nuestra instalación. Esta 
-plantilla indica al compilador la posición de los elementos del menú 
+plantilla indica al sistema la posición de los elementos del menú 
 principal, de los menús secundarios, de las páginas de ayuda y de las 
-páginas asociadas a esta página. Entonces el compilador genera las 
+páginas asociadas a esta página. Entonces el sistema genera las 
 páginas con la información de la ayuda que está contenida en la base de 
 datos principal FORSETI_ADMIN poniéndoles el nombre de su clave, por 
 ejemplo 010202.html si la clave de la página de ayuda es 010202. Es esta
- misma clave la que utiliza el compilador para generar las referencias 
+ misma clave la que utiliza el sistema para generar las referencias 
 de los menús principales, secundarios y páginas ligadas a sus 
 respectivas páginas de ayuda. <strong>NOTA:</strong> La generación de toda esta ayuda se 
 hace página por página a través de código html sin involucrar frames ni 
-mucho menos iframes</p>
+mucho menos iframes.</p>
+<p><br />
+</p>
+			  
+
+			  
+
                     </td>
 				  </tr>
 				  <tr>
@@ -287,6 +324,14 @@ mucho menos iframes</p>
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -299,7 +344,7 @@ mucho menos iframes</p>
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

@@ -132,7 +132,7 @@
             <td width="15%" class="txtChicoAzc"><%= smod.getAbsRow(0).getRef() %></td>
           </tr>
           <tr> 
-            <td><%= JUtil.Msj("GLB","GLB","GLB","CLIENTE") %></td>
+            <td><%= JUtil.Msj("GLB","GLB","GLB","PROVEEDOR") %></td>
             <td colspan="3" class="titChicoAzc"><%= smod.getAbsRow(0).getNombre() %></td>
             <td><%= JUtil.Msj("GLB","GLB","GLB","CONCEPTO") %></td>
             <td colspan="3" class="titChicoAzc"><%= smod.getAbsRow(0).getConcepto() %></td>

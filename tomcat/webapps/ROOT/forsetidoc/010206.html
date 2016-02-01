@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -193,6 +198,8 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 					<td> 
                     
  
+				
+ 
 				 				 				 				 				
 
 <div align="justify"> 				 				 				 				El módulo de <strong>compras</strong> permite trabajar con el Catálogo de proveedores, Cuentas por pagar, Órdenes de compra, Recepciones, Compras de Materia prima, Devoluciones sobre compras, Gastos y Políticas.<br />
@@ -202,7 +209,7 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 </ul>En este módulo se generan los anticipos a proveedores, y altas directas de cuentas por pagar. A estos registros se les dará seguimiento dentro del módulo de cuentas por pagar. Los anticipos generan automáticamente el movimiento de caja o banco pertinente.<br />
 <br />
 <strong>Cuentas por pagar.<br />
-</strong>Las cuentas pueden representar anticipos ( alimentadas desde el módulo de proveedores ) o cuentas por pagar ( alimentadas al registrar compras a crédito desde el módulo de Compras o Gastos ):<br />
+</strong>Las cuentas pueden representar anticipos, cuentas por pagar, pagos, saldos, aplicación de anticipos, descuentos por aplicación y devolución de anticipos:<br />
 <ul> <li>Las cuentas pueden estar en distintas monedas.</li> <li>Se lleva una clave única de identificación de cuenta, la fecha de alta, y el proveedor al que se le aplicó la cuenta o el anticipo.</li> <li>Los pagos a estas cuentas generarán el movimiento de caja o banco automáticamente, y su movimiento contable en caso de enlace a la contabilidad.</li> <li>Se aplican anticipos previos a las cuentas.</li> <li>Se pueden cancelar pagos o aplicaciones de anticipos previamente realizados, cancelando automáticamente el movimiento de caja o banco generado.</li> <li>Permite hacer devoluciones de anticipos, los cuales también generarán los movimientos de caja o bancos automáticamente.</li>
 </ul>
 <strong>Ordenes de Compra.</strong><br />
@@ -219,18 +226,21 @@ Estas fungen como órdenes estándar y como plantillas para Recepciones y Compra
 </strong>Su estructura es idéntica a las ordenes y recepciones, por lo tanto se pueden generar automáticamente desde una orden o una recepción, o directamente en este módulo. Al ingresar una compra, se generará de manera automática el movimiento al almacén ( solo si es directa o generada por una orden ), en caso de ser a crédito su cuenta por pagar, o en el caso de ser de contado, su movimiento de caja o banco. Todo lo anterior con sus respectivas pólizas ( si es que esta entidad de compra se enlaza a la contabilidad ).<br />
 <br />
 <strong>Devoluciones</strong>. <br />
-Permite generar rebajas o devoluciones de material ( en caso de devolver un producto al proveedor ). Se puede optar por la devolución parcial o total de la compra asociada. Una devolución parcial vendría siendo por ejemplo, solo la mitad de la cantidad total de la partida 1 que contiene el producto X, y nada de la partida 2 que contiene el producto Y. Su estructura es la misma que la de las compras, y permite generar la entrada a la caja o banco en devoluciónes de contado, o saldar la cuenta por pagar que generó la compra original bajo algún concepto, por ejemplo "devoluciones s/compras".<br />
+Permite generar rebajas o devoluciones de material ( en caso de devolver un producto al proveedor ). Se puede optar por la devolución parcial o total de la compra asociada. Una devolución parcial vendría siendo por ejemplo, solo la mitad de la cantidad total de la partida 1 que contiene el producto X, y nada de la partida 2 que contiene el producto Y. Su estructura es la misma que la de las compras, y permite generar la entrada a la caja o banco en devoluciones de contado, o saldar la cuenta por pagar que generó la compra original bajo algún concepto, por ejemplo "devoluciones s/compras".<br />
 <br />
 <strong>Políticas</strong>.<br />
 Aquí simplemente registramos los precios de cotización de productos para tenerlos actualizados y que desde otros módulos podamos generar procesos y reportes de costos, precios de venta sugeridos, etc.<br />
 <br />
 <strong>Gastos</strong>.<br />
 En este módulo se puede llevar un control minucioso de los gastos menores y gastos mayores de la empresa. Al igual que en otros módulos, los gastos se pueden o no enlazar a la contabilidad. Con el apoyo del módulo de vales de caja se puede complementar este módulo definiendo un gasto directamente en los vales, para después poder generar el gasto automáticamente desde aquel módulo.<br />
-<br />Los gastos también se pueden ingresar directamente a través de una hoja de captura de gastos. El cabecero de la hoja de gastos contendrá la misma estructura que una compra. Con los gastos a crédito, se genera automáticamente la cuenta por pagar, así mismo,  con los gastos de contado se genera el movimiento de caja o banco. Un gasto generará su póliza según las reglas de la clave del gasto ( véase módulo de catálogos ), siempre y cuando la entidad del gasto se enlace a la contabilidad.<br />
+<br />
+Los gastos también se pueden ingresar directamente a través de una hoja de captura de gastos. El cabecero de la hoja de gastos contendrá la misma estructura que una compra. Con los gastos a crédito, se genera automáticamente la cuenta por pagar, así mismo,  con los gastos de contado se genera el movimiento de caja o banco. Un gasto generará su póliza según las reglas de la clave del gasto ( véase módulo de catálogos ), siempre y cuando la entidad del gasto se enlace a la contabilidad.<br />
 <br />
 <strong>NOTA:</strong> Tanto recepciones como compras y gastos, pueden ser capturadas también, por medio de un archivo xml que represente un CFDI.<br />
 <br />
 </div>  			  			  			  			  
+			  
+
 			  
 
                     </td>
@@ -321,6 +331,14 @@ En este módulo se puede llevar un control minucioso de los gastos menores y gas
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -333,7 +351,7 @@ En este módulo se puede llevar un control minucioso de los gastos menores y gas
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

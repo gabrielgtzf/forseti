@@ -126,11 +126,32 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 		  <td width="6%" align="left"><%= set.getAbsRow(i).getID_Empleado() %></td>
 		  <td width="17%" align="left"><%= set.getAbsRow(i).getNombre()  %></td>
   		  <td width="17%" align="left"><%= set.getAbsRow(i).getDescripcion()  %></td>
-		  <td width="7%" align="center"><%= (set.getAbsRow(i).getDiasCompletos() ? "" : JUtil.obtFechaTxt(set.getAbsRow(i).getID_FechaMovimiento(),"dd/MM/yyyy") ) %></td>
+		  <td width="7%" align="center"><%= (set.getAbsRow(i).getDiasCompletos() ? "&nbsp;" : JUtil.obtFechaTxt(set.getAbsRow(i).getID_FechaMovimiento(),"dd/MM/yyyy") ) %></td>
 		  <td width="6%" align="center"><%= (set.getAbsRow(i).getDiasCompletos() ? JUtil.obtFechaTxt(set.getAbsRow(i).getDesde(),"dd/MM/yyyy") : JUtil.obtHoraTxt(set.getAbsRow(i).getHoraDesde(),"HH:mm") ) %></td>
  		  <td width="6%" align="center"><%= (set.getAbsRow(i).getDiasCompletos() ? JUtil.obtFechaTxt(set.getAbsRow(i).getHasta(),"dd/MM/yyyy") : JUtil.obtHoraTxt(set.getAbsRow(i).getHoraHasta(),"HH:mm") ) %></td>
  		  <td width="6%" align="left"><% if(set.getAbsRow(i).getDiasCompletos()) { out.print(set.getAbsRow(i).getNum_de_Dias() + " Dias"); } else { out.print(set.getAbsRow(i).getNum_de_Horas() + " Hrs"); } %></td>
  		  <td width="33%" align="left"><%= set.getAbsRow(i).getObs()  %></td>
+   		</tr>		
+<%
+	}
+	
+	JPermisosGrupoSet setgrp = new JPermisosGrupoSet(request);
+	setgrp.m_Where = donde;
+	setgrp.m_OrderBy = orden; 
+	setgrp.Open();
+	for(int i=0; i < setgrp.getNumRows(); i++)
+	{
+%>
+        <tr>
+		  <td width="2%" align="center"><input type="radio" name="id" value="_FE_FSINOMINA-<%= setgrp.getAbsRow(i).getID_Sucursal() %>|_FM_<%= setgrp.getAbsRow(i).getID_Movimiento() %>|_FF_<%=  JUtil.obtFechaTxt(setgrp.getAbsRow(i).getID_FechaMovimiento(),"dd/MM/yyyy")  %>|"></td>
+		  <td width="6%" align="left">&nbsp;</td>
+		  <td width="17%" align="left">&nbsp;</td>
+  		  <td width="17%" align="left"><%= setgrp.getAbsRow(i).getDescripcion()  %></td>
+		  <td width="7%" align="center">&nbsp;</td>
+		  <td width="6%" align="center"><%= JUtil.obtFechaTxt(setgrp.getAbsRow(i).getDesde(),"dd/MM/yyyy") %></td>
+ 		  <td width="6%" align="center"><%= JUtil.obtFechaTxt(setgrp.getAbsRow(i).getHasta(),"dd/MM/yyyy") %></td>
+ 		  <td width="6%" align="left"><%= (setgrp.getAbsRow(i).getNum_de_Dias() + " Dias") %></td>
+ 		  <td width="33%" align="left">&nbsp;</td>
    		</tr>		
 <%
 	}

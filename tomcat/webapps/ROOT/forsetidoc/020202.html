@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -203,13 +208,23 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
  
 				
  
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
 				 				 				 				 				 				 				 				 				
 
 <div align="justify">Primero debemos de verificar si PostgreSQL ya está instalado (debemos recordar que algunas distribuciones, sobretodo de versión para servidores, pueden instalarlo desde el momento en que se instaló el sistema operativo)<br />
 &nbsp; <br />
 <span style="color: rgb(0, 0, 255);">$ dpkg -s postgresql</span><br />
 <br />
-Si PostgreSQL ya esta instalado, esta debe ser la versión 9.x o superior, de lo contrario se tendrá que actualizar o reinstalar PostgreSQL con esta versión. La forma de hacerlo está fuera del alcance de esta documentación.<br />
+Si PostgreSQL ya esta instalado, esta debe ser la versión 9.3 o superior, de lo contrario se tendrá que actualizar o reinstalar PostgreSQL con esta versión. La forma de hacerlo está fuera del alcance de esta documentación.<br />
 Si es una versión correcta, entonces puedes dar el salto a la instalación del servidor Forseti en la siguiente sección.<br />
 <br />
 Si PostgreSQL no esta instalado aún, vamos a instalarlo:<br />
@@ -217,11 +232,11 @@ Si PostgreSQL no esta instalado aún, vamos a instalarlo:<br />
 <span style="color: rgb(0, 0, 255);">$ sudo apt-get install postgresql-client <br />
 $ sudo apt-get install postgresql postgresql-contrib</span><br />
 <br />
-Si todo va bien, te pedirá la confirmación de instalación de los paquetes postgresql los cuales instalarán el servidor de base de datos PostgreSQL 9.x o superior en el sistema. Si se decidió implantar Forseti en dos servidores, las instalaciones subsecuentes deberán hacerse en el segundo servidor.<br />
+Si todo va bien, te pedirá la confirmación de instalación de los paquetes postgresql los cuales instalarán el servidor de base de datos PostgreSQL 9.3 o superior en el sistema.<br />
 <br />
-Forseti es una aplicación web, lo que significa que utiliza un servicio web para ser accesada, Además, esta basado en la tecnología Servlet 3.0 y JSP 1.3, ambas son tecnologías de programas Java que se ejecutan en un servidor, y construyen páginas web a partir de datos dinámicos.
+Forseti es una aplicación web, lo que significa que utiliza un servicio web para ser accesada, además, esta basado en la tecnología Servlet 3.0 y JSP 1.3, ambas son tecnologías de programas Java que se ejecutan en un servidor y construyen páginas web a partir de datos dinámicos.
 
-<p align="justify"> Apache Tomcat es el contenedor de servlets y jsp, es decir, es el motor que utiliza Forseti para ejecutar sus servlets y páginas jsp, que permiten interactuar con el motor PostgreSQL y el navegador del usuario. Además, Forseti se apoya en la tecnología JSSE para construir certificados y llaves para que toda la información pueda viajar cifrada. Por último, pero de suma importancia, Forseti utiliza una aplicación llamada RSYNC para poder soportar tareas de respaldo y otras tareas de almacenamiento de datos alternas al servicio de base de datos que brinda PostgreSQL.</p>
+<p align="justify"> Apache Tomcat es el contenedor de servlets y jsp, es decir, es el motor que utiliza Forseti para ejecutar sus servlets y páginas jsp que permiten interactuar entre el motor PostgreSQL y el navegador del usuario. Además, Forseti se apoya en la tecnología JSSE para construir certificados y llaves para que toda la información pueda viajar cifrada. Por último, pero de suma importancia, Forseti utiliza una aplicación llamada RSYNC para poder soportar tareas de respaldo y otras tareas de almacenamiento de datos alternas al servicio de base de datos que brinda PostgreSQL.</p>
 <div align="justify">En resumen, los siguientes elementos se deben instalar para que el servidor Forseti pueda funcionar: OpenSSL, RSYNC, Java OpenJDK 7, Tomcat 7 y la aplicación web Forseti. Empezaremos por la instalación del servicio OpenSSL. Ya que OpenSSL se utiliza para muchos procesos del sistema, lo mas probable es que ya se encuentre instalado. De todas formas, se pudiera verificar antes de la instalación de la siguiente manera:<br />
 <br />
 <span style="color: rgb(0, 0, 255);">$ dpkg -s openssl</span><br />
@@ -242,16 +257,18 @@ Ahora instalamos la implementación Java OpenJDK 7...<br />
 <br />
 <span style="color: rgb(0, 0, 255);">$ sudo apt-get install openjdk-7-jre</span><br />
 <br />
-Si todo va bien, se instalará la maquina virtual de java y sus herramientas y podemos seguir con nuestro siguiente servicio que va a ser Tomcat.<br />
+Si todo va bien, se instalará la maquina virtual de java y sus herramientas. Ahora podemos seguir con nuestro siguiente servicio que va a ser Tomcat.<br />
 <br />
 <span style="color: rgb(0, 0, 255);">$ </span>
 <span style="color: rgb(0, 0, 255);">sudo apt-get install tomcat7</span><br />
 <br />
 Por último, vamos a instalar la aplicación web Forseti, ésta se instala de una manera distinta a los demás, primero la descargamos con el comando wget y desempaquetamos el archivo comprimido descargado:<br />
 <br />
-<span style="color: rgb(0, 0, 255);">$ wget https://s3-us-west-2.amazonaws.com/forseti.org.mx/descargas/archivo/forseti.tar.gz<br />
+<span style="color: rgb(0, 0, 255);">$ wget https://s3-us-west-2.amazonaws.com/forseti.org.mx/descargas/archivo/estable/forseti.tar.gz<br />
 $ tar -xzvf forseti.tar.gz<br />
 </span><br />
+<strong>NOTA IMPORTANTE:</strong> En situaciones donde intentamos recuperar todo un servidor desde un respaldo, debemos forzosamente instalar el servidor con la versión de nuestro respaldo. Para ello, debemos sustituir el archivo "forseti.tar.gz" por el archivo de nuestra versión "forseti-[version].tar.gz" por ejemplo, si la versión del respaldo es la 4.0.19, entonces nuestro comando wget debe introducirse de la manera siguiente: <span style="color: rgb(0, 0, 255);">$ wget https://s3-us-west-2.amazonaws.com/forseti.org.mx/descargas/archivo/estable/forseti-4.0.19.tar.gz</span>. Para mayor información sobre la restauración de servidores revisa la sección <a href="040201.html">SAF / Administración / Servidor<a> y Empresas</a></a> de esta documentación. También es importante revisar las rutas oficiales de descargas para localizar la versión de tu servidor en caso de que no fuera una versión estable. Estas se encuentran en la sección <a href="070205.html">SOF / Anexos / Rutas de descargas</a>.&nbsp; <br />
+<br />
 Ahora copiamos el directorio forseti dentro del directorio de sistema /usr/local, y nos posicionamos en el.<br />
 <br />
 <span style="color: rgb(0, 0, 255);">$ sudo cp -R forseti /usr/local<br />
@@ -283,8 +300,18 @@ Esto abrirá el archivo de texto sudoers al cual debemos agregarle la siguiente 
 <br />
 <span style="color: rgb(0, 0, 255);">tomcat7 ALL = NOPASSWD: /usr/bin/openssl, /bin/cp</span><br />
 </div><br />
-Guardamos y listo.<br />
+Guardamos y listo, ya esta todo instalado. Ahora debemos proceder a la configuración.<br />
 </div>			  			  			  			  			  			  			  			  			  			  			  					  			  			  			  			  			  			  			  			  			  			  			  
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
 			  
 
 			  
@@ -325,6 +352,14 @@ Guardamos y listo.<br />
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -337,7 +372,7 @@ Guardamos y listo.<br />
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

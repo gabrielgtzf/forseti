@@ -328,7 +328,7 @@ public class JAdmVariablesDlg extends JForsetiApl
 		
 		if(tipo.equals("BOOL") || tipo.equals("INT"))
 			ventero = "'" + p(request.getParameter("valor")) + "'";
-		else if(tipo.equals("NUMERIC"))
+		else if(tipo.equals("NUMERIC") || tipo.equals("DECIMAL"))
 			vdecimal = "'" + p(request.getParameter("valor")) + "'";
 		else if(tipo.equals("DATE"))
 			vfecha = "'" + p(JUtil.obtFechaSQL(request.getParameter("valor"))) + "'";
@@ -343,6 +343,7 @@ public class JAdmVariablesDlg extends JForsetiApl
 	  	
 		String str = "SELECT * FROM sp_variables_cambiar('" + p(request.getParameter("id")) + "'," + ventero + "," + vdecimal + "," + vfecha + "," + valfanumerico + ") as ( err integer, res varchar, clave varchar ) ";
 
+		//doDebugSQL(request, response, str);
 		doCallStoredProcedure(request, response, str, rfb);
 
 		RDP("CEF",getSesion(request).getConBD(),(rfb.getIdmensaje() == 0 ? "OK" : (rfb.getIdmensaje() == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(),"ADM_VARIABLES_AGREGAR","AVAR|" + rfb.getClaveret() + "|||",rfb.getRes());

@@ -293,7 +293,7 @@ public class JCompFactSes extends JVenFactSes
 		short idmensaje = establecerConcordancia(request, sb_mensaje);
 		establecerResultados();
 			
-		if((m_Total - m_TotalUUIDs) > 0.1F || (m_Total - m_TotalUUIDs) < -0.1)
+		if((m_Total - m_TotalUUIDs) > 0.1 || (m_Total - m_TotalUUIDs) < -0.1)
 		{
 			sb_mensaje.append("ERROR: El total en el o los CFDI no corresponden al Total calculado en el registro a partir de estos CFDI. No se puede agregar. DOC: " + m_Total + " XML: " + m_TotalUUIDs);
 			return 3;
@@ -420,9 +420,9 @@ public class JCompFactSes extends JVenFactSes
 		 
 		JPublicInvServInvCatalogSetV2 set = new JPublicInvServInvCatalogSetV2(request);
 		if(!m_IdMod.equals("COMP_GAS"))
-			set.m_Where = "Clave = '" + idprod + "' and ID_Tipo = 'P' and SeProduce = '0' and Status = 'V'";
+			set.m_Where = "Clave = '" + JUtil.p(idprod) + "' and ID_Tipo = 'P' and SeProduce = '0' and Status = 'V'";
 		else
-			set.m_Where = "Clave = '" + idprod + "' and ID_Tipo = 'G' and Status = 'V'";
+			set.m_Where = "Clave = '" + JUtil.p(idprod) + "' and ID_Tipo = 'G' and Status = 'V'";
 		set.Open();
 		  
 		if( set.getNumRows() > 0 )

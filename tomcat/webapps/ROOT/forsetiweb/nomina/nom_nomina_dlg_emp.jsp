@@ -154,7 +154,7 @@ function enviarlo(formAct)
           </tr>
           <tr> 
             <td width="20%"> <div align="right">N&uacute;m Recibo:</div></td>
-            <td width="30%"><input name="recibo" type="text" id="recibo" size="8" maxlength="6" readonly="true"> 
+            <td width="30%"><input name="recibo" type="text" id="recibo" size="8" maxlength="6"<%= (request.getParameter("proceso").equals("ENLAZAR_RECIBO")) ? "" : " readonly=\"true\"" %>> 
             </td>
             <td width="20%"><div align="right">Faltas:</div></td>
             <td width="30%"><input name="faltas" type="text" id="faltas" size="8" maxlength="5"></td>
@@ -163,7 +163,7 @@ function enviarlo(formAct)
             <td> <div align="right">No. Horas Extras Dobles:</div></td>
             <td><input name="he" type="text" id="he" size="11" maxlength="10"<%= (request.getParameter("proceso").equals("ENLAZAR_RECIBO")) ? " readonly=\"true\"" : "" %>></td>
             <td><div align="right">No. Horas Domingo:</div></td>
-            <td><input name="hd" type="text" id="hd" size="11" maxlength="10"<%= (request.getParameter("proceso").equals("ENLAZAR_RECIBO")) ? " readonly=\"true\"" : "" %>></td>
+            <td><input name="hd" type="text" id="hd" size="11" maxlength="10"></td>
           </tr>
 		  <tr> 
             <td> <div align="right">No. Horas Extras Triples:</div></td>

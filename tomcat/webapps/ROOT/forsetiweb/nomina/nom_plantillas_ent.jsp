@@ -32,8 +32,8 @@
 oCMenu.makeMenu('top0','','&nbsp;<%= JUtil.Elm(ent,1) %>','/servlet/CEFNomPlantillasCtrl?entidad=GEN','cuerpo')
 oCMenu.makeMenu('top1','','&nbsp;<%= JUtil.Elm(ent,2) %>','/servlet/CEFNomPlantillasCtrl?entidad=EMP','cuerpo')
 oCMenu.makeMenu('top2','','&nbsp;<%= JUtil.Elm(ent,3) %>','/servlet/CEFNomPlantillasCtrl?entidad=NUM','cuerpo')
-oCMenu.makeMenu('top3','','&nbsp;<%= JUtil.Elm(ent,4) %>','/servlet/CEFNomPlantillasCtrl?entidad=TIPO','cuerpo')
-oCMenu.makeMenu('top4','','&nbsp;<%= JUtil.Elm(ent,5) %>','/servlet/CEFNomPlantillasCtrl?entidad=NOM','cuerpo')
+oCMenu.makeMenu('top3','','&nbsp;<%= JUtil.Elm(ent,4) %>','/servlet/CEFNomPlantillasCtrl?entidad=NOM','cuerpo')
+oCMenu.makeMenu('top4','','&nbsp;<%= JUtil.Elm(ent,5) %>','/servlet/CEFNomPlantillasCtrl?entidad=TIPO','cuerpo')
 
 oCMenu.construct()		
 </script>

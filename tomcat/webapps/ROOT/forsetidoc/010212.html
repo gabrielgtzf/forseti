@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -193,6 +198,8 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 					<td> 
                     
  
+				
+ 
 				 				 				 				 				
 
 <div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 En este módulo   trabajamos con la administración y propiedades de la empresa.<br />
@@ -200,7 +207,8 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 <strong>Saldos.</strong><br />
 Permite el control de iniciar saldos a empresas que migran a forseti desde otros sistemas a:<br />
 <ul> <li>Cuentas Contables.</li> <li>Cajas y Bancos.</li> <li>Proveedores.</li> <li>Clientes.</li> <li>Almacén.<br />
-<br />También se controla la actualización de saldos, existencias y otros, en caso de un desajuste:<br />
+<br />
+También se controla la actualización de saldos, existencias y otros, en caso de un desajuste:<br />
 <br />
 </li> <li>Ajuste de existencias.</li> <li>Ajuste de niveles en fórmulas.</li> <li>Actualización de saldos de almacén.</li> <li>Ajuste de pólizas contables contra costos de almacén.</li> <li>Actualización de saldos del catálogo de cuentas contables.</li> <li>Actualización de saldos de caja y bancos.</li> <li>Actualización de saldos de proveedores.</li> <li>Actualización de saldos de clientes.</li>
 </ul>
@@ -216,12 +224,12 @@ De suma importancia, este módulo nos permite   la configuración total de cómo
 <br />
 <strong>Variables.</strong> <br />
 Nos permite manipular las configuraciones del sistema definiendo valores generales de varios tipos de variables como Alfanumérico, decimales, enteras, fecha y hora y otros. Estas están enfocadas a procesos generales del sistema como por ejemplo la definición del valor del salario mínimo para las nóminas o el nivel en las cuentas del catálogo de cuentas contables. Se agrupan en tipos que son:<br />
-<ul> <li>Variables de contabilidad.</li> <li>De caja y bancos.</li> <li>Almacén.</li> <li>Compras.</li> <li>Ventas.</li> <li>Producción.</li> <li>Nómina.</li> <li>Sistema ( Enfocadas a procesos del sistema y no a procesos empresariales ).<br />
-</li> <li>Usuario, estas se pueden agregar por ejemplo, Para cuando se desarrolla un reporte de usuario que necesita algún parámetro preestablecido.<br />
+<ul> <li>Variables de contabilidad.</li> <li>De caja y bancos.</li> <li>Almacén.</li> <li>Compras.</li> <li>Ventas.</li> <li>Producción.</li> <li>Nómina.</li> <li>Sistema ( enfocadas a procesos del sistema y no a procesos empresariales ).<br />
+</li> <li>Usuario, estas se pueden agregar por ejemplo, para cuando se desarrolla un reporte de usuario que necesita algún parámetro preestablecido.<br />
 </li>
 </ul>
 <strong>Monedas.</strong> <br />
-Podemos agregar o cambiar monedas y su tipo de cambio, las cuales soportará   el sistema para poder facturar, comprar, o dar de alta entidades bancarias en estas monedas.<br />
+Podemos agregar o cambiar monedas y su tipo de cambio las cuales soportará   el sistema para poder facturar, comprar, o dar de alta entidades bancarias en estas monedas.<br />
 <br />
 <strong>Vendedores</strong>. <br />
 Aquí manejamos las claves y comisiones asignadas   a cada vendedor. Podemos darlos de alta, consultarlos y cambiarlos.<br />
@@ -230,12 +238,19 @@ Aquí manejamos las claves y comisiones asignadas   a cada vendedor. Podemos dar
 Los formatos son las estructuras para la generación   de impresiones de algún tipo de registro como facturas, pedidos, cheques etc.   Aquí podemos darlos de alta, revisarlos y cambiarlos.<br />
 <br />
 <strong>CFDI y CE</strong>. <br />
-Nos permite la configuración para poder emitir Comprobantes Fiscales Digitales necesarios para la Facturación, Notas de crédito, Remisiones, Cartas Porte y Recibos de Nómina. Podemos configurar:<br />
+Nos permite la configuración para poder emitir comprobantes fiscales digitales necesarios para la facturación, notas de crédito, remisiones, cartas porte y recibos de nómina. Podemos configurar:<br />
 <ul> <li>Datos del emisor.</li> <li>Subir uno o varios certificados.</li> <li>Dar de alta una o varias entidades de expedición.</li>
-</ul>Con estos elementos configurados, forseti puede generar comprobantes fiscales digitales ( CFD ) en forma de traslados, ingresos y egresos. Este CFD puede ser sellado directamente por el PAC Edicom, o indirectamente por el servicio forseti PacConn de algún servidor Forseti instalado en la nube, el cual utiliza el PAC Edicom para el sellado. El porqué de Edicom, es porque Edicom ofrece un servicio web bastante estable y su API está liberada bajo una licencia de software libre.<br />
-<br />Este módulo también nos permite generar los archivos xml de contabilidad electrónica "CE" de la balanza, catálogo de cuentas y pólizas que son requeridos por hacienda a partir de 2015. Este módulo también genera un archivo de estatus el cual informa de anomalías y/o alertas en los xml. Un ejemplo sería un registro de póliza de ingresos donde el campo de RFC está vacío o la cuenta bancaria está indefinida.<br />
+</ul>Con estos elementos configurados, forseti puede generar comprobantes fiscales digitales ( CFD ) en forma de traslados, ingresos y egresos. Este CFD puede ser sellado por el servicio forseti
+ JPacConn del mismo servidor, o de algún servidor Forseti instalado en la nube. JPacConn utiliza
+ el PAC Edicom para el sellado. El porqué de Edicom, es porque Edicom 
+ofrece un servicio web bastante estable y su API está liberada bajo una 
+licencia de software libre.<br />
+<br />
+Este módulo también nos permite generar los archivos xml de contabilidad electrónica "CE" de la balanza, catálogo de cuentas y pólizas que son requeridos por hacienda a partir de 2015. Este módulo también genera un archivo de estatus el cual informa de anomalías y/o alertas en los xml. Un ejemplo sería un registro de póliza de ingresos donde el campo de RFC está vacío o la cuenta bancaria está indefinida.<br />
 <br />
 </div>                                 			  			  			  			  			  			  			  			  			  			   							  			  			  			  			  			  			  
+			  
+
 			  
 
                     </td>
@@ -336,6 +351,14 @@ Nos permite la configuración para poder emitir Comprobantes Fiscales Digitales 
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -348,7 +371,7 @@ Nos permite la configuración para poder emitir Comprobantes Fiscales Digitales 
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

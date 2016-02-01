@@ -60,6 +60,7 @@ TD,P,B,INPUT,DIV{ font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", mono
 .titGiganteNar{padding:4px; font-size:28pt; font-weight:normal; color:#FF6600; }
 .titGiganteAzc{padding:4px; font-size:28pt; font-weight:normal; color:#0099FF; }
 .titGiganteVer{padding:4px; font-size:28pt; font-weight:normal; color:#339900; }
+.titGiganteNeg{padding:4px; font-size:28pt; font-weight:normal; color:black; }
 
 .titChico{
 	padding:2px;

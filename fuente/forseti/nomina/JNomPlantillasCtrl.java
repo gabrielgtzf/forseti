@@ -90,7 +90,7 @@ public class JNomPlantillasCtrl extends JForsetiApl
       	  }
       	  else if(request.getParameter("entidad").equals("TIPO"))
       	  {
-      		  String Entidad = "bTipo_Nomina = '1'";
+      		  String Entidad = "bNivel_Confianza = '1'";
       		  getSesion(request).getSesion("NOM_PLANTILLAS").setEntidad(Entidad,JUtil.Elm(ent,4));
       	  }
       	  else if(request.getParameter("entidad").equals("NOM"))

@@ -364,8 +364,8 @@ public class JNomEmpleadosDlg extends JForsetiApl
     	p(JUtil.obtFechaSQL(request.getParameter("fecha_de_ingreso"))) + "',null,'1','" + p(request.getParameter("rfc_letras")) + "','" +
     	p(request.getParameter("rfc_fecha")) + "','" + p(request.getParameter("rfc_homoclave")) + "','" + p(request.getParameter("rfc_digito")) + "','" +
     	p(request.getParameter("curp")) + "','" + (request.getParameter("calculosimplificado") != null ? "1" : "0") + "','" + setcom.getAbsRow(0).getTipo() + "',/*Jornada*/'1','" + (request.getParameter("sindicalizado") != null ? "1" : "0") + 
-    	"',/*Horas_por_Jornada*/'9','" + p(request.getParameter("status")) + "','" + p(request.getParameter("motivo_baja")) + "','" + 
-    	(request.getParameter("reparto_de_utilidades") != null ? "1" : "0") + "',/*Premio_de_Puntualidad*/ '0','" + (request.getParameter("castigo_impuntualidad") != null ? "1" : "0") + "','" +
+    	"',/*Horas_por_Jornada*/'9','" + p(request.getParameter("status")) + "','" + p(request.getParameter("motivo_baja")) + "'," + 
+    	"/*reparto_de_utilidades*/'0',/*Premio_de_Puntualidad*/'0','" + (request.getParameter("castigo_impuntualidad") != null ? "1" : "0") + "','" +
     	p(request.getParameter("puesto")) + "','" + p(request.getParameter("salario_nominal")) + "','" + p(request.getParameter("salario_diario")) + "','" +
     	p(request.getParameter("salario_por_hora")) + "','" + p(request.getParameter("salario_integrado")) + "','" +  (request.getParameter("aplica_horas_extras") != null ? "1" : "0") + "'," +
         "/*Fecha_Vacaciones*/'" + p(JUtil.obtFechaSQL(request.getParameter("fecha_de_ingreso"))) + "',/*Dias_Vacaciones*/'0', /*Prima_de_Vacaciones*/ '0','" +
@@ -379,7 +379,7 @@ public class JNomEmpleadosDlg extends JForsetiApl
     	p(request.getParameter("prestamo_vsm")) + "','" + p(request.getParameter("descuento_vsm")) + "'," +  ( request.getParameter("clave_alta_infonavit") == null ? "null" : "'" + p(JUtil.obtFechaSQL(request.getParameter("fecha_alta_infonavit"))) + "'" ) + 
     	",/*Fecha_Liquidacion_Infonavit*/ null,"  +
     	"/*Registro_Fonacot*/ '', /*Numero_de_Credito*/ '','" + (request.getParameter("prestamo_fonacot") != null ? "1" : "0") + "','" + 
-    	(request.getParameter("ayuda_vales_de_despensa") != null ? "1" : "0") + "','" + p(request.getParameter("importe_vales_de_despensa")) + "',/*ID_XAction*/ '',/*CompensacionAnual*/ '0','" + p(request.getParameter("salario_mixto")) + "','" + (request.getParameter("calculo_mixto") != null ? "1" : "0") + "',/*CompensacionAnualFija*/ '0.0'" +
+    	(request.getParameter("ayuda_vales_de_despensa") != null ? "1" : "0") + "','" + p(request.getParameter("importe_vales_de_despensa")) + "',/*ID_XAction*/ '','" + (request.getParameter("compensacionanual") != null ? "1" : "0") + "','" + p(request.getParameter("salario_mixto")) + "','" + (request.getParameter("calculo_mixto") != null ? "1" : "0") + "',/*CompensacionAnualFija*/ '0.0'" +
     	",'" + p(request.getParameter("regimen")) + "','" + p(request.getParameter("id_satbanco")) + "','" + p(request.getParameter("noint")) + "','" + p(request.getParameter("localidad")) + "','" + p(request.getParameter("estado")) + "','" + p(request.getParameter("pais")) + "','" + p(request.getParameter("smtp")) + "','" + p(request.getParameter("email")) + "','" +
     	p(request.getParameter("pcs")) + "') as (err integer, res varchar, clave bpchar)";
      

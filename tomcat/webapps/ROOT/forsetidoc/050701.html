@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -234,6 +239,140 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				  <tr>
 					<td> 
                     
+ 
+				El Departamento de Ventas es el responsable de las negociaciones con 
+los clientes del seguimiento a todo el proceso de venta, esto es,
+ cotizaciones a los clientes, pedidos, fechas de entrega, condiciones comerciales y
+ trámites de pago. El módulo de <strong>ventas</strong> es la parte de forseti 
+que nos permite llevar el control de todas las ventas 
+que genera la empresa. Esta sección nos permite interactuar con los 
+siguientes módulos: Clientes, Cuentas por cobrar, Cotizaciones, 
+Pedidos, Remisiones, Facturas, Devoluciones sobre ventas y Políticas.<br />
+<br />
+<strong>Clientes</strong>: Permite registrar a los clientes 
+divididos en entidades de venta (cada entidad tendrá su propio catálogo
+ independiente). El catálogo consiste en los siguientes parámetros:<br />
+<ul>
+ <li>La clave numérica.</li>
+ <li>El nombre.</li>
+ <li>La cuenta contable enlazada, que permite generar la póliza en ventas de crédito enlazadas a la contabilidad.</li>
+ <li>El R.F.C.</li>
+ <li>Su estatus ( alta o baja ). </li>
+ <li>Datos de contacto ( dirección, colonia, población, C.P. teléfonos, fax, e-mail, nombres de personas de contacto etc. ).</li>
+ <li>Propiedades ( días de crédito, límite máximo de crédito, fecha de última compra, nuestro descuento, etc. )</li>
+ <li>Observaciones del cliente. </li>
+</ul>En este módulo se generan los pagos anticipados, y altas 
+directas de cuentas por cobrar. A estos registros se les dará seguimiento
+ dentro del módulo de cuentas por cobrar. Los anticipos generan 
+automáticamente el movimiento de caja o banco pertinente.<br />
+<br />
+<strong>Cuentas por cobrar.<br />
+</strong>Las cuentas pueden representar anticipos, cuentas por cobrar, pagos, 
+saldos, aplicación de anticipos, descuentos por aplicación y devolución 
+de anticipos:<br />
+<ul>
+ <li>Las cuentas pueden estar en distintas monedas.</li>
+ <li>Se 
+lleva una clave única de identificación de cuenta, la fecha de alta, y 
+el cliente al que se le aplicó la cuenta o el anticipo.</li>
+ <li>Los 
+pagos a estas cuentas generarán el movimiento de caja o banco 
+automáticamente, y su movimiento contable en caso de enlace a la 
+contabilidad.</li>
+ <li>Se aplican anticipos previos a las cuentas.</li>
+ <li>Se
+ pueden cancelar pagos o aplicaciones de anticipos previamente 
+realizados, cancelando automáticamente el movimiento de caja o banco 
+generado.</li>
+ <li>Permite hacer devoluciones de anticipos, los cuales también generarán los movimientos de caja o bancos automáticamente.</li>
+</ul>
+<strong>Cotizaciones.</strong><br />
+Estas fungen como cotizaciones estándar y como plantillas para Pedidos, Remisiones y Facturas, nos sirven para pre-definir una factura. Su estructura maneja lo
+ siguiente:<br />
+<ul>
+ <li>El cabecero de la cotización.</li>
+ <li>Su número consecutivo según su entidad.</li>
+ <li>La referencia.</li>
+ <li>Si está pactada a crédito o a contado.</li>
+ <li>La moneda y tipo de cambio pactados.</li>
+ <li>El cliente.</li>
+ <li>La fecha de la cotización y de entrega.</li>
+ <li>Las observaciones de la cotización. </li>
+</ul>En el detalle podemos generar los productos que pensamos vender y capturar:<br />
+<ul>
+ <li>La clave.</li>
+ <li>La cantidad.</li>
+ <li>El precio pactado de ese producto.</li>
+ <li>El descuento de esa partida.</li>
+ <li>Los impuestos.<br />
+</li>
+ <li>Las observaciones del producto o servicio.</li>
+</ul><br />
+<strong>Pedidos<br />
+</strong>Su estructura es idéntica a las cotizaciones por lo que se 
+pueden generar automáticamente desde una de ellas, o directamente en este 
+módulo. En forseti, un pedido representa una orden de abastecimiento para nuestro cliente, definiendo los productos y/o servicios.<br />
+<strong><br />
+Remisiones.<br />
+</strong>Su estructura es idéntica a las cotizaciones y pedidos por lo que se 
+pueden generar automáticamente desde una cotización o un pedido, o directamente en este 
+módulo. En forseti, una remisión representa solo la salida del 
+producto desde el almacén, por lo tanto, al ingresar una remisión directa o 
+indirectamente, se generará 
+de manera automática el movimiento al almacén con su póliza de costos 
+respectiva (
+ si es que esta bodega se enlaza a la contabilidad ).<br />
+<br />
+<strong>Facturas.<br />
+</strong>En forseti, una factura representa todo lo involucrado a la venta de
+ productos o servicios y su estructura es idéntica a las cotizaciones, pedidos y remisiones, por lo tanto 
+se pueden generar automáticamente desde una cotización, pedido o remisión previamente capturada, o 
+directamente en este módulo. Al ingresar una factura, se generará de 
+manera automática el movimiento al almacén (solo si es directa o 
+generada por una cotización o pedido, porque si es generada por la remisión, no 
+generará movimiento de salida desde el almacén porque ya 
+fue generado por la remisión), en caso de ser a crédito, generará su 
+cuenta por cobrar, en el caso de ser de contado, su movimiento de caja o 
+banco. Todo lo 
+anterior con sus respectivas pólizas (si es que esta entidad de venta 
+se enlaza a la contabilidad).<br />
+<br />
+<strong>Devoluciones</strong>. <br />
+Permite generar rebajas o devoluciones de material (en caso de nuestro cliente nos devuelva un producto). Se puede optar por la devolución parcial o 
+total de la venta asociada. Una devolución parcial vendría siendo por 
+ejemplo, solo la mitad de la cantidad total de la partida 1 que contiene
+ el producto X, y nada de la partida 2 que contiene el producto Y. Su 
+estructura es la misma que la de las facturas, y permite generar la 
+salida desde la caja o banco en devoluciones de contado, o saldar la cuenta
+ por cobrar que generó la factura original bajo algún concepto, por 
+ejemplo "devolución por producto defectuoso".<br />
+<br />
+<strong>Políticas</strong>.<br />
+Se manejan políticas por cliente, por producto y por entidad.<ul>
+ <li>
+<strong>Políticas por cliente:</strong> <br />
+Definen precios directos de algún producto para este cliente, no interesándole el precio de lista.<br />
+Definen porcentajes de descuento específicos de algún producto, aplicados exclusivamente a este cliente. <br />
+</li>
+ <li>
+<strong>Políticas por producto:</strong><br />
+Definen el rango de cantidades para un precio específico del producto, 
+por ejemplo... Se tiene el precio 1, 2, 3, 4 y 5 del producto A ( todos 
+distintos óbviamente), entonces se puede definir la política por 
+cantidad de este producto como sigue: de 1 a 5 pzas. aplica precio 1, de
+ 6 a 10 aplica precio 2, de 11 a 15 aplica precio 3, de 16 a 20 aplica 
+precio 4 y por mas de 20 aplica precio 5. <br />
+</li>
+ <li>
+<strong>Políticas por Entidad:</strong><br />
+Definen precios o descuentos especiales de algún producto en esa entidad, como por ejemplo productos en promoción.<br />
+</li>
+</ul> <strong>NOTA:</strong> Las Remisiones, Facturas y Devoluciones, 
+pueden generar comprobantes fiscales digitales ( CFD ) en forma de 
+traslados, ingresos y egresos respectivamente. Este CFD puede ser 
+sellado por el servicio forseti
+ JPacConn del mismo servidor, o de algún servidor Forseti instalado en 
+la nube.
                     </td>
 				  </tr>
 				  <tr>
@@ -256,6 +395,62 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				 </tr>
 				
 
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050702.html" class="txtPag" target="_self"><font color="#0099FF">Clientes</font></a><br><font color="#999999">Módulo de clientes</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050703.html" class="txtPag" target="_self"><font color="#0099FF">Cuentas por cobrar</font></a><br><font color="#999999">Módulo de cuentas por cobrar, anticipos, pagos, saldos, etc.</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050704.html" class="txtPag" target="_self"><font color="#0099FF">Cotizaciones</font></a><br><font color="#999999">Descripción del módulo de cotizaciones</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050705.html" class="txtPag" target="_self"><font color="#0099FF">Pedidos</font></a><br><font color="#999999">Documentación sobre el módulo de pedidos.</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050706.html" class="txtPag" target="_self"><font color="#0099FF">Remisiones</font></a><br><font color="#999999">Documentación sobre el módulo de remisiones.</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050707.html" class="txtPag" target="_self"><font color="#0099FF">Facturas</font></a><br><font color="#999999">Detalles del módulo de facturación</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050708.html" class="txtPag" target="_self"><font color="#0099FF">Devoluciones sobre ventas</font></a><br><font color="#999999">Descripción del módulo de devoluciones y rebajas sobre ventas</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050709.html" class="txtPag" target="_self"><font color="#0099FF">Políticas de ventas</font></a><br><font color="#999999">Detalles del módulo de políticas de ventas.</font></td>
+				 </tr>
+				
+
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -268,7 +463,7 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

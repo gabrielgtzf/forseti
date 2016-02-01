@@ -2997,7 +2997,7 @@ ID
 __FIN
 
 __INIT
-NOMBRE DEL CATALOGO EN FORSETI_ES
+CATALOGO DE VENDEDORES
 null
 null
 null
@@ -3009,7 +3009,7 @@ ID
 __FIN
 
 __INIT
-NOMBRE DEL CATALOGO EN FORSETI_ES
+ENTIDADES BANCARIAS
 null
 null
 null
@@ -3021,7 +3021,7 @@ ID
 __FIN
 
 __INIT
-NOMBRE DEL CATALOGO EN FORSETI_ES
+ENTIDADES DE CAJA
 null
 null
 null
@@ -3033,7 +3033,7 @@ ID
 __FIN
 
 __INIT
-NOMBRE DEL CATALOGO EN FORSETI_ES
+CATALOGO DE DEPARTAMENTOS
 null
 null
 null
@@ -3045,7 +3045,7 @@ ID
 __FIN
 
 __INIT
-NOMBRE DEL CATALOGO EN FORSETI_ES
+CATALOGO DE MOVIMIENTOS
 null
 null
 null
@@ -3057,7 +3057,7 @@ ID
 __FIN
 
 __INIT
-NOMBRE DEL CATALOGO EN FORSETI_ES
+CATALOGO DE EMPLEADOS
 null
 null
 null
@@ -3069,7 +3069,7 @@ ID
 __FIN
 
 __INIT
-NOMBRE DEL CATALOGO EN FORSETI_ES
+CONCEPTOS DE NOMINA
 null
 null
 null
@@ -3150,6 +3150,18 @@ SAF
 CATALOGOS
 ID
 35
+__FIN
+
+__INIT
+CATALOGO DE UTENSILIOS
+null
+null
+null
+null
+SAF
+CATALOGOS
+ID
+36
 __FIN
 
 __INIT
@@ -7225,7 +7237,7 @@ __FIN
 
 __INIT
 NETO DE EFECTIVO EN CAJA:
-null
+DESGLOSE DE FACTURAS EN ESTE CIERRE
 null
 null
 null
@@ -7647,6 +7659,191 @@ BD
 MSJ-PROCOK
 __FIN
 /////////////////////// REGISTROS MOVIMIENTOS AL ALMACEN FIN //////////////////////////
+
+////////////////////// CONTROL DE UTENSILIOS INI //////////////////////////////////////
+__INIT
+Control de utensilios
+null
+null
+null
+null 
+CEF
+MENU
+ALM
+UTENSILIOS
+__FIN
+
+
+__INIT
+ACCESO Y CONSULTA DEL SUB-MODULO DE CONTROL DE UTENSILIOS
+CONTROL DE UTENSILIOS
+null
+null
+null
+CEF
+PERMISOS
+CATALOGO
+ALM_UTENSILIOS
+__FIN
+
+__INIT
+PERMITE AGREGAR SALIDA DE UTENSILIOS
+AGREGAR SALIDA DE UTENSILIOS
+null
+null
+null
+CEF
+PERMISOS
+CATALOGO
+ALM_UTENSILIOS_SALIDA
+__FIN
+
+__INIT
+PERMITE AGREGAR ENTRADA DE UTENSILIOS
+AGREGAR ENTRADA DE UTENSILIOS
+null
+null
+null
+CEF
+PERMISOS
+CATALOGO
+ALM_UTENSILIOS_ENTRADA
+__FIN
+
+__INIT
+PERMITE CANCELAR MOVIMIENTOS DE UTENSILIOS
+CANCELAR MOVIMIENTOS DE UTENSILIOS
+null
+null
+null
+CEF
+PERMISOS
+CATALOGO
+ALM_UTENSILIOS_CANCELAR
+__FIN
+
+__INIT
+ALMACEN
+CONTROL DE UTENSILIOS
+Bodega
+Rango/Inicial
+Sección
+CEF
+ALM_UTENSILIOS
+VISTA
+TITULO
+__FIN
+
+__INIT
+Número+de+movimiento|Fecha|Tipo|Cantidad|Clave|Descripción|Estatus|Concepto|Referencia
+Num|Fecha|Tipo|Cant|Cve|Descripción|ST|Concepto|Ref
+Cantidad|Clave|Descripción|Clave+de+linea|Linea
+Cant|Cve|Descripción|Lin|Linea
+null
+CEF
+ALM_UTENSILIOS
+VISTA
+COLUMNAS
+__FIN
+
+__INIT
+Movimientos|Existencias
+null
+null
+null
+null
+CEF
+ALM_UTENSILIOS
+VISTA
+TIPOS
+__FIN
+
+__INIT
+Guardado|Cancelado
+null
+null
+null
+null
+CEF
+ALM_UTENSILIOS
+VISTA
+STATUS
+__FIN
+
+__INIT
+es_entrada_utensilios.png
+Permite agregar una entrada de utensilios.
+Agregar Entrada de Utenselios.
+600
+400
+CEF
+ALM_UTENSILIOS
+VISTA
+ENTRADA_UTENSILIOS
+__FIN
+
+__INIT
+es_salida_utensilios.png
+Permite agregar una salida de utensilios.
+Agregar Salida de Utenselios.
+600
+400
+CEF
+ALM_UTENSILIOS
+VISTA
+SALIDA_UTENSILIOS
+__FIN
+
+__INIT
+es_cancelar_movimiento.png
+Permite cancelar movimientos de utensilios.
+Cancelar Movimiento de Utensilios.
+600
+400
+CEF
+ALM_UTENSILIOS
+VISTA
+CANCELAR_MOVIMIENTO
+__FIN
+
+__INIT
+es_consultar_movimiento.png
+Permite consultar un movimento de utensilios.
+Consulta de Movimiento de Utensilios.
+600
+400
+CEF
+ALM_UTENSILIOS
+VISTA
+CONSULTAR_MOVIMIENTO
+__FIN
+
+__INIT
+Cantidad|Uni|Clave|Descripción
+null
+null
+null
+null
+CEF
+ALM_UTENSILIOS
+DLG
+COLUMNAS
+__FIN
+
+__INIT
+ERROR: En salidas de utensilios rápidas, es necesario seleccionar de la lista el producto que se va a sacar del almacén.
+null
+null
+null
+null
+CEF
+ALM_UTENSILIOS
+DLG
+MSJ-PROCERR
+__FIN
+
+//////////////////////// Los mensajes del control de utensilios son los mismos que de movimientos al almacén
+/////////////////////// CONTROL DE UTENSILIOS FIN //////////////////////////
 
 ////////////////////// PLANTILLAS DE ALMACEN INI /////////////////////////////////////
 __INIT
@@ -13988,7 +14185,7 @@ __FIN
 __INIT
 Todos|Cuentas|Anticipos|Pagos|Saldos|Aplicaciones|Descuentos|Devoluciones
 Todo|Cuenta|Anticipo|Pago|Saldo|Aplicación|Descuento|Devolución
-Todo|Cuenta por cobrar|Pago por anticipado|Pago|Saldo|Aplicación de anticipo|Descuento por aplicación|Devolución de anticipo
+Todo|Cuenta por pagar|Pago por anticipado|Pago|Saldo|Aplicación de anticipo|Descuento por aplicación|Devolución de anticipo
 null
 null
 CEF
@@ -17631,8 +17828,8 @@ TITULO
 __FIN
 
 __INIT
-Cve|Descripcion|Ded|Tipo|IMSS|ISPT|DPSN|SAR|INF|PTU
-Clave|Descripcion|Es+Deduccion|Tipo|IMSS|ISPT|DPSN|SAR|INFON|PTU
+Cve|Descripcion|Ded|ISPT|SAT
+Clave|Descripcion|Es+Deduccion|Aplica+ISPT|Clave+SAT
 null
 null
 null
@@ -18291,7 +18488,7 @@ ISR
 __FIN
 
 __INIT
-ACCESO Y CONSULTA DE ISR DE NOMINA
+ACCESO Y CONSULTA DE TABLA DE ISR DE NOMINA
 ISR DE NOMINA
 null
 null
@@ -18324,6 +18521,18 @@ CEF
 PERMISOS
 CATALOGO
 NOM_ISR_CAMBIAR
+__FIN
+
+__INIT
+PERMITE ELIMINAR REGISTRO DE ISR DE NOMINA
+ELIMINAR REGISTRO DE ISR DE NOMINA
+null
+null
+null
+CEF
+PERMISOS
+CATALOGO
+NOM_ISR_ELIMINAR
 __FIN
 
 __INIT
@@ -18374,6 +18583,17 @@ VISTA
 CAMBIAR_ISR
 __FIN
 
+__INIT
+es_eliminar_registro.png
+Permite eliminar un registro de ISR de nómina.
+Eliminar registro de ISR de nómina
+600
+400
+CEF
+NOM_ISR
+VISTA
+ELIMINAR_ISR
+__FIN
 
 __INIT
 null
@@ -18426,7 +18646,7 @@ IMSS
 __FIN
 
 __INIT
-ACCESO Y CONSULTA DE IMSS DE NOMINA
+ACCESO Y CONSULTA DE TABLA DE IMSS DE NOMINA
 IMSS DE NOMINA
 null
 null
@@ -18459,6 +18679,18 @@ CEF
 PERMISOS
 CATALOGO
 NOM_IMSS_CAMBIAR
+__FIN
+
+__INIT
+PERMITE ELIMINAR REGISTRO DE IMSS DE NOMINA
+ELIMINAR REGISTRO DE IMSS DE NOMINA
+null
+null
+null
+CEF
+PERMISOS
+CATALOGO
+NOM_IMSS_ELIMINAR
 __FIN
 
 __INIT
@@ -18509,6 +18741,17 @@ VISTA
 CAMBIAR_IMSS
 __FIN
 
+__INIT
+es_eliminar_registro.png
+Permite eliminar un registro de IMSS.
+Eliminar registro de IMSS
+600
+400
+CEF
+NOM_IMSS
+VISTA
+ELIMINAR_IMSS
+__FIN
 
 __INIT
 null
@@ -18561,7 +18804,7 @@ AGUINALDO
 __FIN
 
 __INIT
-ACCESO Y CONSULTA DE AGUINALDO DE NOMINA
+ACCESO Y CONSULTA DE TABLA DE AGUINALDO DE NOMINA
 AGUINALDO DE NOMINA
 null
 null
@@ -18594,6 +18837,18 @@ CEF
 PERMISOS
 CATALOGO
 NOM_AGUINALDO_CAMBIAR
+__FIN
+
+__INIT
+PERMITE ELIMINAR REGISTRO DE AGUINALDO DE NOMINA
+ELIMINAR REGISTRO DE AGUINALDO DE NOMINA
+null
+null
+null
+CEF
+PERMISOS
+CATALOGO
+NOM_AGUINALDO_ELIMINAR
 __FIN
 
 __INIT
@@ -18642,6 +18897,18 @@ CEF
 NOM_AGUINALDO
 VISTA
 CAMBIAR_AGUINALDO
+__FIN
+
+__INIT
+es_eliminar_registro.png
+Permite eliminar un registro de Aguinaldo de nómina.
+Eliminar registro de Aguinaldo de nómina
+600
+400
+CEF
+NOM_AGUINALDO
+VISTA
+ELIMINAR_AGUINALDO
 __FIN
 
 
@@ -18696,7 +18963,7 @@ VACACIONES
 __FIN
 
 __INIT
-ACCESO Y CONSULTA DE VACACIONES DE NOMINA
+ACCESO Y CONSULTA DE TABLA DE VACACIONES DE NOMINA
 VACACIONES DE NOMINA
 null
 null
@@ -18729,6 +18996,18 @@ CEF
 PERMISOS
 CATALOGO
 NOM_VACACIONES_CAMBIAR
+__FIN
+
+__INIT
+PERMITE ELIMINAR REGISTRO DE VACACIONES DE NOMINA
+ELIMINAR REGISTRO DE VACACIONES DE NOMINA
+null
+null
+null
+CEF
+PERMISOS
+CATALOGO
+NOM_VACACIONES_ELIMINAR
 __FIN
 
 __INIT
@@ -18779,6 +19058,17 @@ VISTA
 CAMBIAR_VACACIONES
 __FIN
 
+__INIT
+es_eliminar_registro.png
+Permite eliminar un registro de Vacaciones de nómina.
+Eliminar registro de Vacaciones de nómina
+600
+400
+CEF
+NOM_VACACIONES
+VISTA
+ELIMINAR_VACACIONES
+__FIN
 
 __INIT
 null
@@ -18831,7 +19121,7 @@ CREDSAL
 __FIN
 
 __INIT
-ACCESO Y CONSULTA DE CREDITO AL SALARIO DE NOMINA
+ACCESO Y CONSULTA DE TABLA DE CREDITO AL SALARIO DE NOMINA
 CREDITO AL SALARIO DE NOMINA
 null
 null
@@ -18864,6 +19154,18 @@ CEF
 PERMISOS
 CATALOGO
 NOM_CREDSAL_CAMBIAR
+__FIN
+
+__INIT
+PERMITE ELIMINAR REGISTRO DE CREDITO AL SALARIO DE NOMINA
+ELIMINAR REGISTRO DE CREDITO AL SALARIO DE NOMINA
+null
+null
+null
+CEF
+PERMISOS
+CATALOGO
+NOM_CREDSAL_ELIMINAR
 __FIN
 
 __INIT
@@ -18914,6 +19216,17 @@ VISTA
 CAMBIAR_CREDSAL
 __FIN
 
+__INIT
+es_eliminar_registro.png
+Permite eliminar un registro de Crédito al salario de nómina.
+Eliminar registro de Crédito al salario de nómina
+600
+400
+CEF
+NOM_CREDSAL
+VISTA
+ELIMINAR_CREDSAL
+__FIN
 
 __INIT
 null
@@ -19355,7 +19668,7 @@ COLUMNAS
 __FIN
 
 __INIT
-General|Empleado|Número|Tipo|Nómina
+General|Empleado|Número|Nómina|Tipo
 null
 null
 null
@@ -19513,6 +19826,18 @@ NOM_FONACOT_CAMBIAR
 __FIN
 
 __INIT
+PERMITE ELIMINAR REGISTRO DE FONACOT DE NOMINA
+ELIMINAR REGISTRO DE FONACOT DE NOMINA
+null
+null
+null
+CEF
+PERMISOS
+CATALOGO
+NOM_FONACOT_ELIMINAR
+__FIN
+
+__INIT
 NOMINA
 FONACOT
 &nbsp;
@@ -19560,6 +19885,29 @@ VISTA
 CAMBIAR_FONACOT
 __FIN
 
+__INIT
+es_consultar_registro.png
+Permite consultar un registro de fonacot de nómina.
+Consultar registro de fonacot de nómina
+600
+400
+CEF
+NOM_FONACOT
+VISTA
+CONSULTAR_FONACOT
+__FIN
+
+__INIT
+es_eliminar_registro.png
+Permite eliminar un registro de fonacot de nómina.
+Eliminar registro de fonacot de nómina
+600
+400
+CEF
+NOM_FONACOT
+VISTA
+ELIMINAR_FONACOT
+__FIN
 
 __INIT
 null

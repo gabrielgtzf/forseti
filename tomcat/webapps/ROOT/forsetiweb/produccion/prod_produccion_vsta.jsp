@@ -182,7 +182,7 @@ if(parent.ztatuz.document.URL.indexOf('prod_produccion_sts.jsp') == -1) {
 			<td width="15%" align="center"<%= clase %>><%= JUtil.obtFechaTxt(set.getAbsRow(i).getFecha(), "dd/MMM/yyyy") %></td>
 			<td align="left"<%= clase %>><%= set.getAbsRow(i).getConcepto() %></td>
 			<td width="10%" align="center"<%= clase %>><%= status %></td>
-			<td width="5%" align="center"<%= clase %>><%= set.getAbsRow(i).getCDA() %></td>
+			<td width="5%" align="center"<%= clase %>><%= (set.getAbsRow(i).getCDA() ? "X" : "&nbsp;" ) %></td>
 			<td width="5%" align="center"<%= clase %>><%= set.getAbsRow(i).getNumProc() %></td>
 			<td width="5%" align="center"<%= clase %>><%= set.getAbsRow(i).getActual() %></td>
 			<td width="5%" align="center"<%= clase %>><%= (set.getAbsRow(i).getDirecta() ? "X" : "&nbsp;" ) %></td>
@@ -234,7 +234,7 @@ if(parent.ztatuz.document.URL.indexOf('prod_produccion_sts.jsp') == -1) {
             				<td><%= SetProc.getAbsRow(p).getClave() != null ? SetProc.getAbsRow(p).getDescripcion() : "" %></td>
 							<td width="5%" align="right"><%= SetProc.getAbsRow(p).getClave() != null ? SetProc.getAbsRow(p).getPorcentaje() + "%" : "" %></td>
             			  </tr>
-						  <tr>
+						  <!--tr>
 						    <td colspan="7">
 <%
 				JProdProdSetDetprodV2 SetDetprod = new JProdProdSetDetprodV2(request);
@@ -258,7 +258,7 @@ if(parent.ztatuz.document.URL.indexOf('prod_produccion_sts.jsp') == -1) {
 				}
 %>
 							</td>
-						  </tr>
+						  </tr-->
 						</table>
 <%
 			 }

@@ -202,7 +202,7 @@ public class JZipUnZipUtil
 		{
 			if(!init)
 			{
-				System.out.println("ES DIR: ");	
+				//System.out.println("ES DIR: ");	
 				fileList.add(generateZipEntry(node.getAbsolutePath().toString() + "/"));
 			}
 			else

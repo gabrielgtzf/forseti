@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -233,29 +238,122 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				  </tr>
 				  <tr>
 					<td> 
-                    <div style="text-align: justify;">
-<strong>COMPRAS</strong>
-</div>
-<div>
-<strong><br />
-</strong>
-</div>
-<div>Dentro de este módulo encontramos loa departamentos que nos sirven para poder organizar nuestros siguientes departamentos:</div>
-<div><br />
-</div>
-<div>
-<ul>
- <li>PROVEEDORES: Aquí podremos dar de alta y de baja a nuestros 
-proveedores junto con los materiales y las cantidades que estas 
-necesiten.</li>
- <li>CUENTAS POR PAGAR: Aquí podremos ordenar a nuestros proveedores en 
-donde tengamos crédito y así saber en que fechas debemos de depositar 
-los pagos que debemos realizar.</li>
- <li>ÓRDENES DE COMPRA: Den</li>
-</ul>
-</div>
+                    
  
-				
+				El Departamento de Compras es el responsable de las negociaciones con proveedores y del seguimiento a todo el proceso de adquisición, esto es, requisiciones de mercancía, órdenes de compra, condiciones comerciales y trámites de pago. El módulo de <strong>compras</strong> es la parte de forseti que nos permite llevar el control de todas las adquisiciones y gastos que genera la empresa. Esta sección nos permite interactuar con los siguientes módulos: Proveedores, Cuentas por pagar, Órdenes de compra, Recepciones, Compras 
+de Materia prima, Devoluciones sobre compras, Gastos y Políticas.<br />
+<br />
+<strong>Proveedores</strong>: Permite registrar a los proveedores 
+divididos en entidades de compra (cada entidad tendrá su propio catálogo
+ independiente). El catálogo consiste en los siguientes parámetros:<br />
+<ul>
+ <li>La clave numérica.</li>
+ <li>El nombre.</li>
+ <li>La cuenta contable enlazada, que permite generar la póliza en compras de crédito enlazadas a la contabilidad.</li>
+ <li>El R.F.C.</li>
+ <li>Su estatus ( alta o baja ). </li>
+ <li>Datos de contacto ( dirección, colonia, población, C.P. teléfonos, fax, e-mail, nombres de personas de contacto etc. ).</li>
+ <li>Propiedades ( días de crédito, límite máximo de crédito, fecha de última compra, nuestro descuento, etc. )</li>
+ <li>Observaciones del proveedor. </li>
+</ul>En este módulo se generan los anticipos a proveedores, y altas 
+directas de cuentas por pagar. A estos registros se les dará seguimiento
+ dentro del módulo de cuentas por pagar. Los anticipos generan 
+automáticamente el movimiento de caja o banco pertinente.<br />
+<br />
+<strong>Cuentas por pagar.<br />
+</strong>Las cuentas pueden representar anticipos, cuentas por pagar, pagos, 
+saldos, aplicación de anticipos, descuentos por aplicación y devolución 
+de anticipos:<br />
+<ul>
+ <li>Las cuentas pueden estar en distintas monedas.</li>
+ <li>Se 
+lleva una clave única de identificación de cuenta, la fecha de alta, y 
+el proveedor al que se le aplicó la cuenta o el anticipo.</li>
+ <li>Los 
+pagos a estas cuentas generarán el movimiento de caja o banco 
+automáticamente, y su movimiento contable en caso de enlace a la 
+contabilidad.</li>
+ <li>Se aplican anticipos previos a las cuentas.</li>
+ <li>Se
+ pueden cancelar pagos o aplicaciones de anticipos previamente 
+realizados, cancelando automáticamente el movimiento de caja o banco 
+generado.</li>
+ <li>Permite hacer devoluciones de anticipos, los cuales también generarán los movimientos de caja o bancos automáticamente.</li>
+</ul>
+<strong>Ordenes de Compra.</strong><br />
+Estas fungen como órdenes estándar y como plantillas para Recepciones y 
+Compras, nos sirven para pre-definir una compra. Su estructura maneja lo
+ siguiente:<br />
+<ul>
+ <li>El cabecero de la orden.</li>
+ <li>Su número consecutivo según su entidad.</li>
+ <li>La referencia.</li>
+ <li>Si está pactada a crédito o a contado.</li>
+ <li>La moneda y tipo de cambio pactados.</li>
+ <li>El proveedor.</li>
+ <li>La fecha de la orden y de Recepción.</li>
+ <li>Las observaciones de la orden. </li>
+</ul>En el detalle podemos generar los productos que pensamos recibir y capturar:<br />
+<ul>
+ <li>La clave.</li>
+ <li>La cantidad a recibir.</li>
+ <li>El precio pactado de ese producto.</li>
+ <li>El descuento de esa partida.</li>
+ <li>Los impuestos.<br />
+</li>
+ <li>Las observaciones del producto.</li>
+</ul><br />
+<strong>Recepciones.<br />
+</strong>Su estructura es idéntica a las ordenes de compra por lo que se 
+pueden generar automáticamente desde una orden, o directamente en este 
+módulo. En forseti, una recepción representa solo la entrada del producto al almacén por lo tanto, al ingresar una recepción directa o indiréctamente, se generará 
+de manera automática el movimiento al almacén con su póliza de costos respectiva (
+ si es que esta bodega se enlaza a la contabilidad ).<br />
+<br />
+<strong>Compras.<br />
+</strong>En forseti, una compra representa todo lo involucrado a la compra de materias primas y su estructura es idéntica a las ordenes y recepciones, por lo tanto 
+se pueden generar automáticamente desde una orden o una recepción, o 
+directamente en este módulo. Al ingresar una compra, se generará de 
+manera automática el movimiento al almacén (solo si es directa o 
+generada por una orden, porque si es generada por la recepción, no generará movimiento de entrada de materias primas al almacén porque ya fue generado por la recepción), en caso de ser a crédito, generará su cuenta por pagar, en el caso de ser de contado, su movimiento de caja o banco. Todo lo 
+anterior con sus respectivas pólizas (si es que esta entidad de compra 
+se enlaza a la contabilidad).<br />
+<br />
+<strong>Devoluciones</strong>. <br />
+Permite generar rebajas o devoluciones de material (en caso de devolver
+ un producto al proveedor). Se puede optar por la devolución parcial o 
+total de la compra asociada. Una devolución parcial vendría siendo por 
+ejemplo, solo la mitad de la cantidad total de la partida 1 que contiene
+ el producto X, y nada de la partida 2 que contiene el producto Y. Su 
+estructura es la misma que la de las compras, y permite generar la 
+entrada a la caja o banco en devoluciones de contado, o saldar la cuenta
+ por pagar que generó la compra original bajo algún concepto, por 
+ejemplo "devolución por producto defectuoso".<br />
+<br />
+<strong>Políticas</strong>.<br />
+Aquí simplemente registramos los precios de cotización de productos para
+ tenerlos actualizados y que desde otros módulos podamos generar 
+procesos y reportes de costos, precios de venta sugeridos, etc.<br />
+<br />
+<strong>Gastos</strong>.<br />
+En este módulo se puede llevar un control minucioso de los gastos 
+menores y gastos mayores de la empresa. Al igual que en otros módulos, 
+los gastos se pueden o no enlazar a la contabilidad. Con el apoyo del 
+módulo de vales de caja se puede complementar este módulo definiendo un 
+gasto directamente en los vales, para después poder generar el gasto 
+automáticamente desde aquel módulo.<br />
+<br />
+Los gastos también se pueden ingresar directamente a través de una hoja 
+de captura de gastos. El cabecero de la hoja de gastos contendrá la 
+misma estructura que una compra. Con los gastos a crédito, se genera 
+automáticamente la cuenta por pagar, así mismo,  con los gastos de 
+contado se genera el movimiento de caja o banco. Un gasto generará su 
+póliza según las reglas de la clave del gasto ( véase <a href="050401.html">módulo de 
+catálogos</a> ), siempre y cuando la entidad del gasto se enlace a la 
+contabilidad.<br />
+<br />
+<strong>NOTA:</strong> Tanto recepciones como compras y gastos, pueden ser capturadas también, por medio de un archivo xml que represente un CFDI.<br />
+
 			  
 
                     </td>
@@ -280,6 +378,62 @@ los pagos que debemos realizar.</li>
 				 </tr>
 				
 
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050602.html" class="txtPag" target="_self"><font color="#0099FF">Proveedores</font></a><br><font color="#999999">Módulo de proveedores</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050603.html" class="txtPag" target="_self"><font color="#0099FF">Cuentas por pagar</font></a><br><font color="#999999">Módulo de cuentas por pagar, anticipos, pagos, saldos, etc.</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050604.html" class="txtPag" target="_self"><font color="#0099FF">Ordenes de compra</font></a><br><font color="#999999">Descripción del módulo de órdenes de compra</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050605.html" class="txtPag" target="_self"><font color="#0099FF">Recepciones</font></a><br><font color="#999999">Documentación sobre el módulo de recpción de materiales.</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050606.html" class="txtPag" target="_self"><font color="#0099FF">Compras</font></a><br><font color="#999999">Detalles del módulo de compras de materias primas.</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050607.html" class="txtPag" target="_self"><font color="#0099FF">Devoluciones sobre compras</font></a><br><font color="#999999">Descripción del módulo de devoluciones y rebajas sobre compras</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050608.html" class="txtPag" target="_self"><font color="#0099FF">Políticas de compra</font></a><br><font color="#999999">Detalles del módulo de políticas de compra.</font></td>
+				 </tr>
+				
+
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050609.html" class="txtPag" target="_self"><font color="#0099FF">Gastos</font></a><br><font color="#999999">Documentación del módulo de gastos</font></td>
+				 </tr>
+				
+
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -292,7 +446,7 @@ los pagos que debemos realizar.</li>
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

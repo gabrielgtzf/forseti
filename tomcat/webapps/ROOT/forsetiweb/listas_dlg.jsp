@@ -32,7 +32,7 @@
 	cats.ConCat(true);
 	cats.m_Where = "ID_Catalogo = '" + idcatalogo + "'";
 	cats.Open();
-
+	System.out.println(cats.getSQL());
 	String titulo = cats.getAbsRow(0).getNombre();
 	
 %>

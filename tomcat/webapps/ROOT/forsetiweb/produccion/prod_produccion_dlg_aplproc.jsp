@@ -141,7 +141,8 @@ function enviarlo(formAct)
 %>
 			  <table width="100%" border="0" cellspacing="0" cellpadding="2">
 			    <tr> 
-				  <td class="titChicoNeg" colspan="7" align="center">Aplicación de Producto Terminado</td>
+				  <td class="titChicoNeg" colspan="7" align="center">Aplicación 
+                    de Producto Terminado</td>
                 </tr>
                 <tr bgcolor="#0099FF">
 				  <td width="15%" align="center" class="titChico"> 
@@ -157,7 +158,7 @@ function enviarlo(formAct)
                 </tr>
                 <tr> 
 				  <td align="center" class="titChicoAzc"><input name="fecha" type="text" id="fecha" size="12" maxlength="15" readonly="true" value="<%= JUtil.obtFechaTxt(rec.getPartida(i).getFecha(),"dd/MMM/yyyy") %>"> 
-                    <a href="javascript:NewCal('fecha','ddmmmyyyy',false)"><img src="../../imgfsi/calendario.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CALENDARIO") %>" border="0" align="absmiddle"></a></td>
+                    <!--a href="javascript:NewCal('fecha','ddmmmyyyy',false)"><img src="../../imgfsi/calendario.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CALENDARIO") %>" border="0" align="absmiddle"></a--></td>
                   <td class="titChicoAzc"><%= rec.getPartida(i).getID_Prod() %></td>
                   <td class="titChicoAzc"><%= rec.getPartida(i).getDescripcion() %></td>
                   <td class="titChicoAzc"><%= rec.getPartida(i).getFormula() %></td>
@@ -179,7 +180,9 @@ function enviarlo(formAct)
 %>					
 				  		<table width="100%" border="0" cellspacing="0" cellpadding="2">
 						  <tr> 
-				  			<td class="titChicoNeg" colspan="7" align="center">Aplicación de Sub-Producto de proceso</td>
+				  			
+                  <td class="titChicoNeg" colspan="7" align="center">Aplicación 
+                    de Subproducto</td>
                 		  </tr>
 						  <tr bgcolor="#0099FF">
 						    <td width="20%" class="titChico">
@@ -197,7 +200,7 @@ function enviarlo(formAct)
 						  <tr>
 						    <td class="titChicoNeg"><%= rec.getPartida(i).getPartidaFormula().getPartida(j).getNombre() %></td>
            					<td align="center" class="titChicoNeg"><input name="fecha" type="text" id="fecha" size="12" maxlength="15" readonly="true" value="<%= JUtil.obtFechaTxt(rec.getPartida(i).getPartidaFormula().getPartida(j).getFechaSP(),"dd/MMM/yyyy") %>"> 
-                    			<a href="javascript:NewCal('fecha','ddmmmyyyy',false)"><img src="../../imgfsi/calendario.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CALENDARIO") %>" border="0" align="absmiddle"></a></td>
+                    			<!--a href="javascript:NewCal('fecha','ddmmmyyyy',false)"><img src="../../imgfsi/calendario.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CALENDARIO") %>" border="0" align="absmiddle"></a--></td>
 							<td align="right" class="titChicoNeg"><input name="cantidad" type="text" class="cpoBco" id="cantidad" size="7" maxlength="12" value="<%= rec.getPartida(i).getPartidaFormula().getPartida(j).getCantidad() %>"></td>
             				<td align="right" class="titChicoNeg"><%= rec.getPartida(i).getPartidaFormula().getPartida(j).getMasMenos() %></td>
             				<td align="center" class="titChicoNeg"><%= rec.getPartida(i).getPartidaFormula().getPartida(j).getUnidad() %></td>
@@ -213,7 +216,9 @@ function enviarlo(formAct)
 %>
 							<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							    <tr> 
-				  					<td class="titChicoNeg" colspan="5" align="center">Aplicación de Materias Primas de proceso: <%= rec.getPartida(i).getPartidaFormula().getPartida(j).getNombre() %></td>
+				  					
+                  <td class="titChicoNeg" colspan="5" align="center">Aplicación 
+                    de Materias Primas del proceso: <%= rec.getPartida(i).getPartidaFormula().getPartida(j).getNombre() %></td>
                 				</tr>
 							    <tr bgcolor="#0099FF">
 								  <td width="15%" align="right" class="titChico">
@@ -230,7 +235,7 @@ function enviarlo(formAct)
 								  <td class="titChicoNeg">Fecha:</td>
 								  
                   <td colspan="4"> <input name="fecha" type="text" id="fecha" size="12" maxlength="15" readonly="true" value="<%= JUtil.obtFechaTxt(rec.getPartida(i).getPartidaFormula().getPartida(j).getFecha(),"dd/MMM/yyyy") %>">
-                    <a href="javascript:NewCal('fecha','ddmmmyyyy',false)"><img src="../../imgfsi/calendario.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CALENDARIO") %>" border="0" align="absmiddle"></a></td>
+                    <!--a href="javascript:NewCal('fecha','ddmmmyyyy',false)"><img src="../../imgfsi/calendario.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CALENDARIO") %>" border="0" align="absmiddle"></a--></td>
 								</tr>
 <%
 					for(int d = 0; d < rec.getPartida(i).getPartidaFormula().getPartida(j).numPartidas(); d++)

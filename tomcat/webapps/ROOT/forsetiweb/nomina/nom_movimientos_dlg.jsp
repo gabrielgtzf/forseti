@@ -34,6 +34,10 @@
 		set.Open();
 	}
 	
+	JSatPydNominaSet setPyd = new JSatPydNominaSet(request);
+	setPyd.m_OrderBy = "Deduccion ASC, Clave ASC";
+	setPyd.Open();
+	
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -138,85 +142,76 @@ function editarPartida(idpartida, cuenta, nombre, id_departamento, nombre_depart
 	
 	    <table width="100%" border="0" cellspacing="3" cellpadding="0">
           <tr> 
-            <td width="20%"> <div align="right"> 
+            <td width="15%"> <div align="right"> 
                 <input name="proceso" type="hidden" value="<%= request.getParameter("proceso")%>">
                 <input name="subproceso" type="hidden" value="ENVIAR">
                 <input name="id" type="hidden" value="<%= request.getParameter("id")%>">
 				<input type="hidden" name="idpartida" value="<%= request.getParameter("idpartida") %>">
 		
 			     Clave:</div></td>
-            <td> <input name="id_movimiento" type="text" id="id_movimiento" size="8" maxlength="4"<%= (request.getParameter("proceso").equals("CAMBIAR_MOVIMIENTO")) ? " readonly=\"true\"" : "" %>></td>
-            <td width="20%" align="right"> Clave SAT:</td>
-			<td width="20%"><input name="id_sat" type="text" id="id_sat" size="8" maxlength="3">
-              (3 digitos)</td>
-			<td width="20%"><input type="checkbox" name="esdeduccion" value="checkbox">
+            <td width="15%"> <input name="id_movimiento" type="text" id="id_movimiento" size="8" maxlength="4"<%= (request.getParameter("proceso").equals("CAMBIAR_MOVIMIENTO")) ? " readonly=\"true\"" : "" %>></td>
+            <td width="5%" align="right"> Clave SAT:</td>
+			<td width="35%"><!--input name="id_sat" type="text" id="id_sat" size="8" maxlength="3"-->
+           			<select style="width: 90%;" name="id_sat" class="cpoBco">
+<%
+		for(int i = 0; i < setPyd.getNumRows(); i++)
+		{	
+%>
+					<option value="<%= (setPyd.getAbsRow(i).getDeduccion() ? "D" : "P") + setPyd.getAbsRow(i).getClave()%>"<% 
+									if(request.getParameter("id_sat") != null) {
+										if(request.getParameter("id_sat").equals((setPyd.getAbsRow(i).getDeduccion() ? "D" : "P") + setPyd.getAbsRow(i).getClave())) {
+											out.print(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_MOVIMIENTO")) { 
+											if( ((set.getAbsRow(0).getDeduccion() ? "D" : "P") + set.getAbsRow(0).getID_SAT()).equals((setPyd.getAbsRow(i).getDeduccion() ? "D" : "P") + setPyd.getAbsRow(i).getClave())) {
+												out.println(" selected"); 
+											}
+										}
+									 }
+									 %>><%= (setPyd.getAbsRow(i).getDeduccion() ? "D " : "P ") + setPyd.getAbsRow(i).getClave() + " " + setPyd.getAbsRow(i).getDescripcion() %></option>
+<%	
+		}
+%>				
+			</select>
+			  
+			</td>
+			<td><input type="checkbox" name="esdeduccion" value="checkbox">
               Es deducci&oacute;n</td>
           </tr>
           <tr> 
             <td> <div align="right">Descripcion:</div></td>
-            <td colspan="4"> <input name="descripcion" type="text" id="descripcion" size="60" maxlength="40"></td>
-          </tr>
-          <tr align="center"> 
-            <td colspan="5" class="titChicoAzc">Aplicaci&oacute;n de impuestos</td>
-          </tr>
-		   <tr align="center"> 
-            <td colspan="5">
-			
-		<table width="100%" border="0" cellspacing="3" cellpadding="0">
-          <tr> 
-            <td width="20%">&nbsp;</td>
-            <td width="40%"><input type="checkbox" name="imss" value="checkbox">
-              IMSS </td>
-            <td width="40%"><input type="checkbox" name="sar" value="checkbox">
-              SAR</td>
+            <td colspan="3"> <input name="descripcion" type="text" id="descripcion" size="60" maxlength="40"></td>
+			<td><input type="checkbox" name="ispt" value="checkbox">Aplicación de ISPT</td>
           </tr>
           <tr> 
-            <td>&nbsp;</td>
-            <td><input type="checkbox" name="ispt" value="checkbox">
-              ISPT </td>
-            <td><input type="checkbox" name="infonavit" value="checkbox">
-              Infonavit</td>
-          </tr>
-          <tr> 
-            <td> <div align="right"></div></td>
-            <td><input type="checkbox" name="dospor" value="checkbox">
-              2% / N&oacute;mina</td>
-            <td><input type="checkbox" name="ptu" value="checkbox">
-              PTU</td>
-          </tr>
-		 </table>
-		 </td>
-		 </tr>
-		 </table>
-		 <table width="100%" border="0" cellspacing="0" cellpadding="2">
-          <tr align="center"> 
-            <td colspan="5" class="titChicoAzc">Cuentas contables y departamentos a los que se direccionar&aacute; 
+            <td align="center" colspan="5" class="titChicoAzc">Cuentas contables y departamentos a los que se direccionar&aacute; 
               el movimiento:</td>
           </tr>
-          <tr align="center"> 
-            <td colspan="5" class="titChico">&nbsp;</td>
-          </tr>
- 		  <tr bgcolor="#0099FF"> 
-            <td width="15%" align="left" class="titChico">Cuenta</td>
-            <td width="40%" class="titChico">Nombre</td>
-            <td width="10%" align="left" class="titChico">Clave</td>
-            <td width="25%" class="titChico">Departamento</td>
-            <td class="titChico">&nbsp;</td>
-          </tr>
+		  <tr>
+		  	<td colspan="5">
+				 <table width="100%" border="0" cellspacing="2" cellpadding="0">
+					  <tr bgcolor="#0099FF"> 
+						<td width="10%" align="left" class="titChico">Clave</td>
+						<td width="25%" class="titChico">Departamento</td>
+						<td width="15%" align="left" class="titChico">Cuenta</td>
+						<td width="40%" class="titChico">Nombre</td>
+						<td class="titChico">&nbsp;</td>
+					  </tr>
 <%
 	if( !request.getParameter("proceso").equals("CONSULTAR_MOVIMIENTO") )
 	{
 %>		  
-          <tr> 
-            <td width="15%" align="left"> <input name="cuenta" type="text" id="cuenta" size="10" maxlength="25"<% if(request.getParameter("cuenta") != null) { out.print(" value=\"" + request.getParameter("cuenta") + "\""); } %>> 
-              <a href="javascript:abrirCatalogo('../../forsetiweb/listas_dlg.jsp?formul=nom_movimientos_dlg&lista=cuenta&idcatalogo=3&nombre=CUENTAS&destino=nombre',250,350)"><img src="../../imgfsi/catalogo.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CATALOGO") %>" align="absmiddle" border="0"></a></td>
-            <td width="40%"><input name="nombre" type="text" id="nombre" size="40" maxlength="250" readonly="true"<% if(request.getParameter("nombre") != null) { out.print(" value=\"" + request.getParameter("nombre") + "\""); } %>></td>
-            <td width="10%" align="left"> <input name="id_departamento" type="text" id="id_departamento" size="6" maxlength="4"<% if(request.getParameter("id_departamento") != null) { out.print(" value=\"" + request.getParameter("id_departamento") + "\""); } %>> 
-              <a href="javascript:abrirCatalogo('../../forsetiweb/listas_dlg.jsp?formul=nom_movimientos_dlg&lista=id_departamento&idcatalogo=26&nombre=DEPARTAMENTOS&destino=nombre_departamento',250,350)"><img src="../../imgfsi/catalogo.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CATALOGO") %>" align="absmiddle" border="0"></a></td>
-            <td width="25%"><input name="nombre_departamento" type="text" id="nombre_departamento" size="30" maxlength="250" readonly="true"<% if(request.getParameter("nombre_departamento") != null) { out.print(" value=\"" + request.getParameter("nombre_departamento") + "\""); } %>></td>
-            <td align="right" valign="top"> <input name="submit_agr" type="image" id="submit_agr" onClick="javascript:if(this.form.subproceso.value != 'EDIT_PART') { establecerProcesoSVE(this.form.subproceso, 'AGR_PART'); }" src="../../imgfsi/lista_ok.gif" border="0"> 
-              <a href="javascript:limpiarFormulario();"><img src="../../imgfsi/lista_x.gif" alt="" title="este texto alt" width="16" height="16" border="0"></a></td>
-          </tr>
+					  <tr> 
+						<td width="10%" align="left"> <input name="id_departamento" type="text" id="id_departamento" size="6" maxlength="4"<% if(request.getParameter("id_departamento") != null) { out.print(" value=\"" + request.getParameter("id_departamento") + "\""); } %>> 
+						  <a href="javascript:abrirCatalogo('../../forsetiweb/listas_dlg.jsp?formul=nom_movimientos_dlg&lista=id_departamento&idcatalogo=26&nombre=DEPARTAMENTOS&destino=nombre_departamento',250,350)"><img src="../../imgfsi/catalogo.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CATALOGO") %>" align="absmiddle" border="0"></a></td>
+						<td width="25%"><input name="nombre_departamento" type="text" id="nombre_departamento" size="30" maxlength="250" readonly="true"<% if(request.getParameter("nombre_departamento") != null) { out.print(" value=\"" + request.getParameter("nombre_departamento") + "\""); } %>></td>
+						<td width="15%" align="left"> <input name="cuenta" type="text" id="cuenta" size="10" maxlength="25"<% if(request.getParameter("cuenta") != null) { out.print(" value=\"" + request.getParameter("cuenta") + "\""); } %>> 
+						  <a href="javascript:abrirCatalogo('../../forsetiweb/listas_dlg.jsp?formul=nom_movimientos_dlg&lista=cuenta&idcatalogo=3&nombre=CUENTAS&destino=nombre',250,350)"><img src="../../imgfsi/catalogo.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CATALOGO") %>" align="absmiddle" border="0"></a></td>
+						<td width="40%"><input name="nombre" type="text" id="nombre" size="40" maxlength="250" readonly="true"<% if(request.getParameter("nombre") != null) { out.print(" value=\"" + request.getParameter("nombre") + "\""); } %>></td>
+						<td align="right" valign="top"> <input name="submit_agr" type="image" id="submit_agr" onClick="javascript:if(this.form.subproceso.value != 'EDIT_PART') { establecerProcesoSVE(this.form.subproceso, 'AGR_PART'); }" src="../../imgfsi/lista_ok.gif" border="0"> 
+						  <a href="javascript:limpiarFormulario();"><img src="../../imgfsi/lista_x.gif" alt="" title="este texto alt" width="16" height="16" border="0"></a></td>
+					  </tr>
 <%
 	}
 	
@@ -232,10 +227,10 @@ function editarPartida(idpartida, cuenta, nombre, id_departamento, nombre_depart
 		{
 %>
           <tr> 
-            <td width="15%" align="left"><%= JUtil.obtCuentaFormato(new StringBuffer(pol.getPartida(i).getCuenta()), request) %></td>
-            <td width="40%"><%= pol.getPartida(i).getNombre() %></td>
             <td width="10%" align="left"><%= pol.getPartida(i).getID_Departamento() %></td>
             <td width="25%" align="left"><%= pol.getPartida(i).getNombre_Departamento() %></td>
+            <td width="15%" align="left"><%= JUtil.obtCuentaFormato(new StringBuffer(pol.getPartida(i).getCuenta()), request) %></td>
+            <td width="40%"><%= pol.getPartida(i).getNombre() %></td>
             <td align="right" valign="top">
               <% if(!request.getParameter("proceso").equals("CONSULTAR_MOVIMIENTO")) { %>
               <a href="javascript:editarPartida('<%= i %>','<%= JUtil.obtCuentaFormato(new StringBuffer(pol.getPartida(i).getCuenta()), request) %>','<%= pol.getPartida(i).getNombre() %>','<%= pol.getPartida(i).getID_Departamento() %>','<%= pol.getPartida(i).getNombre_Departamento() %>');"><img src="../../imgfsi/lista_ed.gif" alt="" title="este texto alt ed" width="16" height="16" border="0"></a> 
@@ -247,6 +242,9 @@ function editarPartida(idpartida, cuenta, nombre, id_departamento, nombre_depart
 		}
 	}
 %>
+						</table>
+				  	</td>
+				</tr>
         </table>
     </td>
   </tr>
@@ -254,16 +252,9 @@ function editarPartida(idpartida, cuenta, nombre, id_departamento, nombre_depart
 </form>
 <script language="JavaScript1.2">
 document.nom_movimientos_dlg.id_movimiento.value = '<% if(request.getParameter("id_movimiento") != null) { out.print( request.getParameter("id_movimiento") ); } else if(!request.getParameter("proceso").equals("AGREGAR_MOVIMIENTO")) { out.print( set.getAbsRow(0).getID_Movimiento() ); } else { out.print(""); } %>'  
-document.nom_movimientos_dlg.id_sat.value = '<% if(request.getParameter("id_sat") != null) { out.print( request.getParameter("id_sat") ); } else if(!request.getParameter("proceso").equals("AGREGAR_MOVIMIENTO")) { out.print( set.getAbsRow(0).getID_SAT() ); } else { out.print("000"); } %>'  
 document.nom_movimientos_dlg.descripcion.value = '<% if(request.getParameter("descripcion") != null) { out.print( request.getParameter("descripcion") ); } else if(!request.getParameter("proceso").equals("AGREGAR_MOVIMIENTO")) { out.print( set.getAbsRow(0).getDescripcion() ); } else { out.print(""); } %>' 
 document.nom_movimientos_dlg.esdeduccion.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_MOVIMIENTO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_MOVIMIENTO") ) { out.print( (set.getAbsRow(0).getDeduccion() ? "true" : "false" ) ); } else if(request.getParameter("esdeduccion") != null ) { out.print("true"); } else { out.print("false"); } %>  
-
-document.nom_movimientos_dlg.imss.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_MOVIMIENTO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_MOVIMIENTO") ) { out.print( (set.getAbsRow(0).getIMSS() ? "true" : "false" ) ); } else if(request.getParameter("imss") != null ) { out.print("true"); } else { out.print("false"); } %>  
-document.nom_movimientos_dlg.sar.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_MOVIMIENTO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_MOVIMIENTO") ) { out.print( (set.getAbsRow(0).getSAR() ? "true" : "false" ) ); } else if(request.getParameter("sar") != null ) { out.print("true"); } else { out.print("false"); } %>  
 document.nom_movimientos_dlg.ispt.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_MOVIMIENTO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_MOVIMIENTO") ) { out.print( (set.getAbsRow(0).getISPT() ? "true" : "false" ) ); } else if(request.getParameter("ispt") != null ) { out.print("true"); } else { out.print("false"); } %>  
-document.nom_movimientos_dlg.infonavit.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_MOVIMIENTO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_MOVIMIENTO") ) { out.print( (set.getAbsRow(0).getINFONAVIT() ? "true" : "false" ) ); } else if(request.getParameter("infonavit") != null ) { out.print("true"); } else { out.print("false"); } %>  
-document.nom_movimientos_dlg.dospor.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_MOVIMIENTO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_MOVIMIENTO") ) { out.print( (set.getAbsRow(0).getDOSPOR() ? "true" : "false" ) ); } else if(request.getParameter("dospor") != null ) { out.print("true"); } else { out.print("false"); } %>  
-document.nom_movimientos_dlg.ptu.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_MOVIMIENTO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_MOVIMIENTO") ) { out.print( (set.getAbsRow(0).getPTU() ? "true" : "false" ) ); } else if(request.getParameter("ptu") != null ) { out.print("true"); } else { out.print("false"); } %>  
 </script>
 </body>
 </html>

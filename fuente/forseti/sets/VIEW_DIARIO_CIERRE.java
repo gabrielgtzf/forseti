@@ -36,6 +36,10 @@ public class VIEW_DIARIO_CIERRE
 	private Time m_HastaHora;
 	private Time m_EntradaHora;
 	private Time m_SalidaHora;
+	private Time m_Entrada2Hora;
+	private Time m_Salida2Hora;
+	private Date m_Entrada2;
+	private Date m_Salida2;
 
 	public void setID_FechaMovimiento(Date ID_FechaMovimiento)
 	{
@@ -82,6 +86,16 @@ public class VIEW_DIARIO_CIERRE
 		m_Salida = Salida;
 	}
 
+	public void setEntrada2(Date Entrada2)
+	{
+		m_Entrada2 = Entrada2;
+	}
+
+	public void setSalida2(Date Salida2)
+	{
+		m_Salida2 = Salida2;
+	}
+	
 	public void setHNA(float HNA)
 	{
 		m_HNA = HNA;
@@ -138,6 +152,16 @@ public class VIEW_DIARIO_CIERRE
 		return m_Salida;
 	}
 
+	public Date getEntrada2()
+	{
+		return m_Entrada2;
+	}
+
+	public Date getSalida2()
+	{
+		return m_Salida2;
+	}
+	
 	public float getHNA()
 	{
 		return m_HNA;
@@ -168,6 +192,16 @@ public class VIEW_DIARIO_CIERRE
 		return m_SalidaHora;
 	}
 	
+	public Time getEntrada2Hora()
+	{
+		return m_Entrada2Hora;
+	}
+
+	public Time getSalida2Hora()
+	{
+		return m_Salida2Hora;
+	}
+	
 	public void setDesdeHora(Time DesdeHora)
 	{
 		m_DesdeHora = DesdeHora;
@@ -188,6 +222,15 @@ public class VIEW_DIARIO_CIERRE
 		m_SalidaHora = SalidaHora;
 	}
 
+	public void setEntrada2Hora(Time Entrada2Hora)
+	{
+		m_Entrada2Hora = Entrada2Hora;
+	}
 
+	public void setSalida2Hora(Time Salida2Hora)
+	{
+		m_Salida2Hora = Salida2Hora;
+	}
+	
 }
 

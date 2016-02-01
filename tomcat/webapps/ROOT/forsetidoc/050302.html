@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -248,6 +253,14 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				
  
 				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
 
 <div align="justify"> 				 				 				 				 				 				 				 				 				 				 
 				 				 				 				 				 				 				 				 				 				 				 				 				 				 		
@@ -288,7 +301,9 @@ En el panel inferior, vamos a ver las siguientes fichas:<ul>
  <li>
 <strong>Fecha</strong>. Indica la fecha del movimiento.</li>
  <li>
-<strong>Concepto. </strong>Es una breve descripción del movimiento.<br />
+<strong>Concepto. </strong>Es una breve descripción del movimiento.</li>
+ <li>
+<strong>Método.</strong> Es el método utilizado para este movimiento bancario como efectivo, cheque, transferencia, tarjeta de crédito, otro método de pago, etc.<br />
 </li>
  <li>
 <strong>Doc</strong>. Representa el "número de cheque" en retiros con cheque, o la referencia, en caso de retiros por transferencia o en caso de depósitos.</li>
@@ -339,56 +354,41 @@ Este módulo muestra información de cabecera de la entidad del banco con los si
 primarios de agregado, traspaso de fondos, consulta, cancelación, aplicación, protección de mes y rastreo.<br />
 </p>
 <div align="justify">
-<strong>Agregar Movimiento.</strong><br />
+<strong>Movimiento de depósito.</strong><br />
 <br />
-Permite agregar movimientos bancarios de Depósitos y Retiros. Los movimientos se agregan según la entidad en la que estemos, por ejemplo, si tenemos las entidades de Bancomer y Banamex y estamos en la entidad de Bancomer, no podremos agregar en Banamex, en este caso tendríamos que cambiarnos primero a Banamex para poder agregar.
- El formulario para Agregar un movimiento, posee los siguientes 
+Permite agregar depósitos. Los movimientos de depósito y retiro se agregan según la entidad en la que estemos, por ejemplo, si tenemos las entidades de Bancomer y Banamex y estamos en la entidad de Bancomer, no podremos agregar en Banamex, en este caso tendríamos que cambiarnos primero a Banamex para poder agregar.
+ El formulario para Agregar un movimiento de depósito, posee los siguientes 
 objetos de cabecero:<br />
 <ul>
  <li>
-<strong>Tipo.</strong> Es el tipo de movimiento para este registro. Debes seleccionar uno de los tres tipos:<br />
-<ul>
- <li>
-<strong>Depósito. </strong>Representa un movimiento de depósito al banco.<strong><br />
-</strong>
-<ul>
- <li>
-<strong>*Cheque recibido. </strong>En caso de seleccionar un depósito que será cubierto con un cheque, deberás incluir aquí el número del cheque de tu cliente.<strong><br />
-</strong>
-</li>
-</ul>
-</li>
- <li>
-<strong>Retiro con cheque ########. </strong>Representa un retiro con el cheque número ########. Esto permitirá al sistema estar sincronizado con la numeración de tu chequera.<strong><br />
-</strong>
-</li>
- <li>
-<strong>Retiro por transferencia. </strong>Representa un retiro generado por una transferencia bancaria realizada en el portal o en la ventanilla del banco.<strong><br />
-</strong>
-</li>
-</ul>
-</li>
- <li>
-<strong>*Cuenta.</strong> En caso de depósito, es la cuenta de origen del que nos ha hecho el cheque o la transferencia. En caso de retiro por transferencia, es la cuenta de destino a la que depositamos. Si es un cheque, se puede dejar en blanco ya que no sabemos exactamente la cuenta del destinatario.<br />
-</li>
- <li>
-<strong>*Banco.</strong> En caso de depósito, es el banco de origen. En caso de retiro por transferencia es el banco de destino. En cheques puede ser nulo.<br />
-</li>
- <li>
-<strong>Fecha.</strong> La fecha para el movimiento.</li>
+<strong>Fecha.</strong> La fecha para el depósito.</li>
  <li>
 <strong>Numero.</strong> Campo informativo de consulta. No se utiliza al agregar.</li>
  <li>
-<strong>Cantidad</strong>. Representa el monto del depósito o retiro de esta transacción, en la moneda configurada para esta cuenta bancaria.<br />
+<strong>Cantidad</strong>. Representa el monto del depósito de esta transacción en la moneda configurada para esta cuenta bancaria.</li>
+ <li>
+<strong>Referencia.</strong> Esta puede ser la referencia de la ficha de depósito bancario.</li>
+ <li>
+<strong>Método.</strong> Selecciona el método de pago para este depósito.</li>
+ <li>
+<strong>Cheque recibido*. </strong>En caso de seleccionar el método de cheque, deberás incluir aquí el número del cheque de tu cliente.<strong><br />
+</strong>
 </li>
  <li>
-<strong>**Beneficiario.</strong> En caso de depósito, ingresa el nombre de tu empresa o persona física según sea el caso. Para retiros, debe ir el nombre del beneficiario.<br />
+<strong>Cuenta Origen*.</strong> En caso de seleccionar el método de cheque o transferencia, deberás incluir aquí la cuenta de origen del cliente.<br />
 </li>
  <li>
-<strong>*RFC.</strong> Indispensable, en depósitos es el RFC del que nos paga y en retiros el RFC del beneficiario.<br />
+<strong>Banco Nacional*.</strong> En caso de seleccionar el método de cheque o transferencia, deberás incluir aquí el banco de origen.</li>
+ <li>
+<strong>Banco Extranjero*.</strong> En caso de seleccionar el método de cheque o transferencia, y estos son del el extranjero, deberás incluir aquí el nombre del banco extranjero de origen.</li>
+ <li>
+<strong>Beneficiario**.</strong> Ingresa aquí el nombre de tu empresa o persona física según sea el caso.<br />
 </li>
  <li>
-<strong>Tránsito.</strong> Si está seleccionado, el depósito o retiro quedará en tránsito. Los movimientos en tránsito se utilizan para identificar que el movimiento está pendiente de aplicar. Para entender mejor esto, supongamos que tenemos un saldo de $1000.00 y recibimos un cheque por $400.00, al ingresarlo al sistema nuestro saldo bruto aumentará a $1400.00 pero en realidad en el banco sigue siendo de $1000 hasta que el cheque se cobre. En esta situación el sistema identificará que el disponible sigue siendo $1000.00, pero que existen $400.00 en Depósitos salvo buen cobro. Los movimientos en tránsito son indispensables para conciliar contra el estado de cuenta del banco, para que cuando el banco nos informe que el cheque está cobrado, entonces apliquemos y regularicemos el saldo.<br />
+<strong>RFC*.</strong> Indispensable, es el RFC del que nos paga.<br />
+</li>
+ <li>
+<strong>Tránsito.</strong> Si está seleccionado, el depósito quedará en tránsito. Los movimientos en tránsito se utilizan para identificar que el movimiento está pendiente de aplicar. Para entender mejor esto, supongamos que tenemos un saldo de $1000.00 y recibimos un cheque por $400.00, al ingresarlo al sistema nuestro saldo bruto aumentará a $1400.00 pero en realidad en el banco sigue siendo de $1000 hasta que el cheque se cobre. En esta situación el sistema identificará que el disponible sigue siendo $1000.00, pero que existen $400.00 en Depósitos salvo buen cobro. Los movimientos en tránsito son indispensables para conciliar contra el estado de cuenta del banco, para que cuando el banco nos informe que el cheque está cobrado, entonces apliquemos y regularicemos el saldo.<br />
 </li>
  <li>
 <strong>Concepto.</strong> Indica aquí, un motivo o descripción para identificar este movimiento.</li>
@@ -396,11 +396,61 @@ objetos de cabecero:<br />
 <strong>(Moneda) Tipo de cambio.</strong> Este objeto aparece únicamente en cuentas bancarias que manejan moneda extranjera como por ejemplo dólares. Aquí debes ingresar el tipo de cambio al momento de la transacción. Este, será utilizado para registrar la póliza en moneda nacional, ya que en la contabilidad, todos los registros deben ir en moneda nacional y jamas en moneda extranjera.<br />
 </li>
 </ul>
-<strong>*</strong> En cuentas bancarias enlazadas a la contabilidad, se usa para soporte de contabilidad electrónica 2015. En cuentas que no estén enlazadas a la contabilidad, este campo es opcional.<br />
 <br />
-** En cuentas bancarias enlazadas a la contabilidad, es indispensable el beneficiario para el soporte a la contabilidad electrónica 2015. En cuentas que no estén enlazadas a la contabilidad, solo es necesario cuando el tipo de movimiento es un retiro.<br />
+<strong>
+<strong>Movimiento de retiro.</strong><br />
 <br />
-Los movimientos bancarios enlazados a la contabilidad e ingresados directamente desde este módulo, y no, desde un módulo externo como gastos, cuentas por pagar, cuentas por cobrar, compras o ventas (de contado), necesitarán la captura del detalle de su póliza. Para llenar los detalles de cada partida que contendrá la póliza de nuestro movimiento bancario, contamos con los siguientes objetos:<br />
+</strong>Permite agregar retiros. El formulario para Agregar un movimiento de retiro, posee los 
+siguientes 
+objetos de cabecero:<strong><br />
+</strong>
+<ul>
+ <li>
+<strong>Fecha.</strong> La fecha para el retiro.</li>
+ <li>
+<strong>Numero.</strong> Campo informativo de consulta. No se utiliza al agregar.</li>
+ <li>
+<strong>Cantidad</strong>. Representa el monto del retiro de esta transacción en la moneda configurada para esta cuenta bancaria.</li>
+ <li>
+<strong>Referencia.</strong> Esta puede ser la referencia de la transacción por ejemplo, en transferencias por internet o en ventanilla, el número de referencia del banco.</li>
+ <li>
+<strong>Método.</strong> Selecciona el método de este retiro.</li>
+ <li>
+<strong>Cheque emitido #######. </strong>Este es un campo que no se puede modificar y representa un retiro con el cheque 
+número ########. Esto permitirá al sistema estar sincronizado con la 
+numeración de tu chequera y solo se aplicará si el método para este retiro es "cheque".<strong><br />
+</strong>
+</li>
+ <li>
+<strong>Cuenta Destino*.</strong> En caso de seleccionar el método de transferencia, deberás incluir aquí la cuenta del destinatario.
+</li>
+ <li>
+<strong>Banco Nacional*.</strong> En caso de seleccionar el método de transferencia, deberás incluir aquí el banco de destino.<br />
+</li>
+ <li>
+<strong>Banco Extranjero*.</strong> En caso de seleccionar el método de transferencia, y esta va hacia el extranjero, deberás incluir aquí el nombre del banco extranjero de destino.</li>
+ <li>
+<strong>Beneficiario**.</strong> Ingresa aquí el nombre del beneficiario.<br />
+</li>
+ <li>
+<strong>RFC*.</strong> Indispensable, es el RFC del beneficiario.<br />
+</li>
+ <li>
+<strong>Tránsito.</strong> Si está seleccionado, el retiro quedará en tránsito. 
+Al igual que en depósitos, los retiros en tránsito se utilizan para identificar que el 
+movimiento está pendiente de aplicar.</li>
+ <li>
+<strong>Concepto.</strong> Indica aquí, un motivo o descripción para identificar este movimiento.</li>
+ <li>
+<strong>(Moneda) Tipo de cambio.</strong> Este objeto aparece únicamente en 
+cuentas bancarias que manejan moneda extranjera como por ejemplo 
+dólares. Aquí debes ingresar el tipo de cambio al momento de la 
+transacción. Este, será utilizado para registrar la póliza en moneda 
+nacional, ya que en la contabilidad, todos los registros deben ir en 
+moneda nacional y jamas en moneda extranjera.</li>
+</ul>
+<strong><br />
+</strong>Los movimientos bancarios enlazados a la contabilidad e ingresados directamente desde este módulo, y no, desde un módulo externo como gastos, cuentas por pagar, cuentas por cobrar, compras o ventas (de contado), necesitarán la captura del detalle de su póliza. Para llenar los detalles de cada partida que contendrá la póliza de nuestro movimiento bancario, contamos con los siguientes objetos:<br />
 <ul>
  <li>
 <strong>Cuenta.</strong> Aquí se inserta el número de cuenta que contendrá esta 
@@ -445,34 +495,38 @@ Permite traspasar fondos a otras cuentas bancarias u otras cajas dadas de alta e
 si estamos en la entidad de Bancomer y traspasamos a Banamex, se generará un movimiento de <strong>retiro</strong> en Bancomer y un movimiento de depósito en Banamex. El formulario para Agregar un traspaso de fondos posee los siguientes 
 objetos de cabecero:<br />
 <ul>
- <li>
-<strong>Tipo.</strong> Es el tipo de movimiento para el registro de retiro. Debes seleccionar uno de los dos tipos:<br />
-<ul>
- <li>
-<strong>Cheque ########. </strong>Representa un retiro con el cheque 
-número ########. Esto permitirá al sistema estar sincronizado con la 
-numeración de tu chequera.<strong><br />
-</strong>
-</li>
- <li>
-<strong>Retiro. </strong>Representa un retiro generado por una transferencia bancaria realizada en el portal o en la ventanilla del banco, o simplemente un retiro de efectivo del cajero o ventanilla cuando el destino de los fondos sea una caja.<strong><br />
-</strong>
-</li>
-</ul>
-</li>
+ 
  <li>
 <strong>Fecha.</strong> La fecha para los movimientos de retiro y depósito.</li>
  <li>
 <strong>Número.</strong> Campo informativo de consulta. No se utiliza al traspasar.</li>
  <li>
-<strong>Referencia.</strong> Esta puede ser el número de referencia del retiro en el cajero, la ficha de depósito, o algo que haga alusión al movimiento.<br />
+<strong>Cantidad</strong>. Representa el monto del traspaso de esta transacción, en la moneda configurada para esta cuenta bancaria.</li>
+ <li>
+<strong>Referencia.</strong> Esta puede ser el número de referencia del retiro en el cajero, la ficha de depósito, o algo que haga alusión al movimiento.</li>
+ <li>
+<strong>Método.</strong> Selecciona el método del retiro del traspaso. Si el destino es una caja, no podrá traspasarse por un método de transferencia.
 </li>
  <li>
-<strong>Cantidad</strong>. Representa el monto del retiro de esta transacción, en la moneda configurada para esta cuenta bancaria.<br />
+<strong>Cheque emitido #######. </strong>Este es un campo que no se puede modificar y representa un retiro con el cheque 
+número ########. Esto permitirá al sistema estar sincronizado con la 
+numeración de tu chequera y solo se aplicará si el método para este retiro del traspaso es "cheque".<strong><br />
+</strong>
 </li>
  <li>
-<strong>Beneficiario.</strong> En caso de retiros con cheque, debe ir el nombre del beneficiario.<br />
+<strong>Cuenta.</strong> Deberás incluir aquí la cuenta en caso de que este origen y el destino de la transferencia tengan diferentes trazos contables (una entidad contable y la otra no). Este dato lo utilizará para la contabilidad electrónica de la cuenta contable. En caso de que ambas sean contables, este campo no será necesario porque tomará los datos de ambas entidades de banco.</li>
+ <li>
+<strong>Banco Nacional.</strong> En caso necesario, deberás incluir aquí el banco de destino. Este campo aplica con la misma lógica que el campo de cuenta. <br />
 </li>
+ <li>
+<strong>Banco Extranjero.</strong> En caso necesario y si esta va hacia el extranjero, deberás incluir aquí el 
+nombre del banco extranjero de destino. Aplica la lógica anterior.<br />
+</li>
+ <li>
+<strong>Beneficiario*.</strong> Ingresa aquí el nombre del beneficiario.<br />
+</li>
+ <li>
+<strong>RFC*.</strong> Indispensable, es el RFC del beneficiario.</li>
  <li>
 <strong>Tránsito.</strong> Si está seleccionado, este retiro quedará en 
 tránsito. <strong>NOTA:</strong> El movimiento de depósito en el banco o caja de destino siempre quedará en tránsito.<br />
@@ -545,6 +599,7 @@ nunca de dólares a euros.</td>
  <li>Por último, en traspasos entre ambas entidades no contables, obviamente no ingresará ninguna póliza y las cuentas de las entidades y de la variable CC_TET serán ignoradas. </li>
 </ol>
 </div>
+<br />
 <strong>Consultar Movimiento.</strong><br />
 <br />
 Este proceso permite consultar <strong>El cabecero</strong> de un movimiento y los <strong>Detalles</strong> de su póliza asociada. Esto último, solo en el caso de que la entidad esté enlazada a la contabilidad.<br />
@@ -567,6 +622,17 @@ Este proceso permite proteger un mes bancario de esta entidad para que ya no se 
 <strong>Rastrear.</strong><br />
 <br />
 Permite hacer una consulta del movimiento rastreando sus módulos dependientes.<br />
+<br />
+<br />
+* En cuentas bancarias enlazadas a la contabilidad, se usa para 
+soporte de contabilidad electrónica 2015. En cuentas que no estén 
+enlazadas a la contabilidad, este campo es opcional.<br />
+<br />
+** En cuentas bancarias enlazadas a la contabilidad, es indispensable el
+ beneficiario para el soporte a la contabilidad electrónica 2015. En 
+cuentas que no estén enlazadas a la contabilidad, solo es necesario 
+cuando el tipo de movimiento es un retiro.<strong><br />
+</strong><br />
 </div>
 <h2 align="center">Errores comunes en los procesos del Módulo de Bancos.</h2>
 Los errores más comunes en estos procesos son los siguientes:<br />
@@ -586,6 +652,14 @@ Los errores más comunes en estos procesos son los siguientes:<br />
  <li>
 <strong>ERROR: No existe la cuenta contable para traspasos en transito (Variable CC_TET). Primero debes agregarla para poder hacer el traspaso</strong>. En traspasos de fondos, se debe especificar la cuenta contable "puente" (Cuenta Contable para Traspasos En Tránsito) en la variable CC_TET en la sección de Caja y Bancos del módulo de Variables del Centro de Control.</li>
 </ul>
+			  
+
+			  
+
+			  
+
+			  
+
 			  
 
 			  
@@ -636,6 +710,20 @@ Los errores más comunes en estos procesos son los siguientes:<br />
 				 </tr>
 				
 
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050306.html" class="txtPag" target="_self"><font color="#0099FF">Agregado indirecto de movimientos</font></a><br><font color="#999999">Muestra los detalles del agregado de depósitos y retiros a través de modulos externos como compras y ventas.</font></td>
+				 </tr>
+				
+
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -648,7 +736,7 @@ Los errores más comunes en estos procesos son los siguientes:<br />
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -162,6 +167,12 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				 </tr>
 				 
 
+              	 <tr>
+				 	<td width="5" valign="top" class="txtSubMenu"><font color="#FF6600">-</font></td>
+                    <td valign="top"><a href="040401.html" class="txtSubMenu" target="_self"><font color="#FF6600">Reportes</font></a></td>
+				 </tr>
+				 
+
 				</table>
 				
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -195,10 +206,32 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
  
 				
  
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
 				 				 				 				 				 				 				 				 				 				
 
 <div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 							El módulo administrativo de Servidor y Empresas del SAF te permite controlar:<br />
-<ul> <li>La configuración de propiedades del servidor</li> <li>Las actualizaciones del mismo</li> <li>Las propiedades de las empresas</li> <li>Los respaldos y restauración de empresas individuales</li> <li>El desarrollo de reportes y gráficas para el mismo SAF o para empresas del CEF</li>
+<ul> <li>La configuración de propiedades del servidor.</li> <li>Las actualizaciones del mismo.</li> <li>Las propiedades de las empresas.</li> <li>Los respaldos y restauración de empresas individuales.</li> <li>El desarrollo de reportes y gráficas para el mismo SAF o para empresas del CEF.</li>
 </ul>Los paneles Izquierdo, Derecho e Inferior aparecen vacíos porque este módulo no los utiliza.</div>
 <p>Las columnas por defecto que muestra el panel de cuerpo principal de este módulo son la siguientes:</p>
 <div align="justify">
@@ -215,7 +248,7 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 </li> <li>
 <strong>Web.</strong> Página web de la empresa o persona física.<br />
 </li> <li>
-<strong>Dirección.</strong> Dirección de la empresa o persona física registrada<br />
+<strong>Dirección.</strong> Dirección de la empresa o persona física registrada.<br />
 </li> <li>
 <strong>Población.</strong> Su población.<br />
 </li> <li>
@@ -232,57 +265,237 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 <div align="left">
 <strong>1 .- Propiedades del Servidor.</strong><br />
 </div><br />
-Permite establecer algunas de las propiedades de este servidor, las cuales se dividen en Generales, Automatización de tareas, Datos del servidor JPacConn, Datos del Proveedor Autorizado de Certificación y Datos del servidor SMTP.<br />
+Permite establecer algunas de las propiedades de este servidor, las cuales se dividen en Generales, Automatización de tareas, Datos de autenticación al servicio web forseti, Datos del Proveedor Autorizado de Certificación, Datos del servidor SMTP y Datos del servicio Amazon S3.<br />
 <br />
 <strong>Generales:</strong><br />
 Estas propiedades engloban configuraciones generales que necesita el servidor para hacer tareas básicas para agregar empresas, eliminarlas, respaldarlas, actualizar el servidor y otras. Los datos que hay que configurar aquí, se muestran a continuación:<br />
 <ul> <li>
-<strong>Ruta de Instalacion de TOMCAT</strong>, Es donde quedó instalado el servidor web Tomcat7. En distribuciones basadas en Ubuntu por lo general se instala en "/var/lib/tomcat7". &nbsp;&nbsp;&nbsp; </li> <li>
-<strong>Ruta del OpenJDK o Java JDK</strong>, Es donde quedó instalada la Máquina Virtual de Java, que utilizada por tomcat y la aplicación forseti.</li> <li>Nombre de este servidor, Un nombre común para identificar este servidor ante las terminales que se conecten a el. Si se es proveedor del servicio de Out-Sourcing, este nombre debería hacer referencia a tu negocio. &nbsp;&nbsp;&nbsp; </li> <li>
-<strong>URL de revisión y descarga de actualizaciones forseti</strong>, Es la URL de algún servidor que contenga las actualizaciones de forseti. Estas se publican en la página oficial del proyecto, forseti.org.mx, en la sección SOF. &nbsp;&nbsp;&nbsp; </li> <li>
+<strong>Ruta de Instalación de TOMCAT</strong>, Es donde quedó instalado el servidor web Tomcat7. En distribuciones basadas en Ubuntu por lo general se instala en "/var/lib/tomcat7". &nbsp;&nbsp;&nbsp; </li> <li>
+<strong>Ruta del OpenJDK o Java JDK</strong>, Es donde quedó instalada la Máquina Virtual de Java utilizada por tomcat y la aplicación forseti.</li> <li>
+<strong>Nombre de este servidor,</strong> Un nombre común para identificar este servidor ante las terminales que se conecten a el. Si se es proveedor del servicio de Out-Sourcing, este nombre debería hacer referencia a tu negocio. &nbsp;&nbsp;&nbsp; </li> <li>
+<strong>URL de revisión y descarga de actualizaciones forseti</strong>, Es la URL del servidor que contenga las actualizaciones de forseti. Estas se publican en la sección la sección <a href="070205.html">SOF / Anexos / Rutas de descarga</a>. &nbsp;&nbsp;&nbsp; </li> <li>
 <strong>Contraseña de fsi</strong>, Esta es muy importante. fsi es el usuario administrativo del SAF, fsi puede hacer todo, y absolutamente todo dentro del SAF, por lo tanto, se debería proporcionar una contraseña bastante fuerte y cambiarse regularmente. Se sugiere no usar este usuario para ninguna tarea, por el contrario, se debería dar de alta un rol administrativo y asignarle los permisos necesarios. <strong>NOTA MUY IMPORTANTE</strong>: Si se deja en blanco esta contraseña, no se cambiará.</li> <li>
 <strong>Infraestructura PostgreSQL</strong>, Esta debe ser Local o Segundo Servidor, AWS RDS se utilizaba en el pasado para infraestructuras de base de datos montadas en el servicio Amazon Relational Database Systems. Este campo indicaba al servidor ejecutar o no, respaldos de servidor al nivel de bases de datos. Como en una infraestructura RDS los respaldos se generan por el servicio,  en caso de estar seleccionado, el servidor forseti no generaba respaldos de todo el servidor. Hoy en día, esto no tiene efecto ya que se generan respaldo aún sobre infraestructuras RDS, y solo se proporciona para compatibilidad hacia atrás. </li> <li>
 <strong>Ruta de Respaldos</strong>, Es la ruta donde se guardarán los archivos ZIP de los respaldos generados de todo el servidor, o de las bases de datos individuales.</li>
 </ul>
-<strong>Automatizacion de Tareas</strong>:<br />
-El gestor de tareas automáticas, permite al servidor forseti, ejecutar procesos programados diariamente. Estos, son procesos del servidor y de cada empresa instalada que se pueden realizar manualmente, pero que si se olvidan por largo tiempo, podrían traer tanto resultados inesperados en las empresas, como resultados funestos si por ejemplo, se cayera el servidor. Dentro de estas tareas, se realizan los procesos de actualización del servidor, respaldos completos y actualizaciones de saldos y otros de cada empresa instalada. <br />
+<strong>Automatización de Tareas</strong>:<br />
+El gestor de tareas automáticas, permite al servidor forseti, ejecutar procesos programados diariamente. Estos, son procesos del servidor y de cada empresa instalada que se pueden realizar manualmente, pero que si se olvidan por largo tiempo, podrían traer tanto resultados inesperados en las empresas, como resultados funestos si por ejemplo, se cayera el servidor. Dentro de estas tareas, se realizan los procesos de actualización del servidor, respaldos completos, actualización de saldos del CEF y otros procesos de cada empresa instalada. <br />
 <ul> <li>
 <strong>Hora de comienzo de procesos</strong>, Es la hora a la que se ejecutará el gestor de tareas automáticas. Esta debe estar en formato <strong>hh:mm</strong> de 24 hrs, por ejemplo, 13:10 para la una de la tarde con diez minutos. La hora, la toma del reloj del servidor web y ésta debería ser una hora en la cual el servidor forseti tenga la menor carga de trabajo posible, ya que estos procesos pueden alentar bastante el servicio.</li> <li>
-<strong>Revisión de actualizaciones disponibles</strong>, Bandera para marcar si es que se desea que el gestor ejecute el proceso de actualización de versión del servidor. </li> <li>
+<strong>Revisión de actualizaciones disponibles</strong>, Bandera para marcar si es que se desea que el gestor ejecute el proceso de actualización de versión del servidor (si administras bien el servidor te sugerimos no activar esta bandera y mejor hacer las actualizaciones manualmente). </li> <li>
 <strong>Respaldos</strong>, Bandera para marcar si es que se requieren respaldos diarios automáticos de todo el servidor. <strong>NOTA</strong>: Los respaldos de todo el servidor solo se pueden realizar desde el gestor de tareas, y no manualmente como si se puede con los respaldos de bases de datos individuales.</li> <li>
-<strong>Actualización de saldos y otros, en todas las empresas,</strong> Bandera para indicar si se desea realizar la actualización de saldos, existencias y otras actualizaciones que se necesitan realizar en cada empresa instalada en el servidor.Véase el CEF para mayor información sobre lo que son estas actualizaciones.<br />
+<strong>Actualización de saldos y otros, en todas las empresas,</strong> Bandera para indicar si se desea realizar la actualización de saldos, existencias y otras actualizaciones que se necesitan realizar en cada empresa instalada en el servidor.Véase el <a href="051002.html">CEF/Centro de control/Saldos</a> para mayor información sobre lo que son estas actualizaciones.<br />
 </li>
 </ul>
 <strong>NOTA</strong>: Los cambios de esta sección solo se reflejan al reiniciar el servidor.<br />
 <br />
-<strong>Datos del servidor JPacConn para timbrado de comprobantes</strong>:<br />
-Forseti permite el timbrado de comprobantes fiscales digitales a través del PAC Edicom. Para ello, se ha desarrollado una API basada en REST llamada JPacConn que va incluida en el servidor forseti. Esta API, permite que tanto el servidor local como servidores forseti ajenos, se conecten a ella y le manden Comprobantes Fiscales Digitales (CFD). Una vez recibido, la API mandará el CFD al PAC Edicom para ser timbrado, esperará la respuesta en la que tiene que recibir el CFDI final, y lo regresará al servidor forseti local o al externo para que éste, continúe con el proceso de generación del archivo PDF. Distintos servidores forseti de Out-Sourcing, pueden tener su API activa para que gente que no tenga cuenta con Edicom, y que utilice forseti como su sistema empresarial, pueda aún timbrar sus facturas y demás comprobantes. En el proyecto SOF de la página oficial forseti.org.mx se publican servidores certificados por el desarrollador con la API activa.<br />
-La API, gestiona una base de datos de los servidores forseti que tienen permiso para su consumo. Esta base de datos debe incluso contener un registro del servidor local, de lo contrario, no se podrá consumir localmente. Cada registro contiene el uuid del servidor, el usuario y la contraseña. Para conectarte a una API activa necesitas configurar la conexión a ella:<br />
+<strong>Datos de este servidor, para autenticarse en un servicio web de forseti para recibir servicio de timbrado, correo electrónico automático y/o alojamiento de archivos en la nube</strong>:<br />
+Forseti maneja un servicio web basado en la API de REST que permite a servidores forseti de terceros conectarse a el, llamemos a estos últimos servidores "clientes". Cada cliente puede recibir el servicio de timbrado de comprobantes fiscales digitales como lo son facturas y recibos de nómina, también puede enviar correo electrónico automático como por ejemplo al hacer una factura, puede enviarle el archivo xml y pdf al comprador, y además, las empresas de cada cliente pueden guardar archivos importantes en la nube. Cada cliente necesita enviar los datos de autenticación al servidor forseti que brinda el servicio web, estos son los siguientes: <br />
 <ul> <li>
-<strong>URL de conexión a la API JPacConn</strong>, Es la IP o nombre de dominio, con número de puerto explícito, en la que escucha la API. Por ejemplo, si la API utilizada para timbrar se encuentra activa en el mismo servidor forseti, la URL debería ser localhost:443 o localhost:8443 dependiendo de la configuración de tomcat. Para utilizar APIs de otro servidor forseti, la ruta podría ser el dominio o la IP pública del servicio, por ejemplo, empresa-de-out-sourcing-forseti.com:443 o 54.244.95.209:443. &nbsp; </li> <li>
-<strong>ID de este servidor, para Timbrar en un servicio de JPacConn</strong>, Es el identificador de nuestro servidor, en el estándar de la Open Software Foundation (OSF) para computación distribuida, UUID (universally unique identifier).&nbsp; </li> <li>
-<strong>Usuario para el JPacConn</strong>, El usuario de nuestra cuenta<br />
+<strong>URL de conexión al servicio web forseti con puerto explicito</strong>, Es la IP o nombre de dominio, con número de puerto explícito, en la que escucha la API. Por ejemplo, si la API utilizada para timbrar se encuentra activa en el mismo servidor forseti, la URL debería ser localhost:443 o localhost:8443 dependiendo de la configuración de tomcat. Para utilizar APIs de otro servidor forseti, la ruta podría ser el dominio o la IP pública del servicio, por ejemplo, empresa-de-out-sourcing-forseti.com:443 o 54.244.95.209:443. &nbsp; </li> <li>
+<strong>ID de este servidor forseti</strong>, Es el identificador de nuestro "servidor cliente" en el estándar de la Open Software Foundation (OSF) para computación distribuida, UUID (universally unique identifier). Este lo utilizará la API para verificar si el cliente está registrado.&nbsp; </li> <li>
+<strong>Usuario para el servicio</strong>, El usuario de nuestra cuenta<br />
 </li> <li>
-<strong>Contraseña para el JPacConn</strong>, La contraseña de nuestra cuenta. <strong>NOTA MUY IMPORTANTE</strong>: Si se deja en blanco esta contraseña, no se cambiará.</li>
+<strong>Contraseña para el servicio</strong>, La contraseña de nuestra cuenta. <strong>NOTA MUY IMPORTANTE</strong>: Si se deja en blanco, esta contraseña no se cambiará.</li>
 </ul>
-<strong>Datos del Proveedor Autorizado de Certificación (si y solo si este servidor es una API activa)</strong><br />
-En caso de que este servidor forseti, sea un proveedor del servicio de Out-Sourcing,&nbsp; o sea utilizado para tus propias empresas, y deseas tener una cuenta propia con el PAC Edicom para el timbrado de todos los CFDs de éstas, tendrás&nbsp; configurar tu cuenta con el PAC:&nbsp; <br />
+Forseti permite el timbrado de comprobantes fiscales digitales a través 
+del PAC Edicom, también permite el envío de correos automáticos a través de la API 
+JavaMail a un servidor SMTP (Simple Mail Transfer Protocol), que es, el
+ que definitivamente manda el correo, y por último, utiliza el servicio Amazon S3 para el alojamiento de archivos en la nube. Para ello, se han desarrollado tres APIs basadas en REST 
+llamadas JPacConn, JSmtpConn y JAwsS3Conn respectivamente que van incluidas en el servidor forseti. Estas APIs, 
+permiten que tanto el servidor local como servidores forseti ajenos, se 
+conecten a ellas y les manden Comprobantes Fiscales Digitales (CFD), correos electrónicos y archivos importantes para guardar.<br />
+<br />
+La API JPacConn funciona de la siguiente manera: Una 
+vez recibido el CFD desde el "servidor cliente", la API lo mandará al PAC Edicom para ser timbrado y 
+esperará la respuesta del CFDI final, lo 
+regresará al "servidor cliente" local o al externo para que éste último, continúe
+ con el proceso de generación del archivo PDF. <br />
+<br />
+La API JSmtpConn funciona similar, por ejemplo, cuando se genera un recibo de nómina en el "servidor cliente", se envía toda la información a la API con el correo registrado en los datos 
+del empleado como destinatario y el correo registrado de la empresa que está solicitando el servicio 
+como remitente del mensaje. Para que la API finalmente envíe este mensaje, es necesario 
+tener una cuenta activa en un servidor SMTP. Existen servidores SMTP 
+públicos como Amazon SES, o puedes configurarte el tuyo propio lo cual 
+esta fuera del alcance de esta documentación.<br />
+<br />
+Por último, la API JAwsS3Conn recibe el archivo desde el "servidor cliente" y lo guarda en la nube de Amazon S3. También puede recibir la solicitud de descarga de un archivo lo cual genera el regreso del archivo hacia el "servidor cliente", y por último, puede recibir la solicitud de eliminación del archivo lo cual simplemente borra el archivo del almacén de Amazon S3. <br />
+<p>Las APIs, gestionan una base de datos de los "servidores cliente" forseti que tienen 
+permiso para su consumo. Esta base de datos debe incluso contener un 
+registro del servidor local, de lo contrario, no se podrá consumir 
+localmente. Cada registro contiene el uuid del servidor cliente, el usuario y la
+ contraseña. Además, debe de contener el nombre de cada base de datos de cada servidor cliente y algunas otras configuraciones para cada uno de los tres servicios. Estos datos se gestionan directamente en la base de datos FORSETI_ADMIN y no existe ninguna interfaz web para dicho propósito por lo que tendrán que ser manipuladas directamente a través de un cliente PostgreSQL como psql. La estructura utilizada es la siguiente:</p>
+<table border="1">
+  <tbody>
+    <tr> 
+      <td colspan="2">
+<div align="center">
+<strong>Tabla: TBL_PAC_SERVIDORES</strong>
+</div>
+</td>
+    </tr>
+    <tr> 
+      <td>
+<strong>Nombre de columna</strong>
+</td>
+      <td>
+<strong>Descripción</strong>
+</td>
+    </tr>
+    <tr> 
+      <td>id_servidor</td>
+      <td>Es el UUID de 36 caracteres exactamente del servidor cliente 
+        registrado</td>
+    </tr>
+    <tr> 
+      <td>usuario</td>
+      <td>El nombre de usuario de registro (Máximo 20 caracteres)</td>
+    </tr>
+    <tr> 
+      <td>pass</td>
+      <td>La contraseña para el registro (Máximo 20 caracteres)</td>
+    </tr>
+    <tr> 
+      <td colspan="2">Los siguientes datos de esta tabla responden a los datos 
+        informativos de la empresa o persona física que es dueña 
+        del "servidor cliente" forseti que solicita el servicio web, 
+        estos son: fecha de alta, rfc, compañía, dirección, 
+        población, código postal, correo, página web y teléfono.<br />
+      </td>
+    </tr>
+    <tr> 
+      <td>status</td>
+      <td>Permite especificar A (activo) o B (bloqueado). Si se bloquea, no se 
+        dará servicio a ninguna base de datos del "servidor cliente" en ninguna de las tres APIs hasta que 
+        se active de nuevo.</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="1">
+  <tbody>
+    <tr> 
+      <td colspan="2">
+<div align="center">
+<strong>Tabla: TBL_SRV_SERVICIOS_BD</strong>
+</div>
+</td>
+    </tr>
+    <tr> 
+      <td>
+<strong>Nombre de columna</strong>
+</td>
+      <td>
+<strong>Descripción</strong>
+</td>
+    </tr>
+    <tr> 
+      <td>id_servidor</td>
+      <td>Es el UUID de 36 caracteres exactamente del servidor cliente registrado</td>
+    </tr>
+    <tr> 
+      <td>basedatos</td>
+      <td>El nombre de la base de datos del servidor cliente que requiere el servicio. 
+        Este debe de excluir el patrón FSIBD_ del nombre físico 
+        de la base de datos, por lo tanto debe ser exactamente igual al nombre 
+        utilizado para registrarse a la empresa desde el CEF. (Máximo 30 
+        caracteres)</td>
+    </tr>
+    <tr> 
+      <td>status</td>
+      <td>Permite especificar A (activo) o B (bloqueado). Si se bloquea, no se 
+        dará servicio a esta base de datos en ninguna 
+        de las tres APIs hasta que se active de nuevo.</td>
+    </tr>
+    <tr> 
+      <td>costomail</td>
+      <td>Es el costo que tendrá para esta base de datos cada correo electrónico 
+        enviado (Dato numérico).</td>
+    </tr>
+    <tr> 
+      <td>costos3mb</td>
+      <td>Es el costo mensual que tendrá para esta base de datos cada MB 
+        alojado en la nube por medio de este servicio web (Dato numérico).</td>
+    </tr>
+    <tr> 
+      <td>costosello</td>
+      <td>Es el costo que tendrá para esta base de datos cada sello de cada factura, 
+        recibo de nómina o cualquier otro comprobante fiscal digital (Dato numérico).</td>
+    </tr>
+    <tr> 
+      <td>saldo</td>
+      <td>Es el saldo registrado para esta base de datos. Por cada servicio, el 
+        saldo irá bajando según su costo hasta quedar en cero, en 
+        este momento, ya no se podrá brindar ningún servicio a menos que 
+        las banderas "cobrarmail", "cobrars3mb" o "cobrarsello" estén desactivadas. En este 
+        caso, se ignorará el costo del servicio y el saldo no bajará 
+        (Dato numérico). </td>
+    </tr>
+    <tr> 
+      <td>cobrarsello</td>
+      <td>Este puede ser 1 (Activado) o 0 (Desactivado) . En caso de estar activado, 
+        cada sello se cobrará según el costo en "costosello" y el saldo bajará 
+        en esta cantidad. Si está desactivado, se generará el sello 
+        sin importar si tiene saldo o no.</td>
+    </tr>
+    <tr> 
+      <td>cobrarmail</td>
+      <td>Este puede ser 1 (Activado) o 0 (Desactivado) . En caso de estar activado, 
+        cada correo electrónico enviado se cobrará según el costo 
+        en "costomail" y el saldo bajará en esta cantidad. Si está 
+        desactivado, se enviará el correo electrónico sin importar 
+        si tiene saldo o no.</td>
+    </tr>
+    <tr> 
+      <td>cobrars3mb</td>
+      <td>Este puede ser 1 (Activado) o 0 (Desactivado) . En caso de estar activado, 
+        solo se podrá subir o descargar un archivo si el total de MB alojados 
+        para esta base de datos multiplicados por el costo en "costos3mb" es menor 
+        al saldo. Si está desactivado, se podrán subir o descargar 
+        archivos sin importar si tiene saldo o no.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<p>Distintos servidores 
+forseti de Out-Sourcing, pueden tener su API activa para que gente que 
+no tenga cuenta con Edicom, con un servicio de SMTP o con Amazon S3 y que utilice forseti como su sistema 
+empresarial, pueda aún timbrar sus facturas y demás comprobantes, mandar correo automático y alojar sus archivos en la nube. En el 
+proyecto <a href="070106.html">SOF</a> de la página oficial forseti.org.mx se brinda información sobre servidores con la API activa.</p>
+<p>
+Para dar de alta tu servidor forseti para tener tus APIs activas, necesitarás tener cuentas con los servicios de Edicom, de cualquier SMTP y de Amazon S3. Ya teniendo tus cuentas activas de estos servicios, podras configurarlas en las siguientes tres secciones.<br />
+</p>
+<strong>
+Datos del Proveedor Autorizado de Certificación (si, y solo si este servidor brinda el servicio de timbrado):</strong><br />
 <ul> <li>
-<strong>URL de conexion al Proveedor</strong>, Es la dirección o dominio donde escucha el servicio web para timbrado de comprobantes del PAC Edicom.</li> <li>
+<strong>URL de conexión al Proveedor</strong>, Es la dirección o dominio donde escucha el servicio web para timbrado de comprobantes del PAC Edicom.</li> <li>
 <strong>Usuario para el Proveedor</strong>, El usuario de tu cuenta con Edicom.</li> <li>
 <strong>Contraseña para el Proveedor. </strong>La contraseña de tu cuenta con Edicom. <strong>NOTA MUY IMPORTANTE</strong>: Si se deja en blanco esta contraseña, no se cambiará.</li>
-</ul><br />
-<strong>Datos del servidor SMTP para el envío de correos electrónicos por JavaMail:<br />
-</strong>Forseti, permite el envío de correos automáticos a través de la API JavaMail, a un servidor SMTP (Simple Mail Transfer Protocol), que es, el que definitivamente manda el correo. Por ejemplo, cuando se genera una factura electrónica, se puede enviar al correo registrado en los datos del cliente. De igual manera, al generar un recibo de nómina electrónico, se enviará al empleado. Forseti, utiliza el correo electrónico registrado de la empresa que está solicitando el servicio, como remitente del mensaje. Para que esto sea posible, es necesario tener una cuenta activa en un servidor SMTP. Existen servidores SMTP públicos como Amazon SES, o puedes configurarte el tuyo propio (lo cual esta fuera del alcance de esta documentación). Los datos de configuración se muestran a continuación:<br />
+</ul>
+<strong>Datos del servidor SMTP para el envío de correos electrónicos por JavaMail:</strong><br />
 <ul> <li>
-<strong>URL de conexión al servidor SMTP,</strong> IP o Dominio del servidor SMTP al cual nos vamos a conectar. Por ejemplo, para Amazon SES, puede ser email-smtp.us-east-1.amazonaws.com</li> <li>
+<strong>URL de conexión al servidor SMTP (IP o Dominio),</strong> IP o Dominio del servidor SMTP al cual nos vamos a conectar. Por ejemplo, para Amazon SES, puede ser email-smtp.us-east-1.amazonaws.com</li> <li>
 <strong>Puerto, </strong>Por lo regular los servidores SMTP escuchan sobre el puerto 25 &nbsp; </li> <li>
 <strong>Usuario</strong>, El usuario de nuestra cuenta.</li> <li>
 <strong>Contraseña, </strong>La contraseña de nuestra cuenta. <strong>NOTA MUY IMPORTANTE</strong>: Si se deja en blanco esta contraseña, no se cambiará.</li>
-</ul><br />
-<strong>2 .- Actualizar Servidor.<br />
-<br />
-</strong>Al ejecutar este proceso, el servidor primero verifica si existen actualizaciones disponibles. Este proceso usa el URL configurado en las propiedades del servidor, y en caso de que este servidor demuestre estar en su última versión, el proceso terminará en este punto. De lo contrario, descargará todos los archivos de actualización necesarios para dejar este servidor en la última versión disponible, y los ejecutará uno por uno. Por ejemplo, si la versión del servidor es la 4.0.7, y hubieran disponibles las revisiones 8, 9 y 10, se instalará primero la actualización 4.0.8. Al finalizar, proseguirá con la instalación de la actualización 4.0.9, y al finalizar ésta, con la 4.0.10, y en este punto finalizará el proceso. Como cada una de las actualizaciones puede quedar inconclusa (por fallas en la luz etc.), durante el proceso crítico de la actualización, el servidor se pone en un estado inestable "Actualizando", el cual no permite que alguien se registre en el CEF. Aparte, se rigen por un archivo el cual contiene el status de cada actualización, para que así, se pueda reiniciar la actualización desde el punto en el que se quedó, justo antes de la falla eléctrica, y así, regresar al servidor a un estado estable. Las actualizaciones se pueden llevar a cabo de manera manual (este proceso) y/o de manera automática, configurándola en las propiedades del servidor. Es muy importante revisar el archivo de registro de la actualización para poder controlar algún error que pudiera presentarse durante el proceso. Cada actualización, actúa primero sobre cada base de datos de empresas instaladas, y al finalizar, sobre la base de datos principal FORSETI_ADMIN. Es por esto, que las actualizaciones pueden tardar un tiempo considerable antes de finalizar, sobre todo, cuando no se ha actualizado el servidor en un período de tiempo razonablemente largo.<br />
+</ul>
+<p>
+<strong>Datos del servicio Amazon S3 para el almacenamiento de archivos en la Nube:</strong><br />
+</p>
+<ul>
+ <li>
+<strong>Nombre del Bucket en el servicio Amazon S3,</strong> Es precisamente el nombre del almacén creado para este servicio dentro de nuestra cuenta con Amazon S3.</li>
+ <li>
+<strong>Access Key, </strong>La llave de acceso creada para este bucket. &nbsp; </li>
+ <li>
+<strong>Contraseña, </strong>La contraseña para nuestro acceso. <strong>NOTA MUY IMPORTANTE</strong>: Si se deja en blanco esta contraseña, no se cambiará.</li>
+</ul>
+<p><br />
+</p>
+<p>
+<strong>2 .- Actualizar Servidor.</strong>
+</p>Al ejecutar este proceso, el servidor primero verifica si existen actualizaciones disponibles. Este proceso usa el URL configurada en las propiedades del servidor, y en caso de que este servidor demuestre estar en su última versión, el proceso terminará en este punto. De lo contrario, descargará todos los archivos de actualización necesarios para dejar este servidor en la última versión disponible, y los ejecutará uno por uno. Por ejemplo, si la versión del servidor es la 4.0.7, y hubieran disponibles las revisiones 8, 9 y 10, se instalará primero la actualización 4.0.8. Al finalizar, proseguirá con la instalación de la actualización 4.0.9, y al finalizar ésta, con la 4.0.10, y en este punto finalizará el proceso. Como cada una de las actualizaciones puede quedar inconclusa (por fallas en la luz etc.), durante el proceso crítico de la actualización, el servidor se pone en un estado inestable "Actualizando", el cual no permite que alguien se registre en el CEF. Aparte, se rigen por un archivo el cual contiene el status de cada actualización, para que así, se pueda reiniciar la actualización desde el punto en el que se quedó, justo antes de la falla eléctrica, y así, regresar al servidor a un estado estable. Las actualizaciones se pueden llevar a cabo de manera manual (este proceso) y/o de manera automática, configurándola en las propiedades del servidor. Es muy importante revisar el archivo de registro de la actualización para poder controlar algún error que pudiera presentarse durante el proceso. Cada actualización, actúa primero sobre cada base de datos de empresas instaladas, y al finalizar, sobre la base de datos principal FORSETI_ADMIN. Es por esto, que las actualizaciones pueden tardar un tiempo considerable antes de finalizar, sobre todo, cuando no se ha actualizado el servidor en un período de tiempo razonablemente largo.<br />
 <br />
 <br />
 <strong>3 .- Agregar Empresa.</strong><br />
@@ -304,7 +517,7 @@ Permite dar de alta empresas en este servidor. Cada empresa actúa como una base
 4 .- Cambiar Propiedades.</strong><br />
 <br />
 Permite cambiar los datos de la empresa registrada en el SAF. Se pueden cambiar todos los datos excepto el               <strong>Nombre corto</strong> para identificar el registro de la empresa o persona física porque este campo es el nombre de la base de datos en el servidor.<br />
-Una de las principales causas de cambio, es el mantener la contraseña del dueño de la base de datos (Usuario con el mismo nombre que Nombre corto) segura, actualizandola periódicamente.<br />
+Una de las principales causas de cambio, es el mantener la contraseña del dueño de la base de datos (usuario con el mismo nombre del Nombre corto) segura, actualizándola periódicamente.<br />
 <br />
 <strong>5 .- Eliminar empresa.</strong><br />
 <br />
@@ -312,8 +525,8 @@ Te permite eliminar la empresa seleccionada. Esto eliminará toda y absolutament
 <br />
 <strong>6 .- Respaldar empresa.</strong><br />
 <br />
-Permite respaldar la empresa seleccionada de la lista. Los respaldos se realizan como archivos comprimidos en ZIP y se guardan en la <strong>Ruta de Respaldos</strong> que fué configurada en las Propiedades del Servidor. Esta ruta debe apuntar a un medio independiente como por ejemplo a un disco duro externo, a otra máquina en la red, o a un medio de respaldo en la nube como un servicio de "Amazon Web Services S3".<br />
-Los archivos ZIP generados contendrán la estructura y los datos depositados en la base de datos, y los archivos alternos a esta base de datos que usa la empresa respaldada para poder ser operada. <strong>NOTA:</strong> Este proceso solo respalda bases de datos individuales y sirven para la recuperación de la empresa a un estado anterior en el tiempo. Este proceso NO sirve y no está enfocado para respaldar todo el servidor, para eso, se necesita establecer la bandera de Respaldos del gestor de tareas. Una vez esté activa esta bandera, los respaldos se llevarán a cabo a la hora en que haya establecido el gestor. <br />
+Permite respaldar la empresa seleccionada de la lista. Los respaldos se realizan como archivos comprimidos en ZIP y se guardan en la <strong>Ruta de Respaldos</strong> que fue configurada en las Propiedades del Servidor. Esta ruta debe apuntar a un medio independiente como por ejemplo a un disco duro externo o a otra máquina en la red.<br />
+Los archivos ZIP generados contendrán la estructura y los datos depositados en la base de datos, los archivos alternos a esta base de datos que usa la empresa respaldada para poder ser operada y el archivo oculto .version que contiene la versión del sistema perteneciente al respaldo. <strong>NOTA:</strong> Este proceso solo respalda bases de datos individuales y sirven para la recuperación de la empresa a un estado anterior en el tiempo. Este proceso NO sirve y no está enfocado para respaldar todo el servidor, para eso, se necesita establecer la bandera de Respaldos del gestor de tareas. Una vez esté activa esta bandera, los respaldos se llevarán a cabo a la hora en que se haya establecido el gestor. <br />
 <br />
 <strong>7 .- Restaurar empresa.</strong><br />
 <br />
@@ -321,25 +534,23 @@ Este proceso se utiliza para la recuperación de empresas a un estado anterior e
 <ul> <li>
 <strong>Mostrar respaldos con fecha mayor o igual a</strong>, Es la fecha a partir de cuando deseas ver respaldos (inclusive).<br />
 </li> <li>
-<strong>De la empresa:</strong> La empresa de la cual deseas ver sus respaldos.<br />
+<strong>De la empresa:</strong> Es el nombre corto de la empresa de la cual deseas ver sus respaldos. Este es el nombre en mayúsculas, tal y como lo escribes al registrarte en el CEF.<br />
 </li> <li>
-<strong>Selecciona el archivo de respaldo</strong>, Si existen respaldos de esta empresa con esta fecha o posterior, aparecen en esta lista. Debes entonces seleccionar el archivo que deseas recuperar. Estos se muestran con el patron de fecha y hora del respaldo. "FSIBD_[NOMBRE]-AAAA-MM-DD-hh-mm.zip", donde [NOMBRE] es el nombre corto de la base de datos, AAAA es el año, MM el mes, DD el día, hh la hora y mm los minutos en que se relizó este respaldo.<br />
+<strong>Selecciona el archivo de respaldo</strong>, Si existen respaldos de esta empresa con esta fecha o posterior, aparecen en esta lista. Debes entonces seleccionar el archivo que deseas recuperar. Estos se muestran con el patrón de fecha y hora del respaldo. "FSIBD_[NOMBRE]-AAAA-MM-DD-hh-mm.zip", donde [NOMBRE] es el nombre corto de la base de datos, AAAA es el año, MM el mes, DD el día, hh la hora y mm los minutos en que se realizó este respaldo.<br />
 </li> <li>
-<strong>Restaurar como,</strong> Debes seleccionar el nuevo Nombre corto para esta base de datos.<br />
+<strong>Restaurar como,</strong> Debes seleccionar el Nombre corto para la base de datos a restaurar. Si la restauración se está realizando porque se necesita una copia exacta de la base de datos respaldada, este nombre debe ser diferente al de la original ya que ésta, todavía existe en el servidor y no se puede duplicar, de lo contrario, es una buena práctica restaurar empresas perdidas con el nombre original.<br />
 </li> <li>
-<strong>Contraseña,</strong> La contraseña del dueño de esta base de datos. NOTA: Esta contraseña no se refiere a la contraseña de la base de datos del respaldo, sino a la contraseña que tendrá la nueva base de datos a recuperar.<br />
+<strong>Contraseña,</strong> La contraseña del dueño de esta base de datos. <strong>NOTA</strong>: Esta contraseña no se refiere a la contraseña de la base de datos del respaldo, sino a la contraseña que tendrá la nueva base de datos a recuperar.<br />
 </li> <li>
 <strong>Confirmación de contraseña.</strong><br />
 </li>
-</ul> <strong>NOTA:</strong> Si se intenta recuperar una empresa eliminada accidentalmente, primero se debe crear una nueva empresa con el nombre de la eliminada. Entonces, el sistema ya podrá mostrar los respaldos de ésta y asi proceder a la recuperación y por último, se elimina la empresa creada para que no ocupe más espacio.<br />
+</ul> En el caso que no se tuviera un respaldo específico de una empresa eliminada accidentalmente, se debe extraer manualmente del respaldo del servidor (del archivo "FORSETI_ADMIN-AAAA-MM-DD-hh-mm.zip"). Una vez extraído, se necesitará comprimir este directorio en ZIP con el mismo nombre ( FSIBD_[NOMBRE]-AAAA-MM-DD-hh-mm.zip ) e ingresarlo a la ruta de respaldos. Entonces ya tenemos el respaldo y ya podemos restaurar la empresa eliminada.&nbsp; <br />
 <br />
-En el caso que no se tuviera un respaldo específico de esta empresa, se debe extraer manualmente del respaldo del servidor (del archivo "FORSETI_ADMIN-AAAA-MM-DD-hh-mm.zip"). Una vez extraído, se necesitará comprimir este directorio en ZIP con el mismo nombre ( FSIBD_[NOMBRE]-AAAA-MM-DD-hh-mm.zip ) e ingresarlo a la ruta de respaldos. Entonces ya tenemos el respaldo y ya podemos restaurar la empresa eliminada de la manera indicada en la nota anterior.&nbsp; <br />
-<br />
-La restauración de servidores completos se lleva a cabo cuando hay una falla en el disco del servidor y otras situaciones desastrozas donde se pierde toda o parte de la información. Para recuperar un servidor completo, es estrictamente necesario seguir los siguientes pasos:<br />
+La restauración de servidores completos se lleva a cabo cuando hay una falla en el disco del servidor y otras situaciones desastrosas donde se pierde toda o parte de la información. Para recuperar un servidor completo, es estrictamente necesario seguir los siguientes pasos:<br />
 <br />
 <ol> <li>Copiar el archivo "FORSETI_ADMIN-AAAA-MM-DD-hh-mm.zip" a una ruta en el nuevo servidor. Esta puede ser el directorio personal.<br />
 <br />
-</li> <li>Hacer la instalación de forseti en el servidor ( Para la instalación, ver sección de Implantación en esta documentación ) <strong>de la misma versión y revisión del respaldo.<br />
+</li> <li>Hacer la instalación de forseti en el servidor (para la instalación, ver sección de <a href="020201.html">Implantación / Instalación</a> en esta documentación) <strong>de la misma versión y revisión del respaldo. </strong>Esta se puede revisar en el archivo oculto llamado<strong> .version </strong>dentro del archivo zip<strong>.<br />
 <br />
 </strong>
 </li> <li>Ya instalado, hacer dueño&nbsp; del respaldo a tomcat7 para que el proceso tomcat pueda leerlo. Por ejemplo, si el respaldo se llama FORSETI_ADMIN-2014-10-30-23-17.zip, y se encuentra en la ruta /home/ubuntu/respaldo, desde la terminal debes ejecutar lo siguiente:<br />
@@ -353,7 +564,7 @@ La restauración de servidores completos se lleva a cabo cuando hay una falla en
 </li> <li>    Ya terminado este proceso, se podrá accesar al SAF y a cada empresa del CEF como normalmente se venía haciendo.</li>
 </ol>
 <strong><br />
-7 .- Generar Reporte.<br />
+8 .- Generar Reporte.<br />
 <br />
 </strong>Este proceso permite agregar reportes definidos por el usuario a una empresa del CEF en particular o reportes del mismo SAF. Los reportes definidos por el usuario deben ser creados por personas capacitadas porque requieren la comprensión del estándar SQL ( Structured Query Language ) entendida en español como Lenguaje de Consulta Estructurado, la cual identifica a un tipo de lenguaje vinculado con la gestión de bases de datos de carácter relacional. <strong>NOTA MUY IMPORTANTE</strong>: Alguien que no sabe bien como funciona SQL puede dañar severamente el servidor porque en este módulo se pueden ejecutar sentencias SQL arbitrariamente. Es indispensable saber lo que se está haciendo antes de dar permisos a alguien a crear reportes.<br />
 <br />
@@ -423,7 +634,7 @@ Cuando presionamos el botón de "Generar Reporte", nos abre un diálogo que cont
 <strong>Salida del código a la pantalla,</strong> Si se selecciona, al aceptar no se ingresa el reporte, solo se muestra la estructura completa del mismo tal y como se ingresaría en el caso de hacerlo manualmente a través de un cliente SQL para PostgreSQL como psql. Esto sirve para resolver problemas de sintaxis y otros problemas en la estructura del reporte.<br />
 <br />
 </li> <li>
-<strong>Este reporte permite graficar,</strong> Si se selecciona, se podrán imprimir gráficas de este reporte. NOTA: No todos las reportes son aptos para gráficas ya que para ello, se necesita una estructura especial la cual se explica mas adelante.<br />
+<strong>Este reporte permite graficar,</strong> Si se selecciona, se podrán imprimir gráficas de este reporte. <strong>NOTA:</strong> No todos las reportes son aptos para gráficas ya que para ello, se necesita una estructura especial la cual se explica mas adelante.<br />
 <br />
 </li> <li>
 <strong>Ventana Horizontal,</strong> Es la dimensión horizontal en píxeles que ocupará la ventana emergente del navegador para visualizar el reporte en pantalla.<br />
@@ -441,9 +652,9 @@ Explicar los datos que contiene cada una de las columnas de cada objeto, está f
 <br />
 3) Área de consultas para la formación del reporte.<br />
 <br />
-</strong>Los reportes en forseti se pueden estructurar en tres niveles, esto quiere decir que por cada linea del reporte de un primer nivel, se puede generar otra consulta de segundo nivel que enlaza a la linea del primer nivel, y por cada linea de este segundo nivel se puede generar una tercera consulta que enlaza a la linea del segundo nivel. Además, cada nivel puede contener una linea extra que pertenece a su acumulado. Veamos esto en un ejemplo. El reporte de puntos de venta al cual aplicamos las consultas anteriores contiene dos niveles con sus acumulados y se ve de la siguiente manera:<br />
+</strong>Los reportes en forseti se pueden estructurar en tres niveles, esto quiere decir que por cada linea del reporte de un primer nivel, se puede generar otra consulta de segundo nivel que enlaza a la linea del primer nivel, y por cada linea de este segundo nivel se puede generar una tercera consulta que enlaza a la linea del segundo nivel. Además, cada nivel puede contener una linea extra que pertenece a su acumulado. Hay que ver esto en un ejemplo. El reporte de puntos de venta al cual aplicamos las consultas anteriores contiene dos niveles con sus acumulados y se ve de la siguiente manera:<br />
 <p align="center">
-<img alt="fig4.2.1.1.png" src="../forsetidoc/IMG/fig4.2.1.1.png" style="border:0px solid;margin:0px;" /><br />
+<img alt="fig4211.png" src="../forsetidoc/IMG/fig4211.png" style="border:0px solid;margin:0px;" /><br />
 <br />
 <strong>Figura 4.2.1.1.</strong> Reporte de dos niveles con acumulados en ambos niveles.<br />
 </p>En la estructura de diseño de cada reporte, por cada uno de los tres niveles tenemos los siguientes campos:<ul> <li>
@@ -480,7 +691,7 @@ order by id_entidadventa asc;</span>
 <strong><br />
 </strong>
 </p>
-<p>Entonces, ahora al cargar el reporte, se generará el filtro con tres expresiones: fecha, entidadini y entidadfin, donde entidadini es un dato entero del numero inicial de la entidad a cargar y entidadfin es también un entero del número de la entidad final, entonces, si seleccionamos 1 como entidadini y 4 como entidadfin, en los resultados nos excluirán las entidades 6, 7, 9, 10 y 12 del reporte. <br />
+<p>Entonces, ahora al cargar el reporte, se generará el filtro con tres expresiones: fecha, entidadini y entidadfin, donde entidadini es un dato entero del numero inicial de la entidad a cargar y entidadfin es también un entero del número de la entidad final, entonces, si seleccionamos 1 como entidadini y 4 como entidadfin, en los resultados nos excluirán las entidades 5, 6, 7, 8, 9, 10 y 12 del reporte. <br />
 </p>
 <p>Todas las expresiones deben ir encerradas entre corchetes ("[nombre]"), y todas las expresiones del <strong>Código principal</strong> del primer nivel serán las que funcionarán como variables para la configuración del filtro cada vez que carguemos el reporte.<br />
 </p>
@@ -585,6 +796,68 @@ where status &lt;&gt; 'C' and fecha = '[fecha]' and id_entidad = [clave];</span>
 <strong>Ancho,</strong> Es el ancho en porcentaje ( de izquierda a derecha ) que ocupará el dato de la columna en el reporte, ya sea en el papel o en la pantalla. Es importante resaltar que entre todas las columnas visibles deben ocupar el 100% de lo contrario se podría mostrar el reporte de una manera mal configurada. Por ejemplo, si el reporte tiene 10 columnas y estas ocupan 15% cada una, el total de 150% rebasa el ancho de una hoja y este reporte se imprimirá defectuosamente. Los tabuladores forman parte de este porcentaje por lo tanto si existe un tabulador de 10%, todas las columnas visibles del nivel deben sumar al máximo 90%.</p>
 </li> <li <="" ul="">
 <strong>Alineación,</strong> Es la alineación horizontal que ocupará el dato de la columna dentro de su porcentaje. Por lo regular, los datos de cadena como descripciones y nombres se alinean a la <strong>izquierda</strong>, los de fecha al <strong>centro</strong> y las cantidades a la <strong>derecha</strong>. Estos son los valores permitidos en un reporte.<br />
+<br />
+</li>
+</ul>
+<p>
+<strong>5) Área del filtro del reporte.</strong>
+<strong><br />
+<br />
+</strong>Cada vez que se presiona el botón Probar del primer nivel y éste no tiene ningún error en su código principal o código
+ de acumulados ( en caso de existir ), se crearán automáticamente en 
+esta área cada una de las variables del filtro resultantes de las expresiones del código principal para 
+poder configurar el reporte a la hora de cargarlo. Estas variables incluyen lo siguiente:&nbsp;</p>
+<ul>
+ <li>
+<strong>Instrucciones,</strong> Se utiliza para indicarle al usuario el tipo de dato que requiere esta variable como por ejemplo, "Indica el mes de trabajo entre 1 y 12 del cual necesitas saber sus acumulados", puede ser una instrucción de un reporte de ventas de un producto especifico.<br />
+<br />
+</li>
+ <li>
+<strong>Tipo,</strong> Debes de seleccionar el tipo de dato que manejará esta variable. 
+Este es el tipo de dato manejado por forseti y NO el tipo de dato nativo
+ de PostgreSQL o del controlador JDBC (<span class="st"> Java Database Connectivity </span>).
+ Estos valores pueden ser alguno de los siguientes: INT o BYTE - Valor 
+entero general, DECIMAL o MONEY - Valor decimal general de 0 a N 
+decimales, TIME - Valor de fecha, BOOL - Valor Verdadero o Falso y 
+STRING - Valor alfanumérico general de 1 a N caracteres.<br />
+<br />
+</li>
+ <li>
+<strong>Nombre Uno,</strong> Es un dato informativo del nombre de la variable. Este nombre lo toma del nombre de la expresión capturada en el código del reporte.<br />
+<br />
+</li>
+ <li>
+<strong>Por defecto Uno,</strong> Para poder deducir el valor de este campo primero debemos saber si la variable del filtro dependerá de un catálogo o no. Por ejemplo, si la variable contendrá un valor como una clave de un empleado, de una 
+entidad de venta, de un producto o servicio, etc., este campo debe quedar vacío y seleccionarse un catálogo, entonces el sistema asignará automáticamente el 
+valor por defecto a la hora de cargar el reporte. Por el contrario, si la variable contendrá un campo de mes, año, alguna cantidad, etc., entonces no se seleccionará de ningún catálogo y por lo tanto, se puede especificar el valor de la variable que aparecerá por defecto a la hora de cargar el reporte. Según sea el tipo de dato de la variable, existen algunas plantillas preestablecidas para este valor por defecto que pueden incluso formar menús de selección, estas pueden ser las siguientes:<br />
+<ul>
+ <li>
+<strong>mes</strong>, Si el tipo de variable es INT o BYTE y se especifica "mes" en este valor por defecto, el sistema mostrará un menú de selección de enero a diciembre con el mes de la fecha actual seleccionado por defecto.</li>
+ <li>
+<strong>ano</strong>, Al igual que el anterior, este campo mostrará el año en curso si la variable es INT o BYTE.</li>
+ <li>
+<strong>[valor1=mensaje1][valor2=mensaje2][valor3=mensaje3]</strong>, Se puede especificar un patrón cuando la variable sea INT, BYTE, DECIMAL, MONEY o STRING. Por ejemplo, si se tuviera una variable entera donde se necesitara especificar el número 1, 2 o 3 para determinar un riesgo bajo, medio o alto respectivamente, el patrón podría verse como sigue: [1=Bajo riesgo][2=Riesgo medio][3=Alto riesgo]. Este patrón se mostrará en el filtro al cargar el reporte como un menú de selección y el primer elemento del patrón será el seleccionado por defecto.</li>
+</ul>&nbsp;
+ <br />
+</li>
+ <li>
+<strong>Nombre Dos,</strong> Existen ocasiones en las que se necesitará definir un rango para una consulta, por ejemplo si queremos un reporte de lo facturado entre el 2 y el 26 de noviembre podríamos definir dos variables o un rango, un dato para la fecha inicial y el otro dato para la fecha final. Si se define un rango, al momento de cargar el reporte el filtro nos arrojará una sola variable de rango y no ambas variables. Para lograr este comportamiento debemos definir en la expresión el nombre de la variable, y en una segunda expresión de nuevo el nombre de la variable con un "2" al final. Pongamos un ejemplo:&nbsp; <br />
+<span style="color: rgb(0, 0, 255);"><br />
+select f.numero, coalesce(c.nombre,'Venta de Mostrador') as nombre, f.subtotal, f.iva, f.total<br />
+from tbl_ventas_facturas_cab f left outer join tbl_client_client c<br />
+&nbsp; on f.id_clipro = c.id_clave<br />
+where f.status &lt;&gt; 'C' and f.fecha between '[fecha]' and '[fecha2]' and f.id_entidad = [clave];<br />
+<br />
+</span>En este código las expresiones fecha y fecha2 indican al sistema que entre las dos formarán solo una variable de rango llamada "fecha". Cuando existe un rango, este dato informativo mostrará el nombre de la expresión que está formando el rango que en este caso es "fecha2". <strong>NOTA:</strong> Si no se detecta un rango en el código, este elemento aparecerá en blanco.<br />
+<br />
+</li>
+ <li>
+<strong>Por defecto Dos,</strong> Este campo hay que alimentarlo bajo la misma lógica que el campo "Por defecto Uno", ya que aplicará al valor final por defecto de esta variable de rango. <strong>NOTA:</strong> Si no existe rango,&nbsp; el valor en este elemento no tendrá ningún efecto al momento de cargar el reporte.<br />
+<br />
+</li>
+ <li>
+<strong>Catálogo,</strong> Muestra una lista de selección de los catálogos disponibles en el sistema. Cuando se define un catálogo para la variable, al momento de cargar el reporte se deberá de seleccionar su valor exclusivamente de este catálogo y no se podrá ingresar manualmente. Lo mismo aplica al valor final en una variable de rango.<br />
+.<br />
 </li>
 </ul>
 <div align="center">
@@ -601,6 +874,28 @@ where status &lt;&gt; 'C' and fecha = '[fecha]' and id_entidad = [clave];</span>
 <p>
 <strong>PRECAUCION: Este proceso no se puede llevar a cabo porque en estos momentos se esta actualizando el servidor.</strong> Cuando el servidor está ejecutando una actualización bloquea los procesos como agregar, cambiar, eliminar, respaldar o restaurar empresas, para mantener alineado el servidor.<br />
 </p><br />
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
 			  
 
 			  
@@ -663,6 +958,14 @@ where status &lt;&gt; 'C' and fecha = '[fecha]' and id_entidad = [clave];</span>
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -675,7 +978,7 @@ where status &lt;&gt; 'C' and fecha = '[fecha]' and id_entidad = [clave];</span>
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

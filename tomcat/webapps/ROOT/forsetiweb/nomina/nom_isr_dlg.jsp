@@ -53,13 +53,13 @@ function enviarlo(formAct)
 			!esNumeroDecimal('Limite Inferior: ', formAct.limite_inferior.value, 0, 99999999.99, 2)  ||
 			!esNumeroDecimal('Limite Superior: ', formAct.limite_superior.value, 0, 99999999.99, 2)  ||
 			!esNumeroDecimal('Cuota Fija: ', formAct.cuota_fija.value, 0, 99999999.99, 2)  ||
-			!esNumeroDecimal('% Exedente: ', formAct.porcentaje_exd.value, 0, 99999999.99, 2)  ||
+			!esNumeroDecimal('% Exedente: ', formAct.porcentaje_exd.value, 0, 0.999999, 6)  ||
 			!esNumeroDecimal('Sibsidio: ', formAct.subsidio.value, 0, 99999999.99, 2)  ||
 			!esNumeroDecimal('S.I.M.: ', formAct.subsidio_sim.value, 0, 99999999.99, 2)  ||
 			 !esNumeroDecimal('Limite Inferior Anual: ', formAct.limite_inferior_anual.value, 0, 99999999.99, 2)  ||
 			!esNumeroDecimal('Limite Superior Anual: ', formAct.limite_superior_anual.value, 0, 99999999.99, 2)  ||
 			!esNumeroDecimal('Cuota Fija Anual: ', formAct.cuota_fija_anual.value, 0, 99999999.99, 2)  ||
-			!esNumeroDecimal('% Exedente Anual: ', formAct.porcentaje_exd_anual.value, 0, 99999999.99, 2)  ||
+			!esNumeroDecimal('% Exedente Anual: ', formAct.porcentaje_exd_anual.value, 0, 0.999999, 6)  ||
 			!esNumeroDecimal('Sibsidio Anual: ', formAct.subsidio_anual.value, 0, 99999999.99, 2)  ||
 			!esNumeroDecimal('S.I.M. Anual: ', formAct.subsidio_sim_anual.value, 0, 99999999.99, 2)  )
 			return false;
@@ -142,7 +142,8 @@ function enviarlo(formAct)
             <td align="center"><input name="limite_inferior" type="text" id="limite_inferior" size="7" maxlength="11"></td>
             <td align="center"><input name="limite_superior" type="text" id="limite_superior" size="7" maxlength="11"></td>
              <td align="center"><input name="cuota_fija" type="text" id="cuota_fija" size="7" maxlength="11"></td>
-            <td align="center"><input name="porcentaje_exd" type="text" id="porcentaje_exd" size="7" maxlength="11"></td>
+            <td align="center"><input name="porcentaje_exd" type="text" id="porcentaje_exd" size="7" maxlength="11">
+              ej: 1.2% = 0.012</td>
              <td align="center"><input name="subsidio" type="text" id="subsidio" size="7" maxlength="11"></td>
             <td align="center"><input name="subsidio_sim" type="text" id="subsidio_sim" size="7" maxlength="11"></td>
           </tr>
@@ -151,7 +152,8 @@ function enviarlo(formAct)
             <td align="center"><input name="limite_inferior_anual" type="text" id="limite_inferior_anual" size="7" maxlength="11"></td>
             <td align="center"><input name="limite_superior_anual" type="text" id="limite_superior_anual" size="7" maxlength="11"></td>
              <td align="center"><input name="cuota_fija_anual" type="text" id="cuota_fija_anual" size="7" maxlength="11"></td>
-            <td align="center"><input name="porcentaje_exd_anual" type="text" id="porcentaje_exd_anual" size="7" maxlength="11"></td>
+            <td align="center"><input name="porcentaje_exd_anual" type="text" id="porcentaje_exd_anual" size="7" maxlength="11">
+              ej: 1.2% = 0.012</td>
              <td align="center"><input name="subsidio_anual" type="text" id="subsidio_anual" size="7" maxlength="11"></td>
             <td align="center"><input name="subsidio_sim_anual" type="text" id="subsidio_sim_anual" size="7" maxlength="11"></td>
           </tr>

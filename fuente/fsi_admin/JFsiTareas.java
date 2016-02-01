@@ -146,6 +146,7 @@ public class JFsiTareas implements JTimerInterface
 	{
 		// esta se llama cada minuto para verificar por la actualizacion de saldos
 	    Calendar fecha = GregorianCalendar.getInstance();
+	    //System.out.println("Revisando tiempo para sistema de tareas automáticas: " + fecha.get(Calendar.HOUR_OF_DAY) + ":" + fecha.get(Calendar.MINUTE) + " " + auto_hora + ":" + auto_min );
 	    if(auto_hora == fecha.get(Calendar.HOUR_OF_DAY) && auto_min == fecha.get(Calendar.MINUTE))
 		   tareasAutomatizadas();
 			
@@ -158,19 +159,30 @@ public class JFsiTareas implements JTimerInterface
 	
 	public void tareasAutomatizadas()
 	{
-		if(!actualizando);
+		System.out.println("OK llamada a Tareas Automatizadas");
+		if(!actualizando)
 		{
 			actualizando = true;
-			System.out.println("OK llamada a Tareas Automatizadas");
-			if(auto_slds)
-				actualizarSaldos();
+			System.out.println("OK actualizando......");
 			if(auto_resp)
+			{
+				System.out.println("Respaldando servidor......");
 				respaldarServidor(Calendar.getInstance(), new StringBuffer());
+			}
+			if(auto_slds)
+			{
+				System.out.println("Actualizando saldos del CEF......");
+				actualizarSaldos();
+			}
 			if(auto_act)
 				actualizarServidor(new StringBuffer());
 			
+			System.out.println("Fin de tareas automátizadas......");
 			actualizando = false;
 		}
+		else
+			System.out.println("No se procedió a actualizar porque el sistema ya está actualizandose actualmente");
+		
 	}
 	 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -246,6 +258,12 @@ public class JFsiTareas implements JTimerInterface
 			       s.close();
 			       			      
 			    }
+				catch(NullPointerException e) //Se captura cuando no existe una base de datos física pero el cabecero general de tbl_bd contiene una
+				{
+					System.out.println(e.toString());
+				    pw.println(e.toString() + "\n");
+				    pw.flush();
+				}
 			    catch(SQLException e)
 			    {
 			       System.out.println(e.toString());
@@ -311,16 +329,33 @@ public class JFsiTareas implements JTimerInterface
 				File dir;
 				//System.out.println(dir.getAbsolutePath());
 				String CONTENT;
+				JAdmVariablesSet var = new JAdmVariablesSet(null);
+            	var.ConCat(3);
+            	var.setBD(nombre);
+            	var.m_Where = "ID_Variable = 'VERSION'";
+            	var.Open();
+            	String vers = var.getAbsRow(0).getVAlfanumerico();
+            	
 				if(prntwri == null)
 				{
 					dir = new File(respaldos, (nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm")));
 					dir.mkdir();
+					// Primero Agrega el archivo de version para esta empresa
+					File version = new File(respaldos + "/" + nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm") + "/forseti.version");
+			      	FileWriter fw = new FileWriter(version);
+			        fw.write(vers);
+			        fw.close();
 					CONTENT = "rsync -av --stats /usr/local/forseti/emp/" + nombre.substring(6) + " " + respaldos + "/" + nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm");
 				}
 				else
 				{
 					dir = new File(respaldos + "/FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm"), (nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm")));
 					dir.mkdir();
+					// Primero Agrega el archivo de version para esta empresa
+					File version = new File(respaldos + "/FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm") + "/" + nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm") + "/forseti.version");
+			      	FileWriter fw = new FileWriter(version);
+			        fw.write(vers);
+			        fw.close();
 					CONTENT = "rsync -av --stats /usr/local/forseti/emp/" + nombre.substring(6) + " " + respaldos + "/FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm") + "/" + nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm");
 				}
 				sc.setContent(CONTENT);
@@ -518,8 +553,19 @@ public class JFsiTareas implements JTimerInterface
 			
 			try 
 			{
+				JAdmVariablesSet var = new JAdmVariablesSet(null);
+            	var.ConCat(true);
+            	var.m_Where = "ID_Variable = 'VERSION'";
+            	var.Open();
+            	String vers = var.getAbsRow(0).getVAlfanumerico();
+            	
 				File dir = new File(respaldos, "FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm"));
 				dir.mkdir();
+				// Primero Agrega el archivo de version para este servidor
+				File version = new File(respaldos + "/" + "FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm") + "/forseti.version");
+		      	FileWriter fw = new FileWriter(version);
+		        fw.write(vers);
+		        fw.close();
 				File diremp = new File(respaldos + "/FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm"), "emp");
 				diremp.mkdir();
 				

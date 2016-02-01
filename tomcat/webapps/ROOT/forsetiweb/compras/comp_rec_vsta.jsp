@@ -79,17 +79,16 @@ if(parent.ztatuz.document.URL.indexOf('comp_rec_sts.jsp') == -1) {
 		    <div align="right">
 			  <input name="proceso" type="hidden" value="ACTUALIZAR">
 			  <input name="tipomov" type="hidden" value="RECEPCIONES">
-			  <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'CARGAR_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_COMPRA",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_COMPRA",2) %>" border="0">
+			  <!--input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'CARGAR_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_COMPRA",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_COMPRA",2) %>" border="0">
    			  <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'CARGAR_OTROS',<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_OTROS",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_OTROS",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_OTROS") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_OTROS",2) %>" border="0">
-   			  <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'ENLAZAR_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","ENLAZAR_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","ENLAZAR_COMPRA",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","ENLAZAR_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","ENLAZAR_COMPRA",2) %>" border="0">
+   			  <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'ENLAZAR_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","ENLAZAR_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","ENLAZAR_COMPRA",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","ENLAZAR_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","ENLAZAR_COMPRA",2) %>" border="0"-->
    			  <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'AGREGAR_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","AGREGAR_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","AGREGAR_COMPRA",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","AGREGAR_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","AGREGAR_COMPRA",2) %>" border="0">
               <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'CONSULTAR_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","CONSULTAR_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","CONSULTAR_COMPRA",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","CONSULTAR_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","CONSULTAR_COMPRA",2) %>" border="0">
-              <!--img src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_COMPRA") %>" onClick="javascript: abrirCatalogo('../forsetiweb/subir_archivos.jsp?verif=/servlet/CEFCompFactDlg&archivo_1=xml&archivo_2=pdf&proceso=CARGAR_COMPRA&moddes=RECEPCIONES&idmod=COMP_REC&idmod4=CREC',200,450)" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","CARGAR_COMPRA",2) %>" border="0"--> 
-			  <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'XML_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","XML_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","XML_COMPRA",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","XML_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","XML_COMPRA",2) %>" border="0">
-              <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'PDF_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","PDF_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","PDF_COMPRA",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","PDF_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","PDF_COMPRA",2) %>" border="0">
+              <!--input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'XML_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","XML_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","XML_COMPRA",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","XML_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","XML_COMPRA",2) %>" border="0">
+              <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'PDF_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","PDF_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","PDF_COMPRA",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","PDF_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","PDF_COMPRA",2) %>" border="0"-->
               <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'FACTURAR_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","FACTURAR_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","FACTURAR_COMPRA",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","FACTURAR_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","FACTURAR_COMPRA",2) %>" border="0">
-               <input type="image" onClick="javascript: if(confirm('<%= JUtil.Msj("GLB","GLB","GLB","CONFIRMACION",3) %>')) { establecerProcesoSVE(this.form.proceso, 'CANCELAR_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","CANCELAR_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","CANCELAR_COMPRA",5) %>); } else { return false; } " src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","CANCELAR_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","CANCELAR_COMPRA",2) %>" border="0">
-				<input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'RASTREAR_MOVIMIENTO',400,250)" src="../imgfsi/es_rastrear_registro.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",4) %>" border="0">
+              <input type="image" onClick="javascript: if(confirm('<%= JUtil.Msj("GLB","GLB","GLB","CONFIRMACION",3) %>')) { establecerProcesoSVE(this.form.proceso, 'CANCELAR_COMPRA',<%= JUtil.Msj("CEF","COMP_REC","VISTA","CANCELAR_COMPRA",4) %>,<%= JUtil.Msj("CEF","COMP_REC","VISTA","CANCELAR_COMPRA",5) %>); } else { return false; } " src="../imgfsi/<%= JUtil.Msj("CEF","COMP_REC","VISTA","CANCELAR_COMPRA") %>" alt="" title="<%= JUtil.Msj("CEF","COMP_REC","VISTA","CANCELAR_COMPRA",2) %>" border="0">
+			  <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'RASTREAR_MOVIMIENTO',400,250)" src="../imgfsi/es_rastrear_registro.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",4) %>" border="0">
               <a href="javascript:try { gestionarArchivos('COMP_REC', document.comp_rec.ID.value, ''); } catch(err) { gestionarArchivos('COMP_REC', '', ''); }" target="_self"><img src="../imgfsi/es_gestionar_archivos.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",5) %>" border="0"></a> 
 			  <a href="/servlet/CEFCompRecepcionesCtrl" target="_self"><img src="../imgfsi/actualizar.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",1) %>" border="0"></a> 
               <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'IMPRIMIR',400,250)" src="../imgfsi/imprimir.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",2) %>" border="0">
@@ -111,7 +110,7 @@ if(parent.ztatuz.document.URL.indexOf('comp_rec_sts.jsp') == -1) {
 			<td width="12%" align="right"><a class="titChico" href="/servlet/CEFCompRecepcionesCtrl?orden=Total&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
 			<td align="left"><a class="titChico" href="/servlet/CEFCompRecepcionesCtrl?orden=Cliente&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
 			<td width="5%" align="center"><a class="titChico" href="/servlet/CEFCompRecepcionesCtrl?orden=Factura&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-			<td width="3%" align="center"><a class="titChico" href="/servlet/CEFCompRecepcionesCtrl?orden=TFD&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
+			<!--td width="3%" align="center"><a class="titChico" href="/servlet/CEFCompRecepcionesCtrl?orden=TFD&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td-->
 		</tr>
 	 </table>
 	</td>
@@ -169,7 +168,7 @@ if(parent.ztatuz.document.URL.indexOf('comp_rec_sts.jsp') == -1) {
 			<td width="12%" align="right"><%= set.getAbsRow(i).getSimbolo() + " " + set.getAbsRow(i).getTotal() %></td>
 			<td align="left"><%= set.getAbsRow(i).getProveedor() %></td>
 			<td width="5%" align="center"><%= set.getAbsRow(i).getFactura() %></td>
-			<td width="3%" align="center">
+			<!--td width="3%" align="center">
 			<% 
 			switch(set.getAbsRow(i).getTFD()) 
 			{ 
@@ -186,7 +185,7 @@ if(parent.ztatuz.document.URL.indexOf('comp_rec_sts.jsp') == -1) {
 				default: out.print("---"); 
 				break;
 			} %>
-			</td>
+			</td-->
           </tr>		
 <%
 	}

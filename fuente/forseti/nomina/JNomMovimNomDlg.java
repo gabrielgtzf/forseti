@@ -308,7 +308,34 @@ public class JNomMovimNomDlg extends JForsetiApl
     	    		 getSesion(request).setID_Mensaje(idmensaje, mensaje);
     	    		 return false;
     	    	 }
+    			 
+    			 String podfsi = (set.getAbsRow(0).getDeduccion() == true ? "D" : "P");
+            	 String podsat = request.getParameter("id_sat").substring(0,1);
+            	 int mov = Integer.parseInt(request.getParameter("id_movimiento"));
+        		 
+            	 if(!podfsi.equals(podsat) && mov != 710) //La percepcion o deducción del movimiento interno forseti no corresponde con una percepción o deduccion del sat, y no se trata del susbsidio al empleo que en determinado caso, podría ser diferente
+            	 {
+            		 idmensaje = 1;
+            		 mensaje += "PRECAUCION: Una percepción o deducción debe corresponder con una percepción o deducción del catálogo del SAT. Esta regla solo puede quebrarse para el movimiento 710 de sistema correspondiente al subsidio al empleo";
+            		 getSesion(request).setID_Mensaje(idmensaje, mensaje);
+            		 return false;
+            	 }
     		 }
+    		 else //No es de sistema
+    		 {
+    			 String podfsi = (request.getParameter("esdeduccion") != null ? "D" : "P");
+            	 String podsat = request.getParameter("id_sat").substring(0,1);
+            	 
+            	 if(!podfsi.equals(podsat)) //La percepcion o deducción del movimiento interno forseti no corresponde con una percepción o deduccion del sat, y no se trata del susbsidio al empleo que en determinado caso, podría ser diferente
+            	 {
+            		 idmensaje = 1;
+            		 mensaje += "PRECAUCION: Una percepción o deducción debe corresponder con una percepción o deducción del catálogo del SAT. Esta regla solo puede quebrarse para el movimiento 710 de sistema correspondiente al subsidio al empleo";
+            		 getSesion(request).setID_Mensaje(idmensaje, mensaje);
+            		 return false;
+            	 }
+    		 }
+    		 
+    		 
     	 }
     	 else
     	 {
@@ -321,9 +348,21 @@ public class JNomMovimNomDlg extends JForsetiApl
 	    		 getSesion(request).setID_Mensaje(idmensaje, mensaje);
 	    		 return false;
     		 }
+    		 
+    		 String podfsi = (request.getParameter("esdeduccion") != null ? "D" : "P");
+        	 String podsat = request.getParameter("id_sat").substring(0,1);
+        	 
+        	 if(!podfsi.equals(podsat)) //La percepcion o deducción del movimiento interno forseti no corresponde con una percepción o deduccion del sat, y no se trata del susbsidio al empleo que en determinado caso, podría ser diferente
+        	 {
+        		 idmensaje = 1;
+        		 mensaje += "PRECAUCION: Una percepción o deducción debe corresponder con una percepción o deducción del catálogo del SAT. Esta regla solo puede quebrarse para el movimiento 710 de sistema correspondiente al subsidio al empleo";
+        		 getSesion(request).setID_Mensaje(idmensaje, mensaje);
+        		 return false;
+        	 }
     	 }
     	 
-    	 if(!request.getParameter("id_sat").matches("\\d{3}"))
+    	 String idsat = request.getParameter("id_sat").substring(1);
+    	 if(!idsat.matches("\\d{3}"))
     	 {
     		 idmensaje = 3;
     		 mensaje += "ERROR: El ID del movimiento para el SAT debe constar de tres digitos exactamente <br>";
@@ -364,7 +403,7 @@ public class JNomMovimNomDlg extends JForsetiApl
         p(request.getParameter("descripcion")) + "','" + (request.getParameter("esdeduccion") != null ? "1" : "0") + "','" +
         (request.getParameter("imss") != null ? "1" : "0") + "','" + (request.getParameter("ispt") != null ? "1" : "0") + "','" + (request.getParameter("dospor") != null ? "1" : "0")
          + "','" + (request.getParameter("sar") != null ? "1" : "0")  + "','" + (request.getParameter("infonavit") != null ? "1" : "0") + "','" + (request.getParameter("ptu") != null ? "1" : "0") 
-         + "','" + p(request.getParameter("id_sat")) + "') as ( err integer, res varchar, clave smallint )";
+         + "','" + p(request.getParameter("id_sat").substring(1)) + "') as ( err integer, res varchar, clave smallint )";
  
     	JRetFuncBas rfb = new JRetFuncBas();
       			
@@ -395,11 +434,11 @@ public class JNomMovimNomDlg extends JForsetiApl
                p(pol.getPartida(i).getID_Departamento()) + "');\n";
         }
         
-    	String str = "select * from sp_nom_movimientos_nomina_agregar('" + p(request.getParameter("id_movimiento")) + "','DIN','" +
+        String str = "select * from sp_nom_movimientos_nomina_agregar('" + p(request.getParameter("id_movimiento")) + "','DIN','" +
         p(request.getParameter("descripcion")) + "','" + (request.getParameter("esdeduccion") != null ? "1" : "0") + "','" +
         (request.getParameter("imss") != null ? "1" : "0") + "','" + (request.getParameter("ispt") != null ? "1" : "0") + "','" + (request.getParameter("dospor") != null ? "1" : "0")
          + "','" + (request.getParameter("sar") != null ? "1" : "0")  + "','" + (request.getParameter("infonavit") != null ? "1" : "0") + "','" + (request.getParameter("ptu") != null ? "1" : "0") 
-         + "','" + p(request.getParameter("id_sat")) + "') as ( err integer, res varchar, clave smallint )";
+         + "','" + p(request.getParameter("id_sat").substring(1)) + "') as ( err integer, res varchar, clave smallint )";
  
     	JRetFuncBas rfb = new JRetFuncBas();
       			

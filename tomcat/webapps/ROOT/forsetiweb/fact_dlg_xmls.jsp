@@ -306,6 +306,9 @@ function enviarlo(formAct)
 <%
 		}
 	}
+	
+	if(!fact_xml.equals("NOMINA") && !fact_xml.equals("VENTAS"))
+	{
 %>
  		 <tr bgcolor="#0099FF">  
         	<td class="titChico" colspan="12" align="center"> CBBs y Facturas 
@@ -321,12 +324,12 @@ function enviarlo(formAct)
 			<td class="titChico" colspan="5" align="right">Total</td>
           </tr>		
 <%		  	
-	JCFDCompOtrSet sotr = new JCFDCompOtrSet(request);
-	sotr.m_Where = "FSI_Tipo = 'ENT' and FSI_ID = '" + JUtil.p(entidad) + "'";
-	sotr.m_OrderBy = "Total DESC";
-	sotr.Open();
-	for(int i = 0; i < sotr.getNumRows(); i++)
-	{
+		JCFDCompOtrSet sotr = new JCFDCompOtrSet(request);
+		sotr.m_Where = "FSI_Tipo = 'ENT' and FSI_ID = '" + JUtil.p(entidad) + "'";
+		sotr.m_OrderBy = "Total DESC";
+		sotr.Open();
+		for(int i = 0; i < sotr.getNumRows(); i++)
+		{
 %>
 		  <tr> 
             <td><input name="cbbext" type="<%= (request.getParameter("tipomov").equals("GASTOS") ? "checkbox" : "radio") %>" value="CBBEXT-<%= sotr.getAbsRow(i).getID_CFD() %>">&nbsp;</td>
@@ -338,6 +341,7 @@ function enviarlo(formAct)
 			<td colspan="5" class="titChicoNeg" align="right"><%= sotr.getAbsRow(i).getTotal() %></td>
           </tr>	
 <%
+		}
 	}
 %>	  
         </table>

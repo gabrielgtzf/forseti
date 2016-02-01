@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -193,6 +198,8 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 					<td> 
                     
  
+				
+ 
 				 				 				 				
 
 <div align="justify"> 				 				 				 				 				 				 				El <strong>SAF</strong> "Sistema Administrativo Forseti" es la interfaz dedicada a administrar el servidor. Con el SAF podemos: <br />
@@ -200,25 +207,28 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 <ul> <li>
 <div align="justify">Crear o Eliminar bases de datos (empresas).</div>
 </li> <li>
-<div align="justify">Descargar e instalar actualizaciones de Forseti.</div>
+<div align="justify">Descargar e instalar actualizaciones del servidor Forseti.</div>
 </li> <li>
 <div align="justify">Llevar control de registros de sesiones, de procesos y del sistema.</div>
 </li> <li>
 <div align="justify">Automatizar tareas de respaldos, actualizaciones del servidor, saldos del CEF, etc.</div>
 </li> <li>
-<div align="justify">Configurar una conexón a un servidor smtp ( como Amazón Simple Mail Service ) para el envío de correo automático directamente desde el CEF.</div>
-</li> <li>Configurar la conexión al PAC y a Forseti PacConn para CFDI.<br />
+<div align="justify">Configurar el servicio web JSmtpConn para que este servidor pueda dar servicio de envío de correo automático directamente desde el CEF.</div>
+</li> <li>Configurar el servicio web JPacConn para que este servidor pueda dar servicio de timbrado de comprobantes fiscales digitales (CFD) de facturas, recibos de nómina y traslados directamente desde el CEF.</li>
+ <li>Configurar el servicio web JAwsS3Conn para que este servidor pueda dar servicio de alojamiento de archivos en la nube de Amazon S3 a las distintas empresas del CEF.<br />
 </li>  <li>
 <div align="justify">Generar certificados locales con JSSE para el cifrado de datos del servidor Forseti. <strong>Nota</strong>: esto no debería ser para proveedores del servicio de <strong>Out-Sourcing</strong>, en este caso se deben utilizar certificados firmados por una autoridad certificadora como <strong>VerySign</strong>.</div>
 </li> <li>
 <div align="justify">Desarrollar reportes específicos para alguna de las empresas creadas.</div>
 </li> <li>
-<div align="justify">Crear o eliminar roles administrativos para asignarles solo algunas tareas. <strong>Nota</strong>: Estos usuarios solo son visibles en el SAF y no en las bases de datos.</div>
+<div align="justify">Crear o eliminar roles administrativos para asignarles solo algunas tareas. <strong>Nota</strong>: Estos usuarios solo son visibles en el SAF y no en el CEF.</div>
 </li> <li>
 <div align="justify">Cargar reportes de uso de bases de datos, estadísticas de conexiones, registro de entradas rechazadas, promedio de transacciones por base de datos etc.<br />
 </div>
 </li>
 </ul>			  			  			  			  			  			  			  			  			  			  
+			  
+
 			  
 
                     </td>
@@ -309,6 +319,14 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -321,7 +339,7 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -238,6 +243,10 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				
  
 				
+ 
+				
+ 
+				
 
 <div align="justify"> 				 				 				 				 				 				 				 				 				 				 
 				 				 				 				 				 				 				 				 				 				 				 				 				 				 		
@@ -292,8 +301,9 @@ caja.</li>
  <li>
 <strong>Fecha</strong>. Indica la fecha del movimiento.</li>
  <li>
-<strong>Concepto. </strong>Es una breve descripción del movimiento.<br />
-</li>
+<strong>Concepto. </strong>Es una breve descripción del movimiento.</li>
+ <li>
+<strong>Método.</strong> Es el método utilizado para este movimiento de caja.</li>
  
  <li>
 <strong>Dep.</strong> En caso de depósitos, es el importe del depósito, de lo contrario será siempre cero.<br />
@@ -359,14 +369,14 @@ retiro con cheque.<br />
 primarios de agregado, traspaso de fondos, consulta, cancelación, aplicación, protección de mes y rastreo.<br />
 </p>
 <div align="justify">
-<strong>Agregar Movimiento.</strong><br />
+<strong>Movimiento de depósito.</strong><br />
 <br />
-Permite agregar Depósitos y Retiros de caja. Los 
-movimientos se agregan según la entidad en la que estemos, por ejemplo, 
+Permite agregar Depósitos de caja. Los 
+movimientos de depósito y retiro se agregan según la entidad en la que estemos, por ejemplo, 
 si tenemos las entidades de Caja Tienda México y Caja Tienda Pachuca y estamos en la entidad 
 de Caja Tienda México, no podremos agregar en la Caja Tienda Pachuca, en este caso tendríamos que
  cambiarnos primero a Pachuca para poder agregar.
- El formulario para Agregar un movimiento, posee los siguientes 
+ El formulario para Agregar un depósito, posee los siguientes 
 objetos de cabecero:<br />
 <ul>
  <li>
@@ -392,8 +402,41 @@ objetos de cabecero:<br />
 <strong>Cantidad</strong>. Representa el monto del depósito o retiro de esta transacción.<br />
 </li>
  <li>
-<strong>Beneficiario.</strong> Obsoleto, se usaba en versiones anteriores pero se deja para compatibilidad hacia atrás. (por ejemplo, para consultas e informes de usuario). Se puede dejar en blanco este espacio.<br />
+<strong>Beneficiario.</strong> Obsoleto, se usaba en versiones anteriores pero se deja para compatibilidad hacia atrás. (por ejemplo, para consultas e informes de usuario). Se puede dejar en blanco este espacio.</li>
+</ul>
+<p><br />
+</p>
+<ul>
+ <li>
+<strong>Fecha.</strong> La fecha para el depósito.</li>
+ <li>
+<strong>Numero.</strong> Campo informativo de consulta. No se utiliza al agregar.</li>
+ <li>
+<strong>Cantidad</strong>. Representa el monto del depósito de esta transacción.</li>
+ <li>
+<strong>Referencia.</strong> En caso de recibir un pago con cheque o vale de despensa por ejemplo, puedes ingresar aquí alguna referencia rápida para identificarlo. Por lo regular los movimientos de caja no registran ninguna referencia porque el pago es en efectivo.<br />
 </li>
+ <li>
+<strong>Método.</strong> Aunque el método de pago del depósito será casi siempre en efectivo, puedes seleccionar otros métodos de pago a la caja como cheques, bonos, vales de despensa, etc.. En depósitos de caja no se puede seleccionar un método por transferencia.<br />
+</li>
+ <li>
+<strong>Cheque recibido*. </strong>En caso de seleccionar el método de cheque, deberás incluir aquí el número del cheque de tu cliente.<strong><br />
+</strong>
+</li>
+ <li>
+<strong>Cuenta Origen*.</strong> En caso de seleccionar el método de cheque, deberás incluir aquí la cuenta de origen del cliente.<br />
+</li>
+ <li>
+<strong>Banco Nacional*.</strong> En caso de seleccionar el método de cheque, deberás incluir aquí el banco de origen.</li>
+ <li>
+<strong>Banco Extranjero*.</strong> En caso de seleccionar el método de 
+cheque, y este es del extranjero, deberás incluir 
+aquí el nombre del banco extranjero de origen.</li>
+ <li>
+<strong>Beneficiario**.</strong> Ingresa aquí el nombre de tu empresa o persona física según sea el caso.<br />
+</li>
+ <li>
+<strong>RFC*.</strong> Indispensable, es el RFC del que nos paga.</li>
  <li>
 <strong>Tránsito.</strong> Si está seleccionado, el depósito o retiro 
 quedará en tránsito. Los movimientos en tránsito se utilizan para 
@@ -404,7 +447,55 @@ indispensables para conciliar contra pagos de tienda y otras situaciones delicad
  <li>
 <strong>Concepto.</strong> Indica aquí, un motivo o descripción para identificar este movimiento.</li>
 </ul>
-Los movimientos de caja enlazados a la contabilidad e ingresados 
+<strong>
+<strong>Movimiento de retiro.</strong><br />
+<br />
+</strong>Permite agregar retiros. El formulario para Agregar un movimiento de retiro, posee los 
+siguientes 
+objetos de cabecero:<strong><br />
+</strong>
+<ul>
+ <li>
+<strong>Fecha.</strong> La fecha para el retiro.</li>
+ <li>
+<strong>Numero.</strong> Campo informativo de consulta. No se utiliza al agregar.</li>
+ <li>
+<strong>Cantidad</strong>. Representa el monto del retiro de esta transacción.</li>
+ <li>
+<strong>Referencia.</strong> En caso de que el retiro de la caja sea un cheque o vale de despensa recibidos anteriormente por ejemplo, 
+puedes ingresar aquí alguna referencia rápida para identificarlo. Por lo
+ regular los movimientos de caja no registran ninguna referencia porque 
+el retiro es en efectivo.<br />
+</li>
+ <li>
+<strong>Método.</strong> Aunque el método de pago del retiro será casi
+ siempre en efectivo, puedes seleccionar otros métodos de pago de esta caja
+ como cheques, bonos, vales de despensa, etc.. En retiros de caja no 
+se puede seleccionar un método por transferencia.</li>
+ <li>
+<strong>Cheque emitido. </strong>No aplica en retiros.<br />
+</li>
+ <li>
+<strong>Cuenta Destino.</strong> No aplica en retiros.
+</li>
+ <li>
+<strong>Banco Nacional.</strong> No aplica en retiros.<br />
+</li>
+ <li>
+<strong>Banco Extranjero.</strong> No aplica en retiros.</li>
+ <li>
+<strong>Beneficiario**.</strong> Ingresa aquí el nombre del beneficiario.<br />
+</li>
+ <li>
+<strong>RFC*.</strong> Indispensable, es el RFC del beneficiario.<br />
+</li>
+ <li>
+<strong>Tránsito.</strong> Si está seleccionado, el retiro quedará en tránsito. 
+Al igual que en depósitos, los retiros en tránsito se utilizan para identificar que el 
+movimiento está pendiente de aplicar.</li>
+ <li>
+<strong>Concepto.</strong> Indica aquí, un motivo o descripción para identificar este movimiento.</li>
+</ul>Los movimientos de caja enlazados a la contabilidad e ingresados 
 directamente desde este módulo, y no, desde un módulo externo como 
 gastos, cuentas por pagar, cuentas por cobrar, compras o ventas (de 
 contado), necesitarán la captura del detalle de su póliza. Para llenar 
@@ -461,29 +552,37 @@ generará un movimiento de <strong>retiro</strong> en la caja de México y un mo
 objetos de cabecero:<br />
 <ul>
  <li>
-<strong>Tipo.</strong> Es el tipo de movimiento para el registro de retiro. Solo existe un tipo:<br />
-<ul>
- <li>
-<strong>Retiro. </strong>Representa un retiro de efectivo.<strong><br />
-</strong>
-</li>
-</ul>
-</li>
- <li>
 <strong>Fecha.</strong> La fecha para los movimientos de retiro y depósito.</li>
  <li>
 <strong>Número.</strong> Campo informativo de consulta. No se utiliza al traspasar.</li>
  <li>
-<strong>Referencia.</strong> Esta puede ser algo que haga alusión al movimiento.<br />
+<strong>Cantidad</strong>. Representa el monto del traspaso de esta transacción.</li>
+ <li>
+<strong>Referencia.</strong> En caso de que el retiro de la caja sea un cheque o vale de despensa recibidos anteriormente por ejemplo, 
+puedes ingresar aquí alguna referencia rápida para identificarlo. Por lo
+ regular los movimientos de caja no registran ninguna referencia porque 
+el retiro es en efectivo.</li>
+ <li>
+<strong>Método.</strong> Aunque el método de pago del retiro será casi
+ siempre en efectivo, puedes seleccionar otros métodos de pago de esta caja
+ como cheques, bonos, vales de despensa, etc.. En traspasos de caja no 
+se puede seleccionar un método por transferencia.
 </li>
  <li>
-<strong>Cantidad</strong>. Representa el monto del retiro de esta transacción.<br />
+<strong>Cheque emitido. </strong>No aplica en traspasos de caja.<br />
 </li>
  <li>
-<strong>Beneficiario.</strong> Obsoleto, se usaba en versiones anteriores pero se deja para 
-compatibilidad hacia atrás. (por ejemplo, para consultas e informes de 
-usuario). Se puede dejar en blanco este espacio.
+<strong>Cuenta Destino.</strong> No aplica en traspasos de caja.</li>
+ <li>
+<strong>Banco Nacional.</strong> No aplica en traspasos de caja.
 </li>
+ <li>
+<strong>Banco Extranjero.</strong> No aplica en traspasos de caja.</li>
+ <li>
+<strong>Beneficiario*.</strong> Ingresa aquí el nombre del beneficiario.<br />
+</li>
+ <li>
+<strong>RFC*.</strong> Indispensable, es el RFC del beneficiario.</li>
  <li>
 <strong>Tránsito.</strong> Si está seleccionado, este retiro quedará en 
 tránsito. <strong>NOTA:</strong> El movimiento de depósito en el banco o caja de destino siempre quedará en tránsito.<br />
@@ -591,6 +690,17 @@ otra caja o generar la venta de crédito.<strong> NOTA MUY IMPORTANTE: LOS MESES
 <strong>Rastrear.</strong><br />
 <br />
 Permite hacer una consulta del movimiento rastreando sus módulos dependientes.<br />
+<br />
+<br />
+* En cajas enlazadas a la contabilidad, se usa para 
+soporte de contabilidad electrónica 2015. En cajas que no estén 
+enlazadas a la contabilidad, este campo es opcional.<br />
+<br />
+** En cajas enlazadas a la contabilidad, es indispensable el
+ beneficiario para el soporte a la contabilidad electrónica 2015. En 
+cajas que no estén enlazadas a la contabilidad, solo es necesario 
+cuando el tipo de movimiento es un retiro.<strong><br />
+</strong><br />
 </div>
 <h2 align="center">Errores comunes en los procesos del Módulo de Cajas.</h2>
 Los errores más comunes en estos procesos son los siguientes:<br />
@@ -622,6 +732,10 @@ movimiento ya está protegido.<br />
 la sección de Caja y Bancos del módulo de Variables del Centro de 
 Control.</li>
 </ul>
+			  
+
+			  
+
 			  
 
 			  
@@ -672,6 +786,20 @@ Control.</li>
 				 </tr>
 				
 
+				<tr>
+				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
+                    <td valign="top"><a href="050306.html" class="txtPag" target="_self"><font color="#0099FF">Agregado indirecto de movimientos</font></a><br><font color="#999999">Muestra los detalles del agregado de depósitos y retiros a través de modulos externos como compras y ventas.</font></td>
+				 </tr>
+				
+
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -684,7 +812,7 @@ Control.</li>
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

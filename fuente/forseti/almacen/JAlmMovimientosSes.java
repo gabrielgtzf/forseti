@@ -27,6 +27,7 @@ import forseti.JSesionRegs;
 import forseti.JUtil;
 import forseti.sets.JInvServKitsArmaSetV2;
 import forseti.sets.JPublicInvServConceptosCatSetV2;
+import forseti.sets.JPublicInvServInvCatalogSetV2;
 
 public class JAlmMovimientosSes extends JSesionRegs
 {
@@ -88,7 +89,9 @@ public class JAlmMovimientosSes extends JSesionRegs
       	identidad = Byte.parseByte(JUtil.getSesion(request).getSesion("ALM_MOVIM").getEspecial());
       else if(request.getParameter("tipomov").equals("PLANTILLAS"))
        	identidad = Byte.parseByte(JUtil.getSesion(request).getSesion("ALM_MOVPLANT").getEspecial());	  
-
+      else 
+    	identidad = Byte.parseByte(JUtil.getSesion(request).getSesion("ALM_UTENSILIOS").getEspecial());
+      
       if(m_ID_Bodega != identidad)
 	  {
 	      res = 3; 
@@ -96,30 +99,37 @@ public class JAlmMovimientosSes extends JSesionRegs
 	      return res;
 	  }
       
-      if( Integer.parseInt(request.getParameter("clave")) != m_ID_Clave )
+      if(request.getParameter("tipomov").equals("MOVIMIENTOS") || request.getParameter("tipomov").equals("PLANTILLAS"))
       {
-	      if(m_Partidas.size()  > 0)
-	      {
-	    	  super.resetear();
-	     	  res = 1;
-	    	  sb_mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",1));//"PRECAUCION: El concepto se ha cambiado, esto generó que las paridas se hayan borrado. Para que esto no te vuelva a suceder, primero debe seleccionar el concepto del movimiento.");
-	      }
-      }
-      
-      JPublicInvServConceptosCatSetV2 set = new JPublicInvServConceptosCatSetV2(request);
-      set.m_Where = "ID_Concepto = '" + JUtil.p(request.getParameter("clave")) + "' and Tipo = '" + ((m_TipoMov == 1) ? "ENT" : "SAL") + "' and DeSistema = '0'";
-	  set.Open();
+    	  if( Integer.parseInt(request.getParameter("clave")) != m_ID_Clave )
+    	  {
+    		  if(m_Partidas.size()  > 0)
+    		  {
+    			  super.resetear();
+    			  res = 1;
+    			  sb_mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",1));//"PRECAUCION: El concepto se ha cambiado, esto generó que las paridas se hayan borrado. Para que esto no te vuelva a suceder, primero debe seleccionar el concepto del movimiento.");
+    		  }
+    	  }
+            
+    	  JPublicInvServConceptosCatSetV2 set = new JPublicInvServConceptosCatSetV2(request);
+    	  set.m_Where = "ID_Concepto = '" + JUtil.p(request.getParameter("clave")) + "' and Tipo = '" + ((m_TipoMov == 1) ? "ENT" : "SAL") + "' and DeSistema = '0'";
+    	  set.Open();
 	
-	  if(set.getNumRows() < 1 )
-      {
-          res = 1; 
-          sb_mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",2));//"PRECAUCION: No se encontró el concepto especificado<br>");
-          return res;
+    	  if(set.getNumRows() < 1 )
+    	  {
+    		  res = 1; 
+    		  sb_mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",2));//"PRECAUCION: No se encontró el concepto especificado<br>");
+    		  return res;
+    	  }
+    	  
+    	  m_ID_Clave = set.getAbsRow(0).getID_Concepto();
+          m_Clave_Descripcion = set.getAbsRow(0).getDescripcion();
+    	  m_RecalcularCosto = set.getAbsRow(0).getRecalcularCosto();
+    	  
       }
-	  
-	  m_ID_Clave = set.getAbsRow(0).getID_Concepto();
-      m_Clave_Descripcion = set.getAbsRow(0).getDescripcion();
-	  m_RecalcularCosto = set.getAbsRow(0).getRecalcularCosto();
+      else
+    	  m_ID_Clave = -1;
+      
 	  m_Ref = request.getParameter("referencia");
 	  m_Concepto = request.getParameter("concepto");
 	  m_Fecha = JUtil.estFecha(request.getParameter("fecha")); 
@@ -153,57 +163,83 @@ public class JAlmMovimientosSes extends JSesionRegs
 
    
   @SuppressWarnings("unchecked")
-public short agregaPartida(HttpServletRequest request, float cantidad, String idprod, String Costo, StringBuffer mensaje)
+  public short agregaPartida(HttpServletRequest request, float cantidad, String idprod, String Costo, StringBuffer mensaje)
   {
 	  short res = -1;
 	  
-	  JInvServKitsArmaSetV2 set = new JInvServKitsArmaSetV2(request);
-	  set.m_Where = "Clave = '" + JUtil.p(idprod) + "' and Status = 'V'";
-	  set.Open();
+	  String Unidad = "";
+	  String Descripcion = "";
+	  float fcosto = 0.0F;
 	  
-	  if( set.getNumRows() > 0 )
+	  if(m_ID_Clave != -1)
 	  {
-		 String Unidad = set.getAbsRow(0).getUnidad();
-		 String Descripcion = set.getAbsRow(0).getDescripcion();
-		 float fcosto;
-		 
-		 if(!m_RecalcularCosto)
-		 {
-			if(Costo.equals(""))
-				fcosto = 0.0F;
-			else
-				fcosto = Float.parseFloat(Costo);
-		 }
-		 else
-		 {
-			fcosto = ((set.getAbsRow(0).getTipoCosteo() == 0) ? set.getAbsRow(0).getUltimoCosto() : set.getAbsRow(0).getCostoPromedio());
-		 }
-		 
-		 if(cantidad < 0.0) // || fcosto < 0.0 )
-		 {
-		     res = 1;
-		     mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",3));//PRECAUCION: La cantidad o el costo no son correctas, No se agregó la partida");
-		 }
-		 else
-		 {
-			 if(existeEnLista(idprod))
-			 {
-			     res = 1;
-			     mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",4));//"PRECAUCION: El producto ya existe en la lista");
-			 }
-			 else
-			 {
-				 // Aqui aplica la partida
-				 JAlmMovimientosSesPart part = new JAlmMovimientosSesPart(cantidad, Unidad, idprod, Descripcion, fcosto, "");
-				 m_Partidas.addElement(part);
-			 }
-		 }
-
+		  JInvServKitsArmaSetV2 set = new JInvServKitsArmaSetV2(request);
+		  set.m_Where = "Clave = '" + JUtil.p(idprod) + "' and Status = 'V'";
+		  set.Open();
+	  
+		  if( set.getNumRows() > 0 )
+		  {
+			  Unidad = set.getAbsRow(0).getUnidad();
+			  Descripcion = set.getAbsRow(0).getDescripcion();
+			  
+			  if(!m_RecalcularCosto)
+			  {
+				  if(Costo.equals(""))
+					  fcosto = 0.0F;
+				  else
+					  fcosto = Float.parseFloat(Costo);
+			  }
+			  else
+			  {
+				  fcosto = ((set.getAbsRow(0).getTipoCosteo() == 0) ? set.getAbsRow(0).getUltimoCosto() : set.getAbsRow(0).getCostoPromedio());
+			  }
+		 			  
+		  }
+		  else
+		  {
+			  res = 3;
+			  mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",5));//"ERROR: No se encontró el producto especificado, ó la clave pertenece a un servicio");
+			  return res;
+		  }
+	  }
+	  else //ES UTENSILIO
+	  {
+		  JPublicInvServInvCatalogSetV2 set = new JPublicInvServInvCatalogSetV2(request);
+		  set.m_Where = "Clave = '" + JUtil.p(idprod) + "' and ID_Tipo = 'G' and Status = 'V' and NoSeVende = '1'";
+		  set.Open();
+			
+		  if( set.getNumRows() > 0 )
+		  {
+			  Unidad = "";
+			  Descripcion = set.getAbsRow(0).getDescripcion();
+			  fcosto = 0.0F;
+		  }
+		  else
+		  {
+			  res = 3;
+			  mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",5));//"ERROR: No se encontró el producto especificado, ó la clave pertenece a un servicio");
+			  return res;
+		  }
+	  }
+	  
+	  if(cantidad < 0.0) // || fcosto < 0.0 )
+	  {
+		  res = 1;
+		  mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",3));//PRECAUCION: La cantidad o el costo no son correctas, No se agregó la partida");
 	  }
 	  else
 	  {
-	     res = 3;
-	     mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",5));//"ERROR: No se encontró el producto especificado, ó la clave pertenece a un servicio");
+		  if(existeEnLista(idprod))
+		  {
+			  res = 1;
+			  mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",4));//"PRECAUCION: El producto ya existe en la lista");
+		  }
+		  else
+		  {
+			  // Aqui aplica la partida
+			  JAlmMovimientosSesPart part = new JAlmMovimientosSesPart(cantidad, Unidad, idprod, Descripcion, fcosto, "");
+			  m_Partidas.addElement(part);
+		  }
 	  }
 
 	  return res;
@@ -242,46 +278,71 @@ public short agregaPartida(HttpServletRequest request, float cantidad, String id
   {
 	  short res = -1;
 	  
-	  JInvServKitsArmaSetV2 set = new JInvServKitsArmaSetV2(request);
-	  set.m_Where = "Clave = '" + JUtil.p(idprod) + "' and Status = 'V'";
-	  set.Open();
-	  
-	  if( set.getNumRows() > 0 )
+	  String Unidad = "";
+	  String Descripcion = "";
+	  float fcosto = 0.0F;
+ 
+	  if(m_ID_Clave != -1)
 	  {
-		 String Unidad = set.getAbsRow(0).getUnidad();
-		 String Descripcion = set.getAbsRow(0).getDescripcion();
-		 float fcosto;
-		 
-		 if(!m_RecalcularCosto)
-		 {
-			if(Costo.equals(""))
-				fcosto = 0.0F;
-			else
-				fcosto = Float.parseFloat(Costo);
-		 }
-		 else
-		 {
-			fcosto = ((set.getAbsRow(0).getTipoCosteo() == 0) ? set.getAbsRow(0).getUltimoCosto() : set.getAbsRow(0).getCostoPromedio());
-		 }
-		 
-		 if(cantidad < 0.0) // || fcosto < 0.0 )
-		 {
-		     res = 1;
-		     mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",3));//"PRECAUCION: La cantidad o el costo no son correctas, No se cambió la partida");
-		 }
-		 else
-		 {
-			 // Aqui cambia la partida
-			 JAlmMovimientosSesPart part = (JAlmMovimientosSesPart) m_Partidas.elementAt(indPartida);
-			 part.setPartida(cantidad, Unidad, idprod, Descripcion, fcosto, "");
-			 			
-		 }
-
+		  JInvServKitsArmaSetV2 set = new JInvServKitsArmaSetV2(request);
+		  set.m_Where = "Clave = '" + JUtil.p(idprod) + "' and Status = 'V'";
+		  set.Open();
+	  
+		  if( set.getNumRows() > 0 )
+		  {
+			  Unidad = set.getAbsRow(0).getUnidad();
+			  Descripcion = set.getAbsRow(0).getDescripcion();
+			  	 
+			  if(!m_RecalcularCosto)
+			  {
+				  if(Costo.equals(""))
+					  fcosto = 0.0F;
+				  else
+					  fcosto = Float.parseFloat(Costo);
+			  }
+			  else
+			  {
+				  fcosto = ((set.getAbsRow(0).getTipoCosteo() == 0) ? set.getAbsRow(0).getUltimoCosto() : set.getAbsRow(0).getCostoPromedio());
+			  }
+		  }
+		  else
+		  {
+		     res = 3;
+		     mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",5));//ERROR: No se encontró el producto especificado, ó la clave pertenece a un servicio. No se pudo cambiar la partida.");
+		     return res;
+		  }
+	  }
+	  else // UTENSILIO
+	  {
+		  JPublicInvServInvCatalogSetV2 set = new JPublicInvServInvCatalogSetV2(request);
+		  set.m_Where = "Clave = '" + JUtil.p(idprod) + "' and ID_Tipo = 'G' and Status = 'V' and NoSeVende = '1'";
+		  set.Open();
+			
+		  if( set.getNumRows() > 0 )
+		  {
+			  Unidad = "";
+			  Descripcion = set.getAbsRow(0).getDescripcion();
+			  fcosto = 0.0F;
+		  }
+		  else
+		  {
+			  res = 3;
+			  mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",5));//"ERROR: No se encontró el producto especificado, ó la clave pertenece a un servicio");
+			  return res;
+		  }  
+	  }
+	  
+	  if(cantidad < 0.0) // || fcosto < 0.0 )
+	  {
+		  res = 1;
+		  mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",3));//"PRECAUCION: La cantidad o el costo no son correctas, No se cambió la partida");
 	  }
 	  else
 	  {
-	     res = 3;
-	     mensaje.append(JUtil.Msj("CEF", "ALM_MOVIM", "SES", "MSJ-PROCERR",5));//ERROR: No se encontró el producto especificado, ó la clave pertenece a un servicio. No se pudo cambiar la partida.");
+		  // Aqui cambia la partida
+		  JAlmMovimientosSesPart part = (JAlmMovimientosSesPart) m_Partidas.elementAt(indPartida);
+		  part.setPartida(cantidad, Unidad, idprod, Descripcion, fcosto, "");
+			 			
 	  }
 
 	  return res;

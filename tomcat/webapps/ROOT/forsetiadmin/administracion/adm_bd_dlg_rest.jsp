@@ -103,7 +103,7 @@ function enviarlo(formAct)
       <td> 
 	  	<table width="100%" border="0" cellspacing="3" cellpadding="0">
           <tr> 
-            <td width="30%" align="right"> 
+            <td width="20%" align="right"> 
                 <input name="proceso" type="hidden" value="<%= request.getParameter("proceso")%>">
                 <input name="id" type="hidden" value="<%= request.getParameter("id")%>">
                 <input name="subproceso" type="hidden" value="ENVIAR">
@@ -113,7 +113,8 @@ function enviarlo(formAct)
 				 <tr>
 				 	<td><input name="fecha" type="text" id="fecha" size="12" maxlength="15" readonly="true"> 
                           <a href="javascript:NewCal('fecha','ddmmmyyyy',false)"><img src="../../imgfsi/calendario.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CALENDARIO") %>" border="0" align="absmiddle"></a></td>
-                    <td>De la Empresa</td>
+                    
+                  <td>Copiar Empresa instalada:</td>
 				 	<td>
 					<select style="width: 90%;" name="basedatos" class="cpoBco" onChange="javascript: establecerProcesoSVE(this.form.subproceso, 'MOSTRAR_BDS'); this.form.submit();">
                 		<option value="NC"<% if(request.getParameter("basedatos") != null) {
@@ -138,6 +139,10 @@ function enviarlo(formAct)
 				%>
               </select>
 					</td>
+					
+                  <td>Restaurar empresa perdida:</td>
+				  	
+                  <td><input style="width: 90%;" type="text" name="bdperdida" onBlur="javascript: establecerProcesoSVE(this.form.subproceso, 'MOSTRAR_BDS'); this.form.submit();"></td>
 				   </tr>
 				</table>
 			</td>
@@ -155,7 +160,12 @@ function enviarlo(formAct)
         		while(hoy.compareTo(fecha) >= 0)
         		{
 					String dirarch = ruta_resp;
-        			String filtro = request.getParameter("basedatos") + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd") + "-\\d{2}-\\d{2}.zip" ;
+        			String filtro;
+					if(!request.getParameter("basedatos").equals("NC"))
+						filtro = request.getParameter("basedatos") + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd") + "-\\d{2}-\\d{2}.zip";
+					else
+						filtro = "FSIBD_" + request.getParameter("bdperdida") + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd") + "-\\d{2}-\\d{2}.zip";
+					
 					System.out.println(ruta_resp + "/" + filtro);
         			JFsiFiltroMatch f = new JFsiFiltroMatch(filtro);
         			File dir = new File(dirarch);	
@@ -192,6 +202,7 @@ function enviarlo(formAct)
 </table>
 </form>
 <script language="JavaScript" type="text/javascript">
+document.adm_bd_dlg.bdperdida.value = '<% if(request.getParameter("bdperdida") != null) { out.print( request.getParameter("bdperdida") ); } else { out.print(""); } %>'
 document.adm_bd_dlg.nombre.value = '<% if(request.getParameter("nombre") != null) { out.print( request.getParameter("nombre") ); } else { out.print(""); } %>'
 document.adm_bd_dlg.fecha.value = '<% if(request.getParameter("fecha") != null) { out.print( request.getParameter("fecha") ); } else { out.print( JUtil.obtFechaTxt(new Date(), "dd/MMM/yyyy") ); } %>'
 </script>

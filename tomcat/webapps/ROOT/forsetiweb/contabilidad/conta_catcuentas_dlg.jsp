@@ -36,6 +36,8 @@
 	String Status = JUtil.Msj("CEF","CONT_CATCUENTAS","VISTA","STATUS",2);
 	String Naturaleza = JUtil.Msj("CEF","CONT_CATCUENTAS","DLG","NATURALEZA");
 		
+	JSatCodAgrupSet setCod = new JSatCodAgrupSet(request);
+	setCod.Open();
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -171,8 +173,31 @@ function enviarlo(formAct)
           </tr>
 		  <tr> 
             <td> <div align="right"><%= JUtil.Msj("CEF","CONT_CATCUENTAS","DLG","TIT-ESP",2) %></div></td>
-            <td><input name="codagrup" type="text" id="codagrup" size="5" maxlength="12"<% if(request.getParameter("codagrup") != null) { out.println(" value=\"" + request.getParameter("codagrup") + "\""); }  
-					else if(request.getParameter("proceso").equals("CAMBIAR_CUENTA")) { out.print(" value=\"" + set.getAbsRow(0).getCE_CodAgrup() + "\""); } %>></td>
+            <td><!--input name="codagrup" type="text" id="codagrup" size="5" maxlength="12"<% if(request.getParameter("codagrup") != null) { out.println(" value=\"" + request.getParameter("codagrup") + "\""); }  
+					else if(request.getParameter("proceso").equals("CAMBIAR_CUENTA")) { out.print(" value=\"" + set.getAbsRow(0).getCE_CodAgrup() + "\""); } %>-->
+				<select style="width: 90%;" name="codagrup" class="cpoBco">
+                <%
+		for(int i = 0; i < setCod.getNumRows(); i++)
+		{	
+%>
+                <option value="<%= setCod.getAbsRow(i).getCodigo()%>"<% 
+									if(request.getParameter("codagrup") != null) {
+										if(request.getParameter("codagrup").equals(setCod.getAbsRow(i).getCodigo())) {
+											out.print(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_CUENTA")) { 
+											if( set.getAbsRow(0).getCE_CodAgrup().equals(setCod.getAbsRow(i).getCodigo())) {
+												out.println(" selected"); 
+											}
+										}
+									 }
+									 %>><%= setCod.getAbsRow(i).getCodigo() + " --- " + setCod.getAbsRow(i).getDescripcion() %></option>
+                <%	
+		}
+%>
+              </select>
+			</td>
           </tr>
           <tr> 
             <td> <div align="right"><%= JUtil.Msj("CEF","CONT_CATCUENTAS","DLG","TIT-ESP",3) %></div></td>

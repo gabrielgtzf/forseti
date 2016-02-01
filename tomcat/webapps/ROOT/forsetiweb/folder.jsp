@@ -39,7 +39,9 @@
     			<td><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="1"><img src="../imgfsi/pixel_blanco.gif" width="1" height="34"></td>
-                <td><div align="right"><a href="/servlet/CEFRegistro" target="cuerpo"><img src="../imgfsi/inicio.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",1) %>" width="24" height="24" border="0"></a><img src="../imgfsi/pixel_blanco.gif" width="5" height="24"><a href="/servlet/CEFSalir" target="cuerpo"><img src="../imgfsi/cerrar_sesion.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",2) + " " + JUtil.getSesion(request).getNombreUsuario() %>" width="24" height="24" border="0"></a><img src="../imgfsi/pixel_blanco.gif" width="5" height="24"><a href="<%= urlayuda %>050101.html" target="_blank"><img src="../imgfsi/ayudacef.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",3) %>" width="24" height="24" border="0"></a></div></td>
+                <td><div align="right">
+				<a href="/servlet/CEFMenuCtrl" target="cuerpo"><img src="../imgfsi/menu_principal.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",4) %>" width="24" height="24" border="0"></a><img src="../imgfsi/pixel_blanco.gif" width="10" height="24">
+				<a href="/servlet/CEFRegistro" target="cuerpo"><img src="../imgfsi/inicio.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",1) %>" width="24" height="24" border="0"></a><img src="../imgfsi/pixel_blanco.gif" width="5" height="24"><a href="/servlet/CEFSalir" target="cuerpo"><img src="../imgfsi/cerrar_sesion.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",2) + " " + JUtil.getSesion(request).getNombreUsuario() %>" width="24" height="24" border="0"></a><img src="../imgfsi/pixel_blanco.gif" width="5" height="24"><a href="<%= urlayuda %>050101.html" target="_blank"><img src="../imgfsi/ayudacef.png" title="<%= JUtil.Msj("GLB","GLB","GLB","HERRAMIENTAS",3) %>" width="24" height="24" border="0"></a></div></td>
               </tr>
             </table></td>
   			</tr>

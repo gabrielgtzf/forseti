@@ -177,10 +177,10 @@ function enviarlo(formAct)
 		  <tr> 
             <td width="20%"> <div align="right"> 
                      N&uacute;mero:</div></td>
-            <td width="30%"> <input name="numero_nomina" type="text" id="numero_nomina" size="5" maxlength="2"<%= (request.getParameter("proceso").equals("CAMBIAR_NOMINA")) ? " readonly=\"true\"" : "" %>> 
+            <td width="30%"> <input name="numero_nomina" type="text" id="numero_nomina" size="5" maxlength="2" readonly="true"> 
             </td>
             <td width="20%">A&ntilde;o:</td>
-            <td width="30%"> <input name="ano" type="text" id="ano" size="8" maxlength="4"<%= (request.getParameter("proceso").equals("CAMBIAR_NOMINA")) ? " readonly=\"true\"" : "" %>> 
+            <td width="30%"> <input name="ano" type="text" id="ano" size="8" maxlength="4" readonly="true"> 
             </td>
           </tr>
           <tr> 

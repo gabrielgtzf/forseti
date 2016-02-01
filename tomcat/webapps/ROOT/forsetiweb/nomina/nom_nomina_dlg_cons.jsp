@@ -89,11 +89,11 @@ function ventanaDos(ancho, alto)
           <td> 
 		    <div align="right">
 			 <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'CARGAR_RECIBO',<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","CARGAR_RECIBO",4) %>,<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","CARGAR_RECIBO",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","CARGAR_RECIBO") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","CARGAR_RECIBO",2) %>" border="0">
-   			 <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'ENLAZAR_RECIBO',<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","ENLAZAR_RECIBO",4) %>,<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","ENLAZAR_RECIBO",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","ENLAZAR_RECIBO") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","ENLAZAR_RECIBO",2) %>" border="0">
    			 <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'AGR_EMP',<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","AGR_EMP",4) %>,<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","AGR_EMP",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","AGR_EMP") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","AGR_EMP",2) %>" border="0">
              <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'CAM_EMP',<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","CAM_EMP",4) %>,<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","CAM_EMP",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","CAM_EMP") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","CAM_EMP",2) %>" border="0">
       		 <input type="image" onClick="javascript: if(confirm('<%= JUtil.Msj("GLB","GLB","GLB","CONFIRMACION",2) %>')) { establecerProcesoSVE(this.form.proceso, 'BORR_EMP',<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","BORR_EMP",4) %>,<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","BORR_EMP",5) %>); } else { return false; } " src="../imgfsi/<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","BORR_EMP") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","BORR_EMP",2) %>" border="0">
-		     <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'XML_RECIBO',<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","XML_RECIBO",4) %>,<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","XML_RECIBO",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","XML_RECIBO") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","XML_RECIBO",2) %>" border="0">
+		     <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'ENLAZAR_RECIBO',<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","ENLAZAR_RECIBO",4) %>,<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","ENLAZAR_RECIBO",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","ENLAZAR_RECIBO") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","ENLAZAR_RECIBO",2) %>" border="0">
+   			 <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'XML_RECIBO',<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","XML_RECIBO",4) %>,<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","XML_RECIBO",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","XML_RECIBO") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","XML_RECIBO",2) %>" border="0">
              <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'PDF_RECIBO',<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","PDF_RECIBO",4) %>,<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","PDF_RECIBO",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","PDF_RECIBO") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","PDF_RECIBO",2) %>" border="0">
              <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'ENVIAR_RECIBO',<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","ENVIAR_RECIBO",4) %>,<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","ENVIAR_RECIBO",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","ENVIAR_RECIBO") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_NOMINA","VISTA","ENVIAR_RECIBO",2) %>" border="0">
              <a href="/servlet/CEFNomMovDirDlg?proceso=MOVER_NOMINA&id=<%= request.getParameter("id") %>" target="_self"><img src="../imgfsi/actualizar.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",1) %>" border="0"></a> 
@@ -155,10 +155,11 @@ function ventanaDos(ancho, alto)
 				<td width="5%" align="right" class="titChico">HE</td>
 				<td width="5%" align="right" class="titChico">HT</td>
 	           	<td width="5%" align="right" class="titChico">HD</td>
+				<td width="5%" align="right" class="titChico">DHE</td>
 				<td width="3%" align="center" class="titChico">CFDI</td>
 	           </tr>
 			   <tr>
-					<td colspan="12">
+					<td colspan="13">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 						  <tr bgcolor="#999999">
 							<td width="5%" align="right">&nbsp;</td>
@@ -201,10 +202,11 @@ function ventanaDos(ancho, alto)
 				 	<td width="5%" align="right" class="titChicoNeg"><%= cset.getAbsRow(i).getHE() %></td>
 	           		<td width="5%" align="right" class="titChicoNeg"><%= cset.getAbsRow(i).getHT() %></td>
 		        	<td width="5%" align="right" class="titChicoNeg"><%= cset.getAbsRow(i).getHD() %></td>
+					<td width="5%" align="right" class="titChicoNeg"><%= cset.getAbsRow(i).getDiasHorasExtras() %></td>
 					<td width="3%" align="center" class="titChicoNeg"><% if(cset.getAbsRow(i).getTFD() == 3) { out.print("PDF"); } else if(cset.getAbsRow(i).getTFD() == 2) { out.print("TFD"); } else { out.print("---"); } %></td>
 		        </tr>
 				<tr>
-					<td colspan="12">
+					<td colspan="13">
 <% 
 			JCalculoNominaDetSet dset = new JCalculoNominaDetSet(request);
 			dset.m_Where = "ID_Nomina = '" + cset.getAbsRow(i).getID_Nomina()  + "' and ID_Empleado = '" +  JUtil.p(cset.getAbsRow(i).getID_Empleado()) + "'";
@@ -259,7 +261,7 @@ function ventanaDos(ancho, alto)
 		}
 %>
             	<tr>
-					<td colspan="11">
+					<td colspan="13">
 					   <table width="100%" border="0" cellspacing="0" cellpadding="2">
                       	<tr>
 							<td width="5%" align="right">&nbsp;</td>
@@ -273,7 +275,7 @@ function ventanaDos(ancho, alto)
 					</td>
 				</tr>
 				<tr>
-					<td colspan="11">
+					<td colspan="13">
 					   <table width="100%" border="0" cellspacing="0" cellpadding="2">
                       <tr>
 							<td width="5%" align="right">&nbsp;</td>

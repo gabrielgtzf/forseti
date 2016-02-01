@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -195,6 +200,8 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
  
 				
  
+				
+ 
 				 				 				 				 				 				 				 				 				 				
 
 <div align="justify"> 				 				 				 				 				 				 				En el módulo de Catálogos se define el catálogo de <strong>productos</strong>, <strong>servicios</strong> y <strong>gastos</strong>, además de las <strong>lineas y unidades</strong> de cada uno. Los catálogos responden a todas las entidades de compras, ventas, y producción,   es decir, una vez se da de alta un producto, servicio o gasto, este se reflejará en cualquier entidad de estas. Por ejemplo, un producto dado de alta se verá al momento   de facturar, sea en la tienda de monterrey o en la de Guadalajara, y no se tiene que duplicar. Lo mismo pasa en los módulos de compras, gastos, producción, vales de caja etc.<br />
@@ -215,8 +222,10 @@ Aquí damos de alta y cambiamos líneas de productos,   servicios y gastos. Tamb
 <ul> <li>La clave del gasto.</li> <li>La descripción.</li> <li>Las observaciones..</li> <li>La categoría a la que pertenece.</li> <li>Manejo de los impuestos del gasto (IVA, IEPS y Retenciones de ISR e IVA).</li> <li>El porcentaje del gasto e IVA acreditable que realmente se deducirá.<br />
 </li> <li>Su estatus que puede ser vigente o descontinuado.</li>  <li>Su costo máximo para proteger a la hora de la compra.</li> <li>Bandera para definir si este gasto es de uso interno ( por ejemplo, un martillo se usa intérnamente y generará su existencia en el inventario de utensilios para poder tener mas control sobre este ).</li> <li>El detalle para los enlaces contables.<br />
 </li>
-</ul>El porcentaje del gasto e IVA acreditable que realmente se deducirá, es un dato para identificar los gastos donde existen límites deducibles. Por ejemplo, las comidas de trabajo dentro de los alrededores solo se pueden deducir en un 8.5% del total, así que una clave de este tipo de gasto debería de tener 8.5% en este dato. Supongamos que este gasto COM (Comidas de trabajo) estuviera enlazado a la cuenta contable 1000-001 de Gastos Administrativos y por otro lado el IVA Acreditable a la cuenta 5000-001. Ahora supongamos que el gasto se facturó por $1,000 mas IVA de $160, en un gasto común esto generaría la póliza por $1000 a la cuenta 1000-001 y $160 a la 5000-001. Encambio, este gasto generará la póliza por $85 a la cuenta 1000-001, $13.60 a la 5000-001, $915 a la cuenta de gastos no deducibles y $146.40 a la cuenta de IVA no acreditable.<br />
+</ul>El porcentaje del gasto e IVA acreditable que realmente se deducirá, es un dato para identificar los gastos donde existen límites deducibles. Por ejemplo, las comidas de trabajo dentro de los alrededores solo se pueden deducir en un 8.5% del total, así que una clave de este tipo de gasto debería de tener 8.5% en este dato. Supongamos que el gasto COM (Comidas de trabajo) estuviera enlazado a la cuenta contable 1000-001 de Gastos Administrativos y por otro lado el IVA Acreditable a la cuenta 5000-001. Ahora supongamos que el gasto se facturó por $1,000 mas IVA de $160, en un gasto común esto generaría la póliza por $1000 a la cuenta 1000-001 y $160 a la 5000-001, en cambio, este gasto generará la póliza por $85 a la cuenta 1000-001, $13.60 a la 5000-001, $915 a la cuenta de gastos no deducibles y $146.40 a la cuenta de IVA no acreditable.<br />
 </div>  			  			  			  			  			  			  			  			  			  
+			  
+
 			  
 
 			  
@@ -309,6 +318,14 @@ Aquí damos de alta y cambiamos líneas de productos,   servicios y gastos. Tamb
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -321,7 +338,7 @@ Aquí damos de alta y cambiamos líneas de productos,   servicios y gastos. Tamb
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

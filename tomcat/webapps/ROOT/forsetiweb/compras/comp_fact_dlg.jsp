@@ -645,7 +645,7 @@ function enviarlo(formAct)
                   <td width="70%" valign="top">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
                       <tr>
-                        <td class="titChico">Observaciones del documento:</td>
+                        <td class="titChicoAzc">Observaciones del documento:</td>
                       </tr>
                       <tr>
                         <td><textarea name="obs" cols="50" rows="3" id="obs"></textarea></td>

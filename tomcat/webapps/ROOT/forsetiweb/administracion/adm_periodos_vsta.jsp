@@ -61,7 +61,7 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 <link href="../../compfsi/estilos.css" rel="stylesheet" type="text/css">
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
-<form action="/servlet/CEFAdmPeriodosDlg" method="post" enctype="application/x-www-form-urlencoded" name="adm_periodos" target="ventEm">
+<form action="/servlet/CEFAdmPeriodosDlg" method="post" enctype="application/x-www-form-urlencoded" name="adm_periodos" target="_self">
 <div id="topbar">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
@@ -78,8 +78,8 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
           <td> 
 		    <div align="right">
 			  <input name="proceso" type="hidden" value="ACTUALIZAR">
-			  <input type="image" onClick="javascript: if(confirm('<%= JUtil.Msj("CEF","ADM_PERIODOS","DLG","MSJ-PROCOK") %>')) { establecerProceso(this.form.proceso, 'AGREGAR_PERIODO',<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","AGREGAR_PERIODO",4) %>,<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","AGREGAR_PERIODO",5) %>); } else { return false; } " src="../imgfsi/<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","AGREGAR_PERIODO") %>" alt="" title="<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","AGREGAR_PERIODO",2) %>" border="0">
-              <input type="image" onClick="javascript: if(confirm('<%= JUtil.Msj("CEF","ADM_PERIODOS","DLG","MSJ-PROCOK",2) %>')) { establecerProceso(this.form.proceso, 'CERRAR_PERIODO',<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","CERRAR_PERIODO",4) %>,<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","CERRAR_PERIODO",5) %>); } else { return false; } " src="../imgfsi/<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","CERRAR_PERIODO") %>" alt="" title="<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","CERRAR_PERIODO",2) %>" border="0">
+			  <input type="image" onClick="javascript: if(confirm('<%= JUtil.Msj("CEF","ADM_PERIODOS","DLG","MSJ-PROCOK") %>')) { establecerProcesoSVE(this.form.proceso, 'AGREGAR_PERIODO',<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","AGREGAR_PERIODO",4) %>,<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","AGREGAR_PERIODO",5) %>); } else { return false; } " src="../imgfsi/<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","AGREGAR_PERIODO") %>" alt="" title="<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","AGREGAR_PERIODO",2) %>" border="0">
+              <input type="image" onClick="javascript: if(confirm('<%= JUtil.Msj("CEF","ADM_PERIODOS","DLG","MSJ-PROCOK",2) %>')) { establecerProcesoSVE(this.form.proceso, 'CERRAR_PERIODO',<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","CERRAR_PERIODO",4) %>,<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","CERRAR_PERIODO",5) %>); } else { return false; } " src="../imgfsi/<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","CERRAR_PERIODO") %>" alt="" title="<%= JUtil.Msj("CEF","ADM_PERIODOS","VISTA","CERRAR_PERIODO",2) %>" border="0">
 			  <a href="javascript:try { gestionarArchivos('ADM_PERIODOS', document.adm_periodos.id.value, ''); } catch(err) { gestionarArchivos('ADM_PERIODOS', '', ''); }" target="_self"><img src="../imgfsi/es_gestionar_archivos.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",5) %>" border="0"></a> 
 			  <a href="/servlet/CEFAdmPeriodosCtrl" target="_self"><img src="../imgfsi/actualizar.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",1) %>" border="0"></a> 
          	</div>

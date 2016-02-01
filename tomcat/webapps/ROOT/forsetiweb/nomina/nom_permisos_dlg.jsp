@@ -27,14 +27,30 @@
 
 	String titulo =  JUtil.getSesion(request).getSesion("NOM_PERMISOS").generarTitulo(JUtil.Msj("CEF","NOM_PERMISOS","VISTA",request.getParameter("proceso"),3),"../../forsetidoc/040205.html");
 	
+	
 	JPermisosSet set = new JPermisosSet(request);
+	JPermisosGrupoSet setgrp = new JPermisosGrupoSet(request);
+	boolean prmgrp = false;
+    	
 	if( request.getParameter("proceso").equals("CAMBIAR_PERMISO") )
 	{
-		set.m_Where = "ID_Empleado = '" + JUtil.p(JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|")) + "' and ID_Movimiento = '" +
-			JUtil.p(JUtil.obtSubCadena(request.getParameter("id"),"_FM_","|")) + "' and ID_FechaMovimiento = '" +
-			 JUtil.p(JUtil.obtSubCadena(request.getParameter("id"),"_FF_","|")) + "'";
-		//System.out.println(set.m_Where);
-		set.Open();
+		prmgrp = JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|").indexOf("FSINOMINA-") == -1 ? false : true;
+    	if(!prmgrp)
+    	{
+    		set.m_Where = "ID_Empleado = '" + JUtil.p(JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|")) + "' and ID_Movimiento = '" +
+		  		JUtil.p(JUtil.obtSubCadena(request.getParameter("id"),"_FM_","|")) + "' and ID_FechaMovimiento = '" +
+					JUtil.p(JUtil.obtSubCadena(request.getParameter("id"),"_FF_","|")) + "'";
+			//System.out.println(set.m_Where);
+			set.Open();
+		}
+		else
+		{
+			setgrp.m_Where = "ID_Compania = '0' and ID_Sucursal = '" + JUtil.p(JUtil.obtSubCadena(request.getParameter("id"),"_FE_FSINOMINA-","|")) + "' and ID_Movimiento = '" +
+		  		JUtil.p(JUtil.obtSubCadena(request.getParameter("id"),"_FM_","|")) + "' and ID_FechaMovimiento = '" +
+					JUtil.p(JUtil.obtSubCadena(request.getParameter("id"),"_FF_","|")) + "'";
+			//System.out.println(setgrp.m_Where);
+			setgrp.Open();
+		}
 	}
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -54,7 +70,7 @@ function enviarlo(formAct)
 	if(formAct.proceso.value == "AGREGAR_PERMISO" || formAct.proceso.value == "CAMBIAR_PERMISO")
 	{
 		if(!esNumeroEntero('Movimiento:', formAct.id_movimiento.value, 0, 999) ||
-			!esCadena('Empleado:', formAct.id_empleado.value, 6, 6)  )
+			!esCadena('Empleado:', formAct.id_empleado.value, 0, 6)  )
 			return false;
 		else
 		{
@@ -161,13 +177,13 @@ function enviarlo(formAct)
  </table>
 </form>
 <script language="JavaScript1.2">
-document.nom_permisos_dlg.id_movimiento.value = '<% if(request.getParameter("id_movimiento") != null) { out.print( request.getParameter("id_movimiento") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { out.print( set.getAbsRow(0).getID_Movimiento() ); } else { out.print(""); } %>' 
-document.nom_permisos_dlg.nombre_movimiento.value = '<% if(request.getParameter("nombre_movimiento") != null) { out.print( request.getParameter("nombre_movimiento") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { out.print( set.getAbsRow(0).getDescripcion() ); } else { out.print(""); } %>' 
-document.nom_permisos_dlg.id_empleado.value = '<% if(request.getParameter("id_empleado") != null) { out.print( request.getParameter("id_empleado") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { out.print( set.getAbsRow(0).getID_Empleado() ); } else { out.print(""); } %>' 
-document.nom_permisos_dlg.nombre_empleado.value = '<% if(request.getParameter("nombre_empleado") != null) { out.print( request.getParameter("nombre_empleado") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { out.print( set.getAbsRow(0).getNombre() ); } else { out.print(""); } %>' 
-document.nom_permisos_dlg.desde.value = '<% if(request.getParameter("desde") != null) { out.print( request.getParameter("desde") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { out.print( JUtil.obtFechaTxt(set.getAbsRow(0).getDesde(), "dd/MMM/yyyy") + " " + JUtil.obtHoraTxt(set.getAbsRow(0).getHoraDesde(),"HH:mm") ); } else { out.print("") ; } %>'
-document.nom_permisos_dlg.hasta.value = '<% if(request.getParameter("hasta") != null) { out.print( request.getParameter("hasta") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { out.print( JUtil.obtFechaTxt(set.getAbsRow(0).getHasta(), "dd/MMM/yyyy") + " " + JUtil.obtHoraTxt(set.getAbsRow(0).getHoraHasta(),"HH:mm") ); } else { out.print("") ; } %>'
-document.nom_permisos_dlg.obs.value = '<% if(request.getParameter("obs") != null) { out.print( request.getParameter("obs") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { out.print( set.getAbsRow(0).getObs() ); } else { out.print(""); } %>'
+document.nom_permisos_dlg.id_movimiento.value = '<% if(request.getParameter("id_movimiento") != null) { out.print( request.getParameter("id_movimiento") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) {  if(!prmgrp) out.print(set.getAbsRow(0).getID_Movimiento()); else out.print(setgrp.getAbsRow(0).getID_Movimiento()); } else { out.print(""); } %>' 
+document.nom_permisos_dlg.nombre_movimiento.value = '<% if(request.getParameter("nombre_movimiento") != null) { out.print( request.getParameter("nombre_movimiento") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { if(!prmgrp) out.print(set.getAbsRow(0).getDescripcion()); else out.print(setgrp.getAbsRow(0).getDescripcion()); } else { out.print(""); } %>' 
+document.nom_permisos_dlg.id_empleado.value = '<% if(request.getParameter("id_empleado") != null) { out.print( request.getParameter("id_empleado") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { if(!prmgrp) out.print(set.getAbsRow(0).getID_Empleado()); else out.print(""); } else { out.print(""); } %>' 
+document.nom_permisos_dlg.nombre_empleado.value = '<% if(request.getParameter("nombre_empleado") != null) { out.print( request.getParameter("nombre_empleado") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { if(!prmgrp) out.print(set.getAbsRow(0).getNombre()); else out.print(""); } else { out.print(""); } %>' 
+document.nom_permisos_dlg.desde.value = '<% if(request.getParameter("desde") != null) { out.print( request.getParameter("desde") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { if(!prmgrp) out.print(JUtil.obtFechaTxt(set.getAbsRow(0).getDesde(), "dd/MMM/yyyy") + " " + JUtil.obtHoraTxt(set.getAbsRow(0).getHoraDesde(),"HH:mm")); else out.print(JUtil.obtFechaTxt(setgrp.getAbsRow(0).getDesde(), "dd/MMM/yyyy") + " 00:00"); } else { out.print("") ; } %>'
+document.nom_permisos_dlg.hasta.value = '<% if(request.getParameter("hasta") != null) { out.print( request.getParameter("hasta") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { if(!prmgrp) out.print(JUtil.obtFechaTxt(set.getAbsRow(0).getHasta(), "dd/MMM/yyyy") + " " + JUtil.obtHoraTxt(set.getAbsRow(0).getHoraHasta(),"HH:mm")); else out.print(JUtil.obtFechaTxt(setgrp.getAbsRow(0).getHasta(), "dd/MMM/yyyy") + " 00:00"); } else { out.print("") ; } %>'
+document.nom_permisos_dlg.obs.value = '<% if(request.getParameter("obs") != null) { out.print( request.getParameter("obs") ); } else if(!request.getParameter("proceso").equals("AGREGAR_PERMISO")) { if(!prmgrp) out.print(set.getAbsRow(0).getObs()); else out.print(""); } else { out.print(""); } %>'
 </script>
 </body>
 </html>

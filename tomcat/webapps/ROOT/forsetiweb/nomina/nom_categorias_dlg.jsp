@@ -50,9 +50,9 @@ function enviarlo(formAct)
 	{
 		if(	!esNumeroDecimal('Sueldo:', formAct.sueldo.value, 0, 999999.99, 2) ||
 			!esNumeroDecimal('Vales:', formAct.vales.value, 0, 999999.99, 2) ||
-			!esNumeroDecimal('% sueldo:', formAct.sueldoam.value, 0, 99.999999, 6) ||
-			!esNumeroDecimal('% integrado:', formAct.integradoam.value, 0, 99.999999, 6) ||
-			!esNumeroDecimal('% vales:', formAct.valesam.value, 0, 99.999999, 6) ||
+			!esNumeroDecimal('% sueldo:', formAct.sueldoam.value, -0.999999, 0.999999, 6) ||
+			!esNumeroDecimal('% integrado:', formAct.integradoam.value, -0.999999, 0.999999, 6) ||
+			!esNumeroDecimal('% vales:', formAct.valesam.value, -0.999999, 0.999999, 6) ||
 			!esNumeroEntero('Clave:', formAct.id_categoria.value, 0, 254)  )
 			return false;
 		else
@@ -124,18 +124,20 @@ function enviarlo(formAct)
           <tr> 
             <td> <div align="right">Sueldo:</div></td>
             <td width="60%"><input name="sueldo" type="text" id="sueldo" size="12" maxlength="12"></td>
-            <td width="20%"><input name="sueldoam" type="text" id="sueldoam" size="9" maxlength="9"> %</td>
+            <td width="20%"><input name="sueldoam" type="text" id="sueldoam" size="9" maxlength="9">
+              ej: 12% = 0.12</td>
           </tr>
           <tr> 
             <td> <div align="right">Integrado:</div></td>
             <td width="60%">&nbsp;</td>
             <td width="20%"><input name="integradoam" type="text" id="integradoam" size="9" maxlength="9">
-              % </td>
+              ej: 12% = 0.12</td>
           </tr>
           <tr> 
             <td> <div align="right">Vales:</div></td>
             <td width="60%"><input name="vales" type="text" id="vales" size="12" maxlength="12"></td>
-            <td width="20%"><input name="valesam" type="text" id="valesam" size="9" maxlength="9"> %</td>
+            <td width="20%"><input name="valesam" type="text" id="valesam" size="9" maxlength="9">
+              ej: 12% = 0.12 </td>
           </tr>
         </table>
       </td>

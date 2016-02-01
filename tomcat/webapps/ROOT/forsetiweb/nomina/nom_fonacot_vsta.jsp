@@ -78,7 +78,8 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 			  <input name="proceso" type="hidden" value="ACTUALIZAR">
 			  <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'AGREGAR_FONACOT',<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","AGREGAR_FONACOT",4) %>,<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","AGREGAR_FONACOT",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","AGREGAR_FONACOT") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","AGREGAR_FONACOT",2) %>" border="0">
               <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'CAMBIAR_FONACOT',<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","CAMBIAR_FONACOT",4) %>,<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","CAMBIAR_FONACOT",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","CAMBIAR_FONACOT") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","CAMBIAR_FONACOT",2) %>" border="0">
-              <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'CONSULTAR_RUBRO',<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","CONSULTAR_FONACOT",4) %>,<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","CONSULTAR_FONACOT",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","CONSULTAR_FONACOT") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","CONSULTAR_FONACOT",2) %>" border="0">
+              <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'CONSULTAR_FONACOT',<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","CONSULTAR_FONACOT",4) %>,<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","CONSULTAR_FONACOT",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","CONSULTAR_FONACOT") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","CONSULTAR_FONACOT",2) %>" border="0">
+              <input type="image" onClick="javascript: if(confirm('<%= JUtil.Msj("GLB","GLB","GLB","CONFIRMACION",2) %>')) { establecerProcesoSVE(this.form.proceso, 'ELIMINAR_FONACOT'); } else { return false; } " src="../imgfsi/<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","ELIMINAR_FONACOT") %>" alt="" title="<%= JUtil.Msj("CEF","NOM_FONACOT","VISTA","ELIMINAR_FONACOT",2) %>" border="0">
               <a href="javascript:try { gestionarArchivos('NOM_FONACOT', document.nom_fonacot.id.value, ''); } catch(err) { gestionarArchivos('NOM_FONACOT', '', ''); }" target="_self"><img src="../imgfsi/es_gestionar_archivos.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",5) %>" border="0"></a> 
 			  <a href="/servlet/CEFNomFonacotCtrl" target="_self"><img src="../imgfsi/actualizar.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",1) %>" border="0"></a> 
            </div></td>
@@ -95,9 +96,9 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 		  	 <td width="7%" align="left"><a class="titChico" href="/servlet/CEFNomFonacotCtrl?orden=ID_Credito&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
              <td width="10%" align="center"><a class="titChico" href="/servlet/CEFNomFonacotCtrl?orden=Fecha&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
              <td width="7%" align="left"><a class="titChico" href="/servlet/CEFNomFonacotCtrl?orden=ID_Empleado&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-             <td width="33%" align="left"><a class="titChico" href="/servlet/CEFNomFonacotCtrl?orden=Nombre&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-   	         <td width="5%" align="center"><a class="titChico" href="/servlet/CEFNomFonacotCtrl?orden=Meses&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-             <td width="5%" align="center"><a class="titChico" href="/servlet/CEFNomFonacotCtrl?orden=Plazo&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
+             <td align="left"><a class="titChico" href="/servlet/CEFNomFonacotCtrl?orden=Nombre&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
+   	         <!--td width="5%" align="center"><a class="titChico" href="/servlet/CEFNomFonacotCtrl?orden=Meses&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
+             <td width="5%" align="center"><a class="titChico" href="/servlet/CEFNomFonacotCtrl?orden=Plazo&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td-->
          	 <td width="10%" align="right"><a class="titChico" href="/servlet/CEFNomFonacotCtrl?orden=Importe&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
              <td width="10%" align="right"><a class="titChico" href="/servlet/CEFNomFonacotCtrl?orden=Retencion&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
              <td width="10%" align="right"><a class="titChico" href="/servlet/CEFNomFonacotCtrl?orden=Descuentos&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
@@ -127,9 +128,9 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 		  <td width="7%" align="left"><%= set.getAbsRow(i).getID_Credito() %></td>
 		  <td width="10%" align="center"><%= set.getAbsRow(i).getFecha()  %></td>
   		  <td width="7%" align="left"><%= set.getAbsRow(i).getID_Empleado()  %></td>
-   		  <td width="33%" align="left"><%= set.getAbsRow(i).getNombre()  %></td>
-     	  <td width="5%" align="center"><%= set.getAbsRow(i).getMeses()  %></td>
-    	  <td width="5%" align="center"><%= set.getAbsRow(i).getPlazo()  %></td>
+   		  <td align="left"><%= set.getAbsRow(i).getNombre()  %></td>
+     	  <!--td width="5%" align="center"><%= set.getAbsRow(i).getMeses()  %></td>
+    	  <td width="5%" align="center"><%= set.getAbsRow(i).getPlazo()  %></td-->
    		  <td width="10%" align="right"><%= set.getAbsRow(i).getImporte()  %></td>
 		  <td width="10%" align="right"><%= set.getAbsRow(i).getRetencion()  %></td>
   		  <td width="10%" align="right"><%= set.getAbsRow(i).getDescuentos()  %></td>

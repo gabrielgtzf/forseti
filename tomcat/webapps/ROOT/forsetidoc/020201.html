@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -197,85 +202,54 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
  
 				
  
+				
+ 
 				 				 				 				 				 				
 
-<div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				Una vez teniendo el hardware necesario o disponibilidad de instancias en la Nube, la instalación de Forseti puede hacerse en uno o dos servidores Linux. Si se hace en un solo servidor (recomendable para sistemas sencillos que no estarán presentes en la nube), la base de datos PostgreSQL y el servicio web Tomcat, así como todos los programas alternos que se requieren para su uso (OpenJDK, OpenSSL, RSYNC, etc.) quedarán instalados en ese ordenador. Para esquemas mas robustos o que tendrán presencia en la nube (quedarán expuestos a dar servicio a través de internet) es recomendable, aunque no indispensable, instalar la base de datos PostgreSQL en una instancia y los demás programas en otra.<br />
-<br />
-Forseti trabaja bajo el sistema operativo Linux, y como la documentación esta diseñada para gente que apenas está empezando a conocer Linux, la instalación y configuración que se muestran en esta documentación están soportadas únicamente para la familia de distribuciones basadas en Ubuntu. ( Ubuntu, Ubuntu Server, Kubuntu, Xubuntu, Lubuntu, Linux Mint, etc.) ya que desde nuestro punto de vista es la que creemos el mejor punto de inicio hacia el salto a Linux. Estas distribuciones las puedes descargar totalmente gratuitas desde sus sitios web. La distribución Ubuntu la puedes descargar de <a href="http://www.ubuntu.com/" target="_blank">http://www.ubuntu.com</a>, en el cual te explica paso a paso como descargarlo e instalarlo. Usuarios con cierta experiencia en Linux, podrán instalar en cualquier otra distribución con solo adecuar los comandos y las configuraciones a esta.<br />
+<div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				Forseti trabaja bajo el sistema operativo Linux, y como la documentación esta diseñada para gente que apenas está empezando a conocer Linux, la instalación y configuración que se muestran en esta documentación están soportadas únicamente para la familia de distribuciones basadas en Ubuntu. ( Ubuntu, Ubuntu Server, Kubuntu, Xubuntu, Lubuntu, Linux Mint, etc.) ya que desde nuestro punto de vista es la que creemos el mejor punto de inicio hacia el salto a Linux. Estas distribuciones las puedes descargar totalmente gratuitas desde sus sitios web. La distribución Ubuntu la puedes descargar de <a href="http://www.ubuntu.com/" target="_blank">http://www.ubuntu.com</a> en el cual te explica paso a paso como descargarlo e instalarlo. Usuarios con cierta experiencia en Linux podrán instalar en cualquier otra distribución con solo adecuar los comandos y las configuraciones a esta.<br />
 </div>
 <div align="justify"><br />
-<strong>Para los que no conocen Linux</strong>, este es un sistema operativo sumamente seguro y poderoso, además de ser gratuito. El equipo Forseti sugiere ampliamente a la gente a dar el salto a utilizar Linux y los proyectos GNU. Existen varias distribuciones como Red-Hat, Suse, Gentoo, Fedora, Debian, Ubuntu etc. en versiones para servidor o escritorio, todas ellas basadas en el mismo kernel (el corazón del sistema operativo). En Linux, mucho del trabajo administrativo enfocado a servicios como Forseti ( Forseti es un servicio web ), sigue siendo realizado en la consola de comandos, si, así como se hacia en el viejo "ms-dos", de hecho, las versiones de servidor se instalan sin una interfaz gráfica. Si deseas aprender sobre Linux y su funcionamiento antes de la instalación, puedes revisar los miles de documentos disponibles en internet.<br />
+<strong>Para los que no conocen Linux</strong>, este es un sistema operativo sumamente seguro y poderoso además de ser gratuito. El equipo Forseti sugiere ampliamente a la gente a dar el salto a utilizar Linux y los proyectos de software libre. Existen varias distribuciones como Red-Hat, Suse, Gentoo, Fedora, Debian, Ubuntu etc. en versiones para servidor o escritorio, todas ellas basadas en el mismo kernel (el corazón del sistema operativo). En Linux, mucho del trabajo administrativo enfocado a servicios como Forseti ( Forseti es un servicio web ), sigue siendo realizado en la consola de comandos, si, así como se hacia en el viejo "ms-dos", de hecho, las versiones de servidor se instalan sin una interfaz gráfica. Si deseas aprender sobre Linux y su funcionamiento antes de la instalación, puedes revisar los miles de documentos disponibles en internet.<br />
 <br />
-Una vez ya instalada la distribución en nuestro o nuestros ordenadores, ya podremos empezar con nuestra instalación del servidor Forseti. <strong>NOTA</strong>: Debemos tener conexión a internet para poder realizarla.<br />
+Una vez ya instalada la distribución en nuestro ordenador ya podremos empezar con nuestra instalación del servidor Forseti. <strong>NOTA</strong>: Debemos tener conexión a internet para poder realizarla.<br />
 <br />
-Los siguientes son los pre-requisitos necesarios para la instalación y configuración de Forseti, y para seguir paso a paso esta documentación.<br />
+Los siguientes son los pre-requisitos necesarios para la instalación y configuración de Forseti y para seguir paso a paso esta documentación.<br />
 <br />
-Una vez estando en la linea de comandos (para sistemas linux de escritorio con interfaz gráfica se puede utilizar una terminal que regularmente se encuentra en el menú de accesorios o herramientas del sistema), lo primero que debemos de hacer es actualizar nuestro sistema operativo introduciendo los siguientes comandos:<br />
+Una vez estando en la linea de comandos (para sistemas linux de escritorio con interfaz gráfica se puede utilizar una terminal que regularmente se encuentra en el menú de accesorios o herramientas del sistema) lo primero que debemos de hacer es actualizar nuestro sistema operativo introduciendo los siguientes comandos:<br />
 <br />
 <span style="color: rgb(0, 0, 255);">$ sudo apt-get update<br />
 $ sudo apt-get upgrade</span><br />
 <br />
-Al ejecutar este comando, se te pedirá tu contraseña ya que la 
+Al ejecutar este comando se te pedirá tu contraseña ya que la 
 instalación de paquetes solo puede ser ejecutada por un usuario con 
 privilegios de super usuario. El comando <strong>sudo</strong> se utiliza para 
 delegar privilegios de super usuario (el usuario con todos los 
 privilegios) a un usuario administrativo común que debería ser tu caso. 
 Si no se antepone el comando sudo a apt-get, marcará un error de 
-permisos denegados para la actualización e instalación de paquetes. Esto nos actualizará todo nuestro sistema operativo. Es conveniente actualizar una vez por semana ya que en linux, las actualizaciones incluyen paquetes de seguridad, paquetes de nuevas versiones de aplicaciones y parches para nuestro sistema operativo, todo esto, absolutamente gratuito. Ahora debemos verificar si tenemos las utilerías tar y nano 
-instaladas, para esto, vamos a introducir los siguientes comandos:<br />
-&nbsp; <br />
-<span style="color: rgb(0, 0, 255);">$ dpkg -s tar</span><br />
-<span style="color: rgb(0, 0, 255);">$ dpkg -s nano</span><br />
-<br />
-Si el paquete tar esta instalado, la salida debe parecerse a esto:<br />
-<br />
-<span style="color: rgb(0, 0, 255);">Package: tar</span><br />
-<span style="color: rgb(0, 0, 255);">Status: install ok installed</span><br />
-<span style="color: rgb(0, 0, 255);">....</span><br />
-<span style="color: rgb(0, 0, 255);">....</span><br />
-<span style="color: rgb(0, 0, 255);">
+permisos denegados para la actualización e instalación de paquetes. Esto nos actualizará todo nuestro sistema operativo. Es conveniente actualizar una vez por semana ya que en linux las actualizaciones incluyen paquetes de seguridad, paquetes de nuevas versiones de aplicaciones y parches para nuestro sistema operativo, y todo esto absolutamente gratuito.<span style="color: rgb(0, 0, 255);">
 </span><br />
- tar, es el programa para desempaquetar archivos comprimidos y ya 
-debería existir, mientras que nano es un editor de textos no gráfico 
-pero sencillo de usar. En caso de no tenerlos instalados, nos lo 
-informará:<br />
 <br />
-<span style="color: rgb(0, 0, 255);">El paquete "nano" no está instalado y no hay ninguna información disponible.</span><br />
-<span style="color: rgb(0, 0, 255);">Utilice dpkg </span><br />
-<span style="color: rgb(0, 0, 255);">....</span><br />
-<span style="color: rgb(0, 0, 255);">....</span><br />
-<br />
-Si nano o tar no están instalados aún (deberían estarlo en 
-distribuciones 10.04 y posterior), vamos a instalarlos usando el comando
- <strong>apt-get</strong> el cual obtiene el paquete que se distribuye con nuestro
- sistema operativo y lo instala en directo. El comando se usa de la 
-siguiente manera:<br />
-&nbsp; <br />
-<span style="color: rgb(0, 0, 255);">$ sudo apt-get install tar</span><br />
-<span style="color: rgb(0, 0, 255);">$ sudo apt-get install nano</span><br />
-<br />
-Si todo va bien, te pedirá la confirmación de instalación del paquete a 
-instalar y empezará el proceso de descarga y compilación en el sistema.	
-		  			  			  			  			  			  			  			  			  			  			  			  			  			  			
-  			   							  			  			  			  			  			  			  <br />
-<br />Lo siguiente es instalar el idioma español y establecer la fecha ya que en algunas instalaciones como las de instancias en la nube quedan por defecto instaladas con el idioma ingles y la fecha UTC. Si instalaste directo en tu ordenador a través del instalador, seguramente ya esté instalado el 
+Lo siguiente es instalar el idioma español y establecer la fecha ya que en algunas instalaciones como las de instancias en la nube quedan por defecto instaladas con el idioma ingles y la fecha UTC. Si instalaste directo en tu ordenador a través del instalador, seguramente ya esté instalado el 
 idioma español y el área de tu zona horaria, en estos casos puedes saltarte los siguientes pasos e ir directo a la instalación de forseti, de lo contrario, proseguimos:<br />
 <br />
 <span style="color: rgb(0, 0, 255);">$ sudo apt-get install language-pack-es<br />
 $ sudo nano /etc/default/locale<br />
 <br />
-<span style="color: rgb(0, 0, 0);">..Agregamos la linea siguiente sustituyendo la linea LANG=en_US.UTF-8 y guardamos</span><br />
-<br />LANG=es_MX.UTF-8<br />
+<span style="color: rgb(0, 0, 0);">..Agregamos la linea siguiente, sustituyendo la linea LANG=en_US.UTF-8 y guardamos</span><br />
+<br />
+LANG=es_MX.UTF-8<br />
 </span><br />
 <span style="color: rgb(0, 0, 255);">
 <span style="color: rgb(0, 0, 255);">$ sudo nano /var/lib/locales/supported.d/local<br />
 <br />
-<span style="color: rgb(0, 0, 0);">..Agregamos la linea siguiente sustituyendo justo antes de la linea LANG=en_US.UTF-8 y guardamos</span><br />
-<br />LANG=es_MX.UTF-8</span>
+<span style="color: rgb(0, 0, 0);">..Agregamos la linea siguiente, sustituyendo justo antes de la linea LANG=en_US.UTF-8 y guardamos</span><br />
+<br />
+LANG=es_MX.UTF-8</span>
 $ <br />
 <br />
 <span style="color: rgb(0, 0, 0);">Proseguimos con las instalaciones de los manuales en español, la reconfiguración de las lenguas y el reinicio del ordenador:</span><br />
-<br />$ sudo apt-get install aspell-es<br />
+<br />
+$ sudo apt-get install aspell-es<br />
 $ sudo apt-get install myspell-es</span><br />
 <span style="color: rgb(0, 0, 255);">$ sudo dpkg-reconfigure locales<br />
 $ sudo reboot<br />
@@ -288,6 +262,8 @@ Ahora que hemos reiniciado el ordenador, configuramos la zona horaria con "tzdat
 <br />
 Hay que utilizar la fecha y hora actual en formato de año, mes, dia, hora (00 a 23), minutos y segundos.<br />
 </div>			  			  
+			  
+
 			  
 
 			  
@@ -322,6 +298,14 @@ Hay que utilizar la fecha y hora actual en formato de año, mes, dia, hora (00 a
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -334,7 +318,7 @@ Hay que utilizar la fecha y hora actual en formato de año, mes, dia, hora (00 a
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

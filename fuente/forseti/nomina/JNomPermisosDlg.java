@@ -29,6 +29,7 @@ import forseti.sets.JMovimientosSet;
 import forseti.sets.JMasempSet;
 import forseti.sets.JAdmCompaniasSet;
 import forseti.sets.JNominaEntidadesSetIds;
+import forseti.sets.JPermisosGrupoSet;
 import forseti.sets.JPermisosSet;
 import forseti.JUtil;
 
@@ -70,19 +71,40 @@ public class JNomPermisosDlg extends JForsetiApl
         // Revisa por intento de intrusion (Salto de permiso de entidad)
         if(!request.getParameter("proceso").equals("AGREGAR_PERMISO") && request.getParameter("id") != null)
         {
-        	JPermisosSet set = new JPermisosSet(request);
-        	set.m_Where = "ID_Empleado = '" + p(JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|")) + "' and ID_Movimiento = '" +
+        	boolean prmgrp = JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|").indexOf("FSINOMINA-") == -1 ? false : true;
+        	if(!prmgrp)
+        	{
+        		JPermisosSet set = new JPermisosSet(request);
+        		set.m_Where = "ID_Empleado = '" + p(JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|")) + "' and ID_Movimiento = '" +
         			p(JUtil.obtSubCadena(request.getParameter("id"),"_FM_","|")) + "' and ID_FechaMovimiento = '" +
         			 p(JUtil.obtSubCadena(request.getParameter("id"),"_FF_","|")) + "'";
-        	set.Open();
-          	if(set.getNumRows() < 1)
-          	{
-          		idmensaje = 3; mensaje += MsjPermisoDenegado(request, "CEF", "NOM_PERMISOS");
-          		getSesion(request).setID_Mensaje(idmensaje, mensaje);
-          		RDP("CEF",getSesion(request).getConBD(),"AL",getSesion(request).getID_Usuario(),"NOM_EMPLEADOS","NPER|" + JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|") + "_" + JUtil.obtSubCadena(request.getParameter("id"),"_FM_","|") + "_" + JUtil.obtSubCadena(request.getParameter("id"),"_FF_","|") + "|" + setids.getAbsRow(0).getID_Sucursal() + "||",mensaje);
-          		irApag("/forsetiweb/caja_mensajes.jsp", request, response);
-          		return;
-          	}
+        		set.Open();
+        		if(set.getNumRows() < 1)
+        		{
+        			idmensaje = 3; mensaje += MsjPermisoDenegado(request, "CEF", "NOM_PERMISOS");
+        			getSesion(request).setID_Mensaje(idmensaje, mensaje);
+        			RDP("CEF",getSesion(request).getConBD(),"AL",getSesion(request).getID_Usuario(),"NOM_PERMISOS","NPER|" + JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|") + "_" + JUtil.obtSubCadena(request.getParameter("id"),"_FM_","|") + "_" + JUtil.obtSubCadena(request.getParameter("id"),"_FF_","|") + "|" + setids.getAbsRow(0).getID_Sucursal() + "||",mensaje);
+        			irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+        			return;
+        		}
+        	}
+        	else // es permiso de grupo
+        	{
+        		JPermisosGrupoSet set = new JPermisosGrupoSet(request);
+        		set.m_Where = "ID_Compania = '0' and ID_Sucursal = '" + p(JUtil.obtSubCadena(request.getParameter("id"),"_FE_FSINOMINA-","|")) + "' and ID_Movimiento = '" +
+        			p(JUtil.obtSubCadena(request.getParameter("id"),"_FM_","|")) + "' and ID_FechaMovimiento = '" +
+        			 p(JUtil.obtSubCadena(request.getParameter("id"),"_FF_","|")) + "'";
+        		set.Open();
+        		System.out.println(set.getSQL());
+        		if(set.getNumRows() < 1)
+        		{
+        			idmensaje = 3; mensaje += MsjPermisoDenegado(request, "CEF", "NOM_PERMISOS");
+        			getSesion(request).setID_Mensaje(idmensaje, mensaje);
+        			RDP("CEF",getSesion(request).getConBD(),"AL",getSesion(request).getID_Usuario(),"NOM_PERMISOS","NPER|" + JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|") + "_" + JUtil.obtSubCadena(request.getParameter("id"),"_FM_","|") + "_" + JUtil.obtSubCadena(request.getParameter("id"),"_FF_","|") + "|" + setids.getAbsRow(0).getID_Sucursal() + "||",mensaje);
+        			irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+        			return;
+        		}
+        	}
         }
           
     	if(request.getParameter("proceso").equals("AGREGAR_PERMISO"))
@@ -172,7 +194,7 @@ public class JNomPermisosDlg extends JForsetiApl
         }
         else if(request.getParameter("proceso").equals("ELIMINAR_PERMISO"))
     	{
-    		// Revisa si tiene permisos
+        	// Revisa si tiene permisos
     		if(!getSesion(request).getPermiso("NOM_PERMISOS_ELIMINAR"))
     		{
     			idmensaje = 3; mensaje += MsjPermisoDenegado(request, "CEF", "NOM_PERMISOS_ELIMINAR");
@@ -181,7 +203,6 @@ public class JNomPermisosDlg extends JForsetiApl
                 irApag("/forsetiweb/caja_mensajes.jsp", request, response);
                 return;
     		}
-
     		// Solicitud de envio a procesar
     		if(request.getParameter("id") != null)
     		{
@@ -233,7 +254,7 @@ public class JNomPermisosDlg extends JForsetiApl
       // Verificacion
       if(request.getParameter("id_movimiento") != null && request.getParameter("id_empleado") != null && request.getParameter("desde") != null &&
     	 request.getParameter("hasta") != null &&  request.getParameter("obs") != null &&
-    	!request.getParameter("id_movimiento").equals("") && !request.getParameter("id_empleado").equals("") && !request.getParameter("desde").equals("") && 
+    	!request.getParameter("id_movimiento").equals("") && !request.getParameter("desde").equals("") && 
     	!request.getParameter("hasta").equals(""))
       {
     	  JMovimientosSet set = new JMovimientosSet(request);
@@ -248,16 +269,27 @@ public class JNomPermisosDlg extends JForsetiApl
     	      return false;
     	  }
     	  
-    	  JMasempSet setemp = new JMasempSet(request);
-    	  setemp.m_Where = "ID_Compania = '0' and ID_Sucursal = '" + getSesion(request).getSesion("NOM_PERMISOS").getEspecial() + "' and ID_Empleado = '" + p(request.getParameter("id_empleado")) + "'";
-    	  setemp.Open();
-    	  
-    	  if(setemp.getNumRows() < 1)
+    	  if(!request.getParameter("id_movimiento").equals("300")) // No es permiso de grupo (DIA FESTIVO)
     	  {
-    		  idmensaje = 3;
-    	      mensaje += "ERROR: El empleado no existe, o no pertenece a esta nómina<br>";
-    	      getSesion(request).setID_Mensaje(idmensaje, mensaje);
-    	      return false;
+    		  if(request.getParameter("id_empleado").equals(""))
+    		  {
+    			  idmensaje = 3;
+        	      mensaje += "ERROR: Debes enviar la clave del empleado para este permiso<br>";
+        	      getSesion(request).setID_Mensaje(idmensaje, mensaje);
+        	      return false; 
+    		  }
+    		  
+    		  JMasempSet setemp = new JMasempSet(request);
+    		  setemp.m_Where = "ID_Compania = '0' and ID_Sucursal = '" + getSesion(request).getSesion("NOM_PERMISOS").getEspecial() + "' and ID_Empleado = '" + p(request.getParameter("id_empleado")) + "'";
+    		  setemp.Open();
+    	  
+    		  if(setemp.getNumRows() < 1)
+    		  {
+    			  idmensaje = 3;
+    			  mensaje += "ERROR: El empleado no existe, o no pertenece a esta nómina<br>";
+    			  getSesion(request).setID_Mensaje(idmensaje, mensaje);
+    			  return false;
+    		  }
     	  }
     	  
     	  // Ahora revisa los tiempos segun tipo de movimiento. Si es de horas, los dias deben ser iguales y las horas diferentes
@@ -296,6 +328,7 @@ public class JNomPermisosDlg extends JForsetiApl
     		  }
     	  }
     	  
+    	  /*
     	  if( !set.getAbsRow(0).getPorEmpleado() )
     	  {
        		  idmensaje = 3;
@@ -303,6 +336,7 @@ public class JNomPermisosDlg extends JForsetiApl
     	      getSesion(request).setID_Mensaje(idmensaje, mensaje);
     	      return false;
      	  }
+    	  */
     	  
     	  if(set.getAbsRow(0).getAplicaAlTipo() == -1)
     	  {
@@ -323,6 +357,7 @@ public class JNomPermisosDlg extends JForsetiApl
     	      getSesion(request).setID_Mensaje(idmensaje, mensaje);
     	      return false;
      	  }
+    	  
           return true;
       }
       else
@@ -336,26 +371,39 @@ public class JNomPermisosDlg extends JForsetiApl
     public void Eliminar(HttpServletRequest request, HttpServletResponse response)
     	throws ServletException, IOException
     {
-     	String str = "select * from sp_nom_permisos_eliminar( '" + p(JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|")) + "','" + p(JUtil.obtSubCadena(request.getParameter("id"),"_FM_","|")) + "','" + 
-		 p(JUtil.obtSubCadena(request.getParameter("id"),"_FF_","|")) + "') as (err integer, res varchar, clave varchar)";
-		
-     	JRetFuncBas rfb = new JRetFuncBas();
-		
-	    doCallStoredProcedure(request, response, str, rfb);
-  	    RDP("CEF",getSesion(request).getConBD(),(rfb.getIdmensaje() == 0 ? "OK" : (rfb.getIdmensaje() == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(), "NOM_PERMISOS_ELIMINAR", "NPER|" + rfb.getClaveret() + "|" + getSesion(request).getSesion("NOM_PERMISOS").getEspecial() + "||",rfb.getRes());
-  	    irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+    	boolean prmgrp = JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|").indexOf("FSINOMINA-") == -1 ? false : true;
+    	
+    	if(!prmgrp)
+    	{
+    		String str = "select * from sp_nom_permisos_eliminar( '" + p(JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|")) + "','" + p(JUtil.obtSubCadena(request.getParameter("id"),"_FM_","|")) + "','" + 
+    				p(JUtil.obtSubCadena(request.getParameter("id"),"_FF_","|")) + "','0','" + getSesion(request).getSesion("NOM_PERMISOS").getEspecial() + "') as (err integer, res varchar, clave varchar)";
+			JRetFuncBas rfb = new JRetFuncBas();
+			doCallStoredProcedure(request, response, str, rfb);
+    		RDP("CEF",getSesion(request).getConBD(),(rfb.getIdmensaje() == 0 ? "OK" : (rfb.getIdmensaje() == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(), "NOM_PERMISOS_ELIMINAR", "NPER|" + rfb.getClaveret() + "|" + getSesion(request).getSesion("NOM_PERMISOS").getEspecial() + "||",rfb.getRes());
+    		irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+    	}
+    	else
+    	{
+    		String str = "select * from sp_nom_permisos_eliminar( '','" + p(JUtil.obtSubCadena(request.getParameter("id"),"_FM_","|")) + "','" + 
+    				p(JUtil.obtSubCadena(request.getParameter("id"),"_FF_","|")) + "','1','" + getSesion(request).getSesion("NOM_PERMISOS").getEspecial() + "') as (err integer, res varchar, clave varchar)";
+			JRetFuncBas rfb = new JRetFuncBas();
+			doCallStoredProcedure(request, response, str, rfb);
+    		RDP("CEF",getSesion(request).getConBD(),(rfb.getIdmensaje() == 0 ? "OK" : (rfb.getIdmensaje() == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(), "NOM_PERMISOS_ELIMINAR", "NPER|" + rfb.getClaveret() + "|" + getSesion(request).getSesion("NOM_PERMISOS").getEspecial() + "||",rfb.getRes());
+    		irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+    	}
    	}
     
     public void Cambiar(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException
     {
-       	JMovimientosSet set = new JMovimientosSet(request);
+    	JMovimientosSet set = new JMovimientosSet(request);
    	  	set.m_Where = "ID_Movimiento = '" + p(request.getParameter("id_movimiento")) + "'";
    	  	set.Open();
    	  	
    	  	int num_dias = 0;
    	  	float num_horas = 0f;
-   	  	
+   	  	boolean prmgrp = request.getParameter("id_movimiento").equals("300") ? true : false; // Este es un permiso de grupo o no ? (DIA FESTIVO)
+	  	
    	  	Calendar hastadc = Calendar.getInstance();
 	  	if(set.getAbsRow(0).getDC())
    	  	{
@@ -377,7 +425,8 @@ public class JNomPermisosDlg extends JForsetiApl
    	  	String str = "select * from  sp_nom_permisos_cambiar( '" + p(request.getParameter("id_empleado")) + "','" + p(request.getParameter("id_movimiento")) + "','" +  
    	  		p(JUtil.obtFechaSQLh24(request.getParameter("desde"))) + "','" + (set.getAbsRow(0).getDC() ? "1" :"0") + "','" + 
    	  		(set.getAbsRow(0).getDC() ? p(JUtil.obtFechaSQLh24(request.getParameter("desde"))) : p(JUtil.obtFechaHoraSQL(request.getParameter("desde")))) + "','" + 
-   	  		(set.getAbsRow(0).getDC() ? p(JUtil.obtFechaSQL(hastadc.getTime())) : p(JUtil.obtFechaHoraSQL(request.getParameter("hasta")))) + "','" + num_dias + "','" + num_horas + "','" + num_horas + "','" + p(request.getParameter("obs")) + "') as (err integer, res varchar, clave varchar)";
+   	  		(set.getAbsRow(0).getDC() ? p(JUtil.obtFechaSQL(hastadc.getTime())) : p(JUtil.obtFechaHoraSQL(request.getParameter("hasta")))) + "','" + num_dias + "','" + num_horas + "','" + num_horas + "','" + p(request.getParameter("obs")) + "','" +
+   	  		(prmgrp ? "1" : "0") + "','" + getSesion(request).getSesion("NOM_PERMISOS").getEspecial() + "') as (err integer, res varchar, clave varchar)";
 	
      	JRetFuncBas rfb = new JRetFuncBas();
 		
@@ -397,7 +446,8 @@ public class JNomPermisosDlg extends JForsetiApl
    	  	
    	  	int num_dias = 0;
    	  	float num_horas = 0f;
-   	  	
+   	  	boolean prmgrp = request.getParameter("id_movimiento").equals("300") ? true : false; // Este es un permiso de grupo o no ? (DIA FESTIVO)
+   	  		
    	  	Calendar hastadc = Calendar.getInstance();
    	  	if(set.getAbsRow(0).getDC())
    	  	{
@@ -416,11 +466,12 @@ public class JNomPermisosDlg extends JForsetiApl
    	  		
    	  	}
    	  	
-   	  	String str = "select * from  sp_nom_permisos_agregar( '" + p(request.getParameter("id_empleado")) + "','" + p(request.getParameter("id_movimiento")) + "','" +  
+   	  	String str = "select * from sp_nom_permisos_agregar( '" + p(request.getParameter("id_empleado")) + "','" + p(request.getParameter("id_movimiento")) + "','" +  
    	  		p(JUtil.obtFechaSQLh24(request.getParameter("desde"))) + "','" + (set.getAbsRow(0).getDC() ? "1" :"0") + "','" + 
    	  		(set.getAbsRow(0).getDC() ? p(JUtil.obtFechaSQLh24(request.getParameter("desde"))) : p(JUtil.obtFechaHoraSQL(request.getParameter("desde")))) + "','" + 
-   	  		(set.getAbsRow(0).getDC() ? p(JUtil.obtFechaSQL(hastadc.getTime())) : p(JUtil.obtFechaHoraSQL(request.getParameter("hasta")))) + "','" + num_dias + "','" + num_horas + "','" + num_horas + "','" + p(request.getParameter("obs")) + "') as (err integer, res varchar, clave varchar)";
-
+   	  		(set.getAbsRow(0).getDC() ? p(JUtil.obtFechaSQL(hastadc.getTime())) : p(JUtil.obtFechaHoraSQL(request.getParameter("hasta")))) + "','" + num_dias + "','" + num_horas + "','" + num_horas + "','" + p(request.getParameter("obs")) + "','" +
+   	  		(prmgrp ? "1" : "0") + "','" + getSesion(request).getSesion("NOM_PERMISOS").getEspecial() + "') as (err integer, res varchar, clave varchar)";
+   	  	   	  	
    	  	JRetFuncBas rfb = new JRetFuncBas();
 		
 	    doCallStoredProcedure(request, response, str, rfb);

@@ -129,6 +129,43 @@ public class JNomIsrDlg extends JForsetiApl
               return;
           }
         }
+        else if(request.getParameter("proceso").equals("ELIMINAR_ISR"))
+        {
+          // Revisa si tiene permisos
+          if(!getSesion(request).getPermiso("NOM_ISR_ELIMINAR"))
+          {
+        	  idmensaje = 3; mensaje += MsjPermisoDenegado(request, "CEF", "NOM_ISR_ELIMINAR");
+              getSesion(request).setID_Mensaje(idmensaje, mensaje);
+              RDP("CEF",getSesion(request).getConBD(),"NA",getSesion(request).getID_Usuario(),"NOM_ISR_ELIMINAR","NISR||||",mensaje);
+              irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+              return;
+          }
+
+          // Solicitud de envio a procesar
+          if(request.getParameter("id") != null)
+          {
+            String[] valoresParam = request.getParameterValues("id");
+            if(valoresParam.length == 1)
+            {
+            	Eliminar(request, response);
+            	return;
+            }
+            else
+            {
+            	idmensaje = 1; mensaje += JUtil.Msj("GLB", "VISTA", "GLB", "SELEC-PROC", 2); 
+                getSesion(request).setID_Mensaje(idmensaje, mensaje);
+                irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+                return;
+            }
+          }
+          else
+          {
+        	  idmensaje = 3; mensaje += JUtil.Msj("GLB", "VISTA", "GLB", "SELEC-PROC", 1); 
+              getSesion(request).setID_Mensaje(idmensaje, mensaje);
+              irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+              return;
+          }
+        }        
         else
         {
         	idmensaje = 3; mensaje += JUtil.Msj("GLB", "VISTA", "GLB", "SELEC-PROC", 3); 
@@ -192,6 +229,18 @@ public class JNomIsrDlg extends JForsetiApl
 	   
     }
 
-  
+    public void Eliminar(HttpServletRequest request, HttpServletResponse response)
+    		throws ServletException, IOException
+    {
+    	String str = "select * from sp_nom_isr_eliminar( '" + p(request.getParameter("id")) + "') as (err integer, res varchar, clave smallint)";
+    	      
+    	JRetFuncBas rfb = new JRetFuncBas();
+    			
+    	doCallStoredProcedure(request, response, str, rfb);
+    	RDP("CEF",getSesion(request).getConBD(),(rfb.getIdmensaje() == 0 ? "OK" : (rfb.getIdmensaje() == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(), "NOM_ISR_ELIMINAR", "NISR|" + rfb.getClaveret() + "|||",rfb.getRes());
+    	irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+    	  
+    }
+ 
 
 }

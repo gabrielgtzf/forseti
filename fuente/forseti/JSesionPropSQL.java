@@ -35,6 +35,7 @@ public class JSesionPropSQL
   private String m_Status;
   private String m_StatusTit;
   private String m_Especial;
+  private String m_Vista;
   private String m_PanelEntidad;
   private String m_PanelTiempo;
   private String m_PanelStatus;
@@ -55,6 +56,7 @@ public class JSesionPropSQL
     m_Ordenado = "";
     m_OrdenEtq = "";
     m_Especial = "";
+    m_Vista = "";
     m_PanelEntidad = "ENTIDAD";
     m_PanelTiempo = "RANGO";
     m_PanelStatus = "STATUS";
@@ -79,6 +81,7 @@ public class JSesionPropSQL
     m_Ordenado = "";
     m_OrdenEtq = "";
     m_Especial = "";
+    m_Vista = "";
     m_PanelEntidad = "ENTIDAD";
     m_PanelTiempo = "RANGO";
     m_PanelStatus = "STATUS";
@@ -102,6 +105,7 @@ public class JSesionPropSQL
     m_Ordenado = "";
     m_OrdenEtq = "";
     m_Especial = "";
+    m_Vista = "";
     m_PanelEntidad = PanelEntidad;
     m_PanelTiempo = PanelTiempo;
     m_PanelStatus = PanelStatus;
@@ -126,6 +130,7 @@ public class JSesionPropSQL
     m_Ordenado = "";
     m_OrdenEtq = "";
     m_Especial = "";
+    m_Vista = "";
     m_PanelEntidad = PanelEntidad;
     m_PanelTiempo = PanelTiempo;
     m_PanelStatus = PanelStatus;
@@ -143,6 +148,12 @@ public class JSesionPropSQL
   {
     // agrega la propiedad especial
     m_Especial = Especial;
+  }
+  
+  public void setVista(String Vista)
+  {
+    // agrega la propiedad vista
+    m_Vista = Vista;
   }
   
   public String getPanelEntidad() 
@@ -195,6 +206,11 @@ public class JSesionPropSQL
     return m_Especial;
   }
 
+  public String getVista()
+  {
+    return m_Vista;
+  }
+  
   public void setOrden(String etq, String col, boolean desc)
   {
     // agrega la propiedad de orden segun sea el caso

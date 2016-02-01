@@ -271,8 +271,8 @@ function enviarlo(formAct)
           </tr>
           <tr> 
             <td colspan="2">Regimen</td>
-			<td colspan="2"><input name="reparto_de_utilidades" type="checkbox" id="reparto_de_utilidades" value="checkbox">
-              Reparto de utilidades</td>
+			<td colspan="2"><input name="compensacionanual" type="checkbox" id="compensacionanual" value="checkbox">
+              Aplicaci&oacute;n de ahorro</td>
             <td colspan="2"><input name="castigo_impuntualidad" type="checkbox" id="castigo_impuntualidad" value="checkbox">
               Castigo por impuntualidad</td>
             <td colspan="2"><input name="aplica_horas_extras" type="checkbox" id="aplica_horas_extras" value="checkbox">
@@ -716,9 +716,11 @@ function enviarlo(formAct)
           </tr>
           <tr> 
             <td>Prestamo:</td>
-            <td><input name="prestamo_infonavit" type="text" id="prestamo_infonavit" size="15" maxlength="12"></td>
-            <td>% D&iacute;gito descuento ( Ej: 0.12):</td>
-            <td><input name="porcentaje_descuento" type="text" id="porcentaje_descuento" size="8" maxlength="6"></td>
+            <td>
+<input name="prestamo_infonavit" type="text" id="prestamo_infonavit" size="15" maxlength="12"></td>
+            <td>Porcentaje de descuento:</td>
+            <td><input name="porcentaje_descuento" type="text" id="porcentaje_descuento" size="8" maxlength="6">
+              Ej: 0.12</td>
           </tr>
           <tr> 
             <td>Prestamo V.S.M.:</td>
@@ -802,7 +804,7 @@ document.nom_empleados_dlg.fecha_alta_infonavit.value = '<% if(request.getParame
 document.nom_empleados_dlg.sindicalizado.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_EMPLEADO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_EMPLEADO") ) { out.print( (set.getAbsRow(0).getSindicalizado() ? "true" : "false" ) ); } else if(request.getParameter("sindicalizado") != null ) { out.print("true"); } else { out.print("false"); } %>  
 document.nom_empleados_dlg.aplica_horas_extras.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_EMPLEADO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_EMPLEADO") ) { out.print( (set.getAbsRow(0).getAplica_Horas_Extras() ? "true" : "false" ) ); } else if(request.getParameter("aplica_horas_extras") != null ) { out.print("true"); } else { out.print("false"); } %>  
 document.nom_empleados_dlg.castigo_impuntualidad.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_EMPLEADO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_EMPLEADO") ) { out.print( (set.getAbsRow(0).getCastigo_Impuntualidad() ? "true" : "false" ) ); } else if(request.getParameter("castigo_impuntualidad") != null ) { out.print("true"); } else { out.print("false"); } %>  
-document.nom_empleados_dlg.reparto_de_utilidades.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_EMPLEADO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_EMPLEADO") ) { out.print( (set.getAbsRow(0).getReparto_de_Utilidades() ? "true" : "false" ) ); } else if(request.getParameter("reparto_de_utilidades") != null ) { out.print("true"); } else { out.print("false"); } %>  
+document.nom_empleados_dlg.compensacionanual.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_EMPLEADO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_EMPLEADO") ) { out.print( (set.getAbsRow(0).getCompensacionAnual() ? "true" : "false" ) ); } else if(request.getParameter("compensacionanual") != null ) { out.print("true"); } else { out.print("false"); } %>  
 document.nom_empleados_dlg.calculomixto.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_EMPLEADO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_EMPLEADO") ) { out.print( (set.getAbsRow(0).getCalculoMixto() ? "true" : "false" ) ); } else if(request.getParameter("calculomixto") != null ) { out.print("true"); } else { out.print("false"); } %>  
 document.nom_empleados_dlg.calculosimplificado.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_EMPLEADO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_EMPLEADO") ) { out.print( (set.getAbsRow(0).getCalculoSimplificado() ? "true" : "false" ) ); } else if(request.getParameter("calculosimplificado") != null ) { out.print("true"); } else { out.print("false"); } %>  
 document.nom_empleados_dlg.clave_alta_infonavit.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_EMPLEADO") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_EMPLEADO") ) { out.print( (set.getAbsRow(0).getClave_Alta_Infonavit() ? "true" : "false" ) ); } else if(request.getParameter("clave_alta_infonavit") != null ) { out.print("true"); } else { out.print("false"); } %>  

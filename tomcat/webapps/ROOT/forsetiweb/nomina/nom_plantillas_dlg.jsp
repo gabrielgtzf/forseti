@@ -163,7 +163,7 @@ function enviarlo(formAct)
           </tr>
 		  <tr> 
             <td> <div align="right">Tipo:</div></td>
-            <td colspan="2"><select name="tipo_de_nomina" class="cpoCol" id="tipo_de_nomina">
+            <td colspan="2"><select name="tipo_de_nomina" id="tipo_de_nomina">
                       <option value="-1"<% if(request.getParameter("tipo_de_nomina") != null) {
 										if(request.getParameter("tipo_de_nomina").equals("-1")) {
 											out.println(" selected");
@@ -244,7 +244,7 @@ function enviarlo(formAct)
                 <tr> 
                   <td><input name="bcompania_sucursal" type="checkbox" id="bcompania_sucursal" value="checkbox">
                     esta n&oacute;mina:</td>
-                  <td><select class="cpoCol" style="width: 90%;" name="compania_sucursal">
+                  <td><select style="width: 90%;" name="compania_sucursal">
 						<option value="_FSI_CS"<% 
 									if(request.getParameter("compania_sucursal") != null) 
 									{
@@ -285,7 +285,7 @@ function enviarlo(formAct)
                 <tr> 
                   <td><input name="bnivel_confianza" type="checkbox" id="bnivel_confianza" value="checkbox">
                     nivel de confianza: </td>
-                  <td><select name="nivel_de_confianza" class="cpoCol">
+                  <td><select name="nivel_de_confianza">
 				  <option value="-1"<% if(request.getParameter("nivel_de_confianza") != null) {
 										if(request.getParameter("nivel_de_confianza").equals("-1")) {
 											out.print(" selected");
@@ -327,11 +327,11 @@ function enviarlo(formAct)
 		    <td colspan="3">
 					<table width="100%" border="0" cellspacing="2" cellpadding="0">
                 <tr> 
-                  <td width="20%">Cantidad de aplicaci&oacute;n:</td>
+                  <td width="20%">Cantidad de acci&oacute;n:</td>
                   <td colspan="3"><input name="cantidad" type="text" id="cantidad" size="12" maxlength="11"></td>
                 </tr>
                 <tr> 
-                  <td width="20%">Tipo de aplicaci&oacute;n:</td>
+                  <td width="20%">Tipo de acci&oacute;n:</td>
                   <td><input type="radio" name="aplicacion" value="1"<% if( (request.getParameter("proceso").equals("CAMBIAR_PLANTILLA") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_PLANTILLA") ) { out.print( (set.getAbsRow(0).getAplicacion() == 1 ? " checked" : "" ) ); } else if(request.getParameter("aplicacion") != null && request.getParameter("aplicacion").equals("1")) { out.print(" checked"); } %>>
                     Salario(s) diario 
                     <input name="mixto" type="checkbox" id="mixto" value="checkbox">
@@ -353,11 +353,10 @@ function enviarlo(formAct)
                 </tr>
                 <tr> 
                   <td colspan="4"><input name="inclusiones" type="checkbox" id="inclusiones" value="checkbox">
-                    Selecciona aqu&iacute; en caso de que la siguiente lista contenga 
-                    los empleados que aplicar&aacute;n a esta plantilla de n&oacute;mina. 
-                    Si no est&aacute; seleccionada esta casilla, los empleados 
-                    de la lista ser&aacute;n los que se excluyan de esta plantilla 
-                    de n&oacute;mina.</td>
+                    Selecciona aqui, en caso de que la siguiente lista contenga 
+                    los empleados que se incluiran a esta plantilla. Si no esta 
+                    seleccionada esta casilla, los empleados de la lista seran 
+                    los que se excluyan de la plantilla.</td>
                 </tr>
               </table>
 			</td>
@@ -365,8 +364,8 @@ function enviarlo(formAct)
 		  <tr> 
             <td colspan="3"> <table width="100%" border="0" cellspacing="0" cellpadding="2">
                 <tr> 
-                  <td width="20%" class="titChico">Clave</td>
-                  <td class="titChico">Nombre</td>
+                  <td width="20%" class="titChicoAzc">Clave</td>
+                  <td class="titChicoAzc">Nombre</td>
                   <td width="10%">&nbsp;</td>
                 </tr>
                 <%

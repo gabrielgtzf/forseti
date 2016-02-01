@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -197,6 +202,10 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
  
 				
  
+				
+ 
+				
+ 
 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				
 
 <div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				El directorio /usr/local/forseti donde quedó instalado forseti, contiene los siguientes subdirectorios: act, bin, emp, log, pac y req.<br />
@@ -207,18 +216,26 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 <ul> <li>
 <strong>.forseti_auto</strong>; Este contiene las propiedades para la automatización de procesos del servidor como respaldos, actualizaciones, y actualizaciones de saldos del CEF.</li> <li>
 <strong>.forseti_conf</strong>; Maneja la configuración para la conexión al servidor de bases de datos PostgreSQL.</li> <li>
-<strong>.forseti_doc</strong>; Contiene toda la estructura de la documentación del servidor.</li> <li>
+<strong>.forseti_doc</strong>; Contiene toda la estructura de la documentación del servidor en caso de que este servidor maneje documentación propia, de lo contrario, la documentación la toma del sitio http://www.forseti.org.mx.</li> <li>
 <strong>.forseti_es</strong>; Contiene toda la información de los mensajes en español que genera el servidor a través de cada proceso.</li> <li>
 <strong>.forseti_init</strong>; Es el código fuente de inicialización del servidor Forseti. Básicamente, contiene la estructura de la base de datos principal "FORSETI_ADMIN".</li> <li>
 <strong>.forseti_inibd</strong>; Es el código fuente de inicialización para cada empresa que se dé de alta en el sistema.</li> <li>
-<strong>.forseti_pac</strong>; Maneja la configuración para la conexión al servicio JPacConn local, o a un servicio remoto.</li> <li>
-<strong>.forseti_smtp</strong>;  Maneja la configuración para la conexión al servidor smtp para el correo electrónico a través de JavaMail.</li>
+<strong>.forseti_pac</strong>; Maneja la configuración de los datos de este servidor, para poder recibir los servicios de timbrado de comprobantes fiscales digitales, envío automático de correo electrónico y alojamiento de archivos en la nube de Amazon S3.</li> <li>
+<strong>.forseti_smtp</strong>; Cuando este servidor forseti brinde el servicio de envío automático de correo electrónico por medio de su servicio web JSmtpConn, 
+utilizará este archivo para manejar la configuración de 
+conexión al servidor SMTP.</li>
+ <li>
+<strong>.forseti_awss3</strong>; Cuando este servidor forseti brinde el servicio de alojamiento de archivos en la nube por medio de su servicio web JAwsS3Conn, 
+utilizará este archivo para manejar la configuración de 
+conexión al buket de Amazon S3.</li>
+ <li>
+<strong>forseti_srv</strong>; Este archivo no se utiliza aún, pero servirá para futuras versiones cuando el módulo de CRM esté terminado.</li>
 </ul>
-<strong>emp</strong>: Directorio donde se guardarán archivos de configuración, de comprobantes fiscales digitales y otros archivos, que no son aptos para guardarse en la base de datos. Dentro de emp, se creará un directorio específico para los archivos de cada empresa dada de alta en el servidor, y es dentro de este último en donde se guardarán.<br />
+<strong>emp</strong>: Dentro de emp se creará un directorio específico para los archivos importantes de cada empresa dada de alta en el servidor. Estos pueden ser plantillas para correo electrónico automático, archivos no aptos para guardarse dentro de PostgreSQL, etc.<br />
 <br />
-<strong>log</strong>: Este directorio está destinado al registro de sucesos administrativos del servidor forseti. Aquí se guardará el registro de la creación y eliminación de empresas, creación y restauración de respaldos, actualización de saldos del CEF y actualización del servidor forseti etc.<br />
+<strong>log</strong>: Este directorio está destinado al registro de sucesos administrativos del servidor forseti. Aquí se guardará el registro de la creación y eliminación de empresas, creación y restauración de respaldos, actualización de saldos del CEF, actualización del servidor forseti, etc.<br />
 <br />
-<strong>pac</strong>: Utilizado por el servicio JPacConn, en este directorio se controlan los archivos CFD y CFDI, y la configuración para la conexión al servicio web del Proveedor Autorizado de Certificación para el sello de Comprobantes Fiscales Digitales por Internet.<br />
+<strong>pac</strong>: Cuando este servidor forseti brinde el servicio de timbrado de comprobantes fiscales digitales por medio de su servicio web JPacConn, utilizará este directorio para controlar los archivos CFD y CFDI, y también el archivo .forseti_pac que contiene la configuración para la conexión al servicio web del proveedor autorizado de certificación del SAT.<br />
 <br />
 <strong>req</strong>: Contiene archivos de recursos que utiliza forseti para realizar algunas tareas.<br />
 <br />
@@ -226,7 +243,7 @@ Ahora que ya conocemos ligeramente la estructura del servidor, procedemos a inic
 <br />
 <span style="color: rgb(0, 0, 255);">http://localhost:8080/SAF</span><br />
 <br />
-Ingresamos la IP donde quedó instalado PostgreSQL (si quedó en esta misma máquina, la IP debe ser la 127.0.0.1), el puerto de comunicación (por lo general será 5432 a menos que se agregue un cluster específico para forseti) y la contraseña del usuario "forseti". Presionamos Ok.<br />
+Ingresamos la IP 127.0.0.1, el puerto de comunicación (por lo general será 5432 a menos que se agregue un cluster específico para forseti) y la contraseña del usuario "forseti" que acabamos de crear. Presionamos Ok.<br />
 <br />
 Esperamos unos minutos y listo... Ya esta configurada la base de datos principal FORSETI_ADMIN, ahora reiniciamos tomcat con:<br />
 <br />
@@ -243,7 +260,8 @@ Y ya podemos iniciar sesión en el SAF como:<br />
 <br />
 El siguiente paso, es iniciar sesión en el SAF como fsi con contraseña fsi, y una vez dentro, ingresar al módulo de "Servidor y Empresas" del menú Administración. En este módulo, entramos a "propiedades del servidor", y vamos a cambiar la contraseña de fsi y también vamos a configurar la ruta de la instalación de Tomcat para establecerla como <span style="color: rgb(0, 0, 255);">/var/lib/tomcat7</span> (para distribuciones diferentes a la familia Ubuntu, la ruta de instalación puede cambiar). Si todo va bien damos Aceptar.<br />
 <br />
-El servicio tomcat utiliza por default el puerto 8080 escuchar peticiones http. Ya que estas peticiones no viajan cifradas por la red, solo son aceptables para implementaciones en una sola máquina donde no existe una red de área local (LAN), y se usan para trabajar desde la misma máquina. Si estás implementando un servidor para dar servicio centralizado desde una perspectiva <strong>En Sitio</strong>, lo más conveniente es hacer que la información viaje cifrada para que otros no puedan verla en caso de que la intercepten por la red, y así evitar un ataque de "man-in-the-middle". Para esto, debemos generar un certificado auto-firmado y configurar tomcat para que escuche en el puerto 8443 por peticiones seguras https. <br />
+El servicio tomcat utiliza por default el puerto 8080 escuchar peticiones http. Ya que estas peticiones no viajan cifradas por la red, solo son aceptables para implementaciones en una sola máquina donde no existe una red de área local (LAN), y se usan para trabajar desde la misma máquina. Si estás implementando un servidor para dar servicio centralizado desde una perspectiva <a href="020102.html">
+<strong>En Sitio</strong></a>, lo más conveniente es hacer que la información viaje cifrada para que otros no puedan verla en caso de que la intercepten por la red, y así evitar un ataque de "man-in-the-middle". Para esto, debemos generar un certificado auto-firmado y configurar tomcat para que escuche en el puerto 8443 por peticiones seguras https. <br />
 <br />
 Primero configuramos tomcat para aceptar la instalación desde el SAF ( Esto solo se debe hacer en caso de que forseti sea la única aplicación que contendrá tomcat, de lo contrario, se tendrá que cambiar el archivo de manera manual. ):<br />
 <br />
@@ -268,7 +286,8 @@ Ahora el tráfico viaja cifrado y nadie podrá leerlo en caso de interceptarlo.<
 <br />
 <strong>NOTA MUY IMPORTANTE</strong>: Los sitios con certificados auto-firmados muestran un mensaje de error diciendo que el sitio web al que intentas ingresar no es válido, que éste, esta usando un certificado firmado por él mismo lo cual pudiera tratarse de un sitio corrupto, etc... Dependiendo del navegador es el mensaje. Esto sucede porque ahora ya estámos utilizando un certificado generado de manera local con <strong>JSSE</strong>, y no, un certificado comprado generado por una autoridad certificadora como <strong>VeriSign</strong>. No te asustes, los certificados generados con <strong>JSSE</strong> son totalmente seguros. Solo necesitas agregar la excepción al navegador diciéndole que confías permanentemente en el sitio web para que este mensaje ya no te aparezca. El mismo mensaje de error te debe llevar paso a paso, para resolver el problema.<br />
 <br />
-En perspectivas de implantación <strong>En la Nube</strong>, sería muy conveniente configurar tomcat para escuchar en el puerto 443. El hecho de accesar a través del puerto 443 y no del 8443, brinda beneficios enormes desde esta perspectiva, porque la mayoría de los cortafuegos o proxys de red de las empresas de servicios de internet de datos como por ejemplo telcel, rechazarán las conexiones al puerto 8443 del servidor porque no lo reconocen como un servicio web. Hay que recordar que los puertos 80 y 443 son manejados como el estándar para los protocolos http y https respectivamente. <br />
+En perspectivas de implantación <a href="020102.html">
+<strong>En la Nube</strong></a>, sería muy conveniente configurar tomcat para escuchar en el puerto 443. El hecho de accesar a través del puerto 443 y no del 8443, brinda beneficios enormes desde esta perspectiva, porque la mayoría de los cortafuegos o proxys de red de las empresas de servicios de internet de datos como por ejemplo telcel, rechazarán las conexiones al puerto 8443 del servidor porque no lo reconocen como un servicio web. Hay que recordar que los puertos 80 y 443 son manejados como el estándar para los protocolos http y https respectivamente. <br />
 <br />
 Usando la terminal habilitamos AUTHBIND. Abrimos el archivo "/etc/default/tomcat7" con el editor de texto y agregamos la linea "AUTHBIND=yes":<br />
 <br />
@@ -330,9 +349,13 @@ Tomcat está corriendo en el puerto 443 como un proceso "java". Esto ya permite 
 <br />
 <span style="color: rgb(0, 0, 255);">https://192.168.2.4/SAF<br />
 </span><br />
-Para finalizar, y sobre todo si se piensa ser proveedor de <strong>Out-Soursing</strong>,  sería muy buena idea comprar un certificado firmado por una autoridad certificadora (CA) como VerySign. Esto requiere de una preparación que se explica en el apartado JSSE de esta documentación.<br />
+Para finalizar, y sobre todo si se piensa ser proveedor de <strong>Out-Soursing</strong>,  sería muy buena idea comprar un certificado firmado por una autoridad certificadora (CA) como VerySign. Esto requiere de una preparación que se explica en el apartado <a href="020303.html">JSSE</a> de esta documentación.<br />
 <br />
 </div>			  			  			  			  			  			  			  			  			  			  			  
+			  
+
+			  
+
 			  
 
 			  
@@ -379,6 +402,14 @@ Para finalizar, y sobre todo si se piensa ser proveedor de <strong>Out-Soursing<
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -391,7 +422,7 @@ Para finalizar, y sobre todo si se piensa ser proveedor de <strong>Out-Soursing<
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

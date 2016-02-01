@@ -183,9 +183,10 @@ public class JNomMovDirDlg extends JForsetiApl
             
             if(setids.getAbsRow(0).getCFD() || 
             		(setnom.getAbsRow(0).getTipo() != 1 && setnom.getAbsRow(0).getTipo() != 2 &&
-            				setnom.getAbsRow(0).getTipo() != 5 && setnom.getAbsRow(0).getTipo() != 6))
+            				setnom.getAbsRow(0).getTipo() != 5 && setnom.getAbsRow(0).getTipo() != 6 && 
+            					setnom.getAbsRow(0).getTipo() != 7 && setnom.getAbsRow(0).getTipo() != 8 ))
             {
-            	idmensaje = 3; mensaje += "ERROR: No se puede enlazar ningun CFDI porque esta entidad de nómina genera sus propios CFDIs, o  porque el tipo, no es compatible para sellar.<br>";
+            	idmensaje = 3; mensaje += "ERROR: No se puede enlazar ningun CFDI porque esta entidad de nómina genera sus propios CFDIs, o  porque esta nómina es del tipo especial, la cual no es compatible para sellar.<br>";
             	getSesion(request).setID_Mensaje(idmensaje, mensaje);
             	irApag("/forsetiweb/caja_mensajes.jsp", request, response);
             	return;
@@ -204,7 +205,7 @@ public class JNomMovDirDlg extends JForsetiApl
             	//System.out.println("Subproceso NO Nulo");
             	if(request.getParameter("subproceso").equals("ENLAZAR"))
             	{
-            		// Se supone que la compra aun no estará ligada a una compra existente...
+            		// Se supone que el recibo aun no estará ligado a un recibo existente...
             		JCFDCompSet comprobante = new JCFDCompSet(request,"NOMINA");
             		comprobante.m_Where = "UUID = '" + p(request.getParameter("uuid")) + "'";
             		comprobante.Open();
@@ -280,7 +281,7 @@ public class JNomMovDirDlg extends JForsetiApl
 	        			//System.out.println(setemp.getSQL());
 	            		if(setemp.getNumRows() == 0)
 	        			{
-	        				idmensaje = 1; mensaje = "PRECAUCION: No existe el empleado dado de alta en el sistema, está dado de alta en otra entidad, ó el RFC del empleado no coincide con el del recibo";
+	        				idmensaje = 1; mensaje = "PRECAUCION: No existe el empleado dado de alta en el sistema, está dado de alta en otra entidad o el RFC del empleado no coincide con el del recibo";
 	        				getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
 	        				irApag("/forsetiweb/caja_mensajes.jsp", request, response);
 	        				return;
@@ -372,10 +373,12 @@ public class JNomMovDirDlg extends JForsetiApl
 	        			}
 	        			
 	        			rec.establecerResultados();
-	        			
-	        			if(JUtil.redondear(rec.getSumGravado() + rec.getSumExento() + rec.getSumDeduccion(),2) != JUtil.redondear(Float.parseFloat(nomrecxml.getComprobante().getProperty("total")),2))
+	        		  
+	        			if( (JUtil.redondear(rec.getSumGravado() + rec.getSumExento() + rec.getSumDeduccion(),2) - JUtil.redondear(Float.parseFloat(nomrecxml.getComprobante().getProperty("total")),2)) > 0.1 || 
+	        					(JUtil.redondear(rec.getSumGravado() + rec.getSumExento() + rec.getSumDeduccion(),2) - JUtil.redondear(Float.parseFloat(nomrecxml.getComprobante().getProperty("total")),2)) < -0.1)
       			      	{
-	        				idmensaje = 3; mensaje = "ERROR: El total en el CFDI no corresponde al Total calculado en el registro a partir de este CFDI. No se puede agregar. DOC: " + JUtil.redondear(rec.getSumGravado() + rec.getSumExento() + rec.getSumDeduccion(),2) + " XML: " + JUtil.redondear(Float.parseFloat(nomrecxml.getComprobante().getProperty("total")),2);
+	        				idmensaje = 3; 
+	        				mensaje = "ERROR: El total en el CFDI no corresponde al Total calculado en el registro a partir de este CFDI. No se puede agregar. DOC: " + JUtil.redondear(rec.getSumGravado() + rec.getSumExento() + rec.getSumDeduccion(),2) + " XML: " + JUtil.redondear(Float.parseFloat(nomrecxml.getComprobante().getProperty("total")),2);
 	        				getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
 	        				irApag("/forsetiweb/caja_mensajes.jsp", request, response);
 	        				return;
@@ -539,12 +542,19 @@ public class JNomMovDirDlg extends JForsetiApl
                  
                 if(setnom.getAbsRow(0).getCerrado())
                 {
-                     idmensaje = 3; mensaje += "ERROR: No se puede cambiar la n&oacute;mina porque ya esta protegida <br>";
+                     idmensaje = 3; mensaje += "ERROR: No se puede cambiar la n&oacute;mina porque ya esta protegida<br>";
                      getSesion(request).setID_Mensaje(idmensaje, mensaje);
                      irApag("/forsetiweb/caja_mensajes.jsp", request, response);
                      return;
                 }
                  
+                if(setnom.getAbsRow(0).getTipo() != 1 && setnom.getAbsRow(0).getTipo() != 2)
+                {
+                     idmensaje = 3; mensaje += "ERROR: No se puede cambiar la nómina porque no es una nómina normal<br>";
+                     getSesion(request).setID_Mensaje(idmensaje, mensaje);
+                     irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+                     return;
+                }
                 Byte numero_nomina = new Byte((byte)setnom.getAbsRow(0).getNumero_Nomina());
                 Integer ano = new Integer(setnom.getAbsRow(0).getAno());
                 Date desde = new Date(setnom.getAbsRow(0).getFecha_Desde().getTime());
@@ -624,6 +634,18 @@ public class JNomMovDirDlg extends JForsetiApl
                     irApag("/forsetiweb/caja_mensajes.jsp", request, response);
                     return;
                 }
+                
+                JCalculoNominaEspSet cset = new JCalculoNominaEspSet(request);
+            	cset.m_Where = "ID_Nomina = '" + p(request.getParameter("id")) + "' and TFD >= 2";
+            	cset.Open();
+            	if(cset.getNumRows() > 0)
+            	{
+            		idmensaje = 3; mensaje += "ERROR: No se puede eliminar la nómina porque por lo menos un recibo ya tiene su CFDI enlazado. Primero debes desenlazar el CFDI desde el módulo de CFDI y CE del centro de control<br>";
+                    getSesion(request).setID_Mensaje(idmensaje, mensaje);
+                    irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+                    return;
+            	}
+            	
               	Eliminar(request, response);
               	return;
             }
@@ -748,19 +770,9 @@ public class JNomMovDirDlg extends JForsetiApl
                     return;
                 }
             	
-                if(setnom.getAbsRow(0).getTipo() == 1 || setnom.getAbsRow(0).getTipo() == 2 ||
-                		setnom.getAbsRow(0).getTipo() == 5 || setnom.getAbsRow(0).getTipo() == 6)
-                {	
-                	Generar(request, response);
-                	return;
-                }
-                else
-                {
-                	idmensaje = 3; mensaje += "ERROR: No se puede generar pago de n&oacute;mina porque el tipo no es compatible para generarlos. Se debe generar su n&oacute;mina de sueldos <br>";
-                    getSesion(request).setID_Mensaje(idmensaje, mensaje);
-                    irApag("/forsetiweb/caja_mensajes.jsp", request, response);
-                    return;
-                }
+                Generar(request, response);
+                return;
+                
             }
             else
             {
@@ -859,14 +871,15 @@ public class JNomMovDirDlg extends JForsetiApl
                 
       			  if(!setnom.getAbsRow(0).getCerrado() || !setnom.getAbsRow(0).getStatus().equals("P") || setnom.getAbsRow(0).getStatus().equals("C"))
       			  {
-      				  idmensaje = 3; mensaje += "ERROR: No se puede sellar esta nómina porque no esta protegida, no esta pagada o esta cancelada <br>";
+      				  idmensaje = 3; mensaje += "ERROR: No se puede sellar esta nómina porque no esta protegida, no esta pagada o está cancelada <br>";
       				  getSesion(request).setID_Mensaje(idmensaje, mensaje);
       				  irApag("/forsetiweb/caja_mensajes.jsp", request, response);
       				  return;
       			  }
             	
       			  if(setnom.getAbsRow(0).getTipo() == 1 || setnom.getAbsRow(0).getTipo() == 2 ||
-      					  setnom.getAbsRow(0).getTipo() == 5 || setnom.getAbsRow(0).getTipo() == 6)
+      					  setnom.getAbsRow(0).getTipo() == 5 || setnom.getAbsRow(0).getTipo() == 6 ||
+      					  			setnom.getAbsRow(0).getTipo() == 7 || setnom.getAbsRow(0).getTipo() == 8)
       			  {	
       				  JCalculoNominaEspSet SetMod = new JCalculoNominaEspSet(request);
         			  SetMod.m_Where = "ID_Nomina = '" + p(request.getParameter("id")) + "'";
@@ -891,7 +904,7 @@ public class JNomMovDirDlg extends JForsetiApl
       			  }
       			  else
       			  {
-      				  idmensaje = 3; mensaje += "ERROR: No se puede sellar la n&oacute;mina porque el tipo no es compatible para sellar. Se debe sellar la n&oacute;mina de sueldos <br>";
+      				  idmensaje = 3; mensaje += "ERROR: No se puede sellar la n&oacute;mina porque se trata de una n&oacute;mina especial. <br>";
       				  getSesion(request).setID_Mensaje(idmensaje, mensaje);
       				  irApag("/forsetiweb/caja_mensajes.jsp", request, response);
       				  return;
@@ -1491,7 +1504,7 @@ public class JNomMovDirDlg extends JForsetiApl
             	SetMod.m_Where = "ID_Nomina = '" + p(request.getParameter("id")) + "' and ID_Empleado = '" + p(request.getParameter("idempleado")) + "'";
             	SetMod.Open();
             	
-      		  	if(SetMod.getAbsRow(0).getTFD() != 3)
+      		  	if(SetMod.getAbsRow(0).getTFD() != 3 || SetMod.getAbsRow(0).getID_CFD() == 0)
       		  	{
       		  		idmensaje = 1;
       		  		mensaje += "PRECAUCION: Este recibo no est&aacute; sellado completamente, no hay nada que bajar <br>";
@@ -1500,19 +1513,29 @@ public class JNomMovDirDlg extends JForsetiApl
       		  		return;
       		  	} 
       		  
-      		  	String nombre = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/TFDs/SIGN_NOM-" + request.getParameter("id") + "-" + request.getParameter("idempleado") + ".xml";
-      		  	String destino = "NOM-" + SetMod.getAbsRow(0).getID_Nomina() + "-" + SetMod.getAbsRow(0).getRecibo() + ".xml";
+      		  	JCFDCompSet cfd = new JCFDCompSet(request,"NOMINA");
+      		  	cfd.m_Where = "ID_CFD = '" + SetMod.getAbsRow(0).getID_CFD() + "'";
+      		  	cfd.Open();
+    		  
+      		  	String nombre, destino;
+    		  
+      		  	if(cfd.getNumRows() > 0)
+      		  		nombre = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/nom/TFDs/" + cfd.getAbsRow(0).getUUID() + ".xml";
+      		  	else // Es CFDI generado internamente
+      		  	{
+      		  		nombre = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/TFDs/SIGN_NOM-" + request.getParameter("id") + "-" + request.getParameter("idempleado") + ".xml";
+      		  	}
+    		  
+      		  	destino = "NOM-" + SetMod.getAbsRow(0).getID_Nomina() + "-" + SetMod.getAbsRow(0).getRecibo() + ".xml";
+    		  	
       		  	JBajarArchivo fd = new JBajarArchivo();
-      		  
+    		  
       		  	fd.doDownload(response, getServletConfig().getServletContext(), nombre, destino);
-      		  
+    		  
       		  	idmensaje = 0;
       		  	mensaje = "El recibo se bajo satisfactoriamente";
-      		  
-      		  	getSesion(request).setID_Mensaje(idmensaje, mensaje);
-      		  	irApag("/forsetiweb/caja_mensajes.jsp", request, response); 
       		  	return;
-                                
+      		  	                
             }
             else
             {
@@ -1553,7 +1576,7 @@ public class JNomMovDirDlg extends JForsetiApl
             	SetMod.m_Where = "ID_Nomina = '" + p(request.getParameter("id")) + "' and ID_Empleado = '" + p(request.getParameter("idempleado")) + "'";
             	SetMod.Open();
             	
-      		  	if(SetMod.getAbsRow(0).getTFD() != 3)
+      		  	if(SetMod.getAbsRow(0).getTFD() != 3 || SetMod.getAbsRow(0).getID_CFD() == 0)
       		  	{
       		  		idmensaje = 1;
       		  		mensaje += "PRECAUCION: Este recibo no est&aacute; sellado completamente, no hay nada que bajar <br>";
@@ -1562,19 +1585,27 @@ public class JNomMovDirDlg extends JForsetiApl
       		  		return;
       		  	} 
       		  
-      		  	String nombre = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/PDFs/NOM-" + request.getParameter("id") + "-" + request.getParameter("idempleado") + ".pdf";
-      		  	String destino = "NOM-" + SetMod.getAbsRow(0).getID_Nomina() + "-" + SetMod.getAbsRow(0).getRecibo() + ".pdf";
+      		  	JCFDCompSet cfd = new JCFDCompSet(request,"NOMINA");
+      		  	cfd.m_Where = "ID_CFD = '" + SetMod.getAbsRow(0).getID_CFD() + "'";
+      		  	cfd.Open();
+    		  
+      		  	String nombre, destino;
+    		  
+      		  	if(cfd.getNumRows() > 0)
+      		  		nombre = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/nom/PDFs/" + cfd.getAbsRow(0).getUUID() + ".pdf";
+      		  	else
+      		  		nombre = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/PDFs/NOM-" + request.getParameter("id") + "-" + request.getParameter("idempleado") + ".pdf";
+    		  	
+      		  	destino = "NOM-" + SetMod.getAbsRow(0).getID_Nomina() + "-" + SetMod.getAbsRow(0).getRecibo() + ".pdf";
+    		  	
       		  	JBajarArchivo fd = new JBajarArchivo();
-      		  
+    		  
       		  	fd.doDownload(response, getServletConfig().getServletContext(), nombre, destino);
-      		  
+    		  
       		  	idmensaje = 0;
       		  	mensaje = "El recibo se bajo satisfactoriamente";
-      		  
-      		  	getSesion(request).setID_Mensaje(idmensaje, mensaje);
-      		  	irApag("/forsetiweb/caja_mensajes.jsp", request, response); 
       		  	return;
-                                
+      		  	                  
             }
             else
             {

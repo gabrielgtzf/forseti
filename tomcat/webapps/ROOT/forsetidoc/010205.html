@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -193,16 +198,20 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 					<td> 
                     
  
+				
+ 
+				
+ 
 				 				 				 				 				 				
 
-<div align="justify"> 				 				 				 				 				 				 				 				 				 				En   el módulo de <strong>Almacén</strong>, se puede trabajar   con los movimientos al almacén, plantillas de almacén,  requerimientos de productos, traspasos entre bodegas y chequeos físicos.<br />
+<div align="justify"> 				 				 				 				 				 				 				 				 				 				En   el módulo de <strong>Almacén</strong>, se puede trabajar   con los movimientos al almacén, plantillas de almacén,  requerimientos de productos, traspasos entre bodegas, chequeos físicos y almacén de utensilios.<br />
 <strong><br />
 Movimientos al almacén</strong>.<br />
 Este es el módulo donde   se controlan las entradas, salidas y existencias de productos en las distintas   bodegas. Su estructura es la siguiente:<br />
 <ul> <li>Tipo de movimiento ( entrada o salida ).</li> <li>Numero consecutivo del movimiento en esa bodega.</li> <li>Fecha.</li> <li>Clave del concepto de entrada o salida.</li> <li>La referencia.</li> <li>El concepto.</li>
 </ul>La estructura del detalle es la siguiente:<br />
 <ul> <li>Cantidad de entrada o salida.</li> <li>Clave del producto.</li> <li>Costo directo.</li>
-</ul>Este módulo permite el manejo de costos promedio. Las referencias a los movimientos indican por ejemplo ¿Qué generó esa salida?... La   venta tal... El traspaso a la bodega tal.. etc. Aunque permite movimientos directos   al almacén (por ajustes, inicio de inventario, salidas por utilizar productos para uso interno etc.), este módulo   casi siempre es llenado por los módulos alternos: Plantillas, Compras, Producción,   Traspasos entre bodegas, Chequeo físico, Compras, Ventas y Producción.</div>
+</ul>Este módulo permite el manejo de costos promedio. Las referencias a los movimientos indican por ejemplo ¿Qué generó esa salida?... La   venta tal... El traspaso a la bodega tal.. etc. Aunque permite movimientos directos   al almacén (por ajustes, inicio de inventario, salidas por utilizar productos para uso interno etc.), este módulo   casi siempre es llenado por los módulos alternos de: Compras, Plantillas, Traspasos entre bodegas, Chequeo físico, Ventas y Producción.</div>
 <p align="justify"> Utiliza la cuenta asociada en   catálogo de productos para generar el movimiento contable, también   permite la auditoría de salidas y entradas al encargado de la bodega,   por ejemplo, si una encargada de compras genera una compra de 10 pzas. del producto x, el encargado verificará y auditará la entrada a la bodega, y   en caso de no ser las 10 pzas, la podrá revertir para analizar lo sucedido.</p>
 <div align="justify">
 <strong>Plantillas.<br />
@@ -211,9 +220,8 @@ Este es el módulo donde   se controlan las entradas, salidas y existencias de p
 <strong>Traspasos de material.<br />
 </strong>Son utilizados para mover materiales   de una bodega de origen a una de destino. Un traspaso generará   automáticamente dos movimientos al almacén, uno por la salida   de materiales en la bodega de origen y el otro por la entrada a la bodega de   destino. Se pueden generar automáticamente a través de un requerimiento desde   aquel módulo.<br />
 <strong>NOTA:</strong> Los Traspasos, pueden generar comprobantes fiscales 
-digitales ( CFD ) en forma de traslados. Este CFD puede ser sellado 
-directamente por el PAC Edicom, o indirectamente por el servicio forseti
- PacConn de algún servidor Forseti instalado en la nube, el cual utiliza
+digitales ( CFD ) en forma de traslados. Este CFD puede ser sellado por el servicio forseti
+ JPacConn del mismo servidor, o de algún servidor Forseti instalado en la nube. JPacConn utiliza
  el PAC Edicom para el sellado. El porqué de Edicom, es porque Edicom 
 ofrece un servicio web bastante estable y su API está liberada bajo una 
 licencia de software libre.<br />
@@ -222,8 +230,15 @@ licencia de software libre.<br />
 </strong>Son plantillas de materiales requeridos por   una bodega de destino, que podrá usar el encargado de la bodega de origen   para enviarle el material sin tener que capturar el traspaso.<br />
 <br />
 <strong>Chequeo físico.<br />
-</strong>Permite la captura de las unidades físicas   de productos en una determinada fecha y bodega. Con esta base se pueden generar automáticamente los movimientos de salidas y entradas al almacén,   en lugar de tener que saber lo que dice el sistema que hay. Esto último implicaría contar el producto,   sacar la diferencia, si esta de mas, ingresar directamente el movimiento al almacén   de entrada por concepto de chequeo físico de mas, o si esta de menos,   ingresar la salida por concepto de chequeo físico de menos. Veámoslo con un ejemplo... El   31 de diciembre se cuentan todos los productos de la bodega x y se genera un   registro de las existencias a ese momento, después de esto, solo queda hacer ajustes   si es necesario y generarlo (No importa si es unos días después); Se obtienen los   faltantes (movimientos de salida) y los sobrantes (movimientos de entrada) automáticamente ya que se basa en esas existencias al día 31 de diciembre.<br />
+</strong>Permite la captura de las unidades físicas   de productos en una determinada fecha y bodega. Con esta base se pueden generar automáticamente los movimientos de salidas y entradas al almacén,   en lugar de tener que saber lo que dice el sistema que hay. Esto último implicaría contar el producto,   sacar la diferencia, si esta de mas, ingresar directamente el movimiento al almacén   de entrada por concepto de chequeo físico de mas, o si esta de menos,   ingresar la salida por concepto de chequeo físico de menos. Veámoslo con un ejemplo... El   31 de diciembre se cuentan todos los productos de la bodega X y se genera un   registro de las existencias a ese momento, después de esto, solo queda hacer ajustes   si es necesario y generarlo (No importa si es unos días después); Se obtienen los   faltantes (movimientos de salida) y los sobrantes (movimientos de entrada) automáticamente ya que se basa en esas existencias al día 31 de diciembre.<br />
+<br />
+<strong>Almacén de utensilios.</strong><br />
+Permite la captura de salidas de productos que no son parte del objetivo del negocio, pero que forman parte importante de un stock consumible, como por ejemplo, tóner de impresoras. Básicamente es un control de seguimiento de las entradas generadas al momento de ingresar un gasto de consumibles.
 </div>            			  			  			  			  			  
+			  
+
+			  
+
 			  
 
                     </td>
@@ -314,6 +329,14 @@ licencia de software libre.<br />
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -326,7 +349,7 @@ licencia de software libre.<br />
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

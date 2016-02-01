@@ -61,10 +61,13 @@ public class JDiarioCierreSet extends JManejadorSet
 			pNode.setEntradaHora(m_RS.getTime("Entrada"));
 			pNode.setSalida(m_RS.getDate("Salida"));
 			pNode.setSalidaHora(m_RS.getTime("Salida"));
-			
 			pNode.setHNA(m_RS.getFloat("HNA"));
 			pNode.setHNP(m_RS.getFloat("HNP"));
-
+			pNode.setEntrada2(m_RS.getDate("Entrada2"));
+			pNode.setEntrada2Hora(m_RS.getTime("Entrada2"));
+			pNode.setSalida2(m_RS.getDate("Salida2"));
+			pNode.setSalida2Hora(m_RS.getTime("Salida2"));
+			
 			m_Rows.addElement(pNode);
 
 		}

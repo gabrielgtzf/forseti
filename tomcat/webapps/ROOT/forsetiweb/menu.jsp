@@ -20,7 +20,7 @@
 <html>
 <head><title>Menu Principal</title></head>
 <body bgcolor="#333333">
-<script language='JavaScript1.2' src='../compfsi/coolmenus3.js'>
+<!--script language='JavaScript1.2' src='../compfsi/coolmenus3.js'>
 </script>
 <script>
 function lib_bwcheck()
@@ -286,6 +286,6 @@ oCMenu1.makeMenu('CEF_MENU_REP_PROD','CEF_MENU_GLB_REP','&nbsp;<%= JUtil.Msj("CE
 oCMenu1.makeMenu('CEF_MENU_REP_NOM','CEF_MENU_GLB_REP','&nbsp;<%= JUtil.Msj("CEF","MENU","GLB","NOM") %>','/servlet/CEFReportesCtrl?tipo=NOM')
 
 oCMenu1.makeStyle(); oCMenu1.construct()
-</script>
+</script-->
 </body>
 </html>

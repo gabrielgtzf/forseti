@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -236,9 +241,16 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
                     
  
 				
+ 
+				
+ 
+				
+ 
+				
 
-<div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 							El módulo de catálogo de cuentas del departamento de contabilidad del CEF te permite dar de alta cuentas contables que manejará la empresa. Cuando se da de alta una empresa en el CEF, se puede especificar si se desea generar un catálogo a partir de alguna plantilla de catálogo de cuentas que incluye Forseti, si esto se hace, desde el inicio ya aparecerán en el catálogo las cuentas contables que la plantilla proporcionó, de lo contrario, el catálogo iniciará vacío.<br />
-<br />El panel inferior del CEF aparece vacío ya que no aplica para este módulo. En el panel izquierdo, veremos las siguientes fichas:<br />
+<div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 							El módulo de catálogo de cuentas del departamento de contabilidad del CEF te permite dar de alta cuentas contables que manejará la empresa.<br />
+<br />
+El panel inferior del CEF aparece vacío ya que no aplica para este módulo. En el panel izquierdo, veremos las siguientes fichas:<br />
 </div>
 <ul> <li>
 <strong>General</strong>. Esta ficha mostrará todo el catalogo de cuentas de la empresa.</li> <li>
@@ -262,14 +274,71 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 <strong>ST.</strong> El estatus de la cuenta (Activa o Descontinuada).<br />
 </li> <li>
 <strong>Saldo</strong>. Nos muestra el saldo actual de la cuenta, este saldo puede no estar ajustado por diversas razones, una de ellas y poniéndola como ejemplo puede ser al cancelar una póliza. El sistema permite la actualización de saldos mediante el proceso "actualizar individual" del objeto "Actualización de saldos del catálogo de cuentas contables" del módulo de Saldos del Centro de Control.</li>
+ <li>
+<strong>CA.</strong> Muestra el código agrupador del SAT para esta cuenta indispensable para los informes de la contabilidad electrónica.</li>
+ <li>
+<strong>Naturaleza.</strong> Es la naturaleza de la cuenta (Acreedora, Deudora o Según Rango).<br />
+</li>
 </ul>
 <strong>NOTA:</strong> Las cuentas de Mayor y Acumulativas activas, siempre aparecen en color azul CEF, mientras que todas las cuentas descontinuadas, sean de Mayor, Acumulativas o de Detalle, aparecen siempre en color rojo.<br />
 <br />
 <h2 align="center">
 <strong>Procesos del Catálogo de Cuentas</strong>
 </h2>
-<p>En el catálogo de cuentas intervienen los procesos primarios de agregado, cambios, eliminación,&nbsp; y ajuste de saldos de cuentas contables.<br />
+<p>En el catálogo de cuentas intervienen los procesos primarios de agregado, cambios y eliminación de cuentas contables.</p>
+<p>
+<strong>Agregar Catálogo.</strong>
 </p>
+<p>Este proceso permite agregar todo un catálogo de cuentas a partir de catálogos preestablecidos como plantillas con las que viene alimentado el sistema. Este proceso solo se puede llevar a cabo cuando la empresa se ha dado de alta recientemente y contiene ni rubros ni cuentas dadas de alta en el sistema. En caso de que ya se hayan dado de alta rubros o cuentas y se decida agregar un catálogo, primero se deben eliminar completamente siguiendo las reglas de eliminación de cada módulo. El formulario para agregar un catálogo preestablecido, posee los siguientes objetos:</p>
+<ul>
+ <li>
+<strong>Selección de la plantilla.</strong> Indica aquí la plantilla del catálogo preestablecido que formará parte de tu catálogo de cuentas. NOTA: Si no se selecciona ningún catalogo, el proceso no podrá ser llevado a cabo.<br />
+<br />
+</li>
+ <li>
+<strong>Rubros contables.</strong> Es el área de los datos informativos de los rubros que se darán de alta para esta estructura del catálogo según la plantilla seleccionada.<strong><br />
+</strong>
+<ul>
+ <li>
+<strong>Clave</strong>. Es la clave del tipo de rubro. 
+Estos pueden ser de los siguientes tipos: AC (Activo Circulante), AD 
+(Activo Diferido), AF (Activo Fijo), PC (Pasivo a Corto plazo), PD 
+(Pasivo Diferido), PL (Pasivo a Largo Plazo), CC (Capital Contable), RI 
+(Resultados - Ingresos), RC (Resultados - Costos), RG (Resultados - 
+Gastos), RO (Resultados - Otros Gastos y/o Productos), IP (Resultados - 
+Impuestos).</li>
+ <li>
+<strong>Nombre</strong>. Es la descripción de como identificamos al rubro.</li>
+ <li>
+<strong>Inicial.</strong> Es el número de cuenta de cuatro dígitos 
+perteneciente al primer nivel de la cuenta de mayor, que se utilizará 
+como inicio del rango de cuentas.</li>
+ <li>
+<strong>Final</strong>. Es el número de cuenta de cuatro dígitos 
+perteneciente al primer nivel de la cuenta de mayor, que se utilizará 
+como final del rango de cuentas.<br />
+</li>
+</ul>
+</li>
+</ul>
+
+
+<ul>
+ <li>
+<strong>Catálogo de cuentas.</strong> Es el área de los datos informativos de las cuentas que se darán de alta para esta estructura según la plantilla seleccionada<strong>:<br />
+</strong>
+<ul>
+ <li>
+<strong>Clave</strong>. Es la clave de la cuenta contable. Esta muestra la clave completa con sus niveles separados por un guión.</li>
+ <li>
+<strong>Nombre</strong>. Es la descripción de como identificamos la cuenta.</li>
+ <li>
+<strong>CA.</strong> Muestra el código agrupador del SAT.</li>
+ <li>
+<strong>Naturaleza.</strong> Es la naturaleza de la cuenta (Acreedora, Deudora o Según Rango).</li>
+</ul>
+</li>
+</ul>
 <strong>Agregar Cuenta.</strong><br />
 <br />
 <div align="justify">Permite dar de alta cuentas de Mayor, Acumulativas y de Detalle. <br />
@@ -297,17 +366,20 @@ Las cuentas Acumulativas y de Detalle subsecuentes a las de mayor, deben estar c
 <div align="justify">Puedes seleccionar una cuenta antes de agregar una nueva y automáticamente te aparecerá esta en el campo de Cuenta Contable. Esto es útil por ejemplo, cuando deseas generar una cuenta de detalle de un nivel especifico, y solo le cambiarás el último número, sin tener que teclear toda la cuenta. Un ejemplo mas específico sería este:<br />
 </div>
 <p align="justify">A la cuenta acumulativa 1011-001-002-000 se le desea agregar la cuenta de detalle 1011-001-002-001. Si no se selecciona la cuenta 1011-001-002-000 primero, el objeto de Cuenta Contable del formulario iniciará vacío, teniendo tu que ingresar toda la cuenta 1011-001-002-001, si se selecciona, el objeto de Cuenta Contable del formulario iniciará con la cuenta 1011-001-002-000, y tu puedes cambiar el último número a 1, y la cuenta quedará configurada.<br />
-<br />Al agregar cuentas nuevas, el sistema de agregado permite auto completar. Esto quiere decir que si por ejemplo se tuvieran seis niveles de cuenta configurados, al agregar la cuenta de Mayor 8101-000-000-000-000-000, se puede teclear únicamente como 8101. Lo mismo sucede si después a esta cuenta de mayor le queremos asignar una cuenta de segundo nivel de detalle, por ejemplo la 8101-001-000-000-000-000, la podemos ingresar como 8101-001, y completará automáticamente la cuenta con sus niveles subsecuentes.<br />
+<br />
+Al agregar cuentas nuevas, el sistema de agregado permite auto completar. Esto quiere decir que si por ejemplo se tuvieran seis niveles de cuenta configurados, al agregar la cuenta de Mayor 8101-000-000-000-000-000, se puede teclear únicamente como 8101. Lo mismo sucede si después a esta cuenta de mayor le queremos asignar una cuenta de segundo nivel de detalle, por ejemplo la 8101-001-000-000-000-000, la podemos ingresar como 8101-001, y completará automáticamente la cuenta con sus niveles subsecuentes.<br />
 </p>
 <div align="justify">
 <strong>Cambiar Cuenta.</strong><br />
-<br />Este proceso permite cambiar la <strong>Descripción,</strong> <strong>Estatus, Código Agrupador del SAT </strong>y<strong> Naturaleza de la cuenta</strong> en cuentas contables. Cambiar el Estatus de una cuenta de Mayor o una Acumulativa, afecta a todas las cuentas hijas de esta cuenta, en la jerarquía, y las pondrá en el mismo Estatus, por lo que hay que tener demasiado cuidado al cambiar el Estatus de una cuenta de Mayor o Acumulativa.<br />
+<br />
+Este proceso permite cambiar la <strong>Descripción,</strong> <strong>Estatus, Código Agrupador del SAT </strong>y<strong> Naturaleza de la cuenta</strong> en cuentas contables. Cambiar el Estatus de una cuenta de Mayor o una Acumulativa, afecta a todas las cuentas hijas de esta cuenta, en la jerarquía, y las pondrá en el mismo Estatus, por lo que hay que tener demasiado cuidado al cambiar el Estatus de una cuenta de Mayor o Acumulativa.<br />
 Las cuentas descontinuadas, no se podrán usar más a partir del momento en que se descontinuen, afecta a la entrada desde auxiliares que liguen esta cuenta, así como a pólizas directas que se quieran agregar, pero no afecta para los estados financieros ni procesos que involucren a una póliza registrada con esta cuenta descontinuada.<br />
 Por motivos referenciales, No se puede cambiar la Clave de ninguna cuenta.<br />
 <br />
 <strong>Eliminar Cuenta.</strong><br />
-<br />Este proceso Elimina permanentemente una cuenta contable, ya sea de mayor, acumulativa o de detalle. Si se Elimina una cuenta de Mayor o Acumulativa, todas las cuentas hijas de esta cuenta, en la jerarquía, serán eliminadas.<br />
-Por motivos referenciales, solo se podrán eliminar las cuentas de detalle que no se encuentren registradas en ninguna póliza, o aquellas de Mayor o Acumulativas que sus hijas de detalle, no pertenezcan a ninguna póliza.<br />
+<br />
+Este proceso elimina permanentemente una cuenta contable, ya sea de mayor, acumulativa o de detalle. Si se Elimina una cuenta de Mayor o Acumulativa, todas las cuentas hijas de esta cuenta, en la jerarquía, serán eliminadas.<br />
+Por motivos referenciales, solo se podrán eliminar las cuentas de detalle que no se encuentren registradas en ninguna póliza ni en algún otro lugar que las relacione (por ejemplo, cuentas relacionadas en el catálogo de clientes del módulo de ventas, en entidades de banco o caja, etc.), o aquellas de Mayor o Acumulativas que sus hijas de detalle, no pertenezcan a ninguna póliza o a algún otro lugar que las relacione.<br />
 <br />
 </div>
 <h2 align="center">Errores comunes en los procesos del catálogo.</h2>
@@ -326,6 +398,12 @@ Por motivos referenciales, solo se podrán eliminar las cuentas de detalle que n
 </div>
 </li>
 </ul>			  			  			  			  			  			  
+			  
+
+			  
+
+			  
+
 			  
 
                     </td>
@@ -406,6 +484,14 @@ Por motivos referenciales, solo se podrán eliminar las cuentas de detalle que n
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -418,7 +504,7 @@ Por motivos referenciales, solo se podrán eliminar las cuentas de detalle que n
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

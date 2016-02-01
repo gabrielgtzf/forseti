@@ -116,8 +116,17 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 	set.Open();
 	for(int i=0; i < set.getNumRows(); i++)
 	{
+		String clase;
+		
+	   	if(set.getAbsRow(i).getStatus() == 0)
+			clase = "";
+		else if(set.getAbsRow(i).getStatus() == 2)
+			clase = " class=\"txtChicoRj\"";
+		else
+			clase = "";
+		 	
 %>
-        <tr>
+        <tr<%= clase %>>
 		  <td width="5%" align="center"><input type="radio" name="id" value="<%= set.getAbsRow(i).getID_Empleado() %>"></td>
 		  <td width="15%" align="left"><%= set.getAbsRow(i).getID_Empleado() %></td>
 		  <td width="25%" align="left"><%= set.getAbsRow(i).getNombre() %></td>

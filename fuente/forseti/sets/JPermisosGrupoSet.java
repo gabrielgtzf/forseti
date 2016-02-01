@@ -25,7 +25,7 @@ public class JPermisosGrupoSet extends JManejadorSet
 {
 	public JPermisosGrupoSet(HttpServletRequest request)
 	{
-		m_Select = " * FROM VIEW_PERMISOS_GRUPO";
+		m_Select = " * FROM VIEW_NOM_PERMISOS_GRUPO";
 		m_PageSize = 50;
 		this.request = request;
 	}

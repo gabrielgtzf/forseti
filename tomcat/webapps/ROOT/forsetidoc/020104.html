@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -191,7 +196,17 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				  </tr>
 				  <tr>
 					<td> 
-                     				 				 				 				 				 				 				 				 <div align="justify">Desde cualquier perspectiva de implantación, Forseti, para poder ser accesado, requiere la   parte del "Cliente" del modelo "Cliente-Servidor". Este "Cliente" se refiere a un navegador de internet. Es importante recalcar que desde el lado del Cliente, forseti funciona con cualquier sistema   sea Windows, Mac, Linux, Solaris etc., lo importante, es que el navegador web   soporte <strong>frames</strong>, <strong>java-script</strong>, <strong>ventanas emergentes</strong> y <strong>certificados digitales</strong>. Actualmente   la mayoría no tiene problema alguno y entre los mas comunes contamos con Internet Explorer, Mozilla Firefox, Opera, Safari, Google Chrome, entre   otros.<br /><br />Para la solución <strong>En Sitio</strong> y <strong>En la Nube</strong>, el servidor lo vamos a dividir en dos partes:<br /><ol> <li>La base de datos, que es donde se guardan todos los datos de las empresas.</li> <li>Y la puerta de enlace, que permite el control del flujo de datos entre el navegador web y la base de datos. </li></ol>Para la base de datos, necesitaremos tener Linux instalado (Cualquier sistema basado en RPM o Debian con nucleo 2,26+) y con el motor de base de datos PostgreSQL en su version 9.3 o posterior.<br />Para la Puerta de enlace, necesitamos también Linux instalado (Cualquier sistema basado en RPM o Debian con nucleo 2.26+) y los complementos del servidor de los cuales depende forseti para su óptima operación: OpenSSL, OpenJDK 7, RSYNC, Tomcat 7 y el Módulo Forseti. Todos estos complementos se distribuyen bajo las cláusulas de las licencias de la Free Software Foundation. <br /><br />  Aunque parezca una hazaña poner en marcha Forseti,   no lo es, ya que teniendo el harware instalado, o un contrato de Amazon Web Services EC2, todo el software se   puede poner en marcha en cuestión de minutos. Una vez estando en marcha, Forseti es un   sistema extremadamente poderoso y seguro porque se han aislado los datos del   controlador y de los usuarios. A este modelo Cliente-Servidor se le denomina "Modelo   de Tres Hilos" (1.- Servidor de base de datos, 2.- Servidor de puerta de enlace, 3.- Terminales o Clientes).						  			  			   							  			  			  			  </div>        			  			  
+                    
+ 
+				 				 				 				 				 				 				 				 				 
+
+<div align="justify">Desde cualquier perspectiva de implantación, para poder accesar a forseti requeriremos de un navegador de internet. Es importante recalcar que este acceso funciona desde cualquier sistema   sea Windows, Mac, Linux, Solaris etc., lo importante, es que el navegador web   soporte <strong>frames</strong>, <strong>java-script</strong>, <strong>ventanas emergentes</strong> y <strong>certificados digitales</strong>. Actualmente   la mayoría no tiene problema alguno y entre los mas comunes contamos con Internet Explorer, Mozilla Firefox, Opera, Safari, Google Chrome, entre   otros.<br />
+<br />Para la solución <strong>En Sitio</strong> y <strong>En la Nube</strong>, el servidor lo vamos a dividir en dos partes:<br />
+<ol> <li>La base de datos que es donde se guardan todos los datos de las empresas.</li> <li>El servicio web que permite el control del flujo de datos entre el navegador y la base de datos. </li>
+</ol>Para nuestro servidor forseti necesitaremos tener Linux instalado, cualquier sistema basado en RPM o Debian con nucleo 2,26+ es aceptable, el servidor Ubuntu es una muy buena opción y se puede descargar desde http://www.ubuntu.com. Para la base de datos, necesitaremos el motor de base de datos PostgreSQL en su version 9.3 o posterior. Para nuestro servicio web necesitamos los complementos del servidor de los cuales depende forseti para su óptima operación: OpenSSL, OpenJDK 7, RSYNC, Tomcat 7 y el Módulo Forseti. Todos estos complementos se distribuyen bajo las cláusulas de las licencias de la Free Software Foundation. <br />
+<br />  Aunque parezca una hazaña poner forseti en marcha,   no lo es ya que teniendo el harware instalado o un contrato de Amazon Web Services EC2, todo el software se   puede instalar en cuestión de minutos. Una vez estando en marcha, forseti es un   sistema extremadamente poderoso y seguro porque se han aislado los datos del   controlador y de los usuarios. A este modelo cliente-servidor se le denomina "Modelo   de Tres Hilos" (1.- Servidor de base de datos, 2.- Puerta de enlace, 3.- Terminales o Clientes).						  			  			   							  			  			  			  </div>        			  			  
+			  
+
                     </td>
 				  </tr>
 				  <tr>
@@ -238,6 +253,14 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -250,7 +273,7 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -237,6 +242,8 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
  
 				
  
+				
+ 
 				 				
 
 <div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 							El módulo de pólizas del departamento de contabilidad del CEF te permite generar pólizas de Diario, Egresos, Ingresos, Ajustes y Especiales, directamente en la contabilidad de la empresa, sin usar ningún auxiliar.<br />
@@ -267,7 +274,9 @@ En el panel inferior, vamos a ver las siguientes fichas:<ul> <li>
 <strong>Totales</strong>. Es el total de la partida doble de la póliza a manera de DEBE / HABER.</li> <li>
 <strong>Tipo.</strong> Es el tipo de póliza del que se trata (Diario, Ingreso, Egreso, Ajuste o Especial).</li> <li>
 <strong>Estatus.</strong> Muestra el estatus de la póliza (Activa o Cancelada).</li> <li>
-<strong>Ref.</strong> Muestra la referencia del auxiliar a manera de "Módulo|ID|Entidad||" que creó esta póliza. Las pólizas generadas directamente en este módulo, no tienen ninguna referencia.<br />
+<strong>Ref.</strong> Muestra la referencia del auxiliar a manera de "Módulo|ID|Entidad||" que creó esta póliza. Las pólizas generadas directamente en este módulo, no tienen ninguna referencia.</li>
+ <li>
+<strong>CE.</strong> Muestra los tipos de objetos de contabilidad electrónica pertenecientes a esta póliza, estos pueden ser uno o una combinación de los siguientes: xml (comprobante CFDI), cbb (comprobante fiscal impreso), ext (comprobante extranjero), chq (cheque), trn (transferencia), otr (otro método de pago).<br />
 </li>
 </ul>
 <strong>NOTA:</strong> Las pólizas activas siempre aparecen en color negro, mientras que todas las canceladas aparecen siempre en color rojo.<br />
@@ -321,16 +330,31 @@ Este proceso permite consultar <strong>El cabecero</strong> y los <strong>Detall
 </strong>Este proceso permite agregar, cambiar o eliminar registros de contabilidad electrónica sobre cada partida de póliza. Una vez seleccionada una póliza y pulsado este botón, el sistema se dirigirá a una pantalla alterna que muestra el cabecero, los detalles y los registros de contabilidad electrónica asociados a cada detalle de la póliza. Seleccionando uno de los detalles de póliza o uno de los detalles de registros de contabilidad electrónica, se puede entonces accesar a los siguientes recursos:<br />
 <ul>
  <li>
-<strong>Gestionar comprobante.</strong> Permite agregar un registro de comprobante a la partida seleccionada. Los objetos del comprobante son los siguientes:<br />
+<strong>Gestionar comprobante.</strong> Permite agregar un registro de comprobante ya sea CFDI, CBB o Factura extranjera a la partida seleccionada. Los objetos del comprobante son los siguientes:<br />
 <ul>
  <li>
-<strong>Clave.</strong> Ingresa aquí el UUID de la factura electrónica de tu proveedor o una tuya que hayas expedido desde tu PAC.</li>
+<strong>UUID CFDI.</strong> Ingresa aquí el UUID de la factura electrónica o déjalo en blanco en caso de no ser CFDI.</li>
+ <li>
+<strong>CFD CBB Serie/Folio.</strong> Ingresa aquí la "serie / folio" del comprobante impreso.<br />
+</li>
+ 
+ <li>
+<strong>RFC.</strong> Es el RFC para el registro del CFDI o CBB.</li>
+ <li>
+<strong>Factura Extranjera.</strong> Ingresa aquí el numero de la factura en caso de una importación.</li>
+ <li>
+<strong>TAXID.</strong> Ingresa aquí el TAXID del proveedor extranjero en caso de una importación.</li>
  <li>
 <strong>Total.</strong> Es el total de la factura.</li>
  <li>
-<strong>RFC.</strong> Es el RFC del receptor o el emisor de la factura según se esté registrando una Venta o una Compra respectivamente. </li>
+<strong>Moneda.</strong> Selecciona la moneda en la que está especificada esta factura.</li>
+ <li>
+<strong>Tipo de cambio.</strong> En caso de que la factura esté especificada en moneda extranjera, debes proporcionar el tipo de cambio, de lo contrario, este valor debe ser "1.00".<br />
+</li>
+ 
 </ul>
 </li>
+ 
  <li>
 <strong>Gestionar cheque.</strong> Permite agregar un registro de cheque a la partida seleccionada. Los objetos para un cheque son los siguientes:<br />
 <ul>
@@ -341,19 +365,26 @@ Este proceso permite consultar <strong>El cabecero</strong> y los <strong>Detall
 <strong>Cuenta.</strong> La cuenta a la que pertenece el cheque.<br />
 </li>
  <li>
-<strong>Banco.</strong> El banco emisor del cheque.<br />
+<strong>Banco.</strong> El banco emisor del cheque.</li>
+ <li>
+<strong>Banco Extranjero Emisor.</strong> El nombre del banco en caso de ser un cheque del extranjero.<br />
 </li>
  <li>
-<strong>Fecha.</strong> La fecha del cheque<br />
+<strong>Fecha.</strong> La fecha del cheque.<br />
 </li>
  <li>
-<strong>Total.</strong> El importe total en el cheque<br />
+<strong>Total.</strong> El importe total en el cheque.<br />
+</li>
+ <li>
+<strong>Moneda.</strong> Selecciona la moneda en la que está especificada este cheque.</li>
+ <li>
+<strong>Tipo de cambio.</strong> En caso de que el cheque esté especificado en moneda extranjera, debes proporcionar el tipo de cambio, de lo contrario,este valor debe ser "1.00".<br />
 </li>
  <li>
 <strong>Beneficiario.</strong> El nombre al cual se expide este cheque<br />
 </li>
  <li>
-<strong>RFC.</strong> El RFC del emisor o receptor del cheque (proveedor o cliente respectivamente).<br />
+<strong>RFC.</strong> El RFC del emisor o receptor del cheque (proveedor o cliente respectivamente).
 </li>
 </ul>
 </li>
@@ -365,14 +396,26 @@ Este proceso permite consultar <strong>El cabecero</strong> y los <strong>Detall
  <li>
 <strong>Banco.</strong> El banco de origen de la transferencia.</li>
  <li>
+<strong>Banco Extranjero de Origen.</strong> El nombre del banco extranjero en caso de que la transferencia venga desde el extranjero.<br />
+</li>
+ <li>
 <strong>Destino.</strong> La cuenta de destino de la transferencia.</li>
  <li>
-<strong>Banco.</strong> El banco de destino de la transferencia.<br />
+<strong>Banco.</strong> El banco de destino de la transferencia.</li>
+ <li>
+<strong>Banco Extranjero de Destino.</strong> El nombre del banco extranjero en caso de que la transferencia se realice hacia el extranjero.<br />
 </li>
  <li>
 <strong>Fecha.</strong> La fecha de la transferencia.</li>
  <li>
-<strong>Total.</strong> El importe total.<br />
+<strong>Total.</strong> El importe total.</li>
+ <li>
+<strong>Moneda.</strong> Selecciona la moneda en la que está especificada esta transferencia.</li>
+ <li>
+<strong>Tipo de cambio.</strong>
+ En caso de que la transferencia esté especificada en moneda extranjera, debes 
+proporcionar el tipo de cambio, de lo contrario, este valor debe ser 
+"1.00".<br />
 </li>
  <li>
 <strong>Beneficiario.</strong> El nombre al cual se destinan los fondos.</li>
@@ -381,15 +424,40 @@ Este proceso permite consultar <strong>El cabecero</strong> y los <strong>Detall
 </ul>
 </li>
  <li>
-<strong>Cambiar chq. trn. o xml.</strong> Permite cambios al registro de contabilidad electrónica seleccionado. Según sea un registro de cheque, transferencia o documento, se podrán cambiar todos los objetos del registro.</li>
+<strong>Gestionar otro pago.</strong> Permite agregar un registro de otro método de pago a la partida seleccionada. Los objetos para otros métodos de pago son los siguientes:<strong><br />
+</strong>
+<ul>
  <li>
-<strong>Eliminar chq. trn. o xml.</strong> Permite eliminar el registro de contabilidad electrónica seleccionado.<br />
+<strong>Método de Pago.</strong> Debes seleccionar el método de pago.</li>
+ <li>
+<strong>Fecha.</strong> La fecha del pago.</li>
+ <li>
+<strong>Total.</strong> El importe total.</li>
+ <li>
+<strong>Moneda.</strong> Selecciona la moneda en la que está especificado el pago.</li>
+ <li>
+<strong>Tipo de cambio.</strong>
+ En caso de que el pago esté especificado en moneda extranjera, debes 
+proporcionar el tipo de cambio, de lo contrario, este valor debe ser 
+"1.00".</li>
+ <li>
+<strong>Beneficiario.</strong> El nombre al cual se destina este pago.</li>
+ <li>
+<strong>RFC.</strong> El RFC del emisor o receptor del pago (proveedor o cliente respectivamente).
 </li>
-</ul>Aunque por medio de estos procesos se pueden gestionar todos los requisitos para la generación del archivo xml de pólizas que se requiere para cumplir con lo establecido en el anexo 24 de la resolución miscelanea fiscal del 2014 sobre la contabilidad electrónica, resulta mucho más sencillo configurar los catálogos de clientes y proveedores, las entidades de cuentas bancarias, además del ingreso directo de CFDIs en el módulo de gastos y compras y la emisión directa de facturación electrónica y recibos de nómina electrónicos desde forseti, para que los registros de cheques, transferencias y documentos xml (CFDIs) queden establecidos de manera automática y sin errores de captura, en el momento de ejecutar los procesos de agregado sobre los módulos auxiliares.<strong><br />
+</ul>
+</li>
+ <li>
+<strong>Cambiar CE.</strong> Permite cambios al registro de contabilidad electrónica seleccionado. Según sea un registro de cheque, transferencia otro método de pago o documento de cualquiera de los tipos, se podrán cambiar todos los objetos del registro.</li>
+ <li>
+<strong>Eliminar CE.</strong> Permite eliminar el registro de contabilidad electrónica seleccionado.<br />
+</li>
+</ul>
+<strong>NOTA MUY IMPORTANTE:</strong> Aunque por medio de estos procesos se pueden gestionar todos los requisitos para la generación del archivo xml de pólizas que se requiere para cumplir con lo establecido en el anexo 24 de la resolución miscelánea fiscal del 2014 sobre la contabilidad electrónica, resulta mucho más sencillo configurar los catálogos de clientes y proveedores, las entidades de cuentas bancarias, además del ingreso directo de CFDIs en el módulo de gastos y compras y la emisión directa de facturación electrónica y recibos de nómina electrónicos desde forseti, para que los registros de cheques, transferencias y documentos queden establecidos de manera automática y sin errores de captura, en el momento de ejecutar los procesos de agregado sobre los módulos auxiliares.<strong><br />
 <br />
 Cancelar Póliza.</strong><br />
 <br />
-Este proceso cancela la póliza seleccionada. No se podrá cancelar si el período al que pertenece la póliza ya está cerrado o es una póliza generada automáticamente por un auxiliar. En este caso, se necesitará ir a cancelar el auxiliar para que la póliza quede automáticamente cancelada.<br />
+Este proceso cancela la póliza seleccionada. No se podrá cancelar si el período al que pertenece la póliza ya está cerrado o es una póliza generada automáticamente por un auxiliar. En este caso, se necesitará ir a cancelar el auxiliar para que la póliza quede automáticamente cancelada. Al cancelar la póliza, sus registros asociados de contabilidad electrónica quedarán cancelados y no formarán parte del archivo xml de pólizas.<br />
 <br />
 <strong>Rastrear.</strong><br />
 <br />
@@ -406,6 +474,8 @@ Permite hacer una consulta de la póliza rastreando sus registros de contabilida
 </li>
 </ul>
 </div> 							  			  			  			  			  			  			  			  			  			  			  			  			  
+			  
+
 			  
 
 			  
@@ -478,6 +548,14 @@ Permite hacer una consulta de la póliza rastreando sus registros de contabilida
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -490,7 +568,7 @@ Permite hacer una consulta de la póliza rastreando sus registros de contabilida
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

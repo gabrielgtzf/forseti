@@ -446,7 +446,7 @@ public class JCompFactDlg extends JForsetiApl
 			        				  
 			        				  if(valoresParamUUID.length > 1 && !moddes.equals("GASTOS"))
 			        				  {
-			        					  idmensaje = 1; mensaje = "PRECAUCION: Solo se pueden enlazar multiples CFDI a un gasto, y no, a una compra o recepción";		        			  	  
+			        					  idmensaje = 1; mensaje = "PRECAUCION: Solo se pueden enlazar multiples CFDI a un gasto, y no, a una compra";		        			  	  
 			        					  getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
 				        			  	  irApag("/forsetiweb/caja_mensajes.jsp", request, response);
 				        			  	  return;
@@ -543,6 +543,16 @@ public class JCompFactDlg extends JForsetiApl
 			        			  				  idprod = cat.getAbsRow(0).getClave();
 			        			  				  descripcion = cat.getAbsRow(0).getDescripcion();
 			        			  				  tipo = cat.getAbsRow(0).getID_Tipo();
+			        			  				  //Aqui inicia los impuestos segun lo establecido en la entidad de compra y el catálogo
+			        			  				  ivapor = cat.getAbsRow(0).getIVA() ? rec.getIVAPorcentual() : 0.0F ;
+			        			  				  iepspor = cat.getAbsRow(0).getImpIEPS();
+			        			  				  ivaretpor = cat.getAbsRow(0).getImpIVARet();
+			        			  				  isrretpor = cat.getAbsRow(0).getImpISRRet();
+			        			  				  ivaimp = (ivapor != 0.0) ? (((importe - descuento) * ivapor) / 100.0F) : 0.0F;
+			        			  				  iepsimp = (iepspor != 0.0) ? (((importe - descuento) * iepspor) / 100.0F) : 0.0F;
+			        			  				  ivaretimp = (ivaretpor != 0.0) ? (((importe - descuento) * ivaretpor) / 100.0F) : 0.0F;
+			        			  				  isrretimp = (isrretpor != 0.0) ? (((importe - descuento) * isrretpor) / 100.0F) : 0.0F;
+			        			  				
 			        			  			  }
 			        			  		  }
 			        			    	  //System.out.println(descripcion + " " + ivapor + " " + ivaimp + " " + totalPart);
@@ -608,7 +618,7 @@ public class JCompFactDlg extends JForsetiApl
 	        	        	  rec.setTotalUUIDs(TotalUUIDs);
 	        	        	  idmensaje = rec.establecerConcordancia(request, sb_mensaje);
 	        	        	  rec.establecerResultados();
-	        	        	  if((rec.getTotal() - rec.getTotalUUIDs()) > 0.1F || (rec.getTotal() - rec.getTotalUUIDs()) < -0.1)
+	        	        	  if((rec.getTotal() - rec.getTotalUUIDs()) > 0.1 || (rec.getTotal() - rec.getTotalUUIDs()) < -0.1)
 	        	        	  {
 	        	        		  idmensaje = 3; 
 	        	        		  sb_mensaje.append("ERROR: El total en el, o los CFDIs no corresponden al Total calculado en el registro a partir de estos registros. No se puede agregar. DOC: " + rec.getTotal() + " XML, CBB o EXT: " + rec.getTotalUUIDs());
@@ -663,7 +673,7 @@ public class JCompFactDlg extends JForsetiApl
 	    	        	        		  return;
 	        	        			  }
 	        	        			  
-	        	        			  if(SetMod.getAbsRow(0).getID_Proveedor() != 0)
+	        	        			  if(SetMod.getAbsRow(0).getID_Proveedor() != 0 && tipoEnlace != "CBBEXT")
 	        	        			  {
 	        	        				  JProveeProveeMasSetV2 setpro = new JProveeProveeMasSetV2(request);
 	        	        				  setpro.m_Where = "ID_Tipo = 'PR' and ID_EntidadCompra = '" + getSesion(request).getSesion(idmod).getEspecial() + "' and ID_Clave = '" + SetMod.getAbsRow(0).getID_Proveedor() + "'";
@@ -709,8 +719,8 @@ public class JCompFactDlg extends JForsetiApl
 	    	        	        		  irApag("/forsetiweb/caja_mensajes.jsp", request, response);
 	    	        	        		  return;
 	        	        			  }
-		        			  			  
-	        	        			  if(SetMod.getAbsRow(0).getID_Proveedor() != 0)
+		        			  			
+	        	        			  if(SetMod.getAbsRow(0).getID_Proveedor() != 0 && tipoEnlace != "CBBEXT")
 	        	        			  {
 	        	        				  JProveeProveeMasSetV2 setpro = new JProveeProveeMasSetV2(request);
 	        	        				  setpro.m_Where = "ID_Tipo = 'PR' and ID_EntidadCompra = '" + getSesion(request).getSesion(idmod).getEspecial() + "' and ID_Clave = '" + SetMod.getAbsRow(0).getID_Proveedor() + "'";
@@ -798,7 +808,7 @@ public class JCompFactDlg extends JForsetiApl
 	    	        	        		  return;
 	        	        			  }
 		        			  			  
-	        	        			  if(SetMod.getAbsRow(0).getID_Proveedor() != 0)
+	        	        			  if(SetMod.getAbsRow(0).getID_Proveedor() != 0 && tipoEnlace != "CBBEXT")
 	        	        			  {
 	        	        				  JProveeProveeMasSetV2 setpro = new JProveeProveeMasSetV2(request);
 	        	        				  setpro.m_Where = "ID_Tipo = 'PR' and ID_EntidadCompra = '" + getSesion(request).getSesion(idmod).getEspecial() + "' and ID_Clave = '" + SetMod.getAbsRow(0).getID_Proveedor() + "'";
@@ -1142,7 +1152,7 @@ public class JCompFactDlg extends JForsetiApl
             		  if(SetMod.getAbsRow(0).getTFD() != 3 || SetMod.getAbsRow(0).getID_CFD() == 0)
             		  {
             			  idmensaje = 1;
-            			  mensaje += "PRECAUCION: Esta factura no esta completamente sellada, no hay nada que bajar <br>";
+            			  mensaje += "PRECAUCION: Esta compra no tiene un enlace a un CFDI, no hay nada que bajar <br>";
             			  getSesion(request).setID_Mensaje(idmensaje, mensaje);
             			  irApag("/forsetiweb/caja_mensajes.jsp", request, response);
             			  return;
@@ -1171,7 +1181,7 @@ public class JCompFactDlg extends JForsetiApl
             		  if(SetMod.getAbsRow(0).getTFD() != 3 || SetMod.getAbsRow(0).getStatus().equals("C"))
             		  {
             			  idmensaje = 1;
-            			  mensaje += "PRECAUCION: Este gasto no esta completamente sellado, no hay nada que bajar <br>";
+            			  mensaje += "PRECAUCION: Este gasto no tiene un enlace a un CFDI, no hay nada que bajar <br>";
             			  getSesion(request).setID_Mensaje(idmensaje, mensaje);
             			  irApag("/forsetiweb/caja_mensajes.jsp", request, response);
             			  return;
@@ -1216,7 +1226,7 @@ public class JCompFactDlg extends JForsetiApl
             		  mensaje = "La compra gasto se bajo satisfactoriamente";
             		  return;
                   }
-            	  else if(moddes.equals("RECEPCIONES"))
+            	  /*else if(moddes.equals("RECEPCIONES"))
                   {
             		  JComprasRecepSetV2 SetMod = new JComprasRecepSetV2(request);
             		  SetMod.m_Where = "ID_Recepcion = '" + p(request.getParameter("ID")) + "'";
@@ -1244,7 +1254,7 @@ public class JCompFactDlg extends JForsetiApl
             		  idmensaje = 0;
             		  mensaje = "La recepción se bajo satisfactoriamente";
             		  return;
-                  }
+                  }*/
             	  else if(moddes.equals("DEVOLUCIONES"))
                   {
             		  JComprasDevolucionesSet SetMod = new JComprasDevolucionesSet(request);
@@ -1254,7 +1264,7 @@ public class JCompFactDlg extends JForsetiApl
             		  if(SetMod.getAbsRow(0).getTFD() != 3 || SetMod.getAbsRow(0).getID_CFD() == 0)
             		  {
             			  idmensaje = 1;
-            			  mensaje += "PRECAUCION: Esta devolución no está completamente sellada, no hay nada que bajar <br>";
+            			  mensaje += "PRECAUCION: Esta devolución no tiene un enlace a un CFDI, no hay nada que bajar <br>";
             			  getSesion(request).setID_Mensaje(idmensaje, mensaje);
             			  irApag("/forsetiweb/caja_mensajes.jsp", request, response);
             			  return;
@@ -1315,25 +1325,39 @@ public class JCompFactDlg extends JForsetiApl
             		  SetMod.m_Where = "ID_Factura = '" + p(request.getParameter("ID")) + "'";
             		  SetMod.Open();
 	            	
-            		  if(SetMod.getAbsRow(0).getTFD() != 3 || SetMod.getAbsRow(0).getID_CFD() == 0)
+            		  if(SetMod.getAbsRow(0).getTFD() < 3 || SetMod.getAbsRow(0).getID_CFD() == 0)
             		  {
             			  idmensaje = 1;
-            			  mensaje += "PRECAUCION: Esta factura no est&aacute; completamente sellada, no hay nada que bajar <br>";
+            			  mensaje += "PRECAUCION: Esta compra no tiene una asociación de CFDI, CBB o EXT, no hay nada que bajar <br>";
             			  getSesion(request).setID_Mensaje(idmensaje, mensaje);
             			  irApag("/forsetiweb/caja_mensajes.jsp", request, response);
             			  return;
 	              	  } 
             		  
-            		  JCFDCompSet cfd = new JCFDCompSet(request,"COMPRAS");
-            		  cfd.m_Where = "ID_CFD = '" + SetMod.getAbsRow(0).getID_CFD() + "'";
-            		  cfd.Open();
-            		  
-            		  String nombre = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/comp/PDFs/" + cfd.getAbsRow(0).getUUID() + ".pdf";
-            		  String destino = "FAC-" + SetMod.getAbsRow(0).getID_Entidad() + "-" + SetMod.getAbsRow(0).getNumero() + ".pdf";
-            		  JBajarArchivo fd = new JBajarArchivo();
-            		  
-            		  fd.doDownload(response, getServletConfig().getServletContext(), nombre, destino);
-            		  
+            		  if(SetMod.getAbsRow(0).getTFD() == 3) //es factura electronica CFDI
+            		  {
+	            		  JCFDCompSet cfd = new JCFDCompSet(request,"COMPRAS");
+	            		  cfd.m_Where = "ID_CFD = '" + SetMod.getAbsRow(0).getID_CFD() + "'";
+	            		  cfd.Open();
+	            		  
+	            		  String nombre = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/comp/PDFs/" + cfd.getAbsRow(0).getUUID() + ".pdf";
+	            		  String destino = "FAC-" + SetMod.getAbsRow(0).getID_Entidad() + "-" + SetMod.getAbsRow(0).getNumero() + ".pdf";
+	            		  JBajarArchivo fd = new JBajarArchivo();
+	            		  
+	            		  fd.doDownload(response, getServletConfig().getServletContext(), nombre, destino);
+            		  }
+            		  else if(SetMod.getAbsRow(0).getTFD() == 4 || SetMod.getAbsRow(0).getTFD() == 5) //es CBB o EXT
+            		  {
+	            		  JCFDCompOtrSet cfd = new JCFDCompOtrSet(request);
+	            		  cfd.m_Where = "ID_CFD = '" + SetMod.getAbsRow(0).getID_CFD() + "'";
+	            		  cfd.Open();
+	            		  
+	            		  String nombre = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/comp/OTRs/" + cfd.getAbsRow(0).getUUID() + ".pdf";
+	            		  String destino = "FAC-" + SetMod.getAbsRow(0).getID_Entidad() + "-" + SetMod.getAbsRow(0).getNumero() + ".pdf";
+	            		  JBajarArchivo fd = new JBajarArchivo();
+	            		  
+	            		  fd.doDownload(response, getServletConfig().getServletContext(), nombre, destino);
+            		  }
             		  idmensaje = 0;
             		  mensaje = "La compra gasto se bajo satisfactoriamente";
             		  return;
@@ -1344,48 +1368,88 @@ public class JCompFactDlg extends JForsetiApl
             		  SetMod.m_Where = "ID_Gasto = '" + p(request.getParameter("ID")) + "'";
             		  SetMod.Open();
 	            	
-            		  if(SetMod.getAbsRow(0).getTFD() != 3|| SetMod.getAbsRow(0).getStatus().equals("C"))
+            		  if(SetMod.getAbsRow(0).getTFD() < 3|| SetMod.getAbsRow(0).getStatus().equals("C"))
             		  {
             			  idmensaje = 1;
-            			  mensaje += "PRECAUCION: Este gasto no esta completamente sellado, no hay nada que bajar <br>";
+            			  mensaje += "PRECAUCION: Este gasto no tiene ninguna asociación de CFDIs, CBBs o EXTs, no hay nada que bajar <br>";
             			  getSesion(request).setID_Mensaje(idmensaje, mensaje);
             			  irApag("/forsetiweb/caja_mensajes.jsp", request, response);
             			  return;
 	              	  } 
             		  
-            		  if(SetMod.getAbsRow(0).getID_CFD() != 0) // Solo tiene un CFDI asociado
+            		  if(SetMod.getAbsRow(0).getTFD() == 3)
             		  {
-            			  JCFDCompSet cfd = new JCFDCompSet(request,"COMPRAS");
-            			  cfd.m_Where = "ID_CFD = '" + SetMod.getAbsRow(0).getID_CFD() + "'";
-            			  cfd.Open();
-            		  
-            			  String nombre = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/comp/PDFs/" + cfd.getAbsRow(0).getUUID() + ".pdf";
-            			  String destino = "GAS-" + SetMod.getAbsRow(0).getID_Entidad() + "-" + SetMod.getAbsRow(0).getNumero() + ".pdf";
-            			  JBajarArchivo fd = new JBajarArchivo();
-            		  
-            			  fd.doDownload(response, getServletConfig().getServletContext(), nombre, destino);
+	            		  if(SetMod.getAbsRow(0).getID_CFD() != 0) // Solo tiene un CFDI asociado
+	            		  {
+	            			  JCFDCompSet cfd = new JCFDCompSet(request,"COMPRAS");
+	            			  cfd.m_Where = "ID_CFD = '" + SetMod.getAbsRow(0).getID_CFD() + "'";
+	            			  cfd.Open();
+	            		  
+	            			  String nombre = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/comp/PDFs/" + cfd.getAbsRow(0).getUUID() + ".pdf";
+	            			  String destino = "GAS-" + SetMod.getAbsRow(0).getID_Entidad() + "-" + SetMod.getAbsRow(0).getNumero() + ".pdf";
+	            			  JBajarArchivo fd = new JBajarArchivo();
+	            		  
+	            			  fd.doDownload(response, getServletConfig().getServletContext(), nombre, destino);
+	            		  }
+	            		  else // Tiene varios CFDI asociados
+	            		  {
+	            			  JCompGastosCFDSet uuids = new JCompGastosCFDSet(request);
+	            			  uuids.m_Where = "ID_Gasto = '" + p(request.getParameter("ID")) + "'";
+	            			  uuids.Open();
+	            			  String nombres [] = new String[uuids.getNumRows()];
+	            			  String destinos [] = new String[uuids.getNumRows()];
+	            			  
+	            			  for(int i = 0; i < uuids.getNumRows(); i++)
+	            			  {
+	            				  JCFDCompSet cfd = new JCFDCompSet(request,"COMPRAS");
+	                			  cfd.m_Where = "ID_CFD = '" + uuids.getAbsRow(0).getID_CFD() + "'";
+	                			  cfd.Open();
+	                		  
+	                			  nombres[i] = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/comp/PDFs/" + cfd.getAbsRow(0).getUUID() + ".pdf";
+	                			  destinos[i] = "GAS-" + SetMod.getAbsRow(0).getID_Entidad() + "-" + SetMod.getAbsRow(0).getNumero() + "-" + (i+1) + ".pdf";
+	            			  }
+	            			  
+	            			  JBajarArchivo fd = new JBajarArchivo();
+	                		  fd.doDownloadMultipleFilesInZip(response, getServletConfig().getServletContext(), ("GAS-" + SetMod.getAbsRow(0).getID_Entidad() + "-" + SetMod.getAbsRow(0).getNumero() + "-PDFs.zip"), nombres, destinos);
+	            			  
+	            		  }
             		  }
-            		  else // Tiene varios CFDI asociados
+            		  else if(SetMod.getAbsRow(0).getTFD() == 4 || SetMod.getAbsRow(0).getTFD() == 5 || SetMod.getAbsRow(0).getTFD() == 6)
             		  {
-            			  JCompGastosCFDSet uuids = new JCompGastosCFDSet(request);
-            			  uuids.m_Where = "ID_Gasto = '" + p(request.getParameter("ID")) + "'";
-            			  uuids.Open();
-            			  String nombres [] = new String[uuids.getNumRows()];
-            			  String destinos [] = new String[uuids.getNumRows()];
-            			  
-            			  for(int i = 0; i < uuids.getNumRows(); i++)
-            			  {
-            				  JCFDCompSet cfd = new JCFDCompSet(request,"COMPRAS");
-                			  cfd.m_Where = "ID_CFD = '" + uuids.getAbsRow(0).getID_CFD() + "'";
-                			  cfd.Open();
-                		  
-                			  nombres[i] = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/comp/PDFs/" + cfd.getAbsRow(0).getUUID() + ".pdf";
-                			  destinos[i] = "GAS-" + SetMod.getAbsRow(0).getID_Entidad() + "-" + SetMod.getAbsRow(0).getNumero() + "-" + (i+1) + ".pdf";
-            			  }
-            			  
-            			  JBajarArchivo fd = new JBajarArchivo();
-                		  fd.doDownloadMultipleFilesInZip(response, getServletConfig().getServletContext(), ("GAS-" + SetMod.getAbsRow(0).getID_Entidad() + "-" + SetMod.getAbsRow(0).getNumero() + "-PDFs.zip"), nombres, destinos);
-            			  
+	            		  if(SetMod.getAbsRow(0).getID_CFD() != 0) // Solo tiene un CBB o EXT asociado
+	            		  {
+	            			  JCFDCompOtrSet cfd = new JCFDCompOtrSet(request);
+	            			  cfd.m_Where = "ID_CFD = '" + SetMod.getAbsRow(0).getID_CFD() + "'";
+	            			  cfd.Open();
+	            		  
+	            			  String nombre = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/comp/OTRs/" + cfd.getAbsRow(0).getUUID() + ".pdf";
+	            			  String destino = "GAS-" + SetMod.getAbsRow(0).getID_Entidad() + "-" + SetMod.getAbsRow(0).getNumero() + ".pdf";
+	            			  JBajarArchivo fd = new JBajarArchivo();
+	            		  
+	            			  fd.doDownload(response, getServletConfig().getServletContext(), nombre, destino);
+	            		  }
+	            		  else // Tiene varios CBB o Ext ASociados
+	            		  {
+	            			  JCompGastosCFDSet uuids = new JCompGastosCFDSet(request);
+	            			  uuids.m_Where = "ID_Gasto = '" + p(request.getParameter("ID")) + "'";
+	            			  uuids.Open();
+	            			  String nombres [] = new String[uuids.getNumRows()];
+	            			  String destinos [] = new String[uuids.getNumRows()];
+	            			  
+	            			  for(int i = 0; i < uuids.getNumRows(); i++)
+	            			  {
+	            				  JCFDCompOtrSet cfd = new JCFDCompOtrSet(request);
+	                			  cfd.m_Where = "ID_CFD = '" + uuids.getAbsRow(0).getID_CFD() + "'";
+	                			  cfd.Open();
+	                		  
+	                			  nombres[i] = "/usr/local/forseti/emp/" + getSesion(request).getBDCompania() + "/comp/OTRs/" + cfd.getAbsRow(0).getUUID() + ".pdf";
+	                			  destinos[i] = "GAS-" + SetMod.getAbsRow(0).getID_Entidad() + "-" + SetMod.getAbsRow(0).getNumero() + "-" + (i+1) + ".pdf";
+	            			  }
+	            			  
+	            			  JBajarArchivo fd = new JBajarArchivo();
+	                		  fd.doDownloadMultipleFilesInZip(response, getServletConfig().getServletContext(), ("GAS-" + SetMod.getAbsRow(0).getID_Entidad() + "-" + SetMod.getAbsRow(0).getNumero() + "-PDFs.zip"), nombres, destinos);
+	            			  
+	            		  }
             		  }
             		  
             		  idmensaje = 0;
@@ -1853,7 +1917,7 @@ public class JCompFactDlg extends JForsetiApl
   	            	if(SetMod.getAbsRow(0).getStatus().equals("C"))
   	            	{
   	                    idmensaje = 1;
-  	                    mensaje += "PRECAUCION: Este pedido ya está cancelado <br>";
+  	                    mensaje += "PRECAUCION: Esta orden ya está cancelada <br>";
   	                    getSesion(request).setID_Mensaje(idmensaje, mensaje);
   	                    irApag("/forsetiweb/caja_mensajes.jsp", request, response);
   	                    return;
@@ -1861,7 +1925,7 @@ public class JCompFactDlg extends JForsetiApl
   	            	else if(SetMod.getAbsRow(0).getStatus().equals("F"))
   	          		{
   	                    idmensaje = 1;
-  	                    mensaje += "PRECAUCION: Este pedido ya tiene una factura o remisión asociada, no se puede cancelar. Primero debes cancelar la factura o remision para poder cancelar el pedido <br>";
+  	                    mensaje += "PRECAUCION: Esta orden ya tiene una factura o recepción asociada, no se puede cancelar. Primero debes cancelar la factura o recepción para poder cancelar la orden de compra <br>";
   	                    getSesion(request).setID_Mensaje(idmensaje, mensaje);
   	                    irApag("/forsetiweb/caja_mensajes.jsp", request, response);
   	            		return;
@@ -1881,7 +1945,7 @@ public class JCompFactDlg extends JForsetiApl
   	            	if(SetMod.getAbsRow(0).getStatus().equals("C"))
   	            	{
   	                    idmensaje = 1;
-  	                    mensaje += "PRECAUCION: Esta remisi&oacute;n ya esta cancelada <br>";
+  	                    mensaje += "PRECAUCION: Esta recepción ya esta cancelada <br>";
   	                    getSesion(request).setID_Mensaje(idmensaje, mensaje);
   	                    irApag("/forsetiweb/caja_mensajes.jsp", request, response);
   	                    return;
@@ -1889,7 +1953,7 @@ public class JCompFactDlg extends JForsetiApl
   	            	else if(SetMod.getAbsRow(0).getID_Factura() != 0)
   	            	{
   	                    idmensaje = 1;
-  	                    mensaje += "PRECAUCION: Esta recepción ya tiene una factura asociada. No se puede cancelar, primero cancela la factura para poder cancelar la remisión <br>";
+  	                    mensaje += "PRECAUCION: Esta recepción ya tiene una factura asociada. No se puede cancelar, primero cancela la factura para poder cancelar la recepción <br>";
   	                    getSesion(request).setID_Mensaje(idmensaje, mensaje);
   	                    irApag("/forsetiweb/caja_mensajes.jsp", request, response);
   	                    return;

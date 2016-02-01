@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -193,6 +198,8 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 					<td> 
                     
  
+				
+ 
 				 				 				 				 				 				 				
 
 <p class="line874">Para empezar, necesitamos cambiar la contraseña del usuario postgres ( Este fue generado por la instalación de PostgreSQL ). Como usuario de Linux "postgres", ejecutaremos el comando psql:</p>
@@ -221,7 +228,8 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 </p>
 <div align="justify">
 <strong>NOTA</strong>: Es indispensable llamar a rol "forseti" con minúsculas y a la base de datos principal "FORSETI_ADMIN" con mayúsculas para que nuestro servidor pueda trabajar bien, de lo contrario, la configuración fallará y no se podrá iniciar.<br />
-<br />El archivo de configuración pg_hba.conf contiene los parámetros de conexión al servidor y se verá probablemente de la siguiente manera:<br />
+<br />
+El archivo de configuración pg_hba.conf contiene los parámetros de conexión al servidor y se verá probablemente de la siguiente manera:<br />
 <br />
 <span style="color: rgb(0, 0, 255);"># PostgreSQL Client Authentication Configuration File</span><br />
 <span style="color: rgb(0, 0, 255);"># ===================================================</span><br />
@@ -234,32 +242,19 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 <span style="color: rgb(0, 0, 255);">local&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; md5</span><br />
 <span style="color: rgb(0, 0, 255);">host&nbsp;&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 127.0.0.1/32&nbsp;&nbsp;&nbsp; md5</span><br />
 <span style="color: rgb(0, 0, 255);">host&nbsp;&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ::1/128&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; md5</span><br />
-<br />Para poder accesar al archivo pg_hba.conf usamos nano de la siguiente manera:<br />
+<br />
+Aquí lo que nos interesa es la linea "host all all 127.0.0.1/32 md5" que nos indica que podremos conectarnos a todas las base de datos que se vayan creando con forseti, desde la aplicación instalada en este mismo ordenador, por el protocolo de internet, y con una seguridad md5. Para poder accesar al archivo pg_hba.conf usamos nano de la siguiente manera:<br />
 <br />
 <span style="color: rgb(0, 0, 255);">$ sudo nano /etc/postgresql/9.<span style="color: rgb(0, 0, 0);">x</span>/main/pg_hba.conf</span><br />
-<br />Debemos sustituir x por la versión de nuestro PostgreSQL. Si no estamos seguros del valor de x, podemos usar<br />
+<br />
+Debemos sustituir x por la versión de nuestro PostgreSQL. Si no estamos seguros del valor de x, podemos usar<br />
 <br />
 <span style="color: rgb(0, 0, 255);">$ dpkg -s postgresql</span><br />
-<br />Si tu implantación está enfocada a una sola máquina para PostgreSQL y el servidor Forseti, la configuración por default para las conexiones al servidor PostgreSQL pueden dejarse como están.<br />
-<br />Si se instala en dos máquinas, en una pequeña red local, se debe cambiar la IP del servicio local (127.0.0.1) a la IP de la máquina donde esta instalado el servidor web Forseti. <strong>TIP: puedes verificar la IP, tecleando en la terminal del servidor donde está instalado forseti, el comando "ifconfig". Este te mandará algo como "Direc. inet:192.168.2.4" en alguna de las interfaces de red, el cual es la dirección IP que nos interesa. En este caso en particular es 192.168.2.4.</strong><br />
-<br />Nuestro archivo puede quedar de la siguiente manera:<br />
-<br />
-<span style="color: rgb(0, 0, 255);"># PostgreSQL Client Authentication Configuration File</span><br />
-<span style="color: rgb(0, 0, 255);"># ===================================================</span><br />
-<span style="color: rgb(0, 0, 255);">#</span><br />
-<span style="color: rgb(0, 0, 255);"># Refer to the "Client Authentication" section in the PostgreSQL</span><br />
-<span style="color: rgb(0, 0, 255);">....</span><br />
-<span style="color: rgb(0, 0, 255);">....</span><br />
-<span style="color: rgb(0, 0, 255);">....</span><br />
-<span style="color: rgb(0, 0, 255);">....</span><br />
-<span style="color: rgb(0, 0, 255);">local&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; md5</span><br />
-<span style="color: rgb(0, 0, 255);">host&nbsp;&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 192.168.2.4/32&nbsp;&nbsp;&nbsp; md5</span><br />
-<span style="color: rgb(0, 0, 255);">
-</span>
-<span style="color: rgb(0, 0, 255);">host&nbsp;&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ::1/128&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; md5<br />
-<br />
-</span>Si deseas entender mejor como funciona todo esto, puedes verificar la documentación de PostgreSQL en su portal: www.postgresql.org. Hasta aquí, la configuración de PostgreSQL ha finalizado, y se puede proceder a la configuración del servidor web forseti en la siguiente sección.<br />
+<span style="color: rgb(0, 0, 255);"><br />
+</span>Si deseas entender mejor como funciona el archivo de configuración, puedes verificar la documentación de PostgreSQL en su portal: <a href="http://www.postgresql.org">www.postgresql.org</a>. Hasta aquí, la configuración de PostgreSQL ha finalizado, y se puede proceder a la configuración del servidor web forseti en la siguiente sección.<br />
 </div> 			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  
+			  
+
 			  
 
                     </td>
@@ -302,6 +297,14 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -314,7 +317,7 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

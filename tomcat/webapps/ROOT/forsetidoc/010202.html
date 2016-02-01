@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -193,6 +198,8 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 					<td> 
                     
  
+				
+ 
 				 				 				 				 				 				 				
 
 <div align="justify"> 				 				 				 				 				 				 				 				 				 En   el departamento de <strong>contabilidad </strong>del CEF, se puede trabajar   con los módulos de: rubros, clasificación de pólizas, catálogo   de cuentas, enlaces, pólizas y póliza de cierre anual. <br />
@@ -202,10 +209,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 Se pueden dar de alta cuatro tipos de rubros: Activo, Pasivo, Capital y Resultados. <br />
 <ol> <li>  Los activos se dividen en tres partes: Activo Circulante, Activo Fijo, y Activo   Diferido. <br />
 </li> <li>Los pasivos se dividen de igual manera en tres partes: Pasivo a Corto Plazo,   Pasivo a Largo Plazo, Pasivo Diferido.</li> <li>El de Capital solo en una parte que es:   Capital Contable.</li> <li>Los resultados se dividen en cinco partes: Ingresos,   Costos, Gastos, Otros gastos y/o productos e Impuestos.<br />
-<br />Cabe mencionar que se puede agregar más de un rubro por "tipo de rubro",   así que, por ejemplo podemos agregar dos o tres rubros de Activo Circulante, y así por cada rubros.</li>
+<br />
+Cabe mencionar que se puede agregar más de un rubro por "tipo de rubro",   así que por ejemplo, podemos agregar dos o tres rubros de Activo Circulante o de cualquier otro.</li>
 </ol>
 <strong>Clasificación de Pólizas.</strong> <br />
-Se pueden definir todas las clasificaciones de   póliza de usuario que se deseen. Independientemente de esto, las pólizas en Forseti manejan en paralelo "tipos base" que siempre serán de Diario, Egresos, Ingresos, Especiales y Ajustes, utilizados para la unión de la contabilidad con los demás módulos auxiliares, como Ventas, Compras, Producción etc.<br />
+Se pueden definir todas las clasificaciones de   póliza de usuario que se deseen. Independientemente de esto, las pólizas en Forseti manejan en paralelo "tipos base" que siempre serán de Diario, Egresos, Ingresos, Especiales y Ajustes, utilizados para la unión de la contabilidad con los demás módulos auxiliares, como Ventas, Compras, Producción, etc.<br />
 <br />
 <strong>Catálogo de cuentas</strong>.<br />
 El catálogo de cuentas se   define con cuatro dígitos decimales entre 0001 y 9999 para las cuentas de Mayor   (Cuentas de primer nivel) que siempre son <strong>acumulativas,</strong> y   tres dígitos decimales entre 001 y 999 para las cinco sub-cuentas que tolera   el sistema. Estas sub-cuentas pueden ser acumulativas o de detalle.<br />
@@ -217,22 +225,32 @@ Nos permite agregar o cambiar los enlaces naturales  hacia el catálogo de cuent
 <strong>Pólizas.<br />
 </strong>En el cabecero y detalle de cada póliza se puede registrar la siguiente información:   <br />
 <ul> <li>El tipo base. </li> <li>La fecha.</li> <li>El número de póliza consecutivo (según la clasificación que tenga).</li> <li>La referencia.</li> <li>El concepto.<br />
-<br />En el detalle de póliza se registraran   las partidas que contendrán:<br />
+<br />
+En el detalle de póliza se registraran   las partidas que contendrán:<br />
 <br />
 </li> <li>La cuenta contable de detalle.</li> <li>El concepto de la   partida.</li> <li>El parcial que obedece a una moneda especifica (Moneda   local, USD, Euros etc.).</li> <li>El tipo de cambio.</li> <li>El debe y el haber en   moneda local.<br />
-<br />En cada detalle se podrán anexar los registros para la contabilidad electrónica:<br />
+<br />
+En cada detalle se podrán anexar los registros para la contabilidad electrónica:<br />
 <br />
 </li>
- <li>Cheques (Número, Cuenta, Banco, Fecha, Total, Beneficiario, RFC).<br />
+ <li>Cheques (Número, Cuenta, Banco nacional o extranjero, Fecha, Total, Moneda, Tipo de cambio, Beneficiario, RFC).<br />
 </li>
- <li>Transferencias (Cuenta de origen, Banco de origen, Cuenta de destino, Banco de destino, Fecha, Total, Beneficiario, RFC).<br />
+ <li>Transferencias (Cuenta de origen, Banco nacional o extranjero de origen, Cuenta de 
+destino, Banco nacional o extranjero de destino, Fecha, Total, Moneda, 
+Tipo de cambio, Beneficiario, RFC).</li>
+ <li>Otros métodos de pago (Método de pago, Fecha, Total, Moneda, 
+Tipo de cambio, Beneficiario, RFC).<br />
 </li>
- <li>Comprobantes (UUID, Total, RFC).<br />
+ <li>Comprobantes CFDIs, CBBs o Extranjeros (UUID, Serie/Folio o Número de 
+factura extranjera, RFC o TaxID, Total, Moneda, Tipo de cambio).<br />
 </li>
 </ul>
 <strong>Póliza de cierre anual</strong>. <br />
 Se genera la póliza automáticamente al generar    el mes 12 de cada año. Se puede cambiar, eliminar y agregar partidas a la póliza para    adecuarse al cierre de año.<br />
-<br />  Con estos datos, ya es posible generar estados financieros, reportes contables y gráficas.									  			  			  			   							  			  			  			  			  			  </div>                      			  			  			  			  			  			  
+<br />
+  Con estos datos, ya es posible generar estados financieros, reportes contables y gráficas.									  			  			  			   							  			  			  			  			  			  </div>                      			  			  			  			  			  			  
+			  
+
 			  
 
                     </td>
@@ -323,6 +341,14 @@ Se genera la póliza automáticamente al generar    el mes 12 de cada año. Se p
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -335,7 +361,7 @@ Se genera la póliza automáticamente al generar    el mes 12 de cada año. Se p
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

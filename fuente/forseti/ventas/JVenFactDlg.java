@@ -435,10 +435,13 @@ public class JVenFactDlg extends JForsetiApl
 		        			  	  rec.setRFC(venfactxml.getRFC_Emisor());
 		        			      rec.setNumero(setcli2.getAbsRow(0).getNumero());
 		        			      rec.setColonia(setcli.getAbsRow(0).getColonia());
+		        			      rec.setForma_Pago((setcli2.getAbsRow(0).getDias() < 1) ? "contado" : "credito");
 		        			      rec.setCP(setcli.getAbsRow(0).getCP());
 		        			      rec.setDireccion(setcli.getAbsRow(0).getDireccion());
 		        			      rec.setPoblacion(setcli.getAbsRow(0).getPoblacion());
 		        			      rec.setTels(setcli2.getAbsRow(0).getTel());
+		        			      rec.setID_Vendedor(setcli.getAbsRow(0).getID_Vendedor());
+		        			      rec.setVendedorNombre(setcli.getAbsRow(0).getVendedorNombre());
 	        			  	  }
 	        			  	          			      
 	        			      for(int i = 0; i< venfactxml.getConceptos().size(); i++)
@@ -475,7 +478,7 @@ public class JVenFactDlg extends JForsetiApl
 	        			  	  rec.setTotalUUIDs(JUtil.redondear(Float.parseFloat(venfactxml.getComprobante().getProperty("total")),2));
 	        	        	  idmensaje = rec.establecerConcordancia(request, sb_mensaje);
 	        	        	  rec.establecerResultados();
-	        	        	  if((rec.getTotal() - rec.getTotalUUIDs()) > 0.1F || (rec.getTotal() - rec.getTotalUUIDs()) < -0.1)
+	        	        	  if((rec.getTotal() - rec.getTotalUUIDs()) > 0.1 || (rec.getTotal() - rec.getTotalUUIDs()) < -0.1)
 	        	        	  {
 	        	        		  idmensaje = 3; 
 	        	        		  sb_mensaje.append("ERROR: El total en el o los CFDI no corresponden al Total calculado en el registro a partir de estos CFDI. No se puede agregar. DOC: " + rec.getTotal() + " XML: " + rec.getTotalUUIDs());
@@ -528,7 +531,7 @@ public class JVenFactDlg extends JForsetiApl
 	        			  			  setcli.m_Where = "ID_Tipo = 'CL' and ID_EntidadVenta = '" + getSesion(request).getSesion(idmod).getEspecial() + "' and ID_Clave = '" + SetMod.getAbsRow(0).getID_Cliente() + "'";
 	        			  			  setcli.Open();
 	        			  			 	  
-	        			  			  if(SetMod.getAbsRow(0).getTotal() != Float.parseFloat(venfactxml.getComprobante().getProperty("total"))
+	        			  			  if( SetMod.getAbsRow(0).getTotal() != Float.parseFloat(venfactxml.getComprobante().getProperty("total"))
 	        			  					  || !setcli.getAbsRow(0).getRFC().equals(venfactxml.getRFC_Receptor()) )
 	        			  			  {
 	        			  				  idmensaje = 1;

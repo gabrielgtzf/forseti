@@ -25,24 +25,13 @@
 		return;
 	}
 
-	String titulo = "ASISTENCIAS: " + (( request.getParameter("proceso") != null ) ? request.getParameter("proceso") : "" );
-	
-	JAsistenciasChequeosSet set = new JAsistenciasChequeosSet(request);
-	if( request.getParameter("proceso").equals("CAMBIAR") )
-	{
-		set.m_Where = "ID_Empleado = '" + JUtil.p(JUtil.obtSubCadena(request.getParameter("id"),"_FE_","|")) + "' and ID_Fecha = '" +
-			 JUtil.p(JUtil.obtSubCadena(request.getParameter("id"),"_FF_","|")) + "'";
-		
-		System.out.println(set.m_Where);
-		set.Open();
-	}
+	String titulo = "INTERFAZ DE PROCESO DE ASISTENCIAS";
 %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>Forseti - <%= titulo %></title>
-<script language="JavaScript" type="text/javascript" src="../../forsetiweb/comps.js" >
-</script>
-<script language="JavaScript" type="text/javascript" src="../../forsetiweb/datetimepicker.js " >
+<title>Forseti</title>
+<script language="JavaScript" type="text/javascript" src="../../compfsi/comps.js" >
 </script>
 <script language="JavaScript" type="text/javascript">
 <!--
@@ -52,10 +41,10 @@ function enviarlo(formAct)
 }
 -->
 </script>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="../../forsetiweb/estilos.css" rel="stylesheet" type="text/css"></head>
-
-<body bgcolor="#999999" text="#000000" link="#FF6600" vlink="#FF0000" alink="#000099" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../../compfsi/estilos.css" rel="stylesheet" type="text/css"></head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
+<form onSubmit="return enviarlo(this)" action="/servlet/CEFNomAsistenciasDlg" method="post" enctype="application/x-www-form-urlencoded" name="nom_asistencias_dlg" target="_self">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr> 
     <td class="titCuerpoBco" align="center" valign="middle" bgcolor="#FF6600"><%= titulo %></td>
@@ -67,26 +56,25 @@ function enviarlo(formAct)
 %>
   <tr> 
     <td> 
-	  <form onSubmit="return enviarlo(this)" action="/servlet/forseti.nomina.JNomAsistenciasDlg" method="post" enctype="application/x-www-form-urlencoded" name="nom_asistencias_dlg" target="_self">
-        <table width="100%" border="0" cellspacing="3" cellpadding="0">
+	   <table width="100%" border="0" cellspacing="3" cellpadding="0">
           <tr> 
-            <td width="20%" valign="middle"> <div align="right"> 
+            <td width="20%" valign="top" align="right" class="titGiganteNeg"> 
                 <input name="proceso" type="hidden" value="<%= request.getParameter("proceso")%>">
                 <input name="subproceso" type="hidden" value="ENVIAR">
-                Clave: </div></td>
-            <td colspan="2" valign="middle"> <input name="id_empleado" type="text" id="id_empleado" size="10" maxlength="6"> 
-              &nbsp; <input name="submit" type="image" onClick="" src="../../forsetiweb/Aceptar.gif" align="middle" border="0"> 
+                Clave:</td>
+            <td colspan="2" valign="middle"> <input class="titGiganteNeg" name="id_empleado" type="password" id="id_empleado" size="10" maxlength="6"> 
+              &nbsp; <input class="titGiganteNeg" type="submit" name="aceptar" value="<%= JUtil.Msj("GLB","GLB","GLB","ACEPTAR") %>">
             </td>
           </tr>
           <tr> 
             <td colspan="3" align="center"> 
-              <%
+<%
 	if(JUtil.getID_Mensaje(request, response) < 0)
 	{	
 %>
 		<table width="100%" border="0" cellspacing="0" cellpadding="2">
           <tr> 
-                  <td align="center" class="titCuerpoBco">ESPERANDO CAPTURA</td>
+                  <td align="center" class="titGiganteNar">ESPERANDO CAPTURA</td>
           </tr>
 		</table>
 <%
@@ -99,31 +87,29 @@ function enviarlo(formAct)
 %>
 			<table width="100%" border="0" cellspacing="0" cellpadding="2">
                 <tr> 
-                  <td width="25%" class="cpoColNg">Clave</td>
-                  <td colspan="2" class="cpoColNg">Nombre</td>
+                  <td colspan="3" class="cpoColNg">Nombre</td>
                 </tr>
                 <tr> 
-                  <td class="cpoBco"><%= (String)request.getAttribute("ID_Empleado") %></td>
-                  <td colspan="2" class="cpoBco"><%= (String)request.getAttribute("Nombre") %></td>
+                  <td colspan="3" class="titGiganteNar"><%= (String)request.getAttribute("Nombre") %></td>
                 </tr>
                 <tr> 
                   <td colspan="2" align="center" class="cpoColNg">ENTRADA</td>
                   <td width="50%" align="center" class="cpoColNg">SALIDA</td>
                 </tr>
                 <tr> 
-                  <td colspan="2" align="center" class="cpoBco"><%=  JUtil.obtFechaTxt((Date)request.getAttribute("Entrada"),"HH:mm")  %></td>
-                  <td width="50%" align="center" class="cpoBco"><%=  JUtil.obtFechaTxt((Date)request.getAttribute("Salida"),"HH:mm")  %></td>
+                  <td colspan="2" align="center" class="titGiganteNar"><%=  JUtil.obtHoraTxt((java.sql.Time)request.getAttribute("Entrada"),"HH:mm")  %></td>
+                  <td width="50%" align="center" class="titGiganteNar"><%=  JUtil.obtHoraTxt((java.sql.Time)request.getAttribute("Salida"),"HH:mm")  %></td>
                 </tr>
 				<tr> 
                   <td colspan="2" align="center" class="cpoColNg">SEGUNDA ENTRADA</td>
                   <td width="50%" align="center" class="cpoColNg">SEGUNDA SALIDA</td>
                 </tr>
                 <tr> 
-                  <td colspan="2" align="center" class="cpoBco"><%=  JUtil.obtFechaTxt((Date)request.getAttribute("Entrada2"),"HH:mm")  %></td>
-                  <td width="50%" align="center" class="cpoBco"><%=  JUtil.obtFechaTxt((Date)request.getAttribute("Salida2"),"HH:mm")  %></td>
+                  <td colspan="2" align="center" class="titGiganteNar"><%=  JUtil.obtHoraTxt((java.sql.Time)request.getAttribute("Entrada2"),"HH:mm")  %></td>
+                  <td width="50%" align="center" class="titGiganteNar"><%=  JUtil.obtHoraTxt((java.sql.Time)request.getAttribute("Salida2"),"HH:mm")  %></td>
                 </tr>
 				<tr> 
-                  <td  colspan="3" align="center" class="titCuerpoBco">ESPERANDO CAPTURA</td>
+                  <td  colspan="3" align="center" class="titGiganteNar">ESPERANDO CAPTURA</td>
           		</tr>
               </table>
 
@@ -134,11 +120,11 @@ function enviarlo(formAct)
 %>
 		<table width="100%" border="0" cellspacing="0" cellpadding="2">
                 <tr> 
-                  <td align="center" class="cpoBcoRojo">ERRORES AL TRATAR DE CAPTURAR 
+                  <td align="center" class="titChicoRj">ERRORES AL TRATAR DE CAPTURAR 
                     EL REGISTRO</td>
           </tr>
 		  <tr> 
-                  <td align="center" class="titCuerpoBco">ESPERANDO CAPTURA</td>
+                  <td align="center" class="titGiganteNar">ESPERANDO CAPTURA</td>
           </tr>
 		</table>
 <%
@@ -151,8 +137,9 @@ function enviarlo(formAct)
             <td colspan="3">&nbsp; </td>
           </tr>
         </table>
-      </form></td>
+      </td>
   </tr>
  </table>
+ </form>
 </body>
 </html>

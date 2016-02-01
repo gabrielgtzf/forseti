@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -191,7 +196,131 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				  </tr>
 				  <tr>
 					<td> 
-                    <strong>NOTA</strong>: No es indispensable generar certificados auto-firmados e instalarlos a partir de las instrucciones en este tema, porque que el SAF permite hacerlo dentro del módulo "Control SSL". Este tema se incluye en esta documentación, con el propósito de ayudar a entender un poco mas a fondo los elementos criptográficos utilizados por el sistema. También es importante para aquellos que deseen comprar certificados a una autoridad certificadora (CA) en lugar de usar certificados auto-firmados o para aquellos que deseen crearse sus propias CAs. <strong><br /><br />Generando certificados auto-firmados con JSSE (Java Secure Socket Layer)</strong><br /><div align="justify"><br />Primero que nada, hay que preparar el almacén de claves. Un almacén, es esencialmente un repositorio de archivos de objetos criptográficos, tales como llaves y certificados. Tomcat, opera en formato de claves de JKS (Java KeyStore) y es el formato creado por la herramienta de claves de línea de comandos. Esta herramienta está incluida en el OpenJDK instalado. Para crear un nuevo almacén que contenga un certificado auto-firmado, ejecuta la siguiente línea de comandos en la terminal:<br /><br /><span style="color: rgb(0, 0, 255);">$ keytool -genkey -alias tomcat -validity 365 -keyalg RSA -keystore /home/forseti/fsi-keystore </span><br /><br />Este comando creará un nuevo archivo en el directorio /home/forseti de nombre "fsi-keystore".<br /><br />Después de ejecutar el comando keytool, se te harán algunas preguntas para identificar el certificado, primero se te pedirá la contraseña del almacén de claves.<br /><br /><span style="color: rgb(0, 0, 255);">Introduzca la contraseña del almacén de claves: forseti</span><br /><span style="color: rgb(0, 0, 255);">¿Cuál es su nombre y apellido?</span><br /><span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[Unknown]: www.forseti.org.mx</span><br /><span style="color: rgb(0, 0, 255);">¿Cuál es el nombre de su unidad de organización?</span><br /><span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[Unknown]: Seguridad</span><br /><span style="color: rgb(0, 0, 255);">¿Cuál es el nombre de su organización?</span><br /><span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[Unknown]: Organizacion Forseti AC</span><br /><span style="color: rgb(0, 0, 255);">¿Cuál es el nombre de su ciudad o localidad?</span><br /><span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[Unknown]: GAM</span><br /><span style="color: rgb(0, 0, 255);">¿Cuál es el nombre de su estado o provincia?</span><br /><span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[Unknown]: DF</span><br /><span style="color: rgb(0, 0, 255);">¿Cuál es el código de dos letras de la unidad?</span><br /><span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[Unknown]: MX</span><br /><span style="color: rgb(0, 0, 255);">¿Es correcto CN=www.forseti.org.mx, OU=Seguridad, O=Organizacion Forseti AC, L=GAM, ST=DF, C=MX? </span><br /><span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[no]: y</span><br /><br />Finalmente, se te pedirá la contraseña específicamente para este certificado (a diferencia de otros certificados almacenados en el archivo del mismo almacén). Debes utilizar la misma contraseña que se utilizó para la contraseña del almacén de claves. (Pulsando la tecla ENTER en este punto lo hará automáticamente).<br /><br />Obviamente, los datos se deben cambiar para que este certificado informe sobre la identidad específica de tu organización. <br /><br /><strong>Entendiendo mas sobre SSL, y configurando JSSE con certificados emitidos por una Autoridad Certificadora (CA)</strong>.<br /><br />SSL o Secure Socket Layer permite que, una vez esté habilitado, todas las comunicaciones entre el servidor y el cliente viajen cifradas, de forma que terceros no puedan entender los datos que viajan del cliente al servidor o viceversa.</div><p align="justify">Los certificados tienen dos funciones principales en este proceso: Asegurar la identidad del servidor para que no haya	posibilidad de suplantación por un tercero y proporcionar las claves de cifrado. <br /><br />Nosotros, como dueños del servidor donde queremos	activar el SSL, tendremos que generar una petición de	certificado ("CSR" - Certificate Signing Request). El CSR se lo mandaremos a una entidad certificadora "CA".	Estas entidades están reconocidas a nivel mundial, y su papel	es como el de un notario. Es decir, la labor de estas entidades será firmar nuestra petición asegurando ante	cualquiera de nuestros clientes, que nosotros somos realmente quienes	decimos ser (no suplantación). Ejemplos de estas CAs son	VeriSign o VISA, aunque hay muchas más. Una vez tengamos la respuesta de la CA, la pondremos en el	lugar correspondiente en nuestro servidor. Con esto estamos	capacitando al servidor para establecer comunicaciones usando SSL.</p><div align="justify"><strong>Generar el CSR:</strong></div><p align="justify">Primero generamos un par de claves (pública / privada) para nuestra organización. Este par de claves se guardan en un certificado auto-firmado. Esto es lo que hicimos al principio, con el comando keytool. Con esta operación también se creó nuestro almacén. <br /></p><div align="justify">Como se trata de un certificado auto-firmado, el propietario y el emisor son la misma entidad.<br /><br />Ahora generamos el CSR. El fichero resultante de esta operación será lo que mandaremos a la CA.<br /><br /><span style="color: rgb(0, 0, 255);">$ keytool -certreq -alias tomcat -file mi-empresa.csr -keystore /home/forseti/fsi-keystore</span><br /><span style="color: rgb(0, 0, 255);"></span><br />En este punto tendríamos que mandar nuestro archivo "mi-empresa.csr" a una CA reconocida como VeriSign. Esta, previo pago, nos devolverá nuestro certificado firmado por ella, el cual, ya podremos instalar en nuestro sistema.</div><strong><br />Crear nuestra propia CA</strong><br /><div align="justify"><br />OpenSSL nos proporciona un script que nos facilita la tarea de crear una CA propia. Basta con hacer:<span style="color: rgb(0, 0, 255);"></span><br /><span style="color: rgb(0, 0, 255);"></span><br /><span style="color: rgb(0, 0, 255);">$ /usr/lib/ssl/misc/CA.sh -newca</span><br /><br />Pulsando "enter" nos creará nuestra CA y nos pedirá la clave para acceder a la clave privada del	nuevo certificado que está creando (el certificado de la CA). Nos pide el código de país, la provincia, la	ciudad, la organización, la unidad organizativa, el nombre y	la dirección de correo. El comando habrá creado el directorio "demoCA". Dentro de este directorio podemos encontrar el certificado de la CA: cacert.pem.<br /><br /><strong>Firmar el CSR</strong><br /><br />Ya tenemos la CA, ahora firmamos el CSR mi-empresa.csr. Para esto también usaremos el script CA.sh. Este script trabaja con nombres fijos de ficheros, con lo que espera encontrar el CSR con el nombre "newreq.pem". Lo que vamos a hacer es renombrar mi-empresa.csr a newreq.pem. <strong>NOTA</strong>: nuestro CSR debe quedar a la misma altura que el directorio"demoCA", y no dentro de él. Ahora, estando en el directorio donde tenemos newreq.pem hacemos:<span style="color: rgb(0, 0, 255);"></span><br /><span style="color: rgb(0, 0, 255);"></span><br /><span style="color: rgb(0, 0, 255);">$ /usr/lib/ssl/misc/CA.sh -signreq </span><br /><br />Nos pide la clave para acceder al certificado de la	CA. Es la clave que pusimos a la CA en el punto anterior. Nos mostrará la información del CSR que vamos a	firmar y nos pide confirmación para firmar el certificado. Por último nos pide confirmar para aceptar los	cambios. Al final nos mostrará el fichero "newcert.pem" con nuestro certificado firmado por la CA. Dentro del fichero"newcert.pem" lo que nos interesa es lo que hay al final entre "BEGIN CERTIFICATE" y "END CERTIFICATE". Esto es realmente el certificado, así que vamos a poner esto en un fichero a parte (hacemos copy-paste con cualquier editor). El nuevo fichero lo llamaremos "tomcatsign.pem" y su contenido será algo como:<br /><br /><span style="color: rgb(0, 0, 255);">-----BEGINCERTIFICATE-----</span><br /><span style="color: rgb(0, 0, 255);">MIIFPDCCBKWgAwIBAgIBATANBgkqhkiG9w0BAQQFADCBuzELMAkGA1UEBhMCRVMx</span><br /><span style="color: rgb(0, 0, 255);">DzANBgNVBAgTBk1hZHJpZDEUMBIGA1UEBxMLVHJlcyBDYW50b3MxKTAnBgNVBAoT</span><br /><span style="color: rgb(0, 0, 255);">IEF1dGVudGlhIFJlYWwgQnVzaW5lc3MgU29sdXRpb25zMSIwIAYDVQQLExlJbXBs</span><br /><span style="color: rgb(0, 0, 255);">YW50YWNpb24geSBEZXNhcnJvbGxvMRQwEgYDVQQDEwtBdXRlbnRpYSBDQTEgMB4G</span><br /><span style="color: rgb(0, 0, 255);">CsqGSIb3DQEJARYRaW5mb0BhdXRlbnRpYS5jb20wHhcNMDUwODAyMDkxMzEyWhcN</span><br /><span style="color: rgb(0, 0, 255);">MDYwODAyMDkxMzEyWjCBnjELMAkGA1UEBhMCZXMxDzANBgNVBAgTBk1hZHJpZDEU</span><br /><span style="color: rgb(0, 0, 255);">MBIGA1UEBxMLVHJlcyBDYW50b3MxKTAnBgNVBAoTIEF1dGVudGlhIFJlYWwgQnVz</span><br /><span style="color: rgb(0, 0, 255);">aW5lc3MgU29sdXRpb25zMSMwIQYDVQQLExpJbXBsYW50YWNpb24geSBSZW5kaW1p</span><br /><span style="color: rgb(0, 0, 255);">ZW50bzEYMBYGA1UEAxMPQWxlamFuZHJvIFBlcmV6MIIBuDCCASwGByqGSM44BAEw</span><br /><span style="color: rgb(0, 0, 255);">ggEfAoGBAP1/U4EddRIpUt9KnC7s5Of2EbdSPO9EAMMeP4C2USZpRV1AIlH7WT2N</span><br /><span style="color: rgb(0, 0, 255);">Wpq/xfW6MPbLm1Vs14E7gB00b/JmYLdrmVClpJ+f6AR7ECLCT7up1/63xhv4O1fn</span><br /><span style="color: rgb(0, 0, 255);">xqimFQ8E+4P208UewwI1VBNaFpEy9nXzrith1yrv8iIDGZ3RSAHHAhUAl2BQjxUj</span><br /><span style="color: rgb(0, 0, 255);">C8yykrmCouuEC/BYHPUCgYEA9+GghdabPd7LvKtcNrhXuXmUr7v6OuqC+VdMCz0H</span><br /><span style="color: rgb(0, 0, 255);">gmdRWVeOutRZT+ZxBxCBgLRJFnEj6EwoFhO3zwkyjMim4TwWeotUfI0o4KOuHiuz</span><br /><span style="color: rgb(0, 0, 255);">EwJFUzEPMA0GA1UECBMGTWFkcmlkMRQwEgYDVQQHEwtUcmVzIENhbnRvczEpMCc</span><br /><span style="color: rgb(0, 0, 255);">-----END CERTIFICATE-----</span><br /><br /><strong> Instalar la respuesta de la CA</strong><br /><br />Si nos hemos generado nuestra propia CA con la que hemos firmado nuestra petición, tendremos que instalar el fichero "tomcatsign.pem" que hemos preparado. Este punto sólo tenemos que hacerlo si la CA que ha firmado nuestra petición no está reconocida por nuestro fsi-keystore, ni por nuestro cacerts keystore. <strong>NOTA</strong>: "cacerts keystore" es el que viene por defecto cuando se instala el OpenJDK. Lo podemos encontrar en $JAVA_HOME/jre/lib/security/cacerts. En ubuntu en /etc/lib/ssl/. Por defecto contiene algunos certificados de CAs reconocidas (VeriSign, EquiFax, Entruts, ...). Como en nuestro caso la CA la hemos generado nosotros mismos, tendremos que instalar el certificado de la CA. Para ello hacemos:<br /><br /><span style="color: rgb(0, 0, 255);">keytool -import -alias demoCaCert -file demoCA/cacert.pem -keystore /home/forseti/fsi-keystore</span><br /><br />Como se puede ver en el ejemplo, el fichero que contiene el certificado de nuestra CA es "demoCA/cacert.pem". Es fundamental que mandemos este fichero a los clientes que más tarde se quieran conectar con nuestro servidor, para que puedan importarlo igual que hemos hecho nosotros. De lo contrario cuando se intenten conectar con el servidor les aparecerá una ventana indicando que nuestro certificado viene firmado por una CA no reconocida. Si quisiéramos instalar el certificado de la CA en el cacerts keystore podríamos hacer:<br /></div><p align="justify"><span style="color: rgb(0, 0, 255);">keytool -import -alias demoCaCert -file demoCA/cacert.pem -keystore $JAVA_HOME/jre/lib/security/cacerts</span><br /><br />En Ubuntu:<br /><br /><span style="color: rgb(0, 0, 255);">keytool -import -alias demoCaCert -file demoCA/cacert.pem -keystore /etc/lib/ssl/cacerts</span><br /><br /><strong>Instalar nuestro certificado firmado por la CA</strong><br /><br />El último paso es instalar nuestro nuevo certificado firmado por la CA. Para esto haremos:<br /><br /><span style="color: rgb(0, 0, 255);">keytool -import -alias tomcat -file tomcatsign.pem </span><span style="color: rgb(0, 0, 255);">-keystore /home/forseti/fsi-keystore</span><br /><br />Fíjate que el alias es el mismo que usamos en el paso 4.1, es decir, estamos sustituyendo el certificado auto-firmado por el certificado firmado por la CA. Si el certificado de la CA lo habíamos guardado en el cacerts keystore tendremos que añadir la opción "-trustcacerts":<br /><br /><span style="color: rgb(0, 0, 255);">keytool -import -alias tomcat -file tomcatsign.pem -trustcacerts </span><span style="color: rgb(0, 0, 255);">-keystore /home/forseti/fsi-keystore</span><span style="color: rgb(0, 0, 255);"></span><br /><br />Ya está todo listo. Ahora podemos ver el contenido de nuestro almacén de claves para ver como quedo:<br /><br /><span style="color: rgb(0, 0, 255);">keytool -list -v <span style="color: rgb(0, 0, 255);">-keystore /home/forseti/fsi-keystore</span></span></p><p align="justify">Podemos fijarnos en que ahora el emisor de "tomcat" es "La demo CA". Podemos contrastar esto con lo que veíamos en el primer punto donde se puede ver que, como el certificado es auto-firmado, el propietario y el emisor son la misma entidad.</p><div align="justify"><strong> Conclusiones</strong></div><p align="justify">El correcto uso de los certificados es fundamental para la seguridad de nuestros servidores. Aquí hemos visto como manejar los certificados con la herramienta keytool y con OpenSSL y se ha repasado el ciclo desde que se hace la petición del certificado hasta que finalmente se instala. Forseti cuenta con un módulo de gestión de seguridad el cual es accesible desde el SAF - Administracion - Control SSL, el cual permite consultar, crear certificados auto-firmados e instalarlos ya que gestiona keytool, y el archivo de tomcat "server.xml". Por el momento no permite la creación de nuestra propia CA, por lo que si deseas creártela, tienes que hacerlo manualmente desde la terminal. Hay que recordar tres cosas de suma importancia:<br /></p><div align="justify"><ul> <li>Los certificados tienen caducidad, por lo que es importante	que haya un responsable encargado de renovarlos cuando sea	necesario. No te sorprendas si ves como un servidor deja de	funcionar de repente y sin motivo aparente, y al final resulta que alguno de los certificados ha caducado. <br /></li> <li>Si nos hemos creado nuestra propia CA, debemos enviar el	certificado de nuestra CA a los clientes, para que estos se	puedan conectar sin problema con nuestro servidor (que tiene un	certificado firmado por esta CA).</li> <li>Si nuestro servidor es un servidor de Out-Sourcing, es muy aconsejable que nuestros	certificados estén firmados por una CA auténtica y	reconocida a nivel mundial como VerySign, auque esto nos genere gastos. Generar confianza absoluta a las empresas registradas en nuestro sistema justificará el gasto.<br /></li></ul></div><p><br /></p>							  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  
+                    
+ 
+				<strong>NOTA</strong>: No es indispensable generar certificados auto-firmados e instalarlos a partir de las instrucciones en este tema, porque el SAF permite hacerlo dentro del módulo "Control SSL". Este tema se incluye en esta documentación, con el propósito de ayudar a entender un poco mas a fondo los elementos criptográficos utilizados por el sistema. También es importante para aquellos que deseen comprar certificados a una autoridad certificadora (CA) en lugar de usar certificados auto-firmados o para aquellos que deseen crearse sus propias CAs. <strong><br />
+<br />Generando certificados auto-firmados con JSSE (Java Secure Socket Layer)</strong><br />
+<div align="justify"><br />
+Primero que nada, hay que preparar el almacén de claves. Un almacén, es esencialmente un repositorio de archivos de objetos criptográficos, tales como llaves y certificados. Tomcat, opera en formato de claves de JKS (Java KeyStore) y es el formato creado por la herramienta de claves de línea de comandos. Esta herramienta está incluida en el OpenJDK instalado. Para crear un nuevo almacén que contenga un certificado auto-firmado, ejecuta la siguiente línea de comandos en la terminal:<br />
+<br />
+<span style="color: rgb(0, 0, 255);">$ keytool -genkey -alias tomcat -validity 365 -keyalg RSA -keystore /home/forseti/fsi-keystore </span><br />
+<br />Este comando creará un nuevo archivo en el directorio /home/forseti de nombre "fsi-keystore".<br />
+<br />Después de ejecutar el comando keytool, se te harán algunas preguntas para identificar el certificado, primero se te pedirá la contraseña del almacén de claves.<br />
+<br />
+<span style="color: rgb(0, 0, 255);">Introduzca la contraseña del almacén de claves: forseti</span><br />
+<span style="color: rgb(0, 0, 255);">¿Cuál es su nombre y apellido?</span><br />
+<span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[Unknown]: www.forseti.org.mx</span><br />
+<span style="color: rgb(0, 0, 255);">¿Cuál es el nombre de su unidad de organización?</span><br />
+<span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[Unknown]: Seguridad</span><br />
+<span style="color: rgb(0, 0, 255);">¿Cuál es el nombre de su organización?</span><br />
+<span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[Unknown]: Organizacion Forseti AC</span><br />
+<span style="color: rgb(0, 0, 255);">¿Cuál es el nombre de su ciudad o localidad?</span><br />
+<span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[Unknown]: GAM</span><br />
+<span style="color: rgb(0, 0, 255);">¿Cuál es el nombre de su estado o provincia?</span><br />
+<span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[Unknown]: DF</span><br />
+<span style="color: rgb(0, 0, 255);">¿Cuál es el código de dos letras de la unidad?</span><br />
+<span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[Unknown]: MX</span><br />
+<span style="color: rgb(0, 0, 255);">¿Es correcto CN=www.forseti.org.mx, OU=Seguridad, O=Organizacion Forseti AC, L=GAM, ST=DF, C=MX? </span><br />
+<span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;[no]: y</span><br />
+<br />Finalmente, se te pedirá la contraseña específicamente para este certificado (a diferencia de otros certificados almacenados en el archivo del mismo almacén). Debes utilizar la misma contraseña que se utilizó para la contraseña del almacén de claves. (Pulsando la tecla ENTER en este punto lo hará automáticamente).<br />
+<br />Obviamente, los datos se deben cambiar para que este certificado informe sobre la identidad específica de tu organización. <br />
+<br />
+<strong>Entendiendo mas sobre SSL, y configurando JSSE con certificados emitidos por una Autoridad Certificadora (CA)</strong>.<br />
+<br />SSL o Secure Socket Layer permite que, una vez esté habilitado, todas las comunicaciones entre el servidor y el cliente viajen cifradas, de forma que terceros no puedan entender los datos que viajan del cliente al servidor o viceversa.</div>
+<p align="justify">Los certificados tienen dos funciones principales en este proceso: Asegurar la identidad del servidor para que no haya	posibilidad de suplantación por un tercero y proporcionar las claves de cifrado. <br />
+<br />Nosotros, como dueños del servidor donde queremos	activar el SSL, tendremos que generar una petición de	certificado ("CSR" - Certificate Signing Request). El CSR se lo mandaremos a una entidad certificadora "CA".	Estas entidades están reconocidas a nivel mundial, y su papel	es como el de un notario. Es decir, la labor de estas entidades será firmar nuestra petición asegurando ante	cualquiera de nuestros clientes, que nosotros somos realmente quienes	decimos ser (no suplantación). Ejemplos de estas CAs son	VeriSign o VISA, aunque hay muchas más. Una vez tengamos la respuesta de la CA, la pondremos en el	lugar correspondiente en nuestro servidor. Con esto estamos	capacitando al servidor para establecer comunicaciones usando SSL.</p>
+<div align="justify">
+<strong>Generar el CSR:</strong>
+</div>
+<p align="justify">Primero generamos un par de claves (pública / privada) para nuestra organización. Este par de claves se guardan en un certificado auto-firmado. Esto es lo que hicimos al principio, con el comando keytool. Con esta operación también se creó nuestro almacén. <br />
+</p>
+<div align="justify">Como se trata de un certificado auto-firmado, el propietario y el emisor son la misma entidad.<br />
+<br />Ahora generamos el CSR. El fichero resultante de esta operación será lo que mandaremos a la CA.<br />
+<br />
+<span style="color: rgb(0, 0, 255);">$ keytool -certreq -alias tomcat -file mi-empresa.csr -keystore /home/forseti/fsi-keystore</span><br />
+<span style="color: rgb(0, 0, 255);">
+</span><br />
+En este punto tendríamos que mandar nuestro archivo "mi-empresa.csr" a una CA reconocida como VeriSign. Esta, previo pago, nos devolverá nuestro certificado firmado por ella, el cual, ya podremos instalar en nuestro sistema.</div>
+<strong><br />
+Crear nuestra propia CA</strong><br />
+<div align="justify"><br />
+OpenSSL nos proporciona un script que nos facilita la tarea de crear una CA propia. Basta con hacer:<span style="color: rgb(0, 0, 255);">
+</span><br />
+<span style="color: rgb(0, 0, 255);">
+</span><br />
+<span style="color: rgb(0, 0, 255);">$ /usr/lib/ssl/misc/CA.sh -newca</span><br />
+<br />Pulsando "enter" nos creará nuestra CA y nos pedirá la clave para acceder a la clave privada del	nuevo certificado que está creando (el certificado de la CA). Nos pide el código de país, la provincia, la	ciudad, la organización, la unidad organizativa, el nombre y	la dirección de correo. El comando habrá creado el directorio "demoCA". Dentro de este directorio podemos encontrar el certificado de la CA: cacert.pem.<br />
+<br />
+<strong>Firmar el CSR</strong><br />
+<br />Ya tenemos la CA, ahora firmamos el CSR mi-empresa.csr. Para esto también usaremos el script CA.sh. Este script trabaja con nombres fijos de ficheros, con lo que espera encontrar el CSR con el nombre "newreq.pem". Lo que vamos a hacer es renombrar mi-empresa.csr a newreq.pem. <strong>NOTA</strong>: nuestro CSR debe quedar a la misma altura que el directorio"demoCA", y no dentro de él. Ahora, estando en el directorio donde tenemos newreq.pem hacemos:<span style="color: rgb(0, 0, 255);">
+</span><br />
+<span style="color: rgb(0, 0, 255);">
+</span><br />
+<span style="color: rgb(0, 0, 255);">$ /usr/lib/ssl/misc/CA.sh -signreq </span><br />
+<br />Nos pide la clave para acceder al certificado de la	CA. Es la clave que pusimos a la CA en el punto anterior. Nos mostrará la información del CSR que vamos a	firmar y nos pide confirmación para firmar el certificado. Por último nos pide confirmar para aceptar los	cambios. Al final nos mostrará el fichero "newcert.pem" con nuestro certificado firmado por la CA. Dentro del fichero"newcert.pem" lo que nos interesa es lo que hay al final entre "BEGIN CERTIFICATE" y "END CERTIFICATE". Esto es realmente el certificado, así que vamos a poner esto en un fichero a parte (hacemos copy-paste con cualquier editor). El nuevo fichero lo llamaremos "tomcatsign.pem" y su contenido será algo como:<br />
+<br />
+<span style="color: rgb(0, 0, 255);">-----BEGINCERTIFICATE-----</span><br />
+<span style="color: rgb(0, 0, 255);">MIIFPDCCBKWgAwIBAgIBATANBgkqhkiG9w0BAQQFADCBuzELMAkGA1UEBhMCRVMx</span><br />
+<span style="color: rgb(0, 0, 255);">DzANBgNVBAgTBk1hZHJpZDEUMBIGA1UEBxMLVHJlcyBDYW50b3MxKTAnBgNVBAoT</span><br />
+<span style="color: rgb(0, 0, 255);">IEF1dGVudGlhIFJlYWwgQnVzaW5lc3MgU29sdXRpb25zMSIwIAYDVQQLExlJbXBs</span><br />
+<span style="color: rgb(0, 0, 255);">YW50YWNpb24geSBEZXNhcnJvbGxvMRQwEgYDVQQDEwtBdXRlbnRpYSBDQTEgMB4G</span><br />
+<span style="color: rgb(0, 0, 255);">CsqGSIb3DQEJARYRaW5mb0BhdXRlbnRpYS5jb20wHhcNMDUwODAyMDkxMzEyWhcN</span><br />
+<span style="color: rgb(0, 0, 255);">MDYwODAyMDkxMzEyWjCBnjELMAkGA1UEBhMCZXMxDzANBgNVBAgTBk1hZHJpZDEU</span><br />
+<span style="color: rgb(0, 0, 255);">MBIGA1UEBxMLVHJlcyBDYW50b3MxKTAnBgNVBAoTIEF1dGVudGlhIFJlYWwgQnVz</span><br />
+<span style="color: rgb(0, 0, 255);">aW5lc3MgU29sdXRpb25zMSMwIQYDVQQLExpJbXBsYW50YWNpb24geSBSZW5kaW1p</span><br />
+<span style="color: rgb(0, 0, 255);">ZW50bzEYMBYGA1UEAxMPQWxlamFuZHJvIFBlcmV6MIIBuDCCASwGByqGSM44BAEw</span><br />
+<span style="color: rgb(0, 0, 255);">ggEfAoGBAP1/U4EddRIpUt9KnC7s5Of2EbdSPO9EAMMeP4C2USZpRV1AIlH7WT2N</span><br />
+<span style="color: rgb(0, 0, 255);">Wpq/xfW6MPbLm1Vs14E7gB00b/JmYLdrmVClpJ+f6AR7ECLCT7up1/63xhv4O1fn</span><br />
+<span style="color: rgb(0, 0, 255);">xqimFQ8E+4P208UewwI1VBNaFpEy9nXzrith1yrv8iIDGZ3RSAHHAhUAl2BQjxUj</span><br />
+<span style="color: rgb(0, 0, 255);">C8yykrmCouuEC/BYHPUCgYEA9+GghdabPd7LvKtcNrhXuXmUr7v6OuqC+VdMCz0H</span><br />
+<span style="color: rgb(0, 0, 255);">gmdRWVeOutRZT+ZxBxCBgLRJFnEj6EwoFhO3zwkyjMim4TwWeotUfI0o4KOuHiuz</span><br />
+<span style="color: rgb(0, 0, 255);">EwJFUzEPMA0GA1UECBMGTWFkcmlkMRQwEgYDVQQHEwtUcmVzIENhbnRvczEpMCc</span><br />
+<span style="color: rgb(0, 0, 255);">-----END CERTIFICATE-----</span><br />
+<br />
+<strong> Instalar la respuesta de la CA</strong><br />
+<br />Si nos hemos generado nuestra propia CA con la que hemos firmado nuestra petición, tendremos que instalar el fichero "tomcatsign.pem" que hemos preparado. Este punto sólo tenemos que hacerlo si la CA que ha firmado nuestra petición no está reconocida por nuestro fsi-keystore, ni por nuestro cacerts keystore. <strong>NOTA</strong>: "cacerts keystore" es el que viene por defecto cuando se instala el OpenJDK. Lo podemos encontrar en $JAVA_HOME/jre/lib/security/cacerts. En ubuntu en /etc/lib/ssl/. Por defecto contiene algunos certificados de CAs reconocidas (VeriSign, EquiFax, Entruts, ...). Como en nuestro caso la CA la hemos generado nosotros mismos, tendremos que instalar el certificado de la CA. Para ello hacemos:<br />
+<br />
+<span style="color: rgb(0, 0, 255);">keytool -import -alias demoCaCert -file demoCA/cacert.pem -keystore /home/forseti/fsi-keystore</span><br />
+<br />Como se puede ver en el ejemplo, el fichero que contiene el certificado de nuestra CA es "demoCA/cacert.pem". Es fundamental que mandemos este fichero a los clientes que más tarde se quieran conectar con nuestro servidor, para que puedan importarlo igual que hemos hecho nosotros. De lo contrario cuando se intenten conectar con el servidor les aparecerá una ventana indicando que nuestro certificado viene firmado por una CA no reconocida. Si quisiéramos instalar el certificado de la CA en el cacerts keystore podríamos hacer:<br />
+</div>
+<p align="justify">
+<span style="color: rgb(0, 0, 255);">keytool -import -alias demoCaCert -file demoCA/cacert.pem -keystore $JAVA_HOME/jre/lib/security/cacerts</span><br />
+<br />En Ubuntu:<br />
+<br />
+<span style="color: rgb(0, 0, 255);">keytool -import -alias demoCaCert -file demoCA/cacert.pem -keystore /etc/lib/ssl/cacerts</span><br />
+<br />
+<strong>Instalar nuestro certificado firmado por la CA</strong><br />
+<br />El último paso es instalar nuestro nuevo certificado firmado por la CA. Para esto haremos:<br />
+<br />
+<span style="color: rgb(0, 0, 255);">keytool -import -alias tomcat -file tomcatsign.pem </span>
+<span style="color: rgb(0, 0, 255);">-keystore /home/forseti/fsi-keystore</span><br />
+<br />Fíjate que el alias es el mismo que usamos en el paso 4.1, es decir, estamos sustituyendo el certificado auto-firmado por el certificado firmado por la CA. Si el certificado de la CA lo habíamos guardado en el cacerts keystore tendremos que añadir la opción "-trustcacerts":<br />
+<br />
+<span style="color: rgb(0, 0, 255);">keytool -import -alias tomcat -file tomcatsign.pem -trustcacerts </span>
+<span style="color: rgb(0, 0, 255);">-keystore /home/forseti/fsi-keystore</span>
+<span style="color: rgb(0, 0, 255);">
+</span><br />
+<br />Ya está todo listo. Ahora podemos ver el contenido de nuestro almacén de claves para ver como quedo:<br />
+<br />
+<span style="color: rgb(0, 0, 255);">keytool -list -v <span style="color: rgb(0, 0, 255);">-keystore /home/forseti/fsi-keystore</span>
+</span>
+</p>
+<p align="justify">Podemos fijarnos en que ahora el emisor de "tomcat" es "La demo CA". Podemos contrastar esto con lo que veíamos en el primer punto donde se puede ver que, como el certificado es auto-firmado, el propietario y el emisor son la misma entidad.</p>
+<div align="justify">
+<strong> Conclusiones</strong>
+</div>
+<p align="justify">El correcto uso de los certificados es fundamental para la seguridad de nuestros servidores. Aquí hemos visto como manejar los certificados con la herramienta keytool y con OpenSSL y se ha repasado el ciclo desde que se hace la petición del certificado hasta que finalmente se instala. Forseti cuenta con un módulo de gestión de seguridad el cual es accesible desde el SAF - Administracion - Control SSL, el cual permite consultar, crear certificados auto-firmados e instalarlos ya que gestiona keytool, y el archivo de tomcat "server.xml". Por el momento no permite la creación de nuestra propia CA, por lo que si deseas creártela, tienes que hacerlo manualmente desde la terminal. Hay que recordar tres cosas de suma importancia:<br />
+</p>
+<div align="justify">
+<ul> <li>Los certificados tienen caducidad, por lo que es importante	que haya un responsable encargado de renovarlos cuando sea	necesario. No te sorprendas si ves como un servidor deja de	funcionar de repente y sin motivo aparente, y al final resulta que alguno de los certificados ha caducado. <br />
+</li> <li>Si nos hemos creado nuestra propia CA, debemos enviar el	certificado de nuestra CA a los clientes, para que estos se	puedan conectar sin problema con nuestro servidor (que tiene un	certificado firmado por esta CA).</li> <li>Si nuestro servidor es un servidor de Out-Sourcing, es muy aconsejable que nuestros	certificados estén firmados por una CA auténtica y	reconocida a nivel mundial como VerySign, auque esto nos genere gastos. Generar confianza absoluta a las empresas registradas en nuestro sistema justificará el gasto.<br />
+</li>
+</ul>
+</div>
+<p><br />
+</p>							  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  			  
+			  
+
                     </td>
 				  </tr>
 				  <tr>
@@ -232,6 +361,14 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -244,7 +381,7 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

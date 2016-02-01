@@ -137,11 +137,11 @@ function enviarlo(formAct)
           </tr>
           <tr> 
             <td align="left"> Dia laboral</td>
-            <td width="20%" align="left">&nbsp;</td>
+            <td width="20%" align="left">Tipo de jornada</td>
             <td width="20%" align="center">Entrada</td>
             <td width="20%" align="center">Salida</td>
-            <td width="12%" align="center">Horas Reales</td>
-            <td width="12%" align="center">Horas Virtuales</td>
+            <td width="12%" align="center">Horas por dia</td>
+            <td width="12%" align="center">Horas Laborables</td>
           </tr>
           <tr> 
             <td align="left"><input name="lunes" type="checkbox" value="checkbox">

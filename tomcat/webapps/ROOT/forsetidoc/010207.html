@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -193,6 +198,10 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 					<td> 
                     
  
+				
+ 
+				
+ 
 				 				 				
 
 <p>El módulo de <strong>ventas</strong> permite trabajar con el Catálogo de clientes, Cuentas por cobrar, Cotizaciones, Pedidos, Remisiones, Facturas, Devoluciones sobre ventas, y Políticas.<br />
@@ -202,14 +211,15 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 <ul> <li>La clave numérica.</li> <li>El nombre.</li> <li>La cuenta contable enlazada, que permite generar la póliza en ventas de crédito enlazadas a la contabilidad.</li> <li>El R.F.C.</li> <li>Su estatus ( alta o baja ). </li> <li>Datos de contacto ( dirección, colonia, población, C.P. teléfonos, fax, e-mail, nombres de personas de contacto etc. ).</li> <li>Propiedades ( días de crédito, límite máximo de crédito, fecha de última venta, su descuento, etc. )</li> <li>Observaciones del cliente. </li>
 </ul>En este módulo se generan los anticipos de clientes, y altas directas de cuentas por cobrar. A estos registros se les dará seguimiento dentro del módulo de cuentas por cobrar. Los anticipos generan automáticamente el movimiento de caja o banco pertinente.<br />
 <br />
-<strong>Cuentas por cobrar.<br />
-</strong>Las cuentas pueden representar anticipos ( alimentadas desde el módulo de clientes ) o cuentas por cobrar ( alimentadas al registrar ventas a crédito desde el módulo de Facturación ): <br />
-<ul> <li>Las cuentas pueden estar en distintas monedas.</li> <li>Se lleva una clave única de identificación de cuenta, la fecha de alta, y el cliente al que se le aplicó la cuenta o el anticipo.</li> <li>Los cobros a estas cuentas generarán el movimiento de caja o banco automáticamente, y su movimiento contable en caso de enlace a la contabilidad.</li> <li>Se aplican anticipos a cuenta.</li> <li>Se pueden cancelar pagos o aplicaciones de anticipos previamente realizados, cancelando automáticamente el movimiento de caja o banco generado.</li> <li>Permite hacer devoluciones de anticipos, los cuales también generarán los movimientos de caja o bancos automáticamente.</li>
+<strong>Cuentas por cobrar.</strong><br />
+Las cuentas pueden representar anticipos, cuentas por cobrar, pagos, 
+saldos, aplicación de anticipos, descuentos por aplicación y devolución 
+de anticipos: <ul> <li>Las cuentas pueden estar en distintas monedas.</li> <li>Se lleva una clave única de identificación de cuenta, la fecha de alta, y el cliente al que se le aplicó la cuenta o el anticipo.</li> <li>Los cobros a estas cuentas generarán el movimiento de caja o banco automáticamente, y su movimiento contable en caso de enlace a la contabilidad.</li> <li>Se aplican anticipos a cuenta.</li> <li>Se pueden cancelar pagos o aplicaciones de anticipos previamente realizados, cancelando automáticamente el movimiento de caja o banco generado.</li> <li>Permite hacer devoluciones de anticipos, los cuales también generarán los movimientos de caja o bancos automáticamente.</li>
 </ul>
 <strong>Cotizaciones.</strong><br />
-Estas fungen como cotizaciones estándar y como plantillas para Pedidos, Remisiones y Facturas, nos sirven para pre-definir una Factura. Su estructura maneja lo siguiente:<br />
+Estas fungen como cotizaciones estándar y como plantillas para Pedidos, Remisiones y Facturas, nos sirven para pre-definir una venta. Su estructura maneja lo siguiente:<br />
 <ul> <li>El cabecero de la cotización.</li> <li>Su número consecutivo según su entidad.</li> <li>La referencia.</li> <li>Si está pactada a crédito o a contado.</li> <li>La moneda y tipo de cambio.</li> <li>El cliente.</li> <li>La fecha de la cotización y el pedido.</li> <li>Las observaciones. </li>
-</ul>En el detalle podemos generar los productos que pensamos vender, y capturar:<br />
+</ul>En el detalle podemos generar los productos y/o servicios que pensamos vender y capturar:<br />
 <ul> <li>La clave.</li> <li>La cantidad a enviar.</li> <li>El precio pactado de ese producto.</li> <li>El descuento de esta partida.</li> <li>Los impuestos.</li> <li>Las observaciones del producto.</li>
 </ul>
 <p>
@@ -223,7 +233,7 @@ Estas fungen como cotizaciones estándar y como plantillas para Pedidos, Remisio
 </strong>Su estructura es idéntica a las cotizaciones, pedidos y remisiones, por lo tanto se pueden generar automáticamente desde cualquiera de estas, o directamente en este módulo. Al ingresar una factura, se generará de manera automática el movimiento al almacén ( solo si no es generada por una remisión ), en caso de ser a crédito su cuenta por cobrar, o en el caso de ser de contado, su movimiento de caja o banco. Todo lo anterior con sus respectivas pólizas ( si es que esta entidad de venta se enlaza a la contabilidad ).<br />
 <br />
 <strong>Devoluciones</strong>. <br />
-Permite generar rebajas o devoluciones de material ( en caso de que nos devuelvan un producto los clientes ). Se puede optar por la devolución parcial o total de la venta asociada. Una devolución parcial vendría siendo por ejemplo, solo la mitad de la cantidad total de la partida 1 que contiene el producto A, y nada de la partida 2 que contiene el producto B. Su estructura es la misma que la de las facturas, y permite generar la salida de la caja o banco en devoluciónes de contado, o saldar la cuenta por cobrar que generó la factura original bajo algún concepto, por ejemplo "devoluciones s/ventas".<br />
+Permite generar rebajas o devoluciones de material ( en caso de que nos devuelvan un producto los clientes ). Se puede optar por la devolución parcial o total de la venta asociada. Una devolución parcial vendría siendo por ejemplo, solo la mitad de la cantidad total de la partida 1 que contiene el producto A, y nada de la partida 2 que contiene el producto B. Su estructura es la misma que la de las facturas, y permite generar la salida de la caja o banco en devoluciones de contado, o saldar la cuenta por cobrar que generó la factura original bajo algún concepto, por ejemplo "devoluciones s/ventas".<br />
 <br />
 <strong>Políticas.</strong><br />
 Se manejan políticas por cliente, por producto y por entidad.<ul> <li>
@@ -237,9 +247,11 @@ Definen el rango de cantidades para un precio específico del producto, por ejem
 <strong>Políticas por Entidad:</strong><br />
 Definen precios o descuentos especiales de algún producto en esa entidad, como por ejemplo productos en promoción.<br />
 </li>
-</ul> <strong>NOTA:</strong> Las Remisiones, Facturas y Devoluciones, pueden generar comprobantes fiscales digitales ( CFD ) en forma de traslados, ingresos y egresos respectivamente. Este CFD puede ser sellado directamente por el PAC Edicom, o indirectamente por el servicio forseti PacConn de algún servidor Forseti instalado en la nube, el cual utiliza el PAC Edicom para el sellado. El porqué de Edicom, es porque Edicom ofrece un servicio web bastante estable y su API está liberada bajo una licencia de software libre.			  
-			  
-
+</ul> <strong>NOTA:</strong> Las Remisiones, Facturas y Devoluciones, pueden generar comprobantes fiscales digitales ( CFD ) en forma de traslados, ingresos y egresos respectivamente. Este CFD puede ser sellado por el servicio forseti
+ JPacConn del mismo servidor, o de algún servidor Forseti instalado en la nube. JPacConn utiliza
+ el PAC Edicom para el sellado. El porqué de Edicom, es porque Edicom 
+ofrece un servicio web bastante estable y su API está liberada bajo una 
+licencia de software libre.
                     </td>
 				  </tr>
 				  <tr>
@@ -328,6 +340,14 @@ Definen precios o descuentos especiales de algún producto en esa entidad, como 
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -340,7 +360,7 @@ Definen precios o descuentos especiales de algún producto en esa entidad, como 
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

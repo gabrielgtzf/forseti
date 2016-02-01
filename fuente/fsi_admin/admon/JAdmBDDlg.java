@@ -156,8 +156,16 @@ public class JAdmBDDlg extends JFsiForsetiApl
         			  idmensaje = 1; mensaje = JUtil.Msj("SAF","ADMIN_BD","DLG","MSJ-PROCERR2",1); //"PRECAUCION: La variable RESPALDOS (ruta de respaldos) no se ha configurado aun... No se puede generar el proceso";
         			  getSesion(request).setID_Mensaje(idmensaje, mensaje);
         	      }
+        		  else if( !request.getParameter("basedatos").equals("NC") && !request.getParameter("bdperdida").equals(""))
+        		  {
+        			  idmensaje = 1; mensaje = "PRECAUCION: Solo se puede restaurar una base de datos existente (copia) o una perdida (restauración), pero no ambas";
+        			  getSesion(request).setID_Mensaje(idmensaje, mensaje);
+        		  }
         		  else
         		  {
+        			  mensaje = ""; idmensaje = -1;
+        			  getSesion(request).setID_Mensaje(idmensaje, mensaje);
+        			  
         			  String ruta_resp = var.getAbsRow(0).getVAlfanumerico();
         			  request.setAttribute("ruta_resp", ruta_resp);
         		  }
@@ -643,6 +651,7 @@ public class JAdmBDDlg extends JFsiForsetiApl
             	set.ConCat(true);
             	set.m_Where = "ID_BD = '" + p(request.getParameter("id")) + "'";
             	set.Open();
+            	
             	if(!set.getAbsRow(0).getSU().equals("3")) // La base de datos esta corrupta, se debe eliminar
             	{
             		idmensaje = 3; mensaje += JUtil.Msj("SAF","ADMIN_BD","DLG","MSJ-PROCERR",4);
@@ -1496,7 +1505,10 @@ public class JAdmBDDlg extends JFsiForsetiApl
 		var.ConCat(true);
 		var.m_Where = "ID_Variable = 'RESPALDOS'";
 		var.Open();
-		
+		JAdmVariablesSet varver = new JAdmVariablesSet(null);
+		varver.ConCat(true);
+		varver.m_Where = "ID_Variable = 'VERSION'";
+		varver.Open();
 		//Extrae el nombre de la empresa respaldada
 		int index = request.getParameter("respaldo").indexOf('-');
 		int indexzip = request.getParameter("respaldo").indexOf('.');
@@ -1509,6 +1521,7 @@ public class JAdmBDDlg extends JFsiForsetiApl
 		JZipUnZipUtil fzip = new JZipUnZipUtil();
 		fzip.unZipDir(var.getAbsRow(0).getVAlfanumerico() + "/" + request.getParameter("respaldo"), var.getAbsRow(0).getVAlfanumerico() + "/" + nomdir);
 		
+		String urlver = var.getAbsRow(0).getVAlfanumerico() + "/" + nomdir + "/forseti.version";
 		String urldump = var.getAbsRow(0).getVAlfanumerico() + "/" + nomdir + "/" + nomdir + ".dump";
 		String urlconf = var.getAbsRow(0).getVAlfanumerico() + "/" + nomdir + "/" + nomdir + ".conf";
 		String urlemp = var.getAbsRow(0).getVAlfanumerico() + "/" + nomdir + "/" + bdresp + "/";
@@ -1524,6 +1537,33 @@ public class JAdmBDDlg extends JFsiForsetiApl
 			pw.println("             " + "RESTAURANDO LA BASE DE DATOS Y ARCHIVOS EMP: " + request.getParameter("nombre") + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 			pw.println("----------------------------------------------------------------------------");
 			pw.flush();
+			
+			//Revisa si la versión es la misma que la de este servidor
+			FileReader ver = new FileReader(urlver);
+            BufferedReader buff = new BufferedReader(ver);
+            boolean eof = false;
+            while(!eof)
+            {
+                String line = buff.readLine();
+                if(line == null)
+                	eof = true;
+                else //Aqui verifica que la linea del archivo forseti.version sea igual a la variable de versión de este servidor forseti
+                {
+                	if(!varver.getAbsRow(0).getVAlfanumerico().equals(line))
+                	{
+                		String 
+                		e = 	"ERROR: No se puede restaurar esta empresa porque el respaldo pertenece a una versión diferente a la del servidor\n";
+                		e +=	"Version del Servidor: " + varver.getAbsRow(0).getVAlfanumerico() + " Versión del respaldo de la empresa: " + line + "\n";
+                		e += 	"Si es indispensable la restauración, deberás primero instalar el servidor con la versión en la que se respaldó la empresa y posteriormente restaurarla";
+                		pw.println(e);
+            			pw.flush();
+            			buff.close();
+            			throw new Throwable(e);
+                	}
+                }
+            }
+            buff.close();
+			///////////////////////////////
 			
 			String ERROR = "";
 			JFsiScript sc = new JFsiScript();
@@ -1556,8 +1596,8 @@ public class JAdmBDDlg extends JFsiForsetiApl
 				String insert = "INSERT INTO tbl_bd(id_bd, nombre, usuario, password";
 				String values = "VALUES (default, 'FSIBD_" + p(request.getParameter("nombre")) + "','" + p(request.getParameter("nombre")).toLowerCase() + "','" + q(request.getParameter("password")) + "'"; 
 				FileReader file         = new FileReader(urlconf);
-				BufferedReader buff     = new BufferedReader(file);
-				boolean eof             = false;
+				buff     = new BufferedReader(file);
+				eof             = false;
 				while(!eof)
 				{
 					String line = buff.readLine();

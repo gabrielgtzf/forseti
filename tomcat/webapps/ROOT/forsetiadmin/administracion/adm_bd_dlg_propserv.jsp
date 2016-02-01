@@ -202,29 +202,33 @@ function enviarlo(formAct)
             <td><input name="auto_slds" type="checkbox" value="checkbox"> Automatizar</td>
 		  </tr>
 		  <tr> 
-		  	<td colspan="2" class="titChicoNAR" align="center">
-				Datos del servidor JPacConn para timbrado de comprobantes</td>
+		  	<td colspan="2" class="titChicoNAR" align="center"> Datos de este 
+              servidor, para autenticarse en un servicio web de forseti para recibir 
+              servicio de timbrado, correo electrónico automático y/o alojamiento 
+              de archivos en la nube</td>
           </tr>
 		  <tr> 
-            <td align="right">URL de conexion a la API JPacConn con puerto explicito</td>
-            <td><input name="pac_purl" type="text" id="pac_purl" size="80" maxlength="255"></td>
+            <td align="right">URL de conexión al servicio web forseti con puerto 
+              explicito</td>
+            <td><input name="pac_purl" type="text" id="pac_purl" size="80" maxlength="255">
+              Ejemplo: servicios.forseti.com.mx:443</td>
           </tr>
 		  <tr> 
-            <td align="right">ID de este servidor para Timbrar en un servicio 
-              de JPacConn</td>
+            <td align="right">ID de este servidor forseti</td>
             <td><input name="pac_serv" type="text" id="pac_serv" size="36" maxlength="36"></td>
           </tr>
 		  <tr> 
-            <td align="right">Usuario para el JPacConn</td>
+            <td align="right">Usuario para el servicio</td>
             <td><input name="pac_user" type="text" id="pac_user" size="25" maxlength="50"></td>
           </tr>
 		  <tr> 
-            <td align="right">Contraseña para el JPacConn</td>
+            <td align="right">Contraseña para el servicio</td>
             <td><input name="pac_pass" type="text" id="pac_pass" size="25" maxlength="50"> Dejar en blanco para no cambiar la contraseña</td>
           </tr>
 		  <tr> 
-		  	<td colspan="2" class="titChicoNAR" align="center">
-				Datos del Proveedor Autorizado de Certificacion (si y solo si este servidor es un JPacConn)</td>
+		  	<td colspan="2" class="titChicoNAR" align="center"> Datos del Proveedor 
+              Autorizado de Certificacion (si, y solo si este servidor brinda 
+              el servicio de timbrado)</td>
           </tr>
 		  <tr> 
             <td align="right">URL de conexion al Proveedor</td>
@@ -244,7 +248,7 @@ function enviarlo(formAct)
 				Datos del servidor SMTP para el envio de correos electronicos Por JavaMail</td>
           </tr>
 		  <tr> 
-            <td align="right">URL de conexion al servidor SMTP (IP o Dominio)</td>
+            <td align="right">URL de conexión al servidor SMTP (IP o Dominio)</td>
             <td><input name="smtp_host" type="text" id="smtp_host" size="80" maxlength="255">
               Ejemplo: email-smtp.us-east-1.amazonaws.com</td>
           </tr>

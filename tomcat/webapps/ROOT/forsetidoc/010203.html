@@ -80,6 +80,11 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 	
 }
 </style>
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
 <div align="center">
@@ -193,28 +198,36 @@ TD,P,B,INPUT,DIV{font-family: Arial, "Apple Chancery", "DejaVu Sans Mono", monos
 					<td> 
                     
  
+				
+ 
 				 				 				 				 				El módulo de <strong>caja y bancos</strong> del CEF, define los módulos de bancos, cajas, vales de caja y cierres de caja.<br />
 <br />
 <strong>Algo a entender...</strong> Por ejemplo, si tienes 20 tiendas, podrás   definir sus respectivas 20 cajas, mas una o varias cuentas bancarias donde se depositará el dinero de cada una de estas. Además, cada caja o cuenta bancaria, puede ser enlazada o no enlazada a la contabilidad. Esto implica un control de ventas sin factura (por ejemplo para   facturar al terminar el día) pudiendo aún hacer una conciliación del dinero entrante a la caja. Esto   aplica también a bancos, para poder manejar cuentas externas al negocio, por   ejemplo cuentas personales. Además las cuentas bancarias pueden darse de alta en monedas   extranjeras.<strong><br />
-<br />Procesos bancarios.</strong><br />
+<br />
+Procesos bancarios.</strong><br />
 <ul> <li>Permite generar depósitos y retiros directos o indirectos (Indirectos a través de otro módulo o departamento).</li> <li>Lleva el consecutivo de la chequera cuando se hacen retiros con   cheque directos o indirectos (Indirectos a través del módulo   de cuentas por pagar).</li> <li>Lleva la fecha del movimiento.</li> <li>El número consecutivo del movimiento.</li> <li>La referencia.</li> <li>El concepto.</li> <li>El beneficiario.</li> <li>El status para saber si el movimiento   esta cancelado, en tránsito o ya esta pagado o cobrado.</li> <li>En depósitos y retiros directos,   permite generar ahí mismo la póliza (si el banco está enlazado a la contabilidad).</li> <li>En depósitos y retiros indirectos, genera la póliza   automáticamente (siempre y cuando esté enlazado a la contabilidad).</li> <li>Permite marcar los movimientos bancarios contra el estado de cuenta   real del banco, como una manera de conciliación.</li> <li>Permite proteger la entidad bancaria en un periodo en especial para que así, ya no se pueda mover ni directa, ni indirectamente.</li> <li>Se pueden transferir fondos desde una entidad a otra distinta sea esta de bancos   o caja, por ejemplo, se puede hacer un cheque de la cuenta "A" hacia la "B" y esto   genera el retiro de la A y el depósito de la B. Esto genera las respectivas pólizas de A o B (Solo de las que estén enlazadas a la contabilidad).</li>
+ <li>En movimientos directos e indirectos, permite la captura de la contabilidad electrónica según el método de pago, y si la entidad esta enlazada a la contabilidad.<br />
+</li>
 </ul>
 <div align="justify">
 <strong>Procesos de caja</strong>.<br />
  Las cajas permiten los mismos procesos que   los bancos, excepto por el control de cheques. A parte se puede llevar en paralelo un control de vales y cierres de caja.<br />
 <br />
 <strong>Vales de caja</strong>.<br />
-En este módulo se permite llevar el control   de pequeños gastos antes de agruparlos y generarlos como gastos definitivos,   por ejemplo, Si se prestara dinero al intendente para comprar una escoba, se puede   generar un vale provisional, luego cuando la escoba es comprada este vale se   convierte en vale de factura, para que al final del día se genere automáticamente   un gasto que se enlaza a la cuenta contable   de gastos de intendencia, y genere el movimiento de retiro definitivo en la   caja junto a su póliza (en caso de estar la caja enlazada a la contabilidad).<br />
+En este módulo se permite llevar el control   de pequeños gastos antes de agruparlos y generarlos como gastos definitivos,   por ejemplo, si se prestara dinero al intendente para comprar una escoba, se puede   generar un vale provisional, luego cuando la escoba es comprada este vale se   convierte en vale de factura, para que al final del día se genere automáticamente   un gasto que se enlaza a la cuenta contable   de gastos de intendencia y genere el movimiento de retiro definitivo en la   caja junto a su póliza (en caso de estar la caja enlazada a la contabilidad).<br />
 <ul> <li>  Los vales se pueden agregar como provisionales, sin factura, facturados, de otro tipo y traspasados. Estos últimos se definen para transferirlos a otra caja y de ahí, darle el seguimiento. <br />
 </li>
  <li>Su estructura lleva la fecha, la clave del gasto, el concepto y el importe.<br />
 </li> <li>Permite el cambio de vales.</li> <li>Puedes traspasar ciertos grupos de vales a otras cajas de destino.<br />
-</li> <li>Se pueden eliminar vales cuando se regresó el dinero a la caja.</li> <li>Se puede proteger la caja para no recibir vales traspasados desde otra   caja.</li> <li>Permite generar los gastos definitivos.						  			  			   							  <br />
+</li> <li>Se pueden eliminar vales cuando se regresó el dinero a la caja.</li> <li>Se puede proteger la caja para no recibir vales traspasados desde otras   cajas.</li> <li>Permite generar los gastos definitivos.						  			  			   							  <br />
 </li>
 </ul>
 </div>  <strong>Cierres de caja.<br />
 </strong>Con este módulo controlamos los pagos que nos hacen los encargados de cada caja. Tiene una relación muy directa con el módulo de ventas y vales de caja ya que por cada cierre que se genera, se generarán automáticamente el traspaso de los vales (no provisionales) desde la caja de origen a la de destino, y también el traspaso del efectivo. Este módulo generará además el resumen de las ventas de contado, el efectivo en caja y los vales de caja que había en el momento del cierre, el cual queda debidamente registrado.<br />
-<br />			  			  
+<br />
+			  			  
+			  
+
 			  
 
                     </td>
@@ -305,6 +318,14 @@ En este módulo se permite llevar el control   de pequeños gastos antes de agru
 				 </tr>
 				
 
+			    <tr>
+			      <td colspan="2">
+				<script language="JavaScript" type="text/javascript">
+				  TrustLogo("http://forseti.org.mx/comodo_secure_113x59_white.png", "CL1", "none");
+				</script>
+				<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+			      </td>
+			   </td>
 			</table>
 			
 			</td>
@@ -317,7 +338,7 @@ En este módulo se permite llevar el control   de pequeños gastos antes de agru
     <tr> 
       <td bgcolor="#999999" height="40" valign="bottom" class="txtPie"><a href="AGPL.html" target="_self" class="txtPie">Licencia Pública General de Affero (AGPL)</a> | <a href="acerca" target="_self" class="txtPie">Sobre 
         Forseti</a><br>
-        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C. 
+        Derechos Reservados &copy; 2014 - 2015 Organización Forseti A.C.
       </td>
     </tr>
   </table>

@@ -17,10 +17,16 @@
 */
 package forseti.nomina;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import forseti.JAccesoBD;
 import forseti.JForsetiApl;
 import forseti.JRetFuncBas;
 import forseti.sets.JAsistenciasChequeosSet;
@@ -377,13 +383,52 @@ public class JNomAsistenciasDlg extends JForsetiApl
     public void Capturar(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException
 	{
-	  	String str = "select * from sp_nom_asistencias_server_agregar( '" + p(request.getParameter("id_empleado")) + "') as (err integer, res varchar, clave varchar)";
-
-	  	JRetFuncBas rfb = new JRetFuncBas();
+	  	//String str = "select * from sp_nom_asistencias_server_agregar( '" + p(request.getParameter("id_empleado")) + "') as (err integer, res varchar, clave varchar)";
+	  	String str = "select * from sp_nom_asistencias_server_agregar( '" + p(request.getParameter("id_empleado")) + "') as ( ID_FechaMovimiento timestamp, ID_Empleado bpchar, Nombre varchar, RE int, Entrada timestamp, RS int, Salida timestamp, RE2 int, Entrada2 timestamp, RS2 int, Salida2 timestamp, ERR int, RES varchar)";
+	  	Connection con = null;
+  		Statement s = null;   
+  		ResultSet rs = null;  
+	  	try
+	  	{
+	  		short idmensaje = -1; 
+	  		String mensaje = "";
+	  		
+	  		con = JAccesoBD.getConexionSes(request);
+	  		s    = con.createStatement();
+	  		rs   = s.executeQuery(str);
+	  		if(rs.next())
+	  		{
+	  			request.setAttribute("ID_FechaMovimiento", rs.getDate("ID_FechaMovimiento"));
+	  			request.setAttribute("ID_Empleado", rs.getString("ID_Empleado"));
+	  			request.setAttribute("Nombre", rs.getString("Nombre"));
+	  			request.setAttribute("RE", new Boolean(rs.getBoolean("RE")));
+	  			request.setAttribute("Entrada", rs.getTime("Entrada"));
+	  			request.setAttribute("RS", new Boolean(rs.getBoolean("RS")));
+	  			request.setAttribute("Salida", rs.getTime("Salida"));
+	  			request.setAttribute("RE2", new Boolean(rs.getBoolean("RE2")));
+	  			request.setAttribute("Entrada2", rs.getTime("Entrada2"));
+	  			request.setAttribute("RS2", new Boolean(rs.getBoolean("RS2")));
+	  			request.setAttribute("Salida2", rs.getTime("Salida2"));
+	  			idmensaje = rs.getShort("ERR");
+	  			mensaje = rs.getString("RES");
+	  		}
+	  		s.close();
+	  		JAccesoBD.liberarConexion(con);
 		
-	    doCallStoredProcedure(request, response, str, rfb);
-  	    RDP("CEF",getSesion(request).getConBD(),(rfb.getIdmensaje() == 0 ? "OK" : (rfb.getIdmensaje() == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(), "NOM_ASISTENCIAS", "NASI|" + rfb.getClaveret() + "|" + getSesion(request).getSesion("NOM_ASISTENCIAS").getEspecial() + "||",rfb.getRes());
-  	    irApag("/forsetiweb/nomina/nom_asistencias_dlg_server.jsp", request, response);
+	  		getSesion(request).setID_Mensaje(idmensaje, mensaje);
+	  		irApag("/forsetiweb/nomina/nom_asistencias_dlg_server.jsp", request, response);
+	  	}
+	  	catch(SQLException e)
+	  	{
+	  		e.printStackTrace();
+	  		throw new RuntimeException(e.toString());
+	  	}
+	  	finally
+		{
+			try { rs.close(); } catch (SQLException e) {}
+			try { s.close(); } catch (SQLException e) {}
+			try { con.close(); } catch (SQLException e) {}
+		}
 	  	
 	}
 

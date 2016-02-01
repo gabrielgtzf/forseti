@@ -32,7 +32,8 @@
 	{
 		set.m_Where = "ID_Compania = '0' and ID_Sucursal = '" + JUtil.getSesion(request).getSesion("NOM_CIERRE").getEspecial() +
 		 "' and ID_FechaMovimiento = '" + JUtil.p(request.getParameter("id")) + "'";
-		 set.Open();
+		set.m_OrderBy = "ID_Empleado ASC, ID_Movimiento DESC";
+		set.Open();
 	}
 	
 	
@@ -75,7 +76,7 @@ function enviarlo(formAct)
 	   <table width="100%" bordercolor="#333333" border="1" cellpadding="4" cellspacing="0">
           <tr>
             <td align="right" class="clockCef"> 
-              <%  if(JUtil.getSesion(request).getID_Mensaje() == 0) { %>
+              <%  if(JUtil.getSesion(request).getID_Mensaje() == 0 || request.getParameter("proceso").equals("CONSULTAR_CIERRE")) { %>
         			<input type="submit" name="aceptar" disabled="true" value="<%= JUtil.Msj("GLB","GLB","GLB","ACEPTAR") %>">
         			<%  } else { %>
         			<input type="submit" name="aceptar" value="<%= JUtil.Msj("GLB","GLB","GLB","ACEPTAR") %>">
@@ -132,12 +133,14 @@ function enviarlo(formAct)
 				<table  width="100%" border="0" cellspacing="0" cellpadding="2">
 				<tr bgcolor="#0099FF">
 		 		  <td width="7%" align="left" class="titChico">Clave</td>
-		 		  <td width="25%" align="left" class="titChico">Nombre</td>
-				  <td width="30%" align="left" class="titChico">Descripci&oacute;n</td>
+		 		  <td width="20%" align="left" class="titChico">Nombre</td>
+				  <td align="left" class="titChico">Descripci&oacute;n</td>
 		 		  <td width="7%" align="center" class="titChico">Desde</td>
     		 	  <td width="7%" align="center" class="titChico">Hasta</td>
     		 	  <td width="7%" align="center" class="titChico">Entrada</td>
-    		 	  <td width="7%" align="center" class="titChico">Salida</td>
+				  <td width="7%" align="center" class="titChico">Sal</td>
+    		 	  <td width="7%" align="center" class="titChico">Ent</td>
+				  <td width="7%" align="center" class="titChico">Salida</td>
     		 	  <td width="5%" align="center" class="titChico">HA</td> 
                   <td width="5%" align="center" class="titChico">HP</td>
  			</tr>
@@ -147,12 +150,17 @@ function enviarlo(formAct)
 %>				  
 			<tr>
 		 		 <td width="7%" align="left"><%= set.getAbsRow(i).getID_Empleado()  %></td>
-		 		 <td width="25%" align="left"><%= set.getAbsRow(i).getNombre()  %></td>
-				 <td width="20%" align="left"><%= set.getAbsRow(i).getDescripcion() %></td>
+		 		 <td width="20%" align="left"><%= set.getAbsRow(i).getNombre()  %></td>
+				 <td align="left"><%= set.getAbsRow(i).getDescripcion() %></td>
 		 		 <td width="7%" align="center"><%= JUtil.obtHoraTxt(set.getAbsRow(i).getDesdeHora(), "HH:mm") %></td>
     		 	 <td width="7%" align="center"><%= JUtil.obtHoraTxt(set.getAbsRow(i).getHastaHora(), "HH:mm") %></td>
-    		 	 <td width="12%" align="center"><%= JUtil.obtFechaTxt(set.getAbsRow(i).getEntrada(), "dd/MMM") + " " +  JUtil.obtHoraTxt(set.getAbsRow(i).getEntradaHora(), "HH:mm") %></td>
-    		 	 <td width="12%" align="center"><%= JUtil.obtFechaTxt(set.getAbsRow(i).getSalida(), "dd/MMM") + " " +  JUtil.obtHoraTxt(set.getAbsRow(i).getSalidaHora(), "HH:mm") %></td>
+    		 	 <td width="7%" align="center"><%= JUtil.obtFechaTxt(set.getAbsRow(i).getEntrada(), "dd/MMM") + " " +  JUtil.obtHoraTxt(set.getAbsRow(i).getEntradaHora(), "HH:mm") %></td>
+    		 	 
+				 <td width="7%" align="center"><%= (set.getAbsRow(i).getSalida2() != null ? JUtil.obtHoraTxt(set.getAbsRow(i).getSalidaHora(), "HH:mm") : "" ) %></td>
+    		 	 <td width="7%" align="center"><%= JUtil.obtHoraTxt(set.getAbsRow(i).getEntrada2Hora(), "HH:mm") %></td>
+    		 	 
+				 
+				 <td width="7%" align="center"><%= (set.getAbsRow(i).getSalida2() != null ? JUtil.obtFechaTxt(set.getAbsRow(i).getSalida2(), "dd/MMM") + " " +  JUtil.obtHoraTxt(set.getAbsRow(i).getSalida2Hora(), "HH:mm") : JUtil.obtFechaTxt(set.getAbsRow(i).getSalida(), "dd/MMM") + " " +  JUtil.obtHoraTxt(set.getAbsRow(i).getSalidaHora(), "HH:mm") ) %></td>
     		 	 <td width="5%" align="center"><%= set.getAbsRow(i).getHNA() %></td>
      		 	 <td width="5%" align="center"><%= set.getAbsRow(i).getHNP() %></td>
  			</tr>

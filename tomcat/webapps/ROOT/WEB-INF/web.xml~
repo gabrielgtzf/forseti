@@ -331,6 +331,14 @@
         <url-pattern>/servlet/SAFSmtpConn</url-pattern>
   </servlet-mapping>
  
+  <servlet>
+        <servlet-name>SAF_AwsS3Conn</servlet-name>
+        <servlet-class>fsi_admin.JAwsS3Conn</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>SAF_AwsS3Conn</servlet-name>
+        <url-pattern>/servlet/SAFAwsS3Conn</url-pattern>
+  </servlet-mapping>
   
   <servlet>
         <servlet-name>SAF_ReportesCtrl</servlet-name>
@@ -351,6 +359,14 @@
   </servlet-mapping>
 <!-- Fin CLASES SAF -->
 
+<servlet>
+        <servlet-name>CEF_Menu</servlet-name>
+        <servlet-class>forseti.JMenuCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_Menu</servlet-name>
+        <url-pattern>/servlet/CEFMenuCtrl</url-pattern>
+  </servlet-mapping>
   <servlet>
         <servlet-name>CEF_Registro</servlet-name>
         <servlet-class>forseti.JSRegistro</servlet-class>
@@ -617,6 +633,14 @@
         <url-pattern>/servlet/CEFAlmMovimientosCtrl</url-pattern>
   </servlet-mapping>
   <servlet>
+        <servlet-name>CEF_AlmUtensiliosCtrl</servlet-name>
+        <servlet-class>forseti.almacen.JAlmUtensiliosCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AlmUtensiliosCtrl</servlet-name>
+        <url-pattern>/servlet/CEFAlmUtensiliosCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
         <servlet-name>CEF_AlmMovimPlantCtrl</servlet-name>
         <servlet-class>forseti.almacen.JAlmMovimPlantCtrl</servlet-class>
   </servlet>
@@ -656,6 +680,14 @@
   <servlet-mapping>
         <servlet-name>CEF_AlmMovimientosDlg</servlet-name>
         <url-pattern>/servlet/CEFAlmMovimientosDlg</url-pattern>
+  </servlet-mapping>
+  <servlet>
+        <servlet-name>CEF_AlmUtensiliosDlg</servlet-name>
+        <servlet-class>forseti.almacen.JAlmUtensiliosDlg</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>CEF_AlmUtensiliosDlg</servlet-name>
+        <url-pattern>/servlet/CEFAlmUtensiliosDlg</url-pattern>
   </servlet-mapping>
   <servlet>
         <servlet-name>CEF_AlmMovimPlantDlg</servlet-name>

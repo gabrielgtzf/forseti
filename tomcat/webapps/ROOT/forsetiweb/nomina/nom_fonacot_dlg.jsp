@@ -86,7 +86,7 @@ function enviarlo(formAct)
 						!esNumeroEntero('Faltante:', formAct.meses.value, 0, 99) ||
 						!esNumeroEntero('Plazo:', formAct.plazo.value, 0, 99) ||
 						!esNumeroDecimal('Importe:', formAct.importe.value, 0, 99999999.99, 2) ||  
-						!esNumeroDecimal('Retencin:', formAct.retencion.value, 0, 99999999.99, 2))
+						!esNumeroDecimal('Retenciónn:', formAct.retencion.value, 0, 99999999.99, 2))
 					return false;
 				else
 				{
@@ -153,6 +153,8 @@ function enviarlo(formAct)
               <input name="subproceso" type="hidden" value="ENVIAR"> 
 			  <input name="id" type="hidden" value="<%= request.getParameter("id")%>">
               <input type="hidden" name="idpartida" value="<%= request.getParameter("idpartida") %>">
+			  <input name="meses" type="hidden" id="meses" value"0">
+			  <input name="plazo" type="hidden" id="plazo" value"0">
               Cr&eacute;dito:</td>
             <td width="30%"><input name="id_credito" type="text" id="id_credito" size="15" maxlength="15"<%= (request.getParameter("proceso").equals("CAMBIAR_FONACOT")) ? " readonly=\"true\"" : "" %>> 
             </td>
@@ -167,18 +169,10 @@ function enviarlo(formAct)
               <input name="nombre_empleado" type="text" id="nombre_empleado" size="40" maxlength="250" readonly="true"></td>
           </tr>
 		  <tr> 
-            <td width="20%"> Faltante:</td>
-            <td width="30%"><input name="meses" type="text" id="meses" size="5" maxlength="3">
-              meses </td>
-            <td width="20%">Plazo:</td>
-            <td><input name="plazo" type="text" id="plazo" size="5" maxlength="3">
-              meses </td>
-          </tr>
-		  <tr> 
-            <td width="20%"> Importe:</td>
-            <td width="30%"><input name="importe" type="text" id="importe" size="12" maxlength="10"> 
+            <td width="20%"> Importe del cr&eacute;dito:</td>
+            <td width="30%"><input name="importe" type="text" id="importe" size="15" maxlength="10"> 
             </td>
-            <td width="20%">Retenci&oacute;n:</td>
+            <td width="20%">Retenci&oacute;n mensual:</td>
             <td><input name="retencion" type="text" id="retencion" size="12" maxlength="10"> 
             </td>
           </tr>
@@ -238,8 +232,8 @@ document.nom_fonacot_dlg.id_credito.value = '<% if(request.getParameter("id_cred
 document.nom_fonacot_dlg.id_empleado.value = '<% if(request.getParameter("id_empleado") != null) { out.print( request.getParameter("id_empleado") ); } else if(!request.getParameter("proceso").equals("AGREGAR_FONACOT")) { out.print( set.getAbsRow(0).getID_Empleado() ); } else { out.print(""); } %>' 
 document.nom_fonacot_dlg.nombre_empleado.value = '<% if(request.getParameter("nombre_empleado") != null) { out.print( request.getParameter("nombre_empleado") ); } else if(!request.getParameter("proceso").equals("AGREGAR_FONACOT")) { out.print( set.getAbsRow(0).getNombre() ); } else { out.print(""); } %>' 
 document.nom_fonacot_dlg.fecha.value = '<% if(request.getParameter("fecha") != null) { out.print( request.getParameter("fecha") ); } else if(!request.getParameter("proceso").equals("AGREGAR_FONACOT")) { out.print( JUtil.obtFechaTxt(set.getAbsRow(0).getFecha(), "dd/MMM/yyyy") ); } else { out.print("") ; } %>'
-document.nom_fonacot_dlg.meses.value = '<% if(request.getParameter("meses") != null) { out.print( request.getParameter("meses") ); } else if(!request.getParameter("proceso").equals("AGREGAR_FONACOT")) { out.print( set.getAbsRow(0).getMeses() ); } else { out.print(""); } %>' 
-document.nom_fonacot_dlg.plazo.value = '<% if(request.getParameter("plazo") != null) { out.print( request.getParameter("plazo") ); } else if(!request.getParameter("proceso").equals("AGREGAR_FONACOT")) { out.print( set.getAbsRow(0).getPlazo() ); } else { out.print(""); } %>' 
+document.nom_fonacot_dlg.meses.value = '<% if(request.getParameter("meses") != null) { out.print( request.getParameter("meses") ); } else if(!request.getParameter("proceso").equals("AGREGAR_FONACOT")) { out.print( set.getAbsRow(0).getMeses() ); } else { out.print("0"); } %>' 
+document.nom_fonacot_dlg.plazo.value = '<% if(request.getParameter("plazo") != null) { out.print( request.getParameter("plazo") ); } else if(!request.getParameter("proceso").equals("AGREGAR_FONACOT")) { out.print( set.getAbsRow(0).getPlazo() ); } else { out.print("0"); } %>' 
 document.nom_fonacot_dlg.importe.value = '<% if(request.getParameter("importe") != null) { out.print( request.getParameter("importe") ); } else if(!request.getParameter("proceso").equals("AGREGAR_FONACOT")) { out.print( set.getAbsRow(0).getImporte() ); } else { out.print(""); } %>' 
 document.nom_fonacot_dlg.retencion.value = '<% if(request.getParameter("retencion") != null) { out.print( request.getParameter("retencion") ); } else if(!request.getParameter("proceso").equals("AGREGAR_FONACOT")) { out.print( set.getAbsRow(0).getRetencion() ); } else { out.print(""); } %>' 
 </script>

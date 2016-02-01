@@ -104,8 +104,8 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 			<td width="10%" align="center"><a class="titChico" href="/servlet/CEFNomMovDirCtrl?orden=Fecha_Desde&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
     		<td width="10%" align="center"><a class="titChico" href="/servlet/CEFNomMovDirCtrl?orden=Fecha_Hasta&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
     		<td width="8%" align="left"><a class="titChico" href="/servlet/CEFNomMovDirCtrl?orden=Proteccion&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-			<td width="3%" align="left"><a class="titChico" href="/servlet/CEFNomMovDirCtrl?orden=Status&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-			<td width="8%" align="left"><a class="titChico" href="/servlet/CEFNomMovDirCtrl?orden=Poliza&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
+			<td width="11%" align="left"><a class="titChico" href="/servlet/CEFNomMovDirCtrl?orden=Status&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
+			<!--td width="8%" align="left"><a class="titChico" href="/servlet/CEFNomMovDirCtrl?orden=Poliza&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td-->
 			<td align="left"><a class="titChico" href="/servlet/CEFNomMovDirCtrl?orden=Pago&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
  		</tr>
 	 </table>
@@ -127,6 +127,13 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 	set.Open();
 	for(int i=0; i < set.getNumRows(); i++)
 	{
+		String status;
+		if(set.getAbsRow(i).getStatus().equals("G"))
+			status = "Guardada";
+		else if(set.getAbsRow(i).getStatus().equals("P"))
+			status = "Pagada";
+		else
+			status = "No identificado";
 %>
     	 <tr>
 		  <td width="3%" align="center"><input type="radio" name="id" value="<%= set.getAbsRow(i).getID_Nomina() %>"></td>
@@ -136,8 +143,8 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 		  <td width="10%" align="center"><%= JUtil.obtFechaTxt(set.getAbsRow(i).getFecha_Desde(), "dd/MMM/yyyy")  %></td>
 		  <td width="10%" align="center"><%= JUtil.obtFechaTxt(set.getAbsRow(i).getFecha_Hasta(), "dd/MMM/yyyy")  %></td>
 		  <td width="8%" align="left"><%= set.getAbsRow(i).getProteccion()  %></td>
-		  <td width="3%" align="left"><%= set.getAbsRow(i).getStatus()  %></td>
-		  <td width="8%" align="left"><%= set.getAbsRow(i).getPol()  %></td>
+		  <td width="11%" align="left"><%= status %></td>
+		  <!--td width="8%" align="left"><%= set.getAbsRow(i).getPol()  %></td-->
 		  <td align="left"><%= set.getAbsRow(i).getPago()  %></td>
   	 	 </tr>		
 <%

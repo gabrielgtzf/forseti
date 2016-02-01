@@ -358,10 +358,10 @@ public class JVenFactSes extends JSesionRegsObjs
 		 }
 		 else
 		 {
-			 if(m_part_ID_Tipo.equals("P") && (fprecio < set.getAbsRow(0).getPrecioMin() || fprecio > set.getAbsRow(0).getPrecioMax()) )
+			 if((m_part_ID_Tipo.equals("P") || m_part_ID_Tipo.equals("S")) && (fprecio < set.getAbsRow(0).getPrecioMin() || fprecio > set.getAbsRow(0).getPrecioMax()) )
 			 {
 			     res = 1;
-			     mensaje.append("PRECAUCION: El precio para este producto, parece ser menor al mínimo ó mayor al máximo. No se puede agregar el producto");
+			     mensaje.append("PRECAUCION: El precio para este producto o servicio, parece ser menor al mínimo o mayor al máximo. No se puede agregar la partida");
 			 }
 			 else
 			 {
@@ -526,10 +526,10 @@ public class JVenFactSes extends JSesionRegsObjs
 		 }
 		 else
 		 {
-			 if(m_part_ID_Tipo.equals("P") && (fprecio < set.getAbsRow(0).getPrecioMin() || fprecio > set.getAbsRow(0).getPrecioMax()) )
+			 if((m_part_ID_Tipo.equals("P") || m_part_ID_Tipo.equals("S")) && (fprecio < set.getAbsRow(0).getPrecioMin() || fprecio > set.getAbsRow(0).getPrecioMax()) )
 			 {
 				 res = 1;
-				 mensaje.append("PRECAUCION: El precio para este producto, parece ser menor al mínimo ó mayor al máximo. No se puede agregar el producto");
+				 mensaje.append("PRECAUCION: El precio para este producto o servicio, parece ser menor al mínimo ó mayor al máximo. No se puede agregar la partida");
 			 }
 			 else
 			 {
@@ -1028,6 +1028,12 @@ public class JVenFactSes extends JSesionRegsObjs
 				}
 			}
 			
+			if(part.getID_Prod().equals(""))
+			{
+				res = 3;
+				sb_mensaje.append("ERROR: Partida " + (i+1) + ": La clave esta vacía, debes establecer una clave del catálogo<br>");
+	    	}
+			
 			if(!part.getID_Prod().equals(part.getID_ProdAnt())) // si ha cambiado el producto, lo carga desde la base de datos
 			{
 				JPublicInvServInvCatalogSetV2 set = new JPublicInvServInvCatalogSetV2(request);
@@ -1093,7 +1099,7 @@ public class JVenFactSes extends JSesionRegsObjs
 						else if(fiva == -1) //Importe determinado... Calcula la tasa segun importe total menos descuento
 							fiva = (( fivaimp / (part.getImporte() - part.getImporteDesc()) ) * 100.0F);
 						
-						if(fieps == -1 && fieps == -1) //No determinados, permanecen igual
+						if(fieps == -1 && fiepsimp == -1) //No determinados, permanecen igual
 						{
 							fieps = part.getIEPS();
 							fiepsimp = part.getImporteIEPS();
@@ -1361,29 +1367,29 @@ public class JVenFactSes extends JSesionRegsObjs
 			sb_mensaje.append("Importes de IVA en el documento: " + numIVA + " Importes de IVA en el XML: " + objIVA + " Diferencia: " + (numIVA - objIVA) + "<br>");
 		if((sumIVA - sumObjIVA) > 0.011F || (sumIVA - sumObjIVA) < -0.011F)
 		{
-			res = 3;
-			sb_mensaje.append("ERROR: Total de IVA en el documento: " + JUtil.redondear(sumIVA,2) + " Total de IVA en el XML: " + JUtil.redondear(sumObjIVA,2) + " Diferencia: " + JUtil.redondear(sumIVA - sumObjIVA,4) + "<br>");
+			//res = -1;
+			sb_mensaje.append("PRECAUCION: Total de IVA en el documento: " + JUtil.redondear(sumIVA,2) + " Total de IVA en el XML: " + JUtil.redondear(sumObjIVA,2) + " Diferencia: " + JUtil.redondear(sumIVA - sumObjIVA,4) + "<br>");
 		}
 		if(numIEPS != objIEPS)
 			sb_mensaje.append("Importes de IEPS en el documento: " + numIEPS + " Importes de IEPS en el XML: " + objIEPS + " Diferencia: " + (numIEPS - objIEPS) + "<br>");
 		if((sumIEPS - sumObjIEPS) > 0.011F || (sumIEPS - sumObjIEPS) < -0.011F)
 		{
-			res = 3;
-			sb_mensaje.append("ERROR: Total de IEPS en el documento: " + JUtil.redondear(sumIEPS,2) + " Total de IEPS en el XML: " + JUtil.redondear(sumObjIEPS,2) + " Diferencia: " + JUtil.redondear(sumIEPS - sumObjIEPS,4) + "<br>");
+			//res = -1;
+			sb_mensaje.append("PRECAUCION: Total de IEPS en el documento: " + JUtil.redondear(sumIEPS,2) + " Total de IEPS en el XML: " + JUtil.redondear(sumObjIEPS,2) + " Diferencia: " + JUtil.redondear(sumIEPS - sumObjIEPS,4) + "<br>");
 		}
 		if(numIVARet != objIVARet)
 			sb_mensaje.append("Importes de IVA Retenido en el documento: " + numIVARet + " Importes de IVA Retenido en el XML: " + objIVARet + " Diferencia: " + (numIVARet - objIVARet) + "<br>");
 		if((sumIVARet - sumObjIVARet) > 0.011F || (sumIVARet - sumObjIVARet) < -0.011F)
 		{
-			res = 1;
-			sb_mensaje.append("ERROR: Total de IVA Retenido en el documento: " + JUtil.redondear(sumIVARet,2) + " Total de IVA Retenido en el XML: " + JUtil.redondear(sumObjIVARet,2) + " Diferencia: " + JUtil.redondear(sumIVARet - sumObjIVARet,4) + "<br>");
+			//res = -1;
+			sb_mensaje.append("PRECAUCION: Total de IVA Retenido en el documento: " + JUtil.redondear(sumIVARet,2) + " Total de IVA Retenido en el XML: " + JUtil.redondear(sumObjIVARet,2) + " Diferencia: " + JUtil.redondear(sumIVARet - sumObjIVARet,4) + "<br>");
 		}
 		if(numISRRet != objISRRet)
 			sb_mensaje.append("Importes de ISR Retenido en el documento: " + numISRRet + " Importes de ISR Retenido en el XML: " + objISRRet + " Diferencia: " + (numISRRet - objISRRet) + "<br>");
 		if((sumISRRet - sumObjISRRet) > 0.011F || (sumISRRet - sumObjISRRet) < -0.011F)
 		{
-			res = 3;
-			sb_mensaje.append("ERROR: Total de ISR Retenido en el documento: " + JUtil.redondear(sumISRRet,2) + " Total de ISR Retenido en el XML: " + JUtil.redondear(sumObjISRRet,2) + " Diferencia: " + JUtil.redondear(sumISRRet - sumObjISRRet,4) + "<br>");
+			//res = -1;
+			sb_mensaje.append("PRECAUCION: Total de ISR Retenido en el documento: " + JUtil.redondear(sumISRRet,2) + " Total de ISR Retenido en el XML: " + JUtil.redondear(sumObjISRRet,2) + " Diferencia: " + JUtil.redondear(sumISRRet - sumObjISRRet,4) + "<br>");
 		}
 		
 		return res;
@@ -1473,7 +1479,7 @@ public class JVenFactSes extends JSesionRegsObjs
 		  short idmensaje = establecerConcordancia(request, sb_mensaje);
 		  establecerResultados();
 			
-		  if((m_Total - m_TotalUUIDs) > 0.1F || (m_Total - m_TotalUUIDs) < -0.1)
+		  if((m_Total - m_TotalUUIDs) > 0.1 || (m_Total - m_TotalUUIDs) < -0.1)
 		  {
 			  sb_mensaje.append("ERROR: El total en el o los CFDI no corresponden al Total calculado en el registro a partir de estos CFDI. No se puede agregar. DOC: " + m_Total + " XML: " + m_TotalUUIDs);
 			  return 3;
@@ -2002,5 +2008,10 @@ public class JVenFactSes extends JSesionRegsObjs
   public void setTotalUUIDs(float TotalUUIDs)
   {
 	  m_TotalUUIDs = TotalUUIDs;
+  }
+  
+  public float getIVAPorcentual()
+  {
+	  return m_IVAPorcentual;
   }
 }

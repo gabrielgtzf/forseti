@@ -92,16 +92,11 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 	  <table width="100%" border="0" cellpadding="1" cellspacing="0">
         <tr>
 			<td width="5%" align="center">&nbsp;</td>
-		  	<td width="10%" align="left"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=ID_Movimiento&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-            <td width="42%" align="left"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=Descripcion&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-   	        <td width="5%" align="center"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=Deduccion&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-     	  	<td width="10%" align="center"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=Tipo_Movimiento&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-    	    <td width="5%" align="center"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=IMSS&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-     	    <td width="5%" align="center"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=ISPT&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-     	    <td width="5%" align="center"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=DOSPOR&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-     	    <td width="5%" align="center"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=SAR&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-     	    <td width="5%" align="center"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=INFONAVIT&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-     	    <td width="5%" align="center"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=PTU&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
+		  	<td width="15%" align="left"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=ID_Movimiento&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
+            <td align="left"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=Descripcion&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
+   	        <td width="7%" align="center"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=Deduccion&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
+     	  	<td width="7%" align="center"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=ISPT&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
+     	    <td width="7%" align="center"><a class="titChico" href="/servlet/CEFNomMovimNomCtrl?orden=ID_SAT&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
         </tr>
 	 </table>
 	</td>
@@ -124,17 +119,12 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 	{
 %>
           <tr>
-		  <td width="3%" align="center"><input type="radio" name="id" value="<%= set.getAbsRow(i).getID_Movimiento() %>"></td>
-		  <td width="10%" align="left"><%= set.getAbsRow(i).getID_Movimiento() %></td>
-		  <td width="42%" align="left"><%= set.getAbsRow(i).getDescripcion()  %></td>
-		  <td width="5%" align="center"><%= (set.getAbsRow(i).getDeduccion()) ? "X" : "---" %></td>
-    	  <td width="10%" align="center"><%= (!set.getAbsRow(i).getTipo_Movimiento().equals("DIN") ? set.getAbsRow(i).getTipo_Movimiento()  :  "&nbsp;" )  %></td>
-		  <td width="5%" align="center"><% if(set.getAbsRow(i).getTipo_Movimiento().equals("DIN")) { %><%= (set.getAbsRow(i).getIMSS()) ? "X" : "---" %><% } else { out.print("&nbsp;");} %></td>
-    	  <td width="5%" align="center"><% if(set.getAbsRow(i).getTipo_Movimiento().equals("DIN")) { %><%= (set.getAbsRow(i).getISPT()) ? "X" : "---" %><% } else { out.print("&nbsp;");} %></td>
-    	  <td width="5%" align="center"><% if(set.getAbsRow(i).getTipo_Movimiento().equals("DIN")) { %><%= (set.getAbsRow(i).getDOSPOR()) ? "X" : "---" %><% } else { out.print("&nbsp;");} %></td>
-    	  <td width="5%" align="center"><% if(set.getAbsRow(i).getTipo_Movimiento().equals("DIN")) { %><%= (set.getAbsRow(i).getSAR()) ? "X" : "---" %><% } else { out.print("&nbsp;");} %></td>
-    	  <td width="5%" align="center"><% if(set.getAbsRow(i).getTipo_Movimiento().equals("DIN")) { %><%= (set.getAbsRow(i).getINFONAVIT()) ? "X" : "---" %><% } else { out.print("&nbsp;");} %></td>
-    	  <td width="5%" align="center"><% if(set.getAbsRow(i).getTipo_Movimiento().equals("DIN")) { %><%= (set.getAbsRow(i).getPTU()) ? "X" : "---" %><% } else { out.print("&nbsp;");} %></td>
+		  <td width="5%" align="center"><input type="radio" name="id" value="<%= set.getAbsRow(i).getID_Movimiento() %>"></td>
+		  <td width="15%" align="left"><%= set.getAbsRow(i).getID_Movimiento() %></td>
+		  <td align="left"><%= set.getAbsRow(i).getDescripcion()  %></td>
+		  <td width="7%" align="center"><%= (set.getAbsRow(i).getDeduccion()) ? "X" : "---" %></td>
+    	  <td width="7%" align="center"><% if(set.getAbsRow(i).getTipo_Movimiento().equals("DIN")) { %><%= (set.getAbsRow(i).getISPT()) ? "X" : "---" %><% } else { out.print("&nbsp;");} %></td>
+    	  <td width="7%" align="center"><%= set.getAbsRow(i).getID_SAT() %></td>
    </tr>		
 <%
 	}
