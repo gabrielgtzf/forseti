@@ -39,6 +39,8 @@ public class JFacturasXML
 	private String m_RFC_Emisor;
 	private String m_Nombre_Emisor;
 	private String m_RFC_Receptor;
+	private Vector m_Incapacidades;
+	private Vector m_HorasExtras;
 	
 	public JFacturasXML()
 	{
@@ -53,6 +55,8 @@ public class JFacturasXML
 		m_Retenciones = new Vector();
 		m_Percepciones = new Vector();
 		m_Deducciones = new Vector();
+		m_Incapacidades = new Vector();
+		m_HorasExtras = new Vector();
  	}
 	
 	public void setOK(boolean bOK)
@@ -153,5 +157,15 @@ public class JFacturasXML
 	public Vector getDeducciones() 
 	{
 		return m_Deducciones;
+	}
+
+	public Vector getIncapacidades() 
+	{
+		return m_Incapacidades;
+	}
+
+	public Vector getHorasExtras() 
+	{
+		return m_HorasExtras;
 	}
 }

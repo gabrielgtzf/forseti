@@ -395,7 +395,7 @@ public class JRastreo
 				_POLZ(request, Niv3, Long.toString(ID_Pol));
 			}
 		}
-		else
+		else if(SetCab.getAbsRow(0).getCondicion() == 1) // es credito
 		{
 			if(Niv3 == null)
 			{
@@ -404,7 +404,12 @@ public class JRastreo
 			}
 			_VCXC(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_Pol()), Niv3, null);
 		}
-		 	
+    	else //Ningun metodo de pago
+		{
+			 if(SetMod.getAbsRow(0).getID_Pol() != -1)
+				_POLZ(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_Pol()));
+		}
+		
 		if(SetMod.getAbsRow(0).getID_PolCost() != -1)
 		{
 			_MALM(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_PolCost()), Niv3);
@@ -456,8 +461,8 @@ public class JRastreo
 				_POLZ(request, Niv3, Long.toString(ID_Pol));
 			}
 		}
-		else
-		{
+		else if(SetCab.getAbsRow(0).getCondicion() == 1) // es credito
+	    {
 			if(Niv3 == null)
 			{
 				Niv3 = new JRastreoNiv();
@@ -465,7 +470,12 @@ public class JRastreo
 			}
 			_CCXP(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_Pol()), Niv3, null);
 		}
-		 	
+    	else //Ningun metodo de pago
+		{
+			 if(SetMod.getAbsRow(0).getID_Pol() != -1)
+				_POLZ(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_Pol()));
+		}
+		
 		if(SetMod.getAbsRow(0).getID_PolCost() != -1)
 		{
 			_MALM(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_PolCost()), Niv3);
@@ -665,13 +675,18 @@ public class JRastreo
 				_POLZ(request, Niv3, Long.toString(ID_Pol));
 			}
 		 }
-		 else
+		 else if(SetCab.getAbsRow(0).getCondicion() == 1) // es credito
 		 {
 			 Niv3 = new JRastreoNiv();
 			 m_Niv.addElement(Niv3);
 			 _VCXC(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_Pol()), Niv3, null);
 		 }
-
+		 else //Ningun metodo de pago
+		 {
+			 if(SetMod.getAbsRow(0).getID_Pol() != -1)
+				_POLZ(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_Pol()));
+		 }
+		
 		 if(SetMod.getAbsRow(0).getID_PolCost() != -1)
 		 {
 			 _MALM(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_PolCost()), Niv3);
@@ -767,11 +782,16 @@ public class JRastreo
 				_POLZ(request, Niv3, Long.toString(ID_Pol));
 			}
 		 }
-		 else
+		 else if(SetCab.getAbsRow(0).getCondicion() == 1) // es credito
 		 {
 			 Niv3 = new JRastreoNiv();
 			 m_Niv.addElement(Niv3);
 			 _CCXP(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_Pol()), Niv3, null);
+		 }
+		 else //Ningun metodo de pago
+		 {
+			 if(SetMod.getAbsRow(0).getID_Pol() != -1)
+				_POLZ(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_Pol()));
 		 }
 
 		 if(SetMod.getAbsRow(0).getID_PolCost() != -1)
@@ -866,13 +886,18 @@ public class JRastreo
 				_POLZ(request, Niv3, Long.toString(ID_Pol));
 			}
 		 }
-		 else
-		 {
+		 else if(SetCab.getAbsRow(0).getCondicion() == 1) // es credito
+	     {
 			 Niv3 = new JRastreoNiv();
 			 m_Niv.addElement(Niv3);
 			 _CCXP(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_Pol()), Niv3, null);
 		 }
-
+		 else //Ningun metodo de pago
+		 {
+			 if(SetMod.getAbsRow(0).getID_Pol() != -1)
+				 _POLZ(request, Niv2, Long.toString(SetMod.getAbsRow(0).getID_Pol()));
+		 } 
+		 		
 		/* tadavia no soporta movimiento al almacen de utensilios
 		 if(SetMod.getAbsRow(0).getID_PolCost() != -1)
 		 {
@@ -2003,8 +2028,10 @@ public class JRastreo
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","CONDICION");
          if(SetCab.getAbsRow(0).getCondicion() == 0)
         	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CONTADO");
-         else
-        	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CREDITO");
+         else if(SetCab.getAbsRow(0).getCondicion() == 1)
+             elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CREDITO");
+         else //Ningun metodo de pago
+        	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","NINGUN");
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","CLAVE");
          elm.cabsval[numcab++] = SetMod.getAbsRow(0).getID_Cliente() + " - "+ SetMod.getAbsRow(0).getCliente();
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","VENDEDOR");
@@ -2115,8 +2142,10 @@ public class JRastreo
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","CONDICION");
          if(SetCab.getAbsRow(0).getCondicion() == 0)
         	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CONTADO");
-         else
-        	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CREDITO");
+         else if(SetCab.getAbsRow(0).getCondicion() == 1)
+             elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CREDITO");
+         else //Ningun metodo de pago
+        	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","NINGUN");
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","CLAVE");
          elm.cabsval[numcab++] = SetMod.getAbsRow(0).getID_Proveedor() + " - "+ SetMod.getAbsRow(0).getProveedor();
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","IMPORTE");
@@ -2226,8 +2255,10 @@ public class JRastreo
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","CONDICION");
          if(SetCab.getAbsRow(0).getCondicion() == 0)
         	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CONTADO");
-         else
-        	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CREDITO");
+         else if(SetCab.getAbsRow(0).getCondicion() == 1)
+             elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CREDITO");
+         else //Ningun metodo de pago
+        	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","NINGUN");
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","CLAVE");
          elm.cabsval[numcab++] = SetMod.getAbsRow(0).getID_Cliente() + " - "+ SetMod.getAbsRow(0).getCliente();
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","VENDEDOR");
@@ -2339,8 +2370,10 @@ public class JRastreo
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","CONDICION");
          if(SetCab.getAbsRow(0).getCondicion() == 0)
         	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CONTADO");
-         else
-        	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CREDITO");
+         else if(SetCab.getAbsRow(0).getCondicion() == 1)
+             elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CREDITO");
+         else //Ningun metodo de pago
+        	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","NINGUN");
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","CLAVE");
          elm.cabsval[numcab++] = SetMod.getAbsRow(0).getID_Proveedor() + " - "+ SetMod.getAbsRow(0).getProveedor();
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","IMPORTE");
@@ -2438,8 +2471,10 @@ public class JRastreo
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","CONDICION");
          if(SetCab.getAbsRow(0).getCondicion() == 0)
         	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CONTADO");
-         else
-        	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CREDITO");
+         else if(SetCab.getAbsRow(0).getCondicion() == 1)
+             elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","CREDITO");
+         else //Ningun metodo de pago
+        	 elm.cabsval[numcab++] = JUtil.Msj("GLB","GLB","GLB","NINGUN");
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","CLAVE");
          elm.cabsval[numcab++] = SetMod.getAbsRow(0).getID_Proveedor() + " - "+ SetMod.getAbsRow(0).getProveedor();
          elm.cabsetq[numcab] = JUtil.Msj("GLB","GLB","GLB","IMPORTE");

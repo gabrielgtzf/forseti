@@ -106,6 +106,7 @@ if(parent.ztatuz.document.URL.indexOf('alm_utensilios_sts.jsp') == -1) {
 <%
 	}
 %>
+              <a href="/servlet/CEFReportesCtrl?tipo=ALM_UTENSILIOS" target="_self"><img src="../imgfsi/rep_almacen.png" alt="" title="<%= JUtil.Msj("GLB","GLB","GLB","REPORTES") %>" width="30" height="30" border="0"></a> 
               <a href="javascript:try { gestionarArchivos2('ALM_UTENSILIOS', '<%= vista %>', document.alm_utensilios.ID.value, ''); } catch(err) { gestionarArchivos2('ALM_UTENSILIOS', '<%= vista %>', '', ''); }" target="_self"><img src="../imgfsi/es_gestionar_archivos.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",5) %>" border="0"></a> 
 			  <a href="/servlet/CEFAlmUtensiliosCtrl" target="_self"><img src="../imgfsi/actualizar.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",1) %>" border="0"></a> 
               <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'IMPRIMIR',400,250)" src="../imgfsi/imprimir.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",2) %>" border="0">

@@ -99,6 +99,7 @@ if(parent.ztatuz.document.URL.indexOf('ven_pol_sts.jsp') == -1) {
 <%
 	}
 %>
+              <a href="/servlet/CEFReportesCtrl?tipo=VEN_POL" target="_self"><img src="../imgfsi/rep_ventas.png" alt="" title="<%= JUtil.Msj("GLB","GLB","GLB","REPORTES") %>" width="30" height="30" border="0"></a> 
               <a href="javascript:try { gestionarArchivos2('VEN_POL', '<%= ent %>', document.ven_pol.ID.value, ''); } catch(err) { gestionarArchivos2('VEN_POL', '<%= ent %>', '', ''); }" target="_self"><img src="../imgfsi/es_gestionar_archivos.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",5) %>" border="0"></a> 
 			  <a href="/servlet/CEFVenPoliticasCtrl" target="_self"><img src="../imgfsi/actualizar.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",1) %>" border="0"></a> 
             </div></td>

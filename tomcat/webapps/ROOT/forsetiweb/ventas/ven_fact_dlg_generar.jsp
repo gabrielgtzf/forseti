@@ -164,10 +164,10 @@ else
               <input name="ID" type="hidden" value="<%= request.getParameter("ID") %>"> 
               <input name="tipomov" type="hidden" value="<%= request.getParameter("tipomov") %>"> 
               <input name="forma_pago" type="hidden" value="<%= rec.getForma_Pago() %>"> 
-			  <input name='fsipg_cambio' type='hidden'>
-			  <input name='fsipg_efectivo' type='hidden'>
-			  <input name='fsipg_beneficiario' type='hidden' value="<%= rec.getNombre() %>">
-			  <input name='fsipg_rfc' type='hidden' value="<%= rec.getRFC() %>">
+			  <input name="fsipg_cambio" type="hidden">
+			  <input name="fsipg_efectivo" type="hidden">
+			  <input name="fsipg_beneficiario" type="hidden" value="<%= rec.getNombre() %>">
+			  <input name="fsipg_rfc" type="hidden" value="<%= rec.getRFC() %>">
 <%		
 		if(cv.getNumRows() > 0)
 		{

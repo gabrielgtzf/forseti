@@ -228,12 +228,36 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
  
 				
  
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
 				 				 				 				 				 				 				 				 				 				
 
 <div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 							El módulo administrativo de Servidor y Empresas del SAF te permite controlar:<br />
-<ul> <li>La configuración de propiedades del servidor.</li> <li>Las actualizaciones del mismo.</li> <li>Las propiedades de las empresas.</li> <li>Los respaldos y restauración de empresas individuales.</li> <li>El desarrollo de reportes y gráficas para el mismo SAF o para empresas del CEF.</li>
+<ul> <li>La configuración de propiedades del servidor.</li> <li>Las actualizaciones del mismo.</li> <li>Las propiedades de las empresas.</li> <li>Los respaldos y restauración de empresas individuales.</li>
+ <li>Los respaldos del servidor completo.<br />
+</li> <li>El desarrollo de reportes y gráficas para el mismo SAF o para empresas del CEF.</li>
 </ul>Los paneles Izquierdo, Derecho e Inferior aparecen vacíos porque este módulo no los utiliza.</div>
-<p>Las columnas por defecto que muestra el panel de cuerpo principal de este módulo son la siguientes:</p>
+<p>El panel de cuerpo principal muestra las bases de datos (empresas) instaladas en este servidor. Las columnas por defecto son la siguientes:</p>
 <div align="justify">
 <ul> <li>
 <strong>Clave.</strong> Es el identificador de la base de datos. Este, se debe ingresar al registro de inicio de sesión en el CEF.<br />
@@ -273,8 +297,10 @@ Estas propiedades engloban configuraciones generales que necesita el servidor pa
 <strong>Ruta de Instalación de TOMCAT</strong>, Es donde quedó instalado el servidor web Tomcat7. En distribuciones basadas en Ubuntu por lo general se instala en "/var/lib/tomcat7". &nbsp;&nbsp;&nbsp; </li> <li>
 <strong>Ruta del OpenJDK o Java JDK</strong>, Es donde quedó instalada la Máquina Virtual de Java utilizada por tomcat y la aplicación forseti.</li> <li>
 <strong>Nombre de este servidor,</strong> Un nombre común para identificar este servidor ante las terminales que se conecten a el. Si se es proveedor del servicio de Out-Sourcing, este nombre debería hacer referencia a tu negocio. &nbsp;&nbsp;&nbsp; </li> <li>
-<strong>URL de revisión y descarga de actualizaciones forseti</strong>, Es la URL del servidor que contenga las actualizaciones de forseti. Estas se publican en la sección la sección <a href="070205.html">SOF / Anexos / Rutas de descarga</a>. &nbsp;&nbsp;&nbsp; </li> <li>
-<strong>Contraseña de fsi</strong>, Esta es muy importante. fsi es el usuario administrativo del SAF, fsi puede hacer todo, y absolutamente todo dentro del SAF, por lo tanto, se debería proporcionar una contraseña bastante fuerte y cambiarse regularmente. Se sugiere no usar este usuario para ninguna tarea, por el contrario, se debería dar de alta un rol administrativo y asignarle los permisos necesarios. <strong>NOTA MUY IMPORTANTE</strong>: Si se deja en blanco esta contraseña, no se cambiará.</li> <li>
+<strong>URL de revisión y descarga de actualizaciones forseti</strong>, Es la URL del servidor que contenga las actualizaciones de forseti. Estas se publican en la sección <a href="070205.html">SOF / Anexos / Rutas de descarga</a>. &nbsp;&nbsp;&nbsp; </li> <li>
+<strong>Contraseña de fsi</strong>, Esta es muy importante. fsi es el usuario administrativo del SAF, fsi puede hacer todo, y absolutamente todo dentro del SAF, por lo tanto, se debería proporcionar una contraseña bastante fuerte y cambiarse regularmente. Se sugiere no usar este usuario para ninguna tarea, por el contrario, se debería dar de alta un rol administrativo y asignarle los permisos necesarios. <strong>NOTA MUY IMPORTANTE</strong>: Si se deja en blanco esta contraseña, no se cambiará.</li>
+ <li>
+<strong>Confirmación de contraseña de fsi</strong>, Debes confirmar aquí, la misma contraseña del campo anterior o dejarla en blanco si no se cambiará</li> <li>
 <strong>Infraestructura PostgreSQL</strong>, Esta debe ser Local o Segundo Servidor, AWS RDS se utilizaba en el pasado para infraestructuras de base de datos montadas en el servicio Amazon Relational Database Systems. Este campo indicaba al servidor ejecutar o no, respaldos de servidor al nivel de bases de datos. Como en una infraestructura RDS los respaldos se generan por el servicio,  en caso de estar seleccionado, el servidor forseti no generaba respaldos de todo el servidor. Hoy en día, esto no tiene efecto ya que se generan respaldo aún sobre infraestructuras RDS, y solo se proporciona para compatibilidad hacia atrás. </li> <li>
 <strong>Ruta de Respaldos</strong>, Es la ruta donde se guardarán los archivos ZIP de los respaldos generados de todo el servidor, o de las bases de datos individuales.</li>
 </ul>
@@ -283,7 +309,7 @@ El gestor de tareas automáticas, permite al servidor forseti, ejecutar procesos
 <ul> <li>
 <strong>Hora de comienzo de procesos</strong>, Es la hora a la que se ejecutará el gestor de tareas automáticas. Esta debe estar en formato <strong>hh:mm</strong> de 24 hrs, por ejemplo, 13:10 para la una de la tarde con diez minutos. La hora, la toma del reloj del servidor web y ésta debería ser una hora en la cual el servidor forseti tenga la menor carga de trabajo posible, ya que estos procesos pueden alentar bastante el servicio.</li> <li>
 <strong>Revisión de actualizaciones disponibles</strong>, Bandera para marcar si es que se desea que el gestor ejecute el proceso de actualización de versión del servidor (si administras bien el servidor te sugerimos no activar esta bandera y mejor hacer las actualizaciones manualmente). </li> <li>
-<strong>Respaldos</strong>, Bandera para marcar si es que se requieren respaldos diarios automáticos de todo el servidor. <strong>NOTA</strong>: Los respaldos de todo el servidor solo se pueden realizar desde el gestor de tareas, y no manualmente como si se puede con los respaldos de bases de datos individuales.</li> <li>
+<strong>Respaldos</strong>, Bandera para marcar si es que se requieren respaldos diarios automáticos de todo el servidor.</li> <li>
 <strong>Actualización de saldos y otros, en todas las empresas,</strong> Bandera para indicar si se desea realizar la actualización de saldos, existencias y otras actualizaciones que se necesitan realizar en cada empresa instalada en el servidor.Véase el <a href="051002.html">CEF/Centro de control/Saldos</a> para mayor información sobre lo que son estas actualizaciones.<br />
 </li>
 </ul>
@@ -324,7 +350,7 @@ Por último, la API JAwsS3Conn recibe el archivo desde el "servidor cliente" y l
 permiso para su consumo. Esta base de datos debe incluso contener un 
 registro del servidor local, de lo contrario, no se podrá consumir 
 localmente. Cada registro contiene el uuid del servidor cliente, el usuario y la
- contraseña. Además, debe de contener el nombre de cada base de datos de cada servidor cliente y algunas otras configuraciones para cada uno de los tres servicios. Estos datos se gestionan directamente en la base de datos FORSETI_ADMIN y no existe ninguna interfaz web para dicho propósito por lo que tendrán que ser manipuladas directamente a través de un cliente PostgreSQL como psql. La estructura utilizada es la siguiente:</p>
+ contraseña. Además, debe de contener el nombre de cada base de datos de cada servidor cliente y algunas otras configuraciones para cada uno de los tres servicios. Estos datos se gestionan directamente en la base de datos FORSETI_ADMIN ya que actualmente la interfaz web para dicho propósito está aún en desarrollo, por lo que tendrán que ser manipuladas directamente a través de un cliente PostgreSQL como psql. La estructura utilizada es la siguiente:</p>
 <table border="1">
   <tbody>
     <tr> 
@@ -464,7 +490,7 @@ no tenga cuenta con Edicom, con un servicio de SMTP o con Amazon S3 y que utilic
 empresarial, pueda aún timbrar sus facturas y demás comprobantes, mandar correo automático y alojar sus archivos en la nube. En el 
 proyecto <a href="070106.html">SOF</a> de la página oficial forseti.org.mx se brinda información sobre servidores con la API activa.</p>
 <p>
-Para dar de alta tu servidor forseti para tener tus APIs activas, necesitarás tener cuentas con los servicios de Edicom, de cualquier SMTP y de Amazon S3. Ya teniendo tus cuentas activas de estos servicios, podras configurarlas en las siguientes tres secciones.<br />
+Para dar de alta tu servidor forseti para tener tus APIs activas, necesitarás tener cuentas con los servicios de Edicom, de Amazon SES u otro SMTP y de Amazon S3. Ya teniendo tus cuentas activas de estos servicios, podrás configurarlas en las siguientes tres secciones.<br />
 </p>
 <strong>
 Datos del Proveedor Autorizado de Certificación (si, y solo si este servidor brinda el servicio de timbrado):</strong><br />
@@ -495,7 +521,7 @@ Datos del Proveedor Autorizado de Certificación (si, y solo si este servidor br
 </p>
 <p>
 <strong>2 .- Actualizar Servidor.</strong>
-</p>Al ejecutar este proceso, el servidor primero verifica si existen actualizaciones disponibles. Este proceso usa el URL configurada en las propiedades del servidor, y en caso de que este servidor demuestre estar en su última versión, el proceso terminará en este punto. De lo contrario, descargará todos los archivos de actualización necesarios para dejar este servidor en la última versión disponible, y los ejecutará uno por uno. Por ejemplo, si la versión del servidor es la 4.0.7, y hubieran disponibles las revisiones 8, 9 y 10, se instalará primero la actualización 4.0.8. Al finalizar, proseguirá con la instalación de la actualización 4.0.9, y al finalizar ésta, con la 4.0.10, y en este punto finalizará el proceso. Como cada una de las actualizaciones puede quedar inconclusa (por fallas en la luz etc.), durante el proceso crítico de la actualización, el servidor se pone en un estado inestable "Actualizando", el cual no permite que alguien se registre en el CEF. Aparte, se rigen por un archivo el cual contiene el status de cada actualización, para que así, se pueda reiniciar la actualización desde el punto en el que se quedó, justo antes de la falla eléctrica, y así, regresar al servidor a un estado estable. Las actualizaciones se pueden llevar a cabo de manera manual (este proceso) y/o de manera automática, configurándola en las propiedades del servidor. Es muy importante revisar el archivo de registro de la actualización para poder controlar algún error que pudiera presentarse durante el proceso. Cada actualización, actúa primero sobre cada base de datos de empresas instaladas, y al finalizar, sobre la base de datos principal FORSETI_ADMIN. Es por esto, que las actualizaciones pueden tardar un tiempo considerable antes de finalizar, sobre todo, cuando no se ha actualizado el servidor en un período de tiempo razonablemente largo.<br />
+</p>Al ejecutar este proceso, el servidor primero verifica si existen actualizaciones disponibles. Este proceso usa el URL configurada en las propiedades del servidor y en caso de que este servidor demuestre estar en su última versión, el proceso terminará en este punto. De lo contrario, descargará todos los archivos de actualización necesarios para dejar este servidor en la última versión disponible y los ejecutará uno por uno. Por ejemplo, si la versión del servidor es la 4.0.7 y hubieran disponibles las revisiones 8, 9 y 10, se instalará primero la actualización 4.0.8. Al finalizar, proseguirá con la instalación de la actualización 4.0.9 y al finalizar ésta, con la 4.0.10, y en este punto finalizará el proceso. Como cada una de las actualizaciones puede quedar inconclusa (por fallas en la luz etc.), durante el proceso crítico de la actualización, el servidor se pone en un estado inestable "Actualizando", el cual no permite que alguien se registre en el CEF. Aparte, se rigen por un archivo el cual contiene el estatus de cada actualización, para que así, se pueda reiniciar la actualización desde el punto en el que se quedó, justo antes de la falla eléctrica, y así, regresar al servidor a un estado estable. Las actualizaciones se pueden llevar a cabo de manera manual (este proceso) y/o de manera automática, configurándola en las propiedades del servidor. Es muy importante revisar el archivo de registro de la actualización para poder controlar algún error que pudiera presentarse durante el proceso. Cada actualización, actúa primero sobre cada base de datos de empresas instaladas, y al finalizar, sobre la base de datos principal FORSETI_ADMIN. Es por esto, que las actualizaciones pueden tardar un tiempo considerable antes de finalizar, sobre todo, cuando no se ha actualizado el servidor en un período de tiempo razonablemente largo.<br />
 <br />
 <br />
 <strong>3 .- Agregar Empresa.</strong><br />
@@ -513,29 +539,137 @@ Permite dar de alta empresas en este servidor. Cada empresa actúa como una base
 <strong>Confirmación de Contraseña</strong>, Debes confirmar la contraseña anterior.&nbsp; <br />
 </li>
 </ul>
-<strong><br />
-4 .- Cambiar Propiedades.</strong><br />
+Estos son los datos básicos para la creación de empresas. Con esta información ya se podrá crear una empresa configurable desde cero o totalmente virgen, sin embargo, el proceso de creación te permite establecer algunas características para la instalación, y por lo tanto, al seguir en el formulario se presentará la siguiente pantalla que permite la selección del tipo de instalación, establecida por los siguientes puntos:<br />
+<ol>
+ <li>
+<strong>Empresa configurada parcialmente.</strong> Te permite seleccionar entre algunos tipos de empresas o plantillas que ya están configuradas parcialmente, por ejemplo, una instalación exclusiva para facturación electrónica, una instalación de una empresa distribuidora con control estricto, una empresa productora general, una plantilla con catálogos contable y de gastos pre-registrados, etc. &nbsp;&nbsp;&nbsp; <br />
+</li>
+ <li> <strong>Selección de módulos.</strong> Si ninguna empresa o plantilla pre-configurada de la sección anterior se adapta a tus necesidades de control, podrás seleccionar los módulos que más te convengan, para darle mayor funcionalidad a tu negocio, por ejemplo, podrás incluir el módulo de nóminas, varios puntos de venta, por ejemplo, México DF, Monterrey y Guadalajara, plantas de producción, etc. &nbsp;&nbsp;&nbsp; <br />
+</li>
+ <li>
+<strong>Empresa configurable desde cero.</strong> Esta selección instala una empresa totalmente configurable desde cero (empresa virgen), por ejemplo, al instalar empresas o plantillas pre-configuradas o por selección de módulos, se instala el catálogo de cuentas contables definido por el SAT y sus asociaciones a los auxiliares. Esta selección no instala nada de configuraciones de sistema ni tampoco un catálogo de cuentas contables. Esta opción es importante para empresas que desean integrar un catálogo contable diferente al del SAT o para aquellas empresas con tiempo trabajando y que desean migrar a forseti. El inconveniente es que el trabajo de configuración de la empresa se tendrá que hacer manualmente desde distintos módulos del CEF.<br />
+</li>
+</ol>
+<p>En esta misma pantalla se debe ingresar el mes de inicio de actividades y la clave y nombre del usuario asociado a la configuración seleccionada, a menos que se haya seleccionado una empresa configurable desde cero. El formulario incluye:</p>
+<ul>
+ <li>
+<strong>Mes.</strong>
+</li>
+ <li>
+<strong>Año.</strong>
+</li>
+ <li>
+<strong>Usuario.</strong> Clave del usuario asociado a esta configuración, no la contraseña. Este usuario se utiliza para que te registres en el CEF y no usar el 
+usuario administrador. La contraseña inicial será igual al usuario, mas 
+el número 1 al final, por lo tanto, es indispensable cambiarla 
+inmediatamente después de instalar la empresa. Esto puedes hacerlo 
+ingresando al CEF y presionando las flechas que se encuentran 
+inmediatamente después del nombre ubicado en la barra de información 
+inferior.</li>
+ <li>
+<strong>Nombre.</strong> Nombre completo del usuario.</li>
+</ul>
+<p>
+<strong>NOTA MUY IMPORTANTE:</strong> El mes y año de inicio de actividades es una parte muy importante. A partir de este se podrán ingresar facturas, compras, y cualquier registro en forseti y no se puede cambiar, por lo tanto debes estar seguro de este dato. Para mayor información dirígete a la documentación de <a href="051007.html">Periodos</a> del Centro de control del CEF.</p>
+<p>Cualquiera de los tipos de instalación, podrá ser modificado después, por ejemplo, podrás agregar mas puntos de venta, mas bodegas, dar de alta módulo de nómina o de producción, etc. Esto lo puedes hacer entrando con el usuario administrativo del CEF especificado en la pantalla anterior. Al seguir en el formulario, dependiendo del tipo de instalación, se presentará la pantalla correspondiente. Si se ha seleccionado "Empresa configurada parcialmente" se presentará la pantalla con la siguiente información de formulario:</p>
+<ul>
+ <li>
+<strong>Sistema exclusivo de facturación electrónica.</strong> Puedes seleccionar esta opción si eres un pequeño empresario que no le interesa el manejo de su contabilidad ni el control de inventarios y/o flujo de efectivo. Este sistema permite agregar y cancelar facturas exclusivamente e incluye una pequeña parte de módulos. Estos son Productos y Servicios del módulo de Catálogos, Clientes y Facturas del módulo de Ventas, CFDI, CE y GDE, Periodos y Formatos del Centro de Control.</li>
+ <li>
+<strong>Empresa con la mayoría de módulos.</strong> Si tu empresa está establecida en un solo sitio físico, este es un ERP que integra contabilidad y auxiliares como un todo. Esta configuración agregará una bodega, un punto de venta, uno de compra, un banco y caja, etc. Se incluyen los módulos adecuados para su control administrativo los cuales son: Contabilidad, Catálogos, Caja y Bancos, Almacén, Compras, Ventas y Centro de Control. Además, dependiendo de tu tipo de empresa puedes optar por las siguientes opciones:<br />
+<ul>
+ <li>
+<strong>Empresa distribuidora.</strong>
+</li>
+ <li>
+<strong>Empresa manufacturera.</strong> Esta opción incluye además de lo anterior, los módulos de Producción y Nómina con sus debidas entidades dadas de alta.</li>
+</ul>
+</li>
+ <li>
+<strong>Plantilla base con catálogo de cuentas contables y catálogo de gastos predefinidos.</strong> Puedes seleccionar esta plantilla si deseas formar tu empresa a partir de esta base que es precisamente la base contable establecida por el SAT. Una vez instalada la plantilla, podrás dar de alta las bodegas, cajas, bancos, entidades de compra, venta, producción y nómina necesarias. Esta plantilla incluye los módulos y catálogos de Contabilidad, Gastos y el Centro de Control para realizar altas de entidades de ventas, compras, etc., además de otras configuraciones no establecidas por la plantilla. Además, dependiendo de tu tipo de empresa puedes optar por las siguientes opciones de base:<br />
+<ul>
+ <li>
+<strong>Base para empresa distribuidora.</strong>
+</li>
+ <li>
+<strong>Base para empresa manufacturera.</strong> Esta opción incluye además de lo anterior, las cuentas de gastos de fabricación y cuentas pertenecientes a la nómina, como sueldos y salarios, etc.</li>
+</ul>
+</li>
+</ul>
+<p>
+Si se ha seleccionado "Selección de módulos" se presentará la pantalla con el formulario dividido en tres partes las cuales irán apareciendo cuando seleccionemos el botón de siguiente:</p>
+<ol>
+ <li>
+<strong>Selecciona los módulos. </strong>En esta parte debes seleccionar los módulos de las secciones de Contabilidad, Catálogos, Caja y Bancos, Almacén, Compras, Ventas, Producción, Nómina y Centro de Control, que deseas dar de alta en tu instalación. Algunos módulos dependen de otros, por ejemplo, si deseas agregar el módulo de Pedidos de la sección de ventas, será indispensable agregar el módulo de Clientes y de Facturación, además del módulo de Productos o Servicios de la sección de catálogos. <strong>NOTA IMPORTANTE:</strong> Si no se desea llevar contabilidad en la instalación, no se deben seleccionar los módulos contables, esto hará que el sistema no registre pólizas desde los auxiliares ya que las entidades se especificarán como entidades no contables.<strong> <br />
+</strong>
+</li>
+ <li>
+<strong>Ingresa las entidades de tu empresa. </strong>Aquí se mostrarán las secciones seleccionadas que requieren el alta de por lo menos alguna entidad, por ejemplo, si se seleccionó el módulo de cajas, en este segundo paso se tendrá que especificar por lo menos una caja para el sistema. Se podrán especificar hasta 20 entidades por módulo ya que las subsecuentes las tendrás que definir desde el módulo de entidades del centro de control del CEF. Por ejemplo, si tienes 17 tiendas, podrás definir las 17 bodegas, 17 entidades de venta y las 17 cajas y/o cuentas bancarias para representar cada punto de venta. Esto obviamente si seleccionaste el módulo de movimientos al almacén, el de facturación y el de bancos y/o cajas. Dependiendo del tipo de entidad, tendrás que definir algunos campos de registro:<br />
+<ul>
+ <li>
+<strong>Cajas.</strong> Se tendrá que definir la ficha y descripción de la caja. Las fichas son la manera principal para identificar cualquier tipo de entidad y deben constar cuando mucho de 10 caracteres alfanuméricos.</li>
+ <li>
+<strong>Bancos.</strong> Debes definir la ficha, número de cuenta o tarjeta, número de cheque inicial y nombre del banco. Las entidades de banco extranjeras tienen que definirse desde el módulo de entidades del centro de control del CEF.</li>
+ <li>
+<strong>Bodegas de materiales y Almacenes de utensilios.</strong> Estas definen la ficha y descripción.</li>
+ <li>
+<strong>Áreas de Compras y/o Gastos y Puntos de Venta.</strong> Sobre estas entidades debes definir la ficha y el tipo de entidad. Dentro de los tipos de entidad se encuentran los siguientes:<br />
+<ul>
+ <li>
+<strong>Contado.</strong> Solo aceptará compras, gastos o ventas de contado. Con esta configuración será necesario enlazar esta entidad con por lo menos una caja o banco para el registro del pago.</li>
+ <li>
+<strong>Crédito.</strong> Solo aceptará compras, gastos o ventas a crédito. Solo será necesario el proveedor o cliente para el registro de la cuenta por pagar o cobrar.</li>
+ <li>
+<strong>Mixta.</strong> Esta configuración permitirá registros de contado o crédito, por lo tanto, será necesario el enlace a cajas o bancos.</li>
+ <li>
+<strong>Ninguna.</strong> Esta configuración no registrará ningún método de pago, por lo tanto, no registra ni cuentas por pagar o cobrar, ni movimientos de caja o banco.</li>
+</ul>
+</li>
+ <li>
+<strong>Puntos de Producción.</strong> En estos solo debemos definir la ficha y descripción de la entidad.</li>
+ <li>
+<strong>Áreas de Nómina.</strong> Debemos definir la ficha, descripción, periodo y tipo de entidad. Dentro del periodo, debemos especificar si es una nómina semanal, quincenal o mensual, y dentro del tipo, debemos decidir si se trata de una nómina estricta la cual requiere de un registro de asistencias, o de una nómina de confianza, la cual no requiere de este registro.</li>
+</ul>
+</li>
+ <li>
+<strong>Asocia las entidades lógicas con las físicas. </strong>En este tercer paso tenemos que asociar las entidades lógicas de compras, gastos, ventas, producción y nómina con sus entidades físicas de cajas, cuentas bancarias y bodegas. Aparecerán todas las entidades lógicas y por debajo de cada una aparecerán las entidades físicas disponibles para su asociación.&nbsp;</li>
+</ol>
+<p>Para mayor información sobre entidades lógicas y físicas, dirígete a la documentación del <a href="051004.html">Entidades</a> del Centro de Control del CEF. <br />
+</p>
+<p>Por último, si se ha seleccionado el tipo de instalación "Empresa configurable desde cero" o si ya se han configurado todas las pantallas del formulario de los otros tipos de instalación,&nbsp;se presentará la información de resumen en la pantalla "Resumen de instalación" la cual contiene la información de resumen para nuestra instalación. En este punto, si no estamos seguros deberemos regresar para hacer cambios, de lo contrario, debemos aceptar y esperar a que nuestra empresa sea instalada. Ya que se haya agregado la empresa, será posible ingresar a ella con el usuario administrador, o con el usuario asociado a la configuración. La diferencia esencial radica en que el usuario administrador tendrá acceso a todo el sistema, mientras que el usuario asociado a la configuración solo tendrá acceso a los módulos seleccionados para la instalación. Después de cualquier tipo de instalación, se podrá modificar el sistema, por ejemplo, se podrán agregar más usuarios, mas entidades, cambiar las asociaciones de entidades lógicas con físicas, y cualquier otro tipo de configuraciones soportadas por forseti. </p>
+<strong>4 .- Cambiar Propiedades.</strong><br />
 <br />
 Permite cambiar los datos de la empresa registrada en el SAF. Se pueden cambiar todos los datos excepto el               <strong>Nombre corto</strong> para identificar el registro de la empresa o persona física porque este campo es el nombre de la base de datos en el servidor.<br />
-Una de las principales causas de cambio, es el mantener la contraseña del dueño de la base de datos (usuario con el mismo nombre del Nombre corto) segura, actualizándola periódicamente.<br />
+Una de las principales causas de cambio, es el mantener la contraseña del dueño de la base de datos (usuario administrador con el mismo nombre del Nombre corto) segura, actualizándola periódicamente.<br />
 <br />
 <strong>5 .- Eliminar empresa.</strong><br />
 <br />
-Te permite eliminar la empresa seleccionada. Esto eliminará toda y absolutamente toda la base de datos y los archivos de configuración que fueron generados al agregar la empresa. <strong>NOTA:</strong> Es una buena idea respaldar una empresa justo antes de eliminarla, porque los datos de la empresa ya no se pueden recuperar a menos que se tenga el respaldo. Es importante saber que el respaldo completo de servidor no funciona para recuperar empresas individuales. <br />
+Te permite eliminar la empresa seleccionada. Esto eliminará toda y absolutamente toda la base de datos y los archivos de configuración que fueron generados al agregarla. <strong>NOTA:</strong> Es una buena idea respaldar una empresa justo antes de eliminarla, porque los datos de la empresa ya no se pueden recuperar a menos que se tenga el respaldo. Es importante saber que el respaldo completo de servidor no funciona para recuperar empresas individuales a menos que se extraiga del archivo zip y se vuelva a comprimir adecuada e individualmente. <br />
 <br />
 <strong>6 .- Respaldar empresa.</strong><br />
 <br />
 Permite respaldar la empresa seleccionada de la lista. Los respaldos se realizan como archivos comprimidos en ZIP y se guardan en la <strong>Ruta de Respaldos</strong> que fue configurada en las Propiedades del Servidor. Esta ruta debe apuntar a un medio independiente como por ejemplo a un disco duro externo o a otra máquina en la red.<br />
-Los archivos ZIP generados contendrán la estructura y los datos depositados en la base de datos, los archivos alternos a esta base de datos que usa la empresa respaldada para poder ser operada y el archivo oculto .version que contiene la versión del sistema perteneciente al respaldo. <strong>NOTA:</strong> Este proceso solo respalda bases de datos individuales y sirven para la recuperación de la empresa a un estado anterior en el tiempo. Este proceso NO sirve y no está enfocado para respaldar todo el servidor, para eso, se necesita establecer la bandera de Respaldos del gestor de tareas. Una vez esté activa esta bandera, los respaldos se llevarán a cabo a la hora en que se haya establecido el gestor. <br />
+<p>
+Los archivos ZIP generados contendrán la estructura y los datos depositados en la base de datos, los archivos alternos a esta base de datos que usa la empresa respaldada para poder ser operada y el archivo forseti.version que contiene la versión del sistema perteneciente al respaldo. <strong>NOTA:</strong> Este proceso solo respalda bases de datos individuales que sirven para la recuperación de la empresa a un estado anterior en el tiempo. <br />
+</p>
+<p>
+<strong>7 .- Respaldar servidor.</strong><br />
 <br />
+Permite respaldar el servidor completo lo cual incluye a todas las empresa instaladas con un estatus estable y a la base de datos principal FORSETI_ADMIN dentro del archivo de respaldo ZIP. Al igual que los respaldos de empresa, estos se guardan en la <strong>Ruta de Respaldos</strong>
+ con las mismas características de estructura y datos, asi como archivos alternos y el archivo 
+forseti.version. El respaldo de todo el servidor puede ser realizado, además de, con este proceso, estableciendo la bandera de "Respaldos" del 
+gestor de tareas. Una vez esté activa esta bandera, los respaldos se 
+llevarán a cabo a la hora en que se haya establecido el gestor. </p>
 <strong>7 .- Restaurar empresa.</strong><br />
 <br />
-Este proceso se utiliza para la recuperación de empresas a un estado anterior en el tiempo. El formulario para restauración incluye:<br />
+Este proceso se utiliza para copiar una empresa desde un respaldo de la original o para la recuperación de empresas perdidas desde respaldos que se hayan realizado cuando existía. El formulario para restauración incluye:<br />
 <ul> <li>
-<strong>Mostrar respaldos con fecha mayor o igual a</strong>, Es la fecha a partir de cuando deseas ver respaldos (inclusive).<br />
+<strong>Mostrar respaldos con fecha mayor o igual a</strong>. Es la fecha a partir de cuando deseas ver respaldos (inclusive).<br />
 </li> <li>
-<strong>De la empresa:</strong> Es el nombre corto de la empresa de la cual deseas ver sus respaldos. Este es el nombre en mayúsculas, tal y como lo escribes al registrarte en el CEF.<br />
-</li> <li>
+<strong>Copiar empresa instalada.</strong> Muestra las empresas instaladas actualmente, de las cuales debes seleccionar una para ver sus respaldos.<br />
+</li>
+ <li>
+<strong>Restaurar empresa perdida.</strong> En caso de que no desees hacer copia de una empresa instalada (a partir de su respaldo), debes indicar aquí, el nombre en mayúsculas, tal y como lo escribías al registrarte en el CEF, de la empresa a restaurar.</li> <li>
 <strong>Selecciona el archivo de respaldo</strong>, Si existen respaldos de esta empresa con esta fecha o posterior, aparecen en esta lista. Debes entonces seleccionar el archivo que deseas recuperar. Estos se muestran con el patrón de fecha y hora del respaldo. "FSIBD_[NOMBRE]-AAAA-MM-DD-hh-mm.zip", donde [NOMBRE] es el nombre corto de la base de datos, AAAA es el año, MM el mes, DD el día, hh la hora y mm los minutos en que se realizó este respaldo.<br />
 </li> <li>
 <strong>Restaurar como,</strong> Debes seleccionar el Nombre corto para la base de datos a restaurar. Si la restauración se está realizando porque se necesita una copia exacta de la base de datos respaldada, este nombre debe ser diferente al de la original ya que ésta, todavía existe en el servidor y no se puede duplicar, de lo contrario, es una buena práctica restaurar empresas perdidas con el nombre original.<br />
@@ -544,13 +678,34 @@ Este proceso se utiliza para la recuperación de empresas a un estado anterior e
 </li> <li>
 <strong>Confirmación de contraseña.</strong><br />
 </li>
-</ul> En el caso que no se tuviera un respaldo específico de una empresa eliminada accidentalmente, se debe extraer manualmente del respaldo del servidor (del archivo "FORSETI_ADMIN-AAAA-MM-DD-hh-mm.zip"). Una vez extraído, se necesitará comprimir este directorio en ZIP con el mismo nombre ( FSIBD_[NOMBRE]-AAAA-MM-DD-hh-mm.zip ) e ingresarlo a la ruta de respaldos. Entonces ya tenemos el respaldo y ya podemos restaurar la empresa eliminada.&nbsp; <br />
-<br />
-La restauración de servidores completos se lleva a cabo cuando hay una falla en el disco del servidor y otras situaciones desastrosas donde se pierde toda o parte de la información. Para recuperar un servidor completo, es estrictamente necesario seguir los siguientes pasos:<br />
-<br />
+</ul>
+<p> El proceso de restauración de bases de datos busca los archivos en la <strong>Ruta de Respaldos</strong> que fue configurada en las Propiedades del Servidor. En el caso que no se tuviera un respaldo específico de una empresa eliminada accidentalmente, se debe extraer manualmente del respaldo del servidor (del archivo "FORSETI_ADMIN-AAAA-MM-DD-hh-mm.zip"). Una vez extraído, se necesitará comprimir este directorio en ZIP con el mismo nombre ( FSIBD_[NOMBRE]-AAAA-MM-DD-hh-mm.zip ) e ingresarlo a la ruta de respaldos. Entonces ya tenemos el respaldo y ya podemos restaurar la empresa perdida.</p>
+<p>
+<strong>NOTA MUY IMPORTANTE:</strong> No se podrá llevar a cabo el proceso de restauración si la versión del servidor es diferente a la versión de la empresa contenida en el respaldo porque seguramente violará alguna parte de la integridad referencial. Esto sucede cuando los respaldos son anteriores a la última actualización del servidor. Si es crítico restaurar ese respaldo en este servidor, se tendrán que seguir los siguientes pasos:</p>
+<ol>
+ <li>Se debe consultar la <strong>versión del respaldo</strong> mirando dentro del archivo <strong>forseti.verson</strong>.</li>
+ <li>Deberás instalar un servidor temporal de esta versión en otro ordenador (ver documentación de instalación <a href="020201.html">aquí</a>).</li>
+ <li>En el servidor temporal instalado, debemos especificar una ruta de respaldos.</li>
+ <li>Ahora copiamos el archivo zip del respaldo de la empresa a esta ruta. <br />
+</li>
+ <li>Ahora debemos hacer dueño&nbsp; del respaldo a tomcat7 para que el proceso 
+tomcat pueda leerlo. Por ejemplo, si el respaldo se llama 
+FSIBD_TAJA-2014-10-30-23-17.zip, y se encuentra en la ruta 
+/home/ubuntu/respaldo, desde la terminal debes ejecutar lo siguiente:<br />
+<span style="color: rgb(0, 0, 255);">$ sudo chown tomcat7 /home/ubuntu/respaldo/</span>
+<span style="color: rgb(0, 0, 255);">FSIBD_TAJA-2014-10-30-23-17.zip</span>
+</li>
+ <li>Ejecutamos la restauración de la empresa.</li>
+ <li>Ahora que ya tenemos la empresa restaurada en el servidor temporal, lo actualizamos. Esto hará que la empresa se actualice también.</li>
+ <li>Ahora ejecutamos un nuevo respaldo de la empresa del servidor temporal.</li>
+ <li>Finalmente, copiamos el archivo zip del nuevo respaldo a la ruta del servidor principal, hacemos dueño del respaldo a tomcat7, y ejecutamos la restauración.</li>
+ <li>Ahora ya podremos ingresar de nuevo a la base de datos perdida, en el servidor principal.<br />
+</li>
+</ol>La restauración de servidores completos se lleva a cabo cuando hay una falla en el disco del servidor y otras situaciones desastrosas donde se pierde toda o parte de la información. Para recuperar un servidor completo, es estrictamente necesario seguir los siguientes pasos:<br />
 <ol> <li>Copiar el archivo "FORSETI_ADMIN-AAAA-MM-DD-hh-mm.zip" a una ruta en el nuevo servidor. Esta puede ser el directorio personal.<br />
 <br />
-</li> <li>Hacer la instalación de forseti en el servidor (para la instalación, ver sección de <a href="020201.html">Implantación / Instalación</a> en esta documentación) <strong>de la misma versión y revisión del respaldo. </strong>Esta se puede revisar en el archivo oculto llamado<strong> .version </strong>dentro del archivo zip<strong>.<br />
+</li>
+ <li>Hacer la instalación de forseti en el servidor (para la instalación, ver sección de <a href="020201.html">Implantación / Instalación</a> en esta documentación) <strong>de la misma versión y revisión del respaldo. </strong>Esta se puede revisar en el archivo llamado<strong> forseti.version </strong>dentro del archivo zip<strong>.<br />
 <br />
 </strong>
 </li> <li>Ya instalado, hacer dueño&nbsp; del respaldo a tomcat7 para que el proceso tomcat pueda leerlo. Por ejemplo, si el respaldo se llama FORSETI_ADMIN-2014-10-30-23-17.zip, y se encuentra en la ruta /home/ubuntu/respaldo, desde la terminal debes ejecutar lo siguiente:<br />
@@ -874,6 +1029,28 @@ where f.status &lt;&gt; 'C' and f.fecha between '[fecha]' and '[fecha2]' and f.i
 <p>
 <strong>PRECAUCION: Este proceso no se puede llevar a cabo porque en estos momentos se esta actualizando el servidor.</strong> Cuando el servidor está ejecutando una actualización bloquea los procesos como agregar, cambiar, eliminar, respaldar o restaurar empresas, para mantener alineado el servidor.<br />
 </p><br />
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
 			  
 
 			  

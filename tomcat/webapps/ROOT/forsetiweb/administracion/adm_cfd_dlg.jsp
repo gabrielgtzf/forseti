@@ -31,7 +31,19 @@
 	set.ConCat(true);
     set.m_Where = "Nombre = 'FSIBD_" + JUtil.getSesion(request).getBDCompania() + "'";
     set.Open();
-
+	
+	JSatPaisesSet paisSet = new JSatPaisesSet(request);
+	paisSet.ConCat(true);
+	paisSet.m_Where = "Alfa3 = 'MEX'";
+	paisSet.Open();
+	
+	JSatEstadosSet estSet = new JSatEstadosSet(request);
+	estSet.ConCat(true);
+	estSet.m_Where = "CodPais3 = 'MEX'";
+	estSet.m_OrderBy = "Nombre ASC";
+	estSet.Open();
+	
+	
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -146,34 +158,70 @@ function enviarlo(formAct)
                 <tr> 
                   <td colspan="8"><div align="center" class="titChicoAzc"><%= JUtil.Msj("CEF","ADM_CFDI","DLG","ETQ",1) %></div></td>
                 </tr>
+				<tr> 
+                  <td><%= JUtil.Msj("GLB","GLB","GLB","PAIS") %></td>
+                  <td>
+				    <select name="cfd_pais" class="cpoBco">
+                		<option value="<%= paisSet.getAbsRow(0).getAlfa3() %>"><%= paisSet.getAbsRow(0).getNombre() %></option>
+					</select></td>
+                  <td><%= JUtil.Msj("GLB","GLB","GLB","ESTADO") %></td>
+                  <td colspan="2">
+				    <select name="cfd_estado" class="cpoBco" onChange="javascript:establecerProcesoSVE(this.form.subproceso, 'ACTUALIZAR'); this.form.submit();">
+                		<option value=""<% if(request.getParameter("cfd_estado") != null) {
+										if(request.getParameter("cfd_estado").equals("")) {
+											out.println(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { 
+											if(set.getAbsRow(0).getCFD_Estado().equals("")) {
+												out.println(" selected"); 
+											}
+										}
+									 } %>>--- <%= JUtil.Msj("GLB","GLB","GLB","ESTADO") %> ---</option>
+                <%
+								  for(int i = 0; i< estSet.getNumRows(); i++)
+								  {
+		%>
+                <option value="<%= estSet.getAbsRow(i).getCodEstado() %>"<% 
+									if(request.getParameter("cfd_estado") != null) {
+										if(request.getParameter("cfd_estado").equals(estSet.getAbsRow(i).getCodEstado())) {
+											out.print(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { 
+											if(set.getAbsRow(0).getCFD_Estado().equals(estSet.getAbsRow(i).getCodEstado())) {
+												out.println(" selected"); 
+											}
+										}
+									 }	  %>> 
+                <%=  estSet.getAbsRow(i).getNombre()  %>
+                </option>
+                <%
+								  }
+				%>
+              </select></td>
+                  <td><%= JUtil.Msj("GLB","GLB","GLB","MUNICIPIO") %></td>
+                  <td colspan="2"><input name="cfd_municipio" type="text" id="municipio" size="30" maxlength="40"></td>
+				</tr>
+				<tr> 
+                  <td><%= JUtil.Msj("GLB","GLB","GLB","LOCALIDAD") %></td>
+                  <td><input name="cfd_localidad" type="text" id="poblacion" size="50" maxlength="80"></td>
+                  <td><%= JUtil.Msj("GLB","GLB","GLB","CP") %></td>
+                  <td colspan="2"><input name="cfd_cp" type="text" id="cp" size="7" maxlength="7"></td>
+				  <td><%= JUtil.Msj("GLB","GLB","GLB","COLONIA") %></td>
+                  <td colspan="2"><input name="cfd_colonia" type="text" id="colonia" size="30" maxlength="40"></td>
+                </tr>
                 <tr> 
                   <td><%= JUtil.Msj("GLB","GLB","GLB","CALLE") %></td>
-                  <td colspan="3"><input name="cfd_calle" type="text" id="cfd_calle" size="50" maxlength="80"></td>
+                  <td><input name="cfd_calle" type="text" id="cfd_calle" size="50" maxlength="80"></td>
                   <td><%= JUtil.Msj("GLB","GLB","GLB","NUMERO",3) %></td>
-                  <td> <input name="cfd_noext" type="text" id="cfd_noext" size="8" maxlength="10"> 
-                  </td>
+                  <td colspan="2"> <input name="cfd_noext" type="text" id="cfd_noext" size="8" maxlength="10"></td>
                   <td><%= JUtil.Msj("GLB","GLB","GLB","NUMERO",4) %></td>
-                  <td><input name="cfd_noint" type="text" id="cfd_noint" size="8" maxlength="10"></td>
+                  <td colspan="2"><input name="cfd_noint" type="text" id="cfd_noint" size="8" maxlength="10"></td>
                 </tr>
                 <tr> 
-                  <td><%= JUtil.Msj("GLB","GLB","GLB","COLONIA") %></td>
-                  <td colspan="2"><input name="cfd_colonia" type="text" id="cfd_colonia" size="30" maxlength="40"></td>
-                  <td><%= JUtil.Msj("GLB","GLB","GLB","LOCALIDAD") %></td>
-                  <td colspan="2"><input name="cfd_localidad" type="text" id="cfd_localidad" size="40" maxlength="80"></td>
-                  <td><%= JUtil.Msj("GLB","GLB","GLB","CP") %></td>
-                  <td><input name="cfd_cp" type="text" id="cfd_cp" size="10" maxlength="5"></td>
-                </tr>
-                <tr> 
-                  <td><%= JUtil.Msj("GLB","GLB","GLB","MUNICIPIO") %></td>
-                  <td colspan="2"><input name="cfd_municipio" type="text" id="cfd_municipio" size="30" maxlength="40"></td>
-                  <td><%= JUtil.Msj("GLB","GLB","GLB","ESTADO") %></td>
-                  <td colspan="2"><input name="cfd_estado" type="text" id="cfd_estado" size="30" maxlength="40"></td>
-                  <td><%= JUtil.Msj("GLB","GLB","GLB","PAIS") %></td>
-                  <td><input name="cfd_pais" type="text" id="cfd_pais" size="15" maxlength="20"></td>
-                </tr>
-				<tr> 
                   <td><%= JUtil.Msj("GLB","GLB","GLB","REGIMEN_FISCAL") %></td>
-                  <td colspan="6"><input name="cfd_regimenfiscal" type="text" id="cfd_regimenfiscal" size="80" maxlength="254"></td>
+                  <td colspan="7"><input name="cfd_regimenfiscal" type="text" id="cfd_regimenfiscal" size="80" maxlength="254"></td>
                 </tr>
               </table></td>
           </tr>
@@ -188,15 +236,13 @@ function enviarlo(formAct)
 <script language="JavaScript1.2">
 document.adm_cfd_dlg.nombre.value = '<% if(request.getParameter("nombre") != null) { out.print( request.getParameter("nombre") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCompania() ); } else { out.print(""); } %>'
 document.adm_cfd_dlg.rfc.value = '<% if(request.getParameter("rfc") != null) { out.print( request.getParameter("rfc") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getRFC() ); } else { out.print(""); } %>' 
+document.adm_cfd_dlg.cfd_municipio.value = '<% if(request.getParameter("cfd_municipio") != null) { out.print( request.getParameter("cfd_municipio") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_Municipio() ); } else { out.print(""); } %>'
+document.adm_cfd_dlg.cfd_localidad.value = '<% if(request.getParameter("cfd_localidad") != null) { out.print( request.getParameter("cfd_localidad") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_Localidad() ); } else { out.print(""); } %>'
+document.adm_cfd_dlg.cfd_cp.value = '<% if(request.getParameter("cfd_cp") != null) { out.print( request.getParameter("cfd_cp") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_CP() ); } else { out.print(""); } %>'
+document.adm_cfd_dlg.cfd_colonia.value = '<% if(request.getParameter("cfd_colonia") != null) { out.print( request.getParameter("cfd_colonia") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_Colonia() ); } else { out.print(""); } %>'
 document.adm_cfd_dlg.cfd_calle.value = '<% if(request.getParameter("cfd_calle") != null) { out.print( request.getParameter("cfd_calle") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_Calle() ); } else { out.print(""); } %>'
 document.adm_cfd_dlg.cfd_noext.value = '<% if(request.getParameter("cfd_noext") != null) { out.print( request.getParameter("cfd_noext") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_NoExt() ); } else { out.print(""); } %>'
 document.adm_cfd_dlg.cfd_noint.value = '<% if(request.getParameter("cfd_noint") != null) { out.print( request.getParameter("cfd_noint") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_NoInt() ); } else { out.print(""); } %>'
-document.adm_cfd_dlg.cfd_colonia.value = '<% if(request.getParameter("cfd_colonia") != null) { out.print( request.getParameter("cfd_colonia") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_Colonia() ); } else { out.print(""); } %>'
-document.adm_cfd_dlg.cfd_localidad.value = '<% if(request.getParameter("cfd_localidad") != null) { out.print( request.getParameter("cfd_localidad") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_Localidad() ); } else { out.print(""); } %>'
-document.adm_cfd_dlg.cfd_cp.value = '<% if(request.getParameter("cfd_cp") != null) { out.print( request.getParameter("cfd_cp") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_CP() ); } else { out.print(""); } %>'
-document.adm_cfd_dlg.cfd_municipio.value = '<% if(request.getParameter("cfd_municipio") != null) { out.print( request.getParameter("cfd_municipio") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_Municipio() ); } else { out.print(""); } %>'
-document.adm_cfd_dlg.cfd_estado.value = '<% if(request.getParameter("cfd_estado") != null) { out.print( request.getParameter("cfd_estado") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_Estado() ); } else { out.print(""); } %>'
-document.adm_cfd_dlg.cfd_pais.value = '<% if(request.getParameter("cfd_pais") != null) { out.print( request.getParameter("cfd_pais") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_Pais() ); } else { out.print("Mexico"); } %>'
 document.adm_cfd_dlg.cfd_regimenfiscal.value = '<% if(request.getParameter("cfd_regimenfiscal") != null) { out.print( request.getParameter("cfd_regimenfiscal") ); } else if(!request.getParameter("proceso").equals("AGREGAR_EMISOR")) { out.print( set.getAbsRow(0).getCFD_RegimenFiscal() ); } else { out.print(""); } %>'
 </script>
 </body>

@@ -37,6 +37,8 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import org.apache.commons.lang.mutable.MutableBoolean;
+
 import forseti.JAccesoBD;
 import forseti.JBDRegistradasSet;
 import forseti.JFsiScript;
@@ -167,7 +169,7 @@ public class JFsiTareas implements JTimerInterface
 			if(auto_resp)
 			{
 				System.out.println("Respaldando servidor......");
-				respaldarServidor(Calendar.getInstance(), new StringBuffer());
+				respaldarServidor(Calendar.getInstance(), null);
 			}
 			if(auto_slds)
 			{
@@ -175,7 +177,7 @@ public class JFsiTareas implements JTimerInterface
 				actualizarSaldos();
 			}
 			if(auto_act)
-				actualizarServidor(new StringBuffer());
+				actualizarServidor(null);
 			
 			System.out.println("Fin de tareas automátizadas......");
 			actualizando = false;
@@ -291,10 +293,8 @@ public class JFsiTareas implements JTimerInterface
 
 	}
 	
-	public synchronized short respaldarEmpresa(JBDSSet set, int ind, Calendar fecha, StringBuffer sb_mensaje, PrintWriter prntwri)
+	public synchronized void respaldarEmpresa(JBDSSet set, int ind, Calendar fecha, PrintWriter out, PrintWriter prntwri)
 	{
-		short idmensaje = 0;
-				
 		try
 		{
 			//Primero respalda emp/NOMBRE/
@@ -306,17 +306,28 @@ public class JFsiTareas implements JTimerInterface
 			else
 				pw = prntwri;
 			
+			if(out != null)
+			{
+				out.println("----------------------------------------------------------------------------<br>");
+				out.println("RESPALDANDO LA BASE DE DATOS Y ARCHIVOS EMP: " + nombre.substring(6) + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+				out.println("----------------------------------------------------------------------------<br>");
+				out.flush();
+			}
 			pw.println("----------------------------------------------------------------------------");
-			pw.println("             " + "RESPALDANDO LA BASE DE DATOS Y ARCHIVOS EMP: " + nombre.substring(6) + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
+			pw.println("RESPALDANDO LA BASE DE DATOS Y ARCHIVOS EMP: " + nombre.substring(6) + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 			pw.println("----------------------------------------------------------------------------");
 			pw.flush();
 			
 			if(respaldos.equals("NC"))
 			{
-				sb_mensaje.append("PRECAUCION: La variable RESPALDOS (ruta para los archivos de respaldo) no está definida... No se puede generar");
+				if(out != null)
+				{
+					out.println("PRECAUCION: La variable RESPALDOS (ruta para los archivos de respaldo) no está definida... No se puede generar<br>");
+					out.flush();
+				}
 				pw.println("PRECAUCION: La variable RESPALDOS (ruta para los archivos de respaldo) no está definida... No se puede generar");
 				pw.flush();
-				return 1;
+				return;
 			}
 			
 			JFsiScript sc = new JFsiScript();
@@ -359,24 +370,35 @@ public class JFsiTareas implements JTimerInterface
 					CONTENT = "rsync -av --stats /usr/local/forseti/emp/" + nombre.substring(6) + " " + respaldos + "/FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm") + "/" + nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm");
 				}
 				sc.setContent(CONTENT);
-				System.out.println(CONTENT);
+				//System.out.println(CONTENT);
 				String RES = sc.executeCommand();
 				ERROR += sc.getError();
 				if(!ERROR.equals(""))
 				{
-					//System.out.println(ERROR);
-					idmensaje = 3; 
-					sb_mensaje.append("ERROR al respaldar en RSYNC: " + ERROR);
+					if(out != null)
+					{
+						out.println("ERROR al respaldar en RSYNC: " + ERROR + "<br>");
+						out.flush();
+					}
 					pw.println("ERROR al respaldar en RSYNC: " + ERROR);
 					pw.flush();
 				}
 				else
 				{
-					sb_mensaje.append("El respaldo de los archivos se genero con exito en: " + respaldos + "/" + nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm"));
-					pw.println("El respaldo de los archivos se genero con éxito en: " + respaldos + "/" + nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm"));
+					if(out != null)
+					{
+						out.println("El respaldo de los archivos se generó con éxito en: " + respaldos + "/" + nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm") + "<br>");
+						out.flush();
+					}
+					pw.println("El respaldo de los archivos se generó con éxito en: " + respaldos + "/" + nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm"));
 					pw.flush();
 				}
-		
+				if(out != null)
+				{
+					out.println("FINALIZANDO RESPALDO DE ARCHIVOS EMP: " + nombre.substring(6) + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+					out.println("Comenzando el respaldo de la base de datos... Esto puede tardar muchos minutos, incluso horas (dependiendo de la cantidad de información) hay que ser pacientes<br>");
+					out.flush();
+				}
 				pw.println("FINALIZANDO RESPALDO DE ARCHIVOS EMP: " + nombre.substring(6) + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 				pw.flush();
 		
@@ -393,8 +415,11 @@ public class JFsiTareas implements JTimerInterface
 				if(!ERROR.equals(""))
 				{
 					//System.out.println(ERROR);
-					idmensaje = 3; 
-					sb_mensaje.append("<br>ERROR al crear el respaldo de la base de datos: " + ERROR);
+					if(out != null)
+					{
+						out.println("ERROR al crear el respaldo de la base de datos: " + ERROR + "<br>");
+						out.flush();
+					}
 					pw.println("ERROR al crear el respaldo de la base de datos: " + ERROR);
 					pw.flush();
 				}
@@ -402,17 +427,29 @@ public class JFsiTareas implements JTimerInterface
 				{
 					if(RES.equals(""))
 					{
-						sb_mensaje.append("<br>El respaldo de la base de datos se genero con exito como archivo .dump dentro de este directorio");
-						pw.println("El respaldo de la base de datos se genero con exito como archivo .dump dentro de este directorio");
+						if(out != null)
+						{
+							out.println("El respaldo de la base de datos se generó con éxito como archivo .dump dentro de este directorio<br>");
+							out.flush();
+						}
+						pw.println("El respaldo de la base de datos se generó con éxito como archivo .dump dentro de este directorio");
 						pw.flush();
 					}
 					else
 					{
-						idmensaje = 3;
-						sb_mensaje.append("<br>RESPUESTA PG_DUMP: " + RES);
+						if(out != null)
+						{
+							out.println("RESPUESTA PG_DUMP: " + RES + "<br>");
+							out.flush();
+						}
 						pw.println("RESPUESTA PG_DUMP: " + RES);
 						pw.flush();
 					}
+				}
+				if(out != null)
+				{
+					out.println("FINALIZANDO RESPALDO DE LA BASE DE DATOS: " + nombre + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+					out.flush();
 				}
 				pw.println("FINALIZANDO RESPALDO DE LA BASE DE DATOS: " + nombre + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 				pw.flush();
@@ -451,15 +488,29 @@ public class JFsiTareas implements JTimerInterface
 	            FileWriter fconf = new FileWriter(file);
 	            fconf.write(conf);
 	            fconf.close();
-	            sb_mensaje.append("<br>El respaldo de la configuracion se genero con exito como archivo .conf en este directorio");
-				pw.println("El respaldo de la configuracion se genero con exito como archivo .conf en este directorio");
+	            if(out != null)
+				{
+	            	out.println("El respaldo de la configuración se generó con éxito como archivo .conf en este directorio<br>");
+					out.flush();
+				}
+	            pw.println("El respaldo de la configuración se generó con éxito como archivo .conf en este directorio");
 				pw.flush();
 				if(prntwri == null)
 				{
+					if(out != null)
+					{
+						out.println("Generando el archivo zip...<br>");
+						out.flush();
+					}
 					pw.println("Generando el archivo zip...");
 					pw.flush();
 					JZipUnZipUtil azip= new JZipUnZipUtil();
 					azip.zipFolder(respaldos + "/" + nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm"), respaldos + "/" + nombre + "-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm") + ".zip");
+					if(out != null)
+					{
+						out.println("Eliminando carpeta de respaldo<br>");
+						out.flush();
+					}
 					pw.println("Eliminando carpeta de respaldo...");
 					pw.flush();
 					//Borra los archivos del respaldo
@@ -493,57 +544,81 @@ public class JFsiTareas implements JTimerInterface
 			}
 	      	catch(Throwable e)
 	      	{
-	      		idmensaje = 3;
-	      		sb_mensaje.append("<br>ERROR Throwable: " + e.getMessage());
-	      		System.out.println(e.toString());
-			    pw.println(e.toString() + "\n");
+	      		if(out != null)
+				{
+					out.println("ERROR Throwable:<br>");
+					e.printStackTrace(out);
+					out.flush();
+				}
+	      		pw.println("ERROR Throwable:\n");
+	      		e.printStackTrace(pw);
 			    pw.flush();
 	      	}
-	      	
-			pw.println("----------------------------- FIN DEL RESPALDO: " + nombre + " ----------------------------------");
+			if(out != null)
+			{
+				out.println("----------------------------- FIN DEL RESPALDO: " + nombre + " ----------------------------------<br>");
+				out.flush();
+			}
+      		pw.println("----------------------------- FIN DEL RESPALDO: " + nombre + " ----------------------------------");
 			pw.flush();
 			if(prntwri == null)
 				pw.close();			
 		}
 		catch(IOException e)
 		{
-			idmensaje = 3;
-			sb_mensaje.append("OCURRIERON ERRORES AL ABRIR O COPIAR ARCHIVOS<br>" + e.getMessage());
-			//e.printStackTrace();
+			if(out != null)
+			{
+				out.println("OCURRIERON ERRORES AL ABRIR O COPIAR ARCHIVOS<br>");
+				e.printStackTrace(out);
+				out.flush();
+			}
+			e.printStackTrace(System.out);
 		}
 		
-		return idmensaje;
 	}
 	
-	public synchronized short respaldarServidor(Calendar fecha, StringBuffer sb_mensaje)
+	public synchronized void respaldarServidor(Calendar fecha, PrintWriter out)
 	{
-		short idmensaje = 0;
-			
 		try
 		{
 			String path = "/usr/local/forseti/log/RESP-FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm") + ".log";
 			FileWriter filewri		= new FileWriter(path, true);
 			PrintWriter pw			= new PrintWriter(filewri);
-	
+			
+			if(out != null)
+			{
+				out.println("----------------------------------------------------------------------------<br>");
+				out.println("RESPALDANDO LA BASE DE DATOS PRINCIPAL: FORSETI_ADMIN Y ARCHIVOS " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+				out.println("----------------------------------------------------------------------------<br>");
+				out.flush();
+			}
 			pw.println("----------------------------------------------------------------------------");
-			pw.println("             RESPALDANDO LA BASE DE DATOS PRINCIPAL: FORSETI_ADMIN Y ARCHIVOS " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
+			pw.println("RESPALDANDO LA BASE DE DATOS PRINCIPAL: FORSETI_ADMIN Y ARCHIVOS " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 			pw.println("----------------------------------------------------------------------------");
 			pw.flush();
 			 
 			if(respaldos.equals("NC"))
 			{
-				sb_mensaje.append("PRECAUCION: La variable RESPALDOS (ruta para los archivos de respaldo) no está definida... No se puede generar");
+				if(out != null)
+				{
+					out.println("PRECAUCION: La variable RESPALDOS (ruta para los archivos de respaldo) no está definida... No se puede generar<br>");
+					out.flush();
+				}
 				pw.println("PRECAUCION: La variable RESPALDOS (ruta para los archivos de respaldo) no está definida... No se puede generar");
 				pw.flush();
-				return 1;
+				return;
 			}
 				
 			if(tomcat.equals("NC"))
 			{
-				sb_mensaje.append("PRECAUCION: La variable TOMCAT (ruta de instalacion de tomcat) no está definida... No se puede generar");
-				pw.println("PRECAUCION: La variable TOMCAT (ruta de instalacion de tomcat) no está definida... No se puede generar");
+				if(out != null)
+				{
+					out.println("PRECAUCION: La variable TOMCAT (ruta de instalación de tomcat) no está definida... No se puede generar");
+					out.flush();
+				}
+				pw.println("PRECAUCION: La variable TOMCAT (ruta de instalación de tomcat) no está definida... No se puede generar");
 				pw.flush();
-				return 1;
+				return;
 			}
 			
 			JFsiScript sc = new JFsiScript();
@@ -584,19 +659,30 @@ public class JFsiTareas implements JTimerInterface
 				ERROR += sc.getError();
 				if(!ERROR.equals(""))
 				{
-					//System.out.println(ERROR);
-					idmensaje = 3; 
-					sb_mensaje.append("ERROR al respaldar en RSYNC: " + ERROR + "<br>");
+					if(out != null)
+					{
+						pw.println("ERROR al respaldar en RSYNC: " + ERROR +"<br>");
+						pw.flush();
+					}
 					pw.println("ERROR al respaldar en RSYNC: " + ERROR);
 					pw.flush();
 				}
 				else
 				{
-					sb_mensaje.append("El respaldo de los archivos se genero con exito en: " + respaldos + "/FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm") + "<br>");
+					if(out != null)
+					{
+						out.println("El respaldo de los archivos se genero con éxito en: " + respaldos + "/FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm") + "<br>");
+						out.flush();
+					}
 					pw.println("El respaldo de los archivos se genero con éxito en: " + respaldos + "/FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm"));
 					pw.flush();
 				}
 		
+				if(out != null)
+				{
+					out.println("FINALIZANDO RESPALDO DE ARCHIVOS FORSETI_ADMIN: " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+					out.flush();
+				}
 				pw.println("FINALIZANDO RESPALDO DE ARCHIVOS FORSETI_ADMIN: " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 				pw.flush();
 		
@@ -610,8 +696,11 @@ public class JFsiTareas implements JTimerInterface
 				if(!ERROR.equals(""))
 				{
 					//System.out.println(ERROR);
-					idmensaje = 3; 
-					sb_mensaje.append("ERROR al crear el respaldo de la base de datos principal: " + ERROR + "<br>");
+					if(out != null)
+					{
+						out.println("ERROR al crear el respaldo de la base de datos principal: " + ERROR + "<br>");
+						out.flush();
+					}
 					pw.println("ERROR al crear el respaldo de la base de datos principal: " + ERROR);
 					pw.flush();
 				}
@@ -619,29 +708,45 @@ public class JFsiTareas implements JTimerInterface
 				{
 					if(RES.equals(""))
 					{
-						sb_mensaje.append("El respaldo de la base de datos principal se genero con exito como archivo .dump dentro de este directurio<br>");
-						pw.println("El respaldo de la base de datos principal se genero con exito como archivo .dump dentro de este directurio");
+						if(out != null)
+						{
+							out.println("El respaldo de la base de datos principal se generó con éxito como archivo .dump dentro de este directurio");
+							out.flush();
+						}
+						pw.println("El respaldo de la base de datos principal se generó con éxito como archivo .dump dentro de este directurio");
 						pw.flush();
 					}
 					else
 					{
-						idmensaje = 3;
-						sb_mensaje.append("<br>RESPUESTA PG_DUMP: " + RES);
+						if(out != null)
+						{
+							out.println("RESPUESTA PG_DUMP: " + RES + "<br>");
+							out.flush();
+						}
 						pw.println("RESPUESTA PG_DUMP: " + RES);
 						pw.flush();
 					}
 				}
 		    	//////////////////////////////////////////
+				if(out != null)
+				{
+					out.println("FINALIZANDO RESPALDO DE LA BASE DE DATOS: FORSETI_ADMIN " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+					out.flush();
+				}
 				pw.println("FINALIZANDO RESPALDO DE LA BASE DE DATOS: FORSETI_ADMIN " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 				pw.flush();
 	      	}
 	      	catch(Throwable e)
 	      	{
-	      		idmensaje = 3;
-	      		sb_mensaje.append("ERROR Throwable: " + "<br>" + e.getMessage());
-	      		System.out.println(e.toString());
-			    pw.println(e.toString() + "\n");
-			    pw.flush();
+	      		if(out != null)
+				{
+					out.println("ERROR Throwable:<br>");
+					e.printStackTrace(out);
+					out.flush();
+				}
+	      		pw.println("ERROR Throwable:");
+				e.printStackTrace(pw);
+				pw.flush();
 	      	}
 	      	
 			JBDSSet set = new JBDSSet(null);
@@ -652,14 +757,30 @@ public class JFsiTareas implements JTimerInterface
 	    	for(int i = 0; i < set.getNumRows(); i++)
 	    	{
 	    		if(!set.getAbsRow(i).getSU().equals("3")) // La base de datos esta corrupta, se debe eliminar
-	    			continue;
+	    		{
+	    			out.println("La siguiente base de datos esta corrupta y se debe eliminar: " + set.getAbsRow(i).getNombre() + "<br>");
+					out.flush();
+					pw.println("La siguiente base de datos esta corrupta y se debe eliminar: " + set.getAbsRow(i).getNombre());
+					pw.flush();
+				   	continue;
+	    		}
 	    		else
-	    			respaldarEmpresa(set, i, fecha, sb_mensaje, pw);
+	    			respaldarEmpresa(set, i, fecha, out, pw);
 	    	}
+	    	if(out != null)
+			{
+	    		out.println("Generando el archivo zip... Esto puede tardar demasiado tiempo, hay que ser pacientes<br>");
+				out.flush();
+			}
 	    	pw.println("Generando el archivo zip...");
 			pw.flush();
 			JZipUnZipUtil azip= new JZipUnZipUtil();
 			azip.zipFolder(respaldos + "/FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm"), respaldos + "/FORSETI_ADMIN-" + JUtil.obtFechaTxt(fecha, "yyyy-MM-dd-HH-mm") + ".zip");
+			if(out != null)
+			{
+	    		out.println("Eliminando carpeta de respaldo...<br>");
+				out.flush();
+			}
 			pw.println("Eliminando carpeta de respaldo...");
 			pw.flush();
 			//Borra los archivos del respaldo
@@ -689,29 +810,46 @@ public class JFsiTareas implements JTimerInterface
 					stack.pop().delete();
 				}
 			}
-	    	pw.println("----------------------------- FIN DEL RESPALDO ----------------------------------");
+			if(out != null)
+			{
+	    		out.println("--------------- FIN DEL RESPALDO " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + " ---------------<br>");
+				out.flush();
+			}
+	    	pw.println("--------------- FIN DEL RESPALDO " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + " ---------------");
 			pw.flush();
 			pw.close();
 						
 		}
 		catch(IOException e)
 		{
-			idmensaje = 3;
-			sb_mensaje.append("OCURRIERON ERRORES DE IOException<br>" + e.getMessage());
-			//e.printStackTrace();
+			if(out != null)
+			{
+				out.println("OCURRIERON ERRORES DE IOException<br>");
+				e.printStackTrace(out);
+				out.flush();
+			}
+			System.out.println("OCURRIERON ERRORES DE IOException<br>");
+			e.printStackTrace(System.out);
+			
 		}
 		catch(Exception e)
 		{
-			idmensaje = 3;
-			sb_mensaje.append("OCURRIERON ERRORES DE Exception<br>" + e.getMessage());
-			//e.printStackTrace();
+			if(out != null)
+			{
+				out.println("OCURRIERON ERRORES DE Exception<br>");
+				e.printStackTrace(out);
+				out.flush();
+			}
+			System.out.println("OCURRIERON ERRORES DE Exception<br>");
+			e.printStackTrace(System.out);
+			
 		}
-		return idmensaje;
+		
 	}
 	
-	public synchronized short actualizarServidor(StringBuffer sb_mensaje)
+	public synchronized void actualizarServidor(PrintWriter out)
 	{
-		short idmensaje = 0;
+		MutableBoolean reiniciarServ = new MutableBoolean(false);
 		float version = -1F; // la version actual
 	   	int revision = 0;
 	   	float versiondisp = -1F;
@@ -739,18 +877,27 @@ public class JFsiTareas implements JTimerInterface
 			PrintWriter pw = new PrintWriter(filewri);
 	    	try
 			{
-				pw.println("----------------------------------------------------------------------------");
+	    		pw.println("----------------------------------------------------------------------------");
 			    pw.println("             ACTUALIZACION DEL SERVIDOR: " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 			    pw.println("----------------------------------------------------------------------------");
 			    
 			    if(actualizar.equals("NC"))
 				{
-					sb_mensaje.append("PRECAUCION: La variable ACTUALIZAR (url de descarga de actualizaciones) no está definida... No se puede actualizar");
+					if(out != null)
+					{
+						out.println("PRECAUCION: La variable ACTUALIZAR (url de descarga de actualizaciones) no está definida... No se puede actualizar<br>");
+						out.flush();
+					}
 					pw.println("PRECAUCION: La variable ACTUALIZAR (url de descarga de actualizaciones) no está definida... No se puede actualizar");
 					pw.flush();
-					return 1;
+					return;
 				}
 			    
+			    if(out != null)
+				{
+					out.println("Obteniendo indice de actualizacion desde: " + actualizar + "<br>");
+					out.flush();
+				}
 			    pw.println("Obteniendo indice de actualizacion desde: " + actualizar);
 				pw.flush();
 				
@@ -759,11 +906,17 @@ public class JFsiTareas implements JTimerInterface
 				//System.out.println(CONTENT);
 				sc.executeCommand();
 				pw.println(sc.getError());
+				if(out != null)
+				{
+					out.println("FINALIZANDO DESCARGA DEL INDICE: " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+					out.println("------------------------------------------------------------------------------<br>");
+					out.flush();
+				}
 				pw.println("FINALIZANDO DESCARGA DEL INDICE: " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 				pw.println("------------------------------------------------------------------------------");
 				pw.flush();
-					
-				FileReader file         = new FileReader( dir_act + "/indice.si");
+				
+			    FileReader file         = new FileReader( dir_act + "/indice.si");
 				BufferedReader buff     = new BufferedReader(file);
 				boolean eof            = false;
 				while(!eof)
@@ -795,7 +948,12 @@ public class JFsiTareas implements JTimerInterface
 										File status = new File(dir_act + "/act-" + versiondisp + "." + revisiondisp + "/status_log");
 										if(!status.exists())
 										{
-											pw.println("Descarga de revision disponible: " + versiondisp + "." + revisiondisp + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
+											if(out != null)
+											{
+												out.println("Descarga de revisión disponible: " + versiondisp + "." + revisiondisp + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+												out.flush();
+											}
+											pw.println("Descarga de revisión disponible: " + versiondisp + "." + revisiondisp + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 											pw.flush();
 											descargar = true;
 										}
@@ -806,7 +964,12 @@ public class JFsiTareas implements JTimerInterface
 									File status = new File(dir_act + "/act-" + versiondisp + "." + revisiondisp + "/status_log");
 									if(!status.exists())
 									{
-										pw.println("Descarga de version disponible: " + versiondisp + "." + revisiondisp + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
+										if(out != null)
+										{
+											out.println("Descarga de versión disponible: " + versiondisp + "." + revisiondisp + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+											out.flush();
+										}
+										pw.println("Descarga de versión disponible: " + versiondisp + "." + revisiondisp + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 										pw.flush();
 										descargar = true;
 									}
@@ -820,9 +983,14 @@ public class JFsiTareas implements JTimerInterface
 								//System.out.println(CONTENT);
 								sc.executeCommand();
 								pw.println(sc.getError());
+								if(out != null)
+								{
+									out.println("Desempaquetando......<br>");
+									out.flush();
+								}
 								pw.println("Desempaquetando......");
 								pw.flush();
-								desempaquetarActualizacion(dir_act + "/act-" + versiondisp + "." + revisiondisp + ".zip", dir_act + "/act-" + versiondisp + "." + revisiondisp + "/", pw);
+								desempaquetarActualizacion(dir_act + "/act-" + versiondisp + "." + revisiondisp + ".zip", dir_act + "/act-" + versiondisp + "." + revisiondisp + "/", pw, out);
 							}
 						}
 						catch(NoSuchElementException e)
@@ -856,7 +1024,7 @@ public class JFsiTareas implements JTimerInterface
 							String value       = st.nextToken();
 							try { versiondisp = Float.parseFloat(key); } catch(NumberFormatException e) { versiondisp = -2F; };
 							try { revisiondisp = Integer.parseInt(value); } catch(NumberFormatException e) { revisiondisp = -2; };
-							System.out.println("ACTUALIZACION DISP: " + versiondisp + "." + revisiondisp + " " + version + "." + revision);	
+							//System.out.println("ACTUALIZACION DISP: " + versiondisp + "." + revisiondisp + " " + version + "." + revision);	
 							if(version > versiondisp)
 								continue;
 							else // Nuevas versiones o revisiones disponibles
@@ -867,11 +1035,16 @@ public class JFsiTareas implements JTimerInterface
 										continue;
 									else //revision menor a la disponible
 									{
-										System.out.println("OK procede...");
+										//System.out.println("OK procede...");
 										File status = new File(dir_act + "/act-" + versiondisp + "." + revisiondisp + "/status_log");
 										if(status.exists())
 										{
-											pw.println("Actualizacion de revision: " + versiondisp + "." + revisiondisp + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
+											if(out != null)
+											{
+												out.println("Actualización de revisión: " + versiondisp + "." + revisiondisp + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+												out.flush();
+											}
+											pw.println("Actualización de revisión: " + versiondisp + "." + revisiondisp + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 											pw.flush();
 											bActualizar = true;
 										}
@@ -882,6 +1055,11 @@ public class JFsiTareas implements JTimerInterface
 									File status = new File(dir_act + "/act-" + versiondisp + "." + revisiondisp + "/status_log");
 									if(status.exists())
 									{
+										if(out != null)
+										{
+											out.println("Actualización de versión: " + versiondisp + "." + revisiondisp + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+											out.flush();
+										}
 										pw.println("Actualizacion de version: " + versiondisp + "." + revisiondisp + " " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 										pw.flush();
 										bActualizar = true;
@@ -892,7 +1070,7 @@ public class JFsiTareas implements JTimerInterface
 							if(bActualizar)
 							{
 								CONTENT = "wget -O " + dir_act + "/act-" + versiondisp + "." + revisiondisp + ".zip " + actualizar + "/act-" + versiondisp + "." + revisiondisp + ".zip";
-								instalarActualizacion(dir_act + "/act-" + versiondisp + "." + revisiondisp + "/", versiondisp, revisiondisp, version, revision, pw);
+								instalarActualizacion(dir_act + "/act-" + versiondisp + "." + revisiondisp + "/", versiondisp, revisiondisp, version, revision, pw, reiniciarServ, out);
 							}
 						}
 						catch(NoSuchElementException e)
@@ -905,44 +1083,75 @@ public class JFsiTareas implements JTimerInterface
 				buff.close();
 				file.close();
 				//System.out.println("2");
-				sb_mensaje.append("Se han descargado y actualizado el servidor<br>");
-				sb_mensaje.append("Probablemente se necesitará reiniciar este servidor si tomcat no esta configurado con autodeploy....");
-				pw.println("Se han descargado y actualizado el servidor");
-				pw.println("Probablemente se necesitará reiniciar este servidor si tomcat no esta configurado con autodeploy....");
-				pw.flush();
+				if(out != null)
+				{
+					if(reiniciarServ.booleanValue())
+						out.println("Se han descargado y actualizado el servidor. Este servidor se ha reiniciado, por lo tanto, todas las sesiones abiertas se han cancelado. Es necesario volver a registrarse.<br>");
+					else
+						out.println("Se han descargado y actualizado el servidor. No fue necesario reiniciar el servidor.<br>");
+					out.flush();
+				}
+				if(reiniciarServ.booleanValue())
+					pw.println("Se han descargado y actualizado el servidor. Este servidor se ha reiniciado, por lo tanto, todas las sesiones abiertas se han cancelado. Es necesario volver a registrarse.");
+				else
+					pw.println("Se han descargado y actualizado el servidor. No fue necesario reiniciar el servidor.");
+				out.flush();
 								
 			}
 	    	catch(IOException e)
 			{
-				idmensaje = 3;
-				sb_mensaje.append("ERROR de IOException<br>" + e.getMessage());
-				pw.println("ERROR de IOException: " + e.toString());
+	    		if(out != null)
+				{
+	    			out.println("ERROR de IOException<br>");
+	    			out.flush();
+	    			e.printStackTrace(out);
+				}
+				pw.println("ERROR de IOException: ");
 				pw.flush();
+				e.printStackTrace(pw);
 			}
 		    catch (Exception e1) 
 			{
-		    	idmensaje = 3;
-		    	sb_mensaje.append("ERROR de Exception:<br>" + e1.toString());
-		    	pw.println("ERROR de Exception: " + e1.toString());
+		    	if(out != null)
+				{
+	    			out.println("ERROR de Exception<br>");
+	    			out.flush();
+	    			e1.printStackTrace(out);
+				}
+				pw.println("ERROR de Exception: ");
 				pw.flush();
+				e1.printStackTrace(pw);
 			}
+	    	if(out != null)
+			{
+    			out.println("<br>----------------------------- FIN DE LA ACTUALIZACION ----------------------------------");
+    			out.flush();
+    		}
 	    	pw.println("----------------------------- FIN DE LA ACTUALIZACION ----------------------------------");
 			pw.flush();
 			pw.close();
 		}
 		catch(IOException e)
 		{
-			idmensaje = 3;
-			sb_mensaje.append("OCURRIERON ERRORES AL ABRIR O COPIAR ARCHIVOS<br>" + e.getMessage());
+			if(out != null)
+			{
+    			out.println("OCURRIERON ERRORES AL ABRIR O COPIAR ARCHIVOS<br>");
+    			out.flush();
+    			e.printStackTrace(out);
+			}
 		}
-		
-		return idmensaje;
 	}
 
-	private void instalarActualizacion(String folderact, float versiondisp, int revisiondisp, float version, int revision, PrintWriter pw) 
+	private void instalarActualizacion(String folderact, float versiondisp, int revisiondisp, float version, int revision, PrintWriter pw, MutableBoolean reiniciarServidor, PrintWriter out) 
 		throws Exception 
 	{
-		pw.println("COMENZANDO LA ACTUALIZACION DE BASES DE DATOS (V4010) " + versiondisp + "." + revisiondisp + ": " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
+		if(out != null)
+		{
+			out.println("COMENZANDO LA ACTUALIZACION DE BASES DE DATOS " + versiondisp + "." + revisiondisp + ": " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+			out.println("------------------------------------------------------------------------------<br>");
+		    out.flush();
+		}
+		pw.println("COMENZANDO LA ACTUALIZACION DE BASES DE DATOS " + versiondisp + "." + revisiondisp + ": " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 		pw.println("------------------------------------------------------------------------------");
 	    pw.flush();
 		
@@ -1005,7 +1214,15 @@ public class JFsiTareas implements JTimerInterface
 	            if(varversion < version || 
 						(varversion == version && varrevision < revision ))
 				{
-					pw.println("LA BASE DE DATOS ESTA DESFASADA EN VERSION O REVISION Y NO SE PUEDE ACTUALIZAR: " + set.getAbsRow(i).getNombre() + ":" + varversion + "." + varrevision + " ---> " + versiondisp + "." + revisiondisp);
+	            	if(out != null)
+	            	{
+	            		out.println("LA BASE DE DATOS ESTA DESFASADA EN VERSION O REVISION Y NO SE PUEDE ACTUALIZAR: " + set.getAbsRow(i).getNombre() + ":" + varversion + "." + varrevision + " --- " + versiondisp + "." + revisiondisp + "<br>");
+						out.println("ESTO PUEDE SER DEBIDO A QUE SE HA RESTAURADO UNA BASE DE DATOS QUE HABIA SIDO<br>");
+						out.println("RESPALDADA ANTES DE LA ULTIMA ACTUALIZACION DEL SERVIDOR... INTENTA POR ACTUALIZACION DE EMPRESAS DESFASADAS<br>");
+					    out.println("-------------------------------------------------------------------------------------------------------------------<br>");
+					    out.flush();
+					}
+					pw.println("LA BASE DE DATOS ESTA DESFASADA EN VERSION O REVISION Y NO SE PUEDE ACTUALIZAR: " + set.getAbsRow(i).getNombre() + ":" + varversion + "." + varrevision + " --- " + versiondisp + "." + revisiondisp);
 					pw.println("ESTO PUEDE SER DEBIDO A QUE SE HA RESTAURADO UNA BASE DE DATOS QUE HABIA SIDO");
 					pw.println("RESPALDADA ANTES DE LA ULTIMA ACTUALIZACION DEL SERVIDOR... INTENTA POR ACTUALIZACION DE EMPRESAS DESFASADAS");
 				    pw.println("-------------------------------------------------------------------------------------------------------------------");
@@ -1013,6 +1230,11 @@ public class JFsiTareas implements JTimerInterface
 					continue;
 				}
 	            
+	            if(out != null)
+            	{
+	            	out.println("Actualizando BD :" + set.getAbsRow(i).getNombre() + "<br>");
+	            	out.flush();
+            	}
 	            pw.println("Actualizando BD :" + set.getAbsRow(i).getNombre());
 			    pw.flush();
 				
@@ -1021,6 +1243,11 @@ public class JFsiTareas implements JTimerInterface
 					File dir = new File(folderact + "emp");
 					if (dir.exists()) 
 					{
+						if(out != null)
+		            	{
+							out.println("Grabando los archivos del sistema para BD: " + set.getAbsRow(i).getNombre() + "<br>");
+							out.flush();
+		            	}
 						pw.println("Grabando los archivos del sistema para BD: " + set.getAbsRow(i).getNombre());
 						pw.flush();
 						String CONTENT = "rsync -av --stats " + folderact + "emp/ " + dirfsi + "/emp/" + set.getAbsRow(i).getNombre().substring(6);
@@ -1031,6 +1258,11 @@ public class JFsiTareas implements JTimerInterface
 						if(!ERROR.equals(""))
 						{
 							//System.out.println(ERROR);
+							if(out != null)
+			            	{
+								out.println(ERROR + "<br>");
+								out.flush();
+			            	}
 							pw.println(ERROR);
 							pw.flush();
 							return;
@@ -1083,7 +1315,11 @@ public class JFsiTareas implements JTimerInterface
 					        buffbas.close();
 							filebas.close();
 						}
-						
+						if(out != null)
+		            	{
+							out.println("Executando estructura SQL para BD: " + set.getAbsRow(i).getNombre() + "<br>");
+							out.flush();
+						}
 						pw.println("Executando estructura SQL para BD: " + set.getAbsRow(i).getNombre());
 						pw.flush();
 						Connection con = JAccesoBD.getConexion(set.getAbsRow(i).getNombre());
@@ -1142,7 +1378,11 @@ public class JFsiTareas implements JTimerInterface
 						FileReader filemsj    = new FileReader(folderact + "bin/.forseti_es");
 						BufferedReader buffmsj     = new BufferedReader(filemsj);
 						boolean eofmsj             = false;
-						
+						if(out != null)
+		            	{
+							out.println("Executando mensajes para " + set.getAbsRow(i).getNombre() + "<br>");
+							out.flush();
+						}
 						pw.println("Executando mensajes para " + set.getAbsRow(i).getNombre());
 						pw.flush();
 						Connection con = JAccesoBD.getConexion(set.getAbsRow(i).getNombre());
@@ -1228,12 +1468,22 @@ public class JFsiTareas implements JTimerInterface
 		{
 			if(map.get("PUNTO").equals("NC")) // nada actalizado a esta base de datos, comienza por los archivos
 			{
+				if(out != null)
+            	{
+					out.println("--------------------------------- FORSETI_ADMIN -------------------------------------------<br>");
+					out.flush();
+				}
 				pw.println("--------------------------------- FORSETI_ADMIN -------------------------------------------");
 				pw.flush();
 				
 				File dir = new File(folderact + "act");
 				if(dir.exists()) 
 				{
+					if(out != null)
+	            	{
+						out.println("Grabando los archivos act...<br>");
+						out.flush();
+					}
 					pw.println("Grabando los archivos act...");
 					pw.flush();
 					String CONTENT = "rsync -av --stats " + folderact + "act/ " + dirfsi + "/act";
@@ -1243,7 +1493,11 @@ public class JFsiTareas implements JTimerInterface
 					ERROR = sc.getError();
 					if(!ERROR.equals(""))
 					{
-						//System.out.println(ERROR);
+						if(out != null)
+		            	{
+							out.println(ERROR + "<br>");
+							out.flush();
+		            	}
 						pw.println(ERROR);
 						pw.flush();
 						return;
@@ -1257,6 +1511,11 @@ public class JFsiTareas implements JTimerInterface
 				dir = new File(folderact + "bin");
 				if(dir.exists()) 
 				{
+					if(out != null)
+	            	{
+						out.println("Grabando los archivos bin...<br>");
+						out.flush();
+					}
 					pw.println("Grabando los archivos bin...");
 					pw.flush();
 					String CONTENT = "rsync -av --stats " + folderact + "bin/ " + dirfsi + "/bin";
@@ -1266,7 +1525,11 @@ public class JFsiTareas implements JTimerInterface
 					ERROR = sc.getError();
 					if(!ERROR.equals(""))
 					{
-						//System.out.println(ERROR);
+						if(out != null)
+		            	{
+							out.println(ERROR + "<br>");
+							out.flush();
+		            	}
 						pw.println(ERROR);
 						pw.flush();
 						return;
@@ -1280,6 +1543,11 @@ public class JFsiTareas implements JTimerInterface
 				dir = new File(folderact + "pac");
 				if(dir.exists()) 
 				{
+					if(out != null)
+	            	{
+						out.println("Grabando los archivos pac...<br>");
+						out.flush();
+					}
 					pw.println("Grabando los archivos pac...");
 					pw.flush();
 					String CONTENT = "rsync -av --stats " + folderact + "pac/ " + dirfsi + "/pac";
@@ -1289,7 +1557,11 @@ public class JFsiTareas implements JTimerInterface
 					ERROR = sc.getError();
 					if(!ERROR.equals(""))
 					{
-						//System.out.println(ERROR);
+						if(out != null)
+		            	{
+							out.println(ERROR + "<br>");
+							out.flush();
+		            	}
 						pw.println(ERROR);
 						pw.flush();
 						return;
@@ -1303,6 +1575,11 @@ public class JFsiTareas implements JTimerInterface
 				dir = new File(folderact + "rec");
 				if(dir.exists()) 
 				{
+					if(out != null)
+	            	{
+						out.println("Grabando los archivos rec...<br>");
+						out.flush();
+					}
 					pw.println("Grabando los archivos rec...");
 					pw.flush();
 					String CONTENT = "rsync -av --stats " + folderact + "rec/ " + dirfsi + "/rec";
@@ -1312,7 +1589,11 @@ public class JFsiTareas implements JTimerInterface
 					ERROR = sc.getError();
 					if(!ERROR.equals(""))
 					{
-						//System.out.println(ERROR);
+						if(out != null)
+		            	{
+							out.println(ERROR + "<br>");
+							out.flush();
+		            	}
 						pw.println(ERROR);
 						pw.flush();
 						return ;
@@ -1360,6 +1641,11 @@ public class JFsiTareas implements JTimerInterface
 					buffbas.close();
 					filebas.close();
 					
+					if(out != null)
+	            	{
+						out.println("Executando estructura SQL para FORSETI_ADMIN<br>");
+						out.flush();
+					}
 					pw.println("Executando estructura SQL para FORSETI_ADMIN");
 					pw.flush();
 					Connection con = JAccesoBD.getConexion();
@@ -1407,41 +1693,7 @@ public class JFsiTareas implements JTimerInterface
 				
 			}
 			
-			if(map.get("PUNTO").equals("ESTRUCTURA")) // archivos actualizados, ahora el archivo ROOT
-			{
-				File root = new File(folderact + "ROOT.war");
-				if(root.exists()) 
-				{
-					pw.println("Grabando el archivo ROOT para tomcat...");
-					pw.flush();
-					String CONTENT = "rsync -av --stats " + folderact + "ROOT.war " + tomcat + "/webapps";
-					sc.setContent(CONTENT);
-					pw.println(CONTENT);
-					String RES = sc.executeCommand();
-					ERROR = sc.getError();
-					if(!ERROR.equals(""))
-					{
-						//System.out.println(ERROR);
-						pw.println(ERROR);
-						pw.flush();
-						return;
-					}
-					else
-					{
-						pw.println(RES);
-						pw.flush();
-					}
-				}
-				map.put("PUNTO", "ROOT");
-				File f = new File(folderact + "status_log");
-				FileWriter fsl = new FileWriter(f);
-				fsl.write("STATUS=ACTFSI\nBD=FSI\nPUNTO=ROOT");
-				fsl.close();
-				//JUtil.setREINICIAR(true);
-				
-			}
-			
-			if(map.get("PUNTO").equals("ROOT")) // Ahora los mensajes los actualiza
+			if(map.get("PUNTO").equals("ESTRUCTURA")) // Ahora los mensajes los actualiza
 			{
 				File msj = new File(folderact + "bin/.forseti_es");
 				if(msj.exists()) 
@@ -1449,7 +1701,11 @@ public class JFsiTareas implements JTimerInterface
 					FileReader filemsj    = new FileReader(folderact + "bin/.forseti_es");
 					BufferedReader buffmsj     = new BufferedReader(filemsj);
 					boolean eofmsj             = false;
-					
+					if(out != null)
+	            	{
+						out.println("Executando mensajes para FORSETI_ADMIN<br>");
+						out.flush();
+					}
 					pw.println("Executando mensajes para FORSETI_ADMIN");
 					pw.flush();
 					Connection con = JAccesoBD.getConexion();
@@ -1514,19 +1770,64 @@ public class JFsiTareas implements JTimerInterface
 				}
 				File f = new File(folderact + "status_log");
 				FileWriter fsl = new FileWriter(f);
-				fsl.write("STATUS=OK\nBD=FSI\nPUNTO=MSJ");
+				fsl.write("STATUS=ACTFSI\nBD=FSI\nPUNTO=MSJ");
 				fsl.close();
 			}
 			
+			if(map.get("PUNTO").equals("MSJ")) // mensajes actualizados, ahora el archivo ROOT
+			{
+				File root = new File(folderact + "ROOT.war");
+				if(root.exists()) 
+				{
+					if(out != null)
+	            	{
+						out.println("Grabando el archivo ROOT para tomcat...<br>");
+						out.flush();
+					}
+					pw.println("Grabando el archivo ROOT para tomcat...");
+					pw.flush();
+					String CONTENT = "rsync -av --stats " + folderact + "ROOT.war " + tomcat + "/webapps";
+					sc.setContent(CONTENT);
+					pw.println(CONTENT);
+					String RES = sc.executeCommand();
+					ERROR = sc.getError();
+					if(!ERROR.equals(""))
+					{
+						if(out != null)
+		            	{
+							out.println(ERROR + "<br>");
+							out.flush();
+		            	}
+						pw.println(ERROR);
+						pw.flush();
+						return;
+					}
+					else
+					{
+						pw.println(RES);
+						pw.flush();
+					}
+				}
+				map.put("PUNTO", "ROOT");
+				File f = new File(folderact + "status_log");
+				FileWriter fsl = new FileWriter(f);
+				fsl.write("STATUS=OK\nBD=FSI\nPUNTO=ROOT");
+				fsl.close();
+				reiniciarServidor.setValue(true);
+			}
 			
 		}
-		
-        pw.println("FINALIZADA LA ACTUALIZACION DE BASES DE DATOS:: " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
+		if(out != null)
+    	{
+			out.println("FINALIZADA LA ACTUALIZACION DE BASES DE DATOS: " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+			out.println("------------------------------------------------------------------------------<br>");
+		}
+        pw.println("FINALIZADA LA ACTUALIZACION DE BASES DE DATOS: " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 		pw.println("------------------------------------------------------------------------------");
 		
 	}
 
-	private void desempaquetarActualizacion(String path_zip, String destfolder, PrintWriter pw) throws IOException
+	private void desempaquetarActualizacion(String path_zip, String destfolder, PrintWriter pw, PrintWriter out) throws IOException
 	{
 		JZipUnZipUtil uzapl = new JZipUnZipUtil();
 		uzapl.unZipAct(path_zip, destfolder);
@@ -1537,10 +1838,15 @@ public class JFsiTareas implements JTimerInterface
 		fsl = new FileWriter(file);
 		fsl.write(status_log);
 		fsl.close();
-        
+		if(out != null)
+    	{
+			out.println("FINALIZADA LA DESCARGA Y DESEMPAQUETADO DE LA ACTUALIZACION: " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss") + "<br>");
+			out.println("------------------------------------------------------------------------------<br>");
+			out.flush();
+    	}
 		pw.println("FINALIZADA LA DESCARGA Y DESEMPAQUETADO DE LA ACTUALIZACION: " + JUtil.obtFechaTxt(new Date(), "HH:mm:ss"));
 		pw.println("------------------------------------------------------------------------------");
-				
+		pw.flush();		
 	}
 	
 }

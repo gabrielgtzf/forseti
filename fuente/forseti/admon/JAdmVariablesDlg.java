@@ -268,7 +268,7 @@ public class JAdmVariablesDlg extends JForsetiApl
 					return false;
 				}
 			}
-			else if(tipo.equals("NUMERIC"))
+			else if(tipo.equals("DECIMAL"))
 			{
 				boolean isfloat = true,isini = true,isfin = true;
 				float var = 0.0F,ini = 0.0F,fin = 0.0F;
@@ -310,6 +310,21 @@ public class JAdmVariablesDlg extends JForsetiApl
   			  		getSesion(request).setID_Mensaje(idmensaje, mensaje);
   			  		return false;
   			  	}
+			}
+			else if(tipo.equals("ALFA"))
+			{
+				boolean isini = true,isfin = true;
+				String valor = request.getParameter("valor");
+				int ini = 0, fin = 0;
+				try{ini = Integer.parseInt(JUtil.Elm(set.getAbsRow(0).getTipo(),2));}catch(NumberFormatException e){isini = false;} 
+				try{fin = Integer.parseInt(JUtil.Elm(set.getAbsRow(0).getTipo(),3));}catch(NumberFormatException e){isfin = false;} 
+				//System.out.println(var + " " + ini + " " + fin + " " + isint + " " + isini + " " + isfin );
+				if((isini && valor.length() < ini) || (isfin && valor.length() > fin))
+				{
+					idmensaje = 3; mensaje = "ERROR: La variable alfanumérica esta fuera del rango de caracteres permitidos";
+					getSesion(request).setID_Mensaje(idmensaje, mensaje);
+					return false;
+				}
 			}
 		
 			return true;

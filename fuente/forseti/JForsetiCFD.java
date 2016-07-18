@@ -567,7 +567,7 @@ public class JForsetiCFD
 	}
 	
 	/* 
-	 El metodo c6d formatea las cantidades a 4 digitos regresando como cadena
+	 El metodo c6d formatea las cantidades a 6 digitos regresando como cadena
 	 */
 	protected String c6d(Float cant)
 	{
@@ -601,6 +601,52 @@ public class JForsetiCFD
 		}
 		return str.toString();
 	}
+	
+	protected String c3d(Float cant)
+	{
+		Float res = JUtil.redondear(cant, 3);
+		StringBuffer str = new StringBuffer(res.toString());
+		int index = str.indexOf(".");
+		if(index == -1) // No hay punto, por lo tanto lo agrega con los tres ceros 
+			str.append(".000");
+		else // Si existe el punto, Agrega los ceros restantes
+		{
+			int totCeros = str.length() - (index + 1);
+			switch(totCeros)
+			{
+			case 1:	
+				str.append("00");
+				break;
+			case 2:	
+				str.append("0");
+				break;
+			
+			}
+		}
+		return str.toString();
+	}
+	
+	protected String c2d(Float cant)
+	{
+		Float res = JUtil.redondear(cant, 3);
+		StringBuffer str = new StringBuffer(res.toString());
+		int index = str.indexOf(".");
+		if(index == -1) // No hay punto, por lo tanto lo agrega con los dos ceros 
+			str.append(".00");
+		else // Si existe el punto, Agrega los ceros restantes
+		{
+			int totCeros = str.length() - (index + 1);
+			switch(totCeros)
+			{
+			case 1:	
+				str.append("0");
+				break;
+			
+			}
+		}
+		return str.toString();
+	}
+	
     /* Procesos de validacion de un CFD para cuando tengamos que validar su sintaxis
 	public static boolean validarXMLvsXSD(String sFichXml)
 	{
@@ -667,35 +713,14 @@ public class JForsetiCFD
 	 }
 	// Fin de XmlDefaultHandler
 	
-	/* 
-	 El metodo xmlsec formatea un elemento para que lleve la secuencia de escape valida para los caracteres
-	 & " < > ' rfc de la cadena original quitando guiones del rfc
-	 */
 	protected String xmlse(String str)
 	{
 		if(str == null)
 			return "";
 		
-		String res = "";
-
-		for(int i = 0; i < str.length(); i++)
-		{
-			if(str.charAt(i) == '&')
-				res += "&amp;";
-			else if(str.charAt(i) == '"')
-				res += "&quot;";
-			else if(str.charAt(i) == '<')
-				res += "&lt;";
-			else if(str.charAt(i) == '>')
-				res += "&gt;";
-			else if(str.charAt(i) == 39)
-				res += "&apos;";
-			else		
-				res += str.charAt(i);
-	    }
-
-		return res;
+		return JUtil.fco(str);
 	}
+	
 	
 	// Obtiene el texto de un elemento de un xml
 	@SuppressWarnings("rawtypes")
@@ -972,6 +997,8 @@ public class JForsetiCFD
 	    		Element Nomina = Complemento.getChild("Nomina", nsnomina);
 	    		Element Percepciones = Nomina.getChild("Percepciones", nsnomina);
 	    		Element Deducciones = Nomina.getChild("Deducciones", nsnomina);
+	    		Element Incapacidades = Nomina.getChild("Incapacidades", nsnomina);
+	    		Element HorasExtras = Nomina.getChild("HorasExtras", nsnomina);
 	    		
 	    		factxml.getNomina().put("TotalGravadoPers", (Percepciones.getAttributeValue("TotalGravado") == null ? "0.00" : Percepciones.getAttributeValue("TotalGravado")));
 	       		factxml.getNomina().put("TotalExentoPers", (Percepciones.getAttributeValue("TotalExento") == null ? "0.00" : Percepciones.getAttributeValue("TotalExento")));
@@ -1007,6 +1034,35 @@ public class JForsetiCFD
 		 				factxml.getDeducciones().addElement(deduccion);
 		 			}
 		 		}
+	       		if(Incapacidades != null)
+		 		{
+		 			List incap = Incapacidades.getChildren("Incapacidad", nsnomina);
+		 			for (int i = 0; i < incap.size(); i++) 
+		 			{
+		 				Properties incapacidad = new Properties();
+		 				Element Incapacidad = (Element) incap.get(i);
+		 				incapacidad.put("DiasIncapacidad", Incapacidad.getAttributeValue("DiasIncapacidad"));
+		 				incapacidad.put("TipoIncapacidad", Incapacidad.getAttributeValue("TipoIncapacidad"));
+		 				incapacidad.put("Descuento", Incapacidad.getAttributeValue("Descuento"));
+		 				factxml.getIncapacidades().addElement(incapacidad);
+			 		}	
+		 		}
+	       		if(HorasExtras != null)
+		 		{
+	       			List horext = HorasExtras.getChildren("HorasExtra", nsnomina);
+		 			for (int i = 0; i < horext.size(); i++) 
+		 			{
+		 				Properties horasextra = new Properties();
+		 				Element HorasExtra = (Element) horext.get(i);
+		 				horasextra.put("Dias", HorasExtra.getAttributeValue("Dias"));
+		 				horasextra.put("TipoHoras", HorasExtra.getAttributeValue("TipoHoras"));
+		 				horasextra.put("HorasExtra", HorasExtra.getAttributeValue("HorasExtra"));
+		 				horasextra.put("ImportePagado", HorasExtra.getAttributeValue("ImportePagado"));
+		 				factxml.getHorasExtras().addElement(horasextra);
+		 			}
+		 		}
+	       		
+	       		
 	 		}
     		Namespace nstfd = Namespace.getNamespace("tfd","http://www.sat.gob.mx/TimbreFiscalDigital");
     		Element tfd = Complemento.getChild("TimbreFiscalDigital", nstfd);

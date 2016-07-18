@@ -39,7 +39,23 @@
 </script>
 <script language="JavaScript" type="text/javascript" src="../../compfsi/staticbar.js">
 </script>
-
+<script language="JavaScript" type="text/javascript">
+<!--
+function enviarlo(formAct)
+{
+	if(formAct.subproceso.value == "ENVIAR")
+	{
+		if(confirm("<%= JUtil.Msj("GLB","GLB","GLB","CONFIRMACION") %>"))
+			return true;
+		else
+			return false;
+	}
+	else
+		return true;
+	
+}
+-->
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../../compfsi/estilos.css" rel="stylesheet" type="text/css">
 </head>
@@ -55,7 +71,7 @@
 	   <table width="100%" bordercolor="#333333" border="1" cellpadding="4" cellspacing="0">
           <tr>
             <td align="right" class="clock"> 
-              <%  if(JUtil.getSesionAdmin(request).getID_Mensaje() == 0) { %>
+              <%  if(JUtil.getSesionAdmin(request).getID_Mensaje() == 0 && rec.getID_Report() != rec.getID_ReportPlnt()) { %>
         			<input type="submit" name="aceptar" disabled="true" value="<%= JUtil.Msj("GLB","GLB","GLB","ACEPTAR") %>">
         			<%  } else { %>
         			<input type="submit" name="aceptar" value="<%= JUtil.Msj("GLB","GLB","GLB","ACEPTAR") %>">
@@ -120,7 +136,7 @@
           </tr>
           <tr> 
             <td width="20%">Descripci&oacute;n:</td>
-            <td width="30%"><input name="descripcion" type="text" size="50" maxlength="80" value="<%=  rec.getDescripcion() %>"></td>
+            <td width="30%"><input name="descripcion" type="text" size="80" maxlength="254" value="<%=  rec.getDescripcion() %>"></td>
             <td><input name="FSI_PANTALLA" type="checkbox"<% if(request.getParameter("FSI_PANTALLA") != null) { out.print(" checked"); } %>>
               Salida del c&oacute;digo a la pantalla</td>
             <td><input name="graficar" type="checkbox"<%= ((rec.getGraficar()) ? " checked" : "") %>>
@@ -774,7 +790,7 @@
 				  </td>
                 </tr>
 				<tr> 
-                  <td colspan="3">
+                  <td colspan="3" class="titChicoRj">
 <%
 	String SCL1 = (String)request.getAttribute("SCL1");
 	if(SCL1 == null)
@@ -993,7 +1009,7 @@
 		{
 %>
                 <tr> 
-                  <td colspan="6" class="titChicoNar"><%= Enc + ": " + rec.getNumCols(L) %></td>
+                  <td colspan="6" class="titChicoNar"><%= Enc + ": " + rec.getNumCols(L) + " Columnas" %></td>
                 </tr>
                 <tr> 
                   <td class="cpoColNg">Nombre</td>
@@ -1094,7 +1110,7 @@
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                   <td class="titChicoNeg"><%= rec.getAnchoCols(L) %></td>
-                  <td>&nbsp;</td>
+                  <td align="right"><input onClick="javascript:establecerProcesoSVE(this.form.subproceso, 'ACTUALIZAR<%=L%>')" name="ACTUALIZAR<%=L%>" type="submit" value="Actualizar"></td>
                 </tr>
  <%             
 		}
@@ -1113,6 +1129,9 @@
 		cats.m_OrderBy = "ID_Catalogo ASC";
 		cats.Open();
 %>
+				<tr> 
+                  <td colspan="7" class="titChicoNar">Filtro para este reporte</td>
+                </tr>
                 <tr class="cpoColNg"> 
                   <td>Instrucciones</td>
                   <td>Tipo</td>
@@ -1150,18 +1169,20 @@
 			{
 %>
 				      <option value="<%= cats.getAbsRow(c).getID_Catalogo() %>"<% if(rec.getFiltro(i).getID_Catalogo()  == cats.getAbsRow(c).getID_Catalogo()) { out.print(" selected"); } %>><%= cats.getAbsRow(c).getNombre() %></option>
- <%
+<%
 			}
 %>
                    </select></td>
                 </tr>
-                <%
+<%
 		}
+%>
+				<tr> 
+                  <td colspan="7" align="right"><input onClick="javascript:establecerProcesoSVE(this.form.subproceso, 'ACTUALIZARFIL')" name="ACTUALIZARFIL" type="submit" value="Actualizar"></td>
+                </tr>
+<%
 	}
 %>
-                <tr> 
-                  <td colspan="7">&nbsp;</td>
-                </tr>
               </table>
 		</p>
 		<!--div id="cyclelinks2" align="right"></div>

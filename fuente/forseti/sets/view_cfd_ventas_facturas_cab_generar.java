@@ -87,6 +87,7 @@ public class view_cfd_ventas_facturas_cab_generar
 	private String m_Pais;
 	private String m_CP;
 	private String m_MetodoDePago;
+	private String m_MonedaSat;
 
 	public void setID_EntidadVenta(byte ID_EntidadVenta)
 	{
@@ -749,5 +750,14 @@ public class view_cfd_ventas_facturas_cab_generar
 		m_ISRRet = ISRRet;
 	}
 
+	public void setMonedaSat(String MonedaSat) 
+	{
+		m_MonedaSat = MonedaSat;
+	}
+
+	public String getMonedaSat() 
+	{
+		return m_MonedaSat;
+	}
 }
 

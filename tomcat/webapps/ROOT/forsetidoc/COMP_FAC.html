@@ -209,6 +209,12 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				 </tr>
 				 
 
+              	 <tr>
+				 	<td width="5" valign="top" class="txtSubMenu"><font color="#0099FF">-</font></td>
+                    <td valign="top"><a href="051101.html" class="txtSubMenu" target="_self"><font color="#0099FF">Reportes</font></a></td>
+				 </tr>
+				 
+
 				</table>
 				
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -239,6 +245,8 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				  <tr>
 					<td> 
                     
+ 
+				
  
 				
  
@@ -700,7 +708,18 @@ sean diferentes, por ejemplo, dolares con euros.</li>
 </ol>
 <strong>B) Sobre una compra a crédito.</strong> Cuando la compra se haya establecido como "Crédito", se agregará un nuevo registro de cuenta por pagar siguiendo las reglas del módulo de cuentas por pagar y la deuda con este proveedor se actualizará. En caso de que la entidad de compra esté enlazada a la contabilidad, se generará la póliza de diario de la compra de crédito.<br />
 <br />
-<strong>C) Sobre el movimiento al almacén.</strong> El comportamiento para el movimiento de entrada al almacén dependerá de varios factores al momento de ingresar la compra:<br />
+<strong>C) Sobre una compra sin ningún método de pago específico. </strong>Cuando
+ la compra se haya
+ establecido sin ningún método de pago, no se agregará ni movimiento de 
+caja o banco, ni cuenta por pagar. En caso de que la entidad de compra 
+esté enlazada a la contabilidad, se generará la póliza de diario de la 
+compra a crédito con su partida doble a la cuenta especificada en la 
+variable "CC_COMPNP - Cuenta para registros de partida doble en compras o gastos 
+sin ningún tipo de pago, ni crédito, ni contado", establecida en el 
+módulo de variables de la sección de compras del centro de control del 
+CEF.&nbsp; <br />
+<br />
+<strong>D) Sobre el movimiento al almacén.</strong> El comportamiento para el movimiento de entrada al almacén dependerá de varios factores al momento de ingresar la compra:<br />
 <ol>
  <li>Si la entidad de compra tiene seleccionada la opción "<strong>No manejar movimientos al almacén de 
 productos o utensilios", </strong>no se agregará ningún movimiento al almacén al 
@@ -1626,7 +1645,18 @@ pagar enlazada a la compra original siguiendo las reglas del módulo de cuentas 
 con este proveedor se actualizará. En caso de que la entidad de compra 
 esté enlazada a la contabilidad, se generará la póliza de diario perteneciente a este saldo de cuenta.<br />
 <br />
-<strong>C) Sobre el movimiento al almacén.</strong> Primero que nada debemos saber que las rebajas no generan movimientos al almacén. El comportamiento para el movimiento de salida dependerá de varios factores al momento de ingresar una devolución:<br />
+<strong>C) Sobre una devolución o rebaja donde su compra fue realizada sin ningún método de pago específico. </strong>Cuando
+ la compra se haya
+ establecido sin ningún método de pago, no se agregará ni movimiento de 
+caja o banco, ni registro de saldo. En caso de que la entidad de compra 
+esté enlazada a la contabilidad, se generará la póliza de diario de la 
+devolución o rebaja a crédito con su partida doble a la cuenta especificada en la 
+variable "CC_COMPNP - Cuenta para registros de partida doble en compras o gastos 
+sin ningún tipo de pago, ni crédito, ni contado", establecida en el 
+módulo de variables de la sección de compras del centro de control del 
+CEF.&nbsp; <br />
+<br />
+<strong>D) Sobre el movimiento al almacén.</strong> Primero que nada debemos saber que las rebajas no generan movimientos al almacén. El comportamiento para el movimiento de salida dependerá de varios factores al momento de ingresar una devolución:<br />
 <ol>
  <li>Si la entidad de compra tiene seleccionada la opción "<strong>No manejar movimientos al almacén de 
 productos o utensilios", </strong>no se agregará ningún movimiento al almacén
@@ -1691,6 +1721,8 @@ Los errores mas comunes en estos procesos son los siguientes:<br />
 <strong>ERROR: La cuenta X, Y o Z no existe o no se ha enlazado.</strong> Este error es muy común en sistemas nuevos que se acaban de configurar y sucede cuando aún no se han especificado las variables de compras en la sección de compras del módulo de variables del centro de control del CEF. X, Y y Z representan en el mensaje de error, la descripción de la variable, ya que existen varias variables que deben ser especificadas. El sistema revisa por estas variables independientemente si se utilizarán o no, por ejemplo, aunque en la compra no exista un descuento, el sistema revisará el enlace de la variable para el descuento, y si no lo encuentra, fallará al agregarla. También es necesario especificar las variables aunque la entidad de compra no se enlace a la contabilidad. &nbsp; <br />
 </li>
 </ul>
+			  
+
 			  
 
 			  

@@ -32,6 +32,7 @@ _INI_SUBTIPOS
 05.08|Producci&oacute;n|05
 05.09|Nómina|05
 05.10|Centro de Control|05
+05.11|Reportes|05
 06.01|Introducción|06
 07.01|Soluciones|07
 07.02|Anexos|07
@@ -1256,9 +1257,11 @@ _CUERPO_PAG
  
 				
  
+				
+ 
 				 				 				 				 				 				
 
-<div align="justify"> 				 				 				 				 				 				 				 				 				 				En   el módulo de <strong>Almacén</strong>, se puede trabajar   con los movimientos al almacén, plantillas de almacén,  requerimientos de productos, traspasos entre bodegas, chequeos físicos y almacén de utensilios.<br />
+<div align="justify"> 				 				 				 				 				 				 				 				 				 				En   el módulo de <strong>Almacén</strong>, se puede trabajar   con los movimientos al almacén, plantillas de almacén,  requerimientos de productos, traspasos entre bodegas, chequeos físicos y control de utensilios.<br />
 <strong><br />
 Movimientos al almacén</strong>.<br />
 Este es el módulo donde   se controlan las entradas, salidas y existencias de productos en las distintas   bodegas. Su estructura es la siguiente:<br />
@@ -1286,9 +1289,11 @@ licencia de software libre.<br />
 <strong>Chequeo físico.<br />
 </strong>Permite la captura de las unidades físicas   de productos en una determinada fecha y bodega. Con esta base se pueden generar automáticamente los movimientos de salidas y entradas al almacén,   en lugar de tener que saber lo que dice el sistema que hay. Esto último implicaría contar el producto,   sacar la diferencia, si esta de mas, ingresar directamente el movimiento al almacén   de entrada por concepto de chequeo físico de mas, o si esta de menos,   ingresar la salida por concepto de chequeo físico de menos. Veámoslo con un ejemplo... El   31 de diciembre se cuentan todos los productos de la bodega X y se genera un   registro de las existencias a ese momento, después de esto, solo queda hacer ajustes   si es necesario y generarlo (No importa si es unos días después); Se obtienen los   faltantes (movimientos de salida) y los sobrantes (movimientos de entrada) automáticamente ya que se basa en esas existencias al día 31 de diciembre.<br />
 <br />
-<strong>Almacén de utensilios.</strong><br />
-Permite la captura de salidas de productos que no son parte del objetivo del negocio, pero que forman parte importante de un stock consumible, como por ejemplo, tóner de impresoras. Básicamente es un control de seguimiento de las entradas generadas al momento de ingresar un gasto de consumibles.
+<strong>Control de utensilios.</strong><br />
+Permite la captura de salidas de productos que no son parte del objetivo del negocio, pero que forman parte importante de un stock de utensilios y de consumibles, como por ejemplo, tóner de impresoras. Básicamente es un control de seguimiento de las entradas generadas al momento de ingresar un gasto de consumibles.
 </div>            			  			  			  			  			  
+			  
+
 			  
 
 			  
@@ -1301,6 +1306,10 @@ _INI_PAG
 010206|Compras|Da información sobre lo que se puede esperar hacer desde el departamento de compras|0|COMPLETA|null
 _CUERPO_PAG
 
+ 
+				
+ 
+				
  
 				
  
@@ -1338,11 +1347,15 @@ Aquí simplemente registramos los precios de cotización de productos para tener
 <strong>Gastos</strong>.<br />
 En este módulo se puede llevar un control minucioso de los gastos menores y gastos mayores de la empresa. Al igual que en otros módulos, los gastos se pueden o no enlazar a la contabilidad. Con el apoyo del módulo de vales de caja se puede complementar este módulo definiendo un gasto directamente en los vales, para después poder generar el gasto automáticamente desde aquel módulo.<br />
 <br />
-Los gastos también se pueden ingresar directamente a través de una hoja de captura de gastos. El cabecero de la hoja de gastos contendrá la misma estructura que una compra. Con los gastos a crédito, se genera automáticamente la cuenta por pagar, así mismo,  con los gastos de contado se genera el movimiento de caja o banco. Un gasto generará su póliza según las reglas de la clave del gasto ( véase módulo de catálogos ), siempre y cuando la entidad del gasto se enlace a la contabilidad.<br />
+Los gastos también se pueden ingresar directamente a través de una hoja de captura de gastos. El cabecero de la hoja de gastos contendrá la misma estructura que una compra. Con los gastos a crédito, se genera automáticamente la cuenta por pagar, así mismo,  con los gastos de contado se genera el movimiento de caja o banco. Un gasto generará su póliza según las reglas de la clave del gasto ( véase módulo de catálogos ), siempre y cuando la entidad del gasto se enlace a la contabilidad, además, se podrán inventariar gastos que pertenecen a consumibles y utensilios como por ejemplo, toner de impresoras, artículos de papelería, herramientas de trabajo como taladros, martillos, etc.<br />
 <br />
 <strong>NOTA:</strong> Tanto recepciones como compras y gastos, pueden ser capturadas también, por medio de un archivo xml que represente un CFDI.<br />
 <br />
 </div>  			  			  			  			  
+			  
+
+			  
+
 			  
 
 			  
@@ -1580,6 +1593,10 @@ _CUERPO_PAG
  
 				
  
+				
+ 
+				
+ 
 				 				 				 				 				
 
 <div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 En este módulo   trabajamos con la administración y propiedades de la empresa.<br />
@@ -1617,7 +1634,7 @@ Aquí manejamos las claves y comisiones asignadas   a cada vendedor. Podemos dar
 <strong>Formatos</strong>.<br />
 Los formatos son las estructuras para la generación   de impresiones de algún tipo de registro como facturas, pedidos, cheques etc.   Aquí podemos darlos de alta, revisarlos y cambiarlos.<br />
 <br />
-<strong>CFDI y CE</strong>. <br />
+<strong>CFDI, CE y GDE.</strong> <br />
 Nos permite la configuración para poder emitir comprobantes fiscales digitales necesarios para la facturación, notas de crédito, remisiones, cartas porte y recibos de nómina. Podemos configurar:<br />
 <ul> <li>Datos del emisor.</li> <li>Subir uno o varios certificados.</li> <li>Dar de alta una o varias entidades de expedición.</li>
 </ul>Con estos elementos configurados, forseti puede generar comprobantes fiscales digitales ( CFD ) en forma de traslados, ingresos y egresos. Este CFD puede ser sellado por el servicio forseti
@@ -1628,7 +1645,15 @@ licencia de software libre.<br />
 <br />
 Este módulo también nos permite generar los archivos xml de contabilidad electrónica "CE" de la balanza, catálogo de cuentas y pólizas que son requeridos por hacienda a partir de 2015. Este módulo también genera un archivo de estatus el cual informa de anomalías y/o alertas en los xml. Un ejemplo sería un registro de póliza de ingresos donde el campo de RFC está vacío o la cuenta bancaria está indefinida.<br />
 <br />
+Por último, este módulo nos permite desenlazar y eliminar documentos 
+CFDI generados externamente, por ejemplo, por el portal del SAT&nbsp; u otro 
+sistema de cómputo, los cuales han sido cargados a forseti y enlazados a
+ registros de compra, venta, recibos de nómina, etc. <br />
 </div>                                 			  			  			  			  			  			  			  			  			  			   							  			  			  			  			  			  			  
+			  
+
+			  
+
 			  
 
 			  
@@ -2433,9 +2458,51 @@ _CUERPO_PAG
 _FIN_PAG
 
 _INI_PAG
+030103|Carga de reportes y gráficas|Interfaz de la carga de reportes y gráficas en el CEF y SAF|0|COMPLETA|
+_CUERPO_PAG
+<div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 				 				Los reportes y gráficas son accesibles al pulsar el elemento Reportes que presentan los módulos y submódulos de las raíces de Módulos, Centro de Control y Mensajes del menú principal. Por ejemplo, al pulsar la raíz de Módulos, se presentan los módulos correspondientes a los departamentos de la empresa, al pulsar el módulo de Contabilidad se despliega en primer lugar el elemento "Reportes" y luego los submódulos contables. Este elemento "Reportes" contendrá los reportes globales de la contabilidad como el Balance General. Al pulsar en un submódulo como Pólizas, el primer elemento será también "Reportes", y contendrá los reportes de pólizas de la contabilidad.<br /><br />Esta mecánica se presenta en todos los módulos y submódulos que contengan reportes asociados. Al pulsar en el elemento Reportes, estos se listarán en el panel de cuerpo principal. Si el usuario no tiene acceso a ningún reporte del módulo o submódulo seleccionado, la lista de reportes se mostrará vacía.<br /><br />El panel mostrará los reportes accesibles al usuario con una descripción breve del objetivo del reporte, y una bandera marcada como <strong>GRF</strong> que informa si este reporte se puede graficar o no. Los reportes de <strong>sistema</strong> se muestran en color azul, mientras los reportes <strong>definidos por el usuario</strong> en color negro.<br /><br />Los reportes contienen un solo botón de proceso que se llama <strong>CARGAR</strong>, que al pulsarlo mostrará una ventana emergente que contiene el filtro del reporte en el cual se deben seleccionar los valores del filtro según las instrucciones de cada valor.<br /><br /></div><div align="justify"><img alt="fig3.1.3.1" src="../forsetidoc/IMG/fig3.1.3.1.gif" style="border: 0px solid; margin: 0px;" /><br /><br /><strong>Figura 3.1.3.1</strong>, filtro del reporte de Balance General del módulo contable.<br /></div><div align="justify"><br />Adicionalmente, si el reporte se puede graficar, se muestran las propiedades de configuración para la gráfica. Estas incluyen los siguientes valores:<br /><br /><ul> <li><strong>Si "si" se desea graficar o "no" se desea graficar</strong>: En caso de si graficar, se mostrará una gráfica según la configuración, de lo contrario, se muestra el reporte para impresión.</li> <li><strong>Tipo de gráfica</strong>: Esta incluye Barras, Lineas, Circular o Areas. <strong>Nota</strong>: incluso que el reporte acepte graficar, no siempre se permite cualquier tipo de gráfica. Revisa la documentación del reporte para ver que tipos de gráficas acepta.</li> <li><strong>Variación</strong>: Esta propiedad permite ver una gráfica en valores "Normales" (iguales al reporte), valores "En Pila" o valores "En Porcentaje".</li> <li><strong>Dirección de datos</strong>: Permite mostrar la gráfica desde dos distintas perspectivas, "En Filas" o "En Columnas". <br /></li> <li><strong>Mostrar lineas eje</strong>: Propiedad que permite mostrar u ocultar las lineas del eje de la gráfica. Esta no aplica a gráficas Circulares ya que en este tipo de gráficas no existen los ejes.<br /></li></ul><br /></div><div align="justify"><img alt="fig3.1.3.1" src="../forsetidoc/IMG/fig3.1.3.2.gif" style="border: 0px solid; margin: 0px;" /><br /><br /><strong>Figura 3.1.3.2</strong> Ejemplo de ventana de filtrado para reportes que soportan gráficas.<br /></div><div align="justify"><br />Para entender mejor los conceptos, veámoslo en un ejemplo completo. La siguiente tabla representa el reporte para nuestra gráfica:<br /><br /></div><div align="justify"><img alt="fig3.1.3.3" src="../forsetidoc/IMG/fig3.1.3.3.gif" style="border: 0px solid; margin: 0px;" /><br /></div><div align="justify"><br /></div><div align="justify"><strong>Figura 3.1.3.3</strong>, Reporte de comparativo de ventas mensuales de entidades<br /></div><div align="justify"><br />Ahora supongamos los siguientes valores de configuración para la gráfica: Tipo de gráfica <strong>Barras</strong>, Variación <strong>Normal</strong>, Dirección de datos <strong>En Filas</strong>, Lineas eje <strong>SI</strong>. El resultado se observa como la figura 3.1.3.4.<br /><br /></div><div align="justify"><img alt="fig3.1.3.4" src="../forsetidoc/IMG/fig3.1.3.4.gif" style="border: 0px solid; margin: 0px;" /><br /></div><div align="justify"><br /></div><div align="justify"><strong>Figura 3.1.3.4</strong>, Gráfica de barras con dirección de datos en filas.<br /></div><div align="justify"><br />Ahora, cambiamos a esta gráfica la dirección de datos a <strong>Columnas</strong> y Lineas eje a <strong>NO:</strong><br /><br /></div><div align="justify"><img alt="fig3.1.3.5" src="../forsetidoc/IMG/fig3.1.3.5.gif" style="border: 0px solid; margin: 0px;" /><br /></div><div align="justify"><br /></div><div align="justify"><strong>Figura 3.1.3.5</strong>, Gráfica de barras con dirección de datos en columnas y sin lineas eje.<br /></div><div align="justify"><br />También podemos conseguir distintas gráficas del mismo reporte. Por ejemplo, la figura 3.1.3.6 muestra exactamente la misma configuración de la gráfica de la figura 3.1.3.4, pero como una gráfica de áreas:<br /><br /></div><div align="justify"><img alt="fig3.1.3.6" src="../forsetidoc/IMG/fig3.1.3.6.gif" style="border: 0px solid; margin: 0px;" /><br /></div><div align="justify"><br /></div> <div align="justify"><strong>Figura 3.1.3.6</strong>, Gráfica de áreas con dirección de datos en filas.<br /></div><div align="justify"><br />Como te puedes dar cuenta, si un reporte soporta las gráficas, éstas puedes configurarlas de varias maneras. <br /></div>			  			  			  			  			  			  			  			  			  			  			  			  			  			  
+_FIN_PAG
+
+_INI_PAG
 030201|Paneles de sistema|Muestra la informacion que nos brindan los paneles de sistema|1|COMPLETA|null
 _CUERPO_PAG
- 				 				 				 				 				 				<div align="justify"> 				 				 				 				El cabecero es un panel estático que nos permite ver la interfaz en la que estamos trabajando, (CEF o SAF) y nos permite realizar tareas tan básicas como la solicitud de inicio o cierre de sesión (botón rojo), la carga general de ayuda de la interfaz (botón de salvavidas), e ir al inicio de la interfaz (botón de casa). El cabecero luce de la siguiente manera:<br /></div><p align="center"><img src="../forsetidoc/IMG/030201fig1.png" /></p><p align="center"><strong>figura 1</strong>, panel del cabecero<br /></p><p>El panel de menú, muestra el sistema de navegación principal y se agrupa en modo similar a un menú de cualquier aplicación. Las interfaces de SAF y CEF, pueden verse como aplicaciones distintas, y sus menús responden a sus propios procesos. Desde aquí, se controlan las entradas a sus módulos respectivos, que a su vez, serán mostrados en los paneles de módulo según la interfaz. La imagen de la figura 2, muestra el árbol del módulo de catálogo de turnos del departamento de nómina. <br /></p><p align="center"><img src="../forsetidoc/IMG/030201fig2.png" /></p><p align="center"><strong>figura 2</strong>, panel del menú desplegando información de módulos<br /></p><div align="justify"> 				 				 				 				 				 				El panel de la barra de información, nos muestra la fecha, y la hora de la máquina local. Es también en esta barra que se muestra información sobre: Versión, Servidor, Host, Usuario o Cliente y Compañía:<br /><ul> <li><strong>Versión</strong>: Es la versión del servidor forseti al que se está conectado. Esta cambia automáticamente cuando se actualiza el servidor a una nueva versión.</li> <li><strong>Servidor</strong>: Muestra el nombre del servidor, proveedor del sistema Forseti al que se está conectado. Los nombres de los servidores Forseti no son los nombres de dominio, son nombres asignados a gusto del dueño del servidor, como una identificación del proveedor del servicio hacia sus clientes.</li> <li><strong>Host</strong>: Es el nombre de la máquina, la dirección IPv4 o la dirección IPv6 del PC conectado a Forseti. El host se utiliza para registros de sesión y de procesos en el servidor Forseti, y la seguridad que esto implica para resolver un eventual ataque o falla del servidor. </li> <li><strong>Compañía</strong>: Al registrarnos, este campo nos muestra la base de datos a la que estamos conectados. solo aplica al CEF.<br /></li> <li><strong>Usuario o Cliente</strong>: Al igual que la compañía, nos muestra el usuario dado de alta en el CEF o en el SAF, con el que nos estamos conectando.</li></ul><div align="center"><img src="../forsetidoc/IMG/030201fig3.png" /><strong><br /><br />figura 3</strong>, parte del panel de la barra de información</div></div>			  			  			  			  			  			  			  			  
+
+ 
+				 				 				 				 				 				 				
+
+<div align="justify"> 				 				 				 				El cabecero es un panel estático que nos permite ver la interfaz en la que estamos trabajando (CEF o SAF) y nos permite realizar tareas tan básicas como la solicitud de cierre de sesión (botón rojo), la carga general de ayuda de la interfaz (botón de salvavidas), ir al inicio de la interfaz (botón de casa), y lo mas importante, ir al menú del sistema. El cabecero luce de la siguiente manera:<br />
+</div>
+<p align="center">
+<img src="../forsetidoc/IMG/030201fig1.png" />
+</p>
+<p align="center">
+<strong>figura 1</strong>, panel del cabecero<br />
+</p>
+<p>En el CEF, al presionar el botón del menú, se mostrará en el panel principal el sistema de navegación con los botones de acceso a los departamentos o secciones del sistema a los que tiene acceso el usuario registrado, como los son, contabilidad, catálogos, compras, ventas, centro de control, etc. Al presionar un botón de algún departamento o sección, aparecerán los módulos a los que tiene acceso. La imagen de la figura 2 muestra los módulos de la sección del centro de control. A diferencia del CEF, el SAF muestra su sistema de menú parecido al de una aplicación de escritorio. <br />
+</p>
+<p align="center">
+<img src="../forsetidoc/IMG/030201fig2.png" />
+</p>
+<p align="center">
+<strong>figura 2</strong>, panel principal desplegando información de módulos del centro de control<br />
+</p>
+<div align="justify"> 				 				 				 				 				 				El panel de la barra de información nos muestra la siguiente información: <br />
+<ul>  <li>
+<strong>Servidor</strong>: Muestra el nombre del servidor del sistema Forseti al que estamos conectados. Los nombres de los servidores Forseti no son los nombres de dominio, son nombres asignados a gusto del dueño del servidor. Son una forma de identificación del proveedor del servicio hacia sus clientes. Seguido del nombre, se muestra la versión del sistema forseti y cambia automáticamente con cada actualización del servidor.</li> <li>
+<strong>Host</strong>: Es el nombre de la máquina, la dirección IPv4 o la dirección IPv6 del PC conectado a Forseti. El host se utiliza para registros de sesión y de procesos en el servidor Forseti, y la seguridad que esto implica para resolver un eventual ataque o falla del servidor. </li> <li>
+<strong>Compañía</strong>: Al registrarnos, este campo nos muestra el nombre de la compañía o persona física de la base de datos a la que estamos conectados. Solo aplica al CEF.<br />
+</li> <li>
+<strong>Usuario</strong>: Al igual que la compañía, nos muestra el nombre del usuario dado de alta en el CEF o en el SAF con el que nos estamos conectando. Junto al nombre del usuario se muestra un botón de cambio de contraseña para que puedas cambiarla periódicamente sin tener la necesidad de que la cambie el administrador de usuarios desde el módulo de administración de roles.</li>
+ <li>Por último nos muestra la información de la fecha y hora. <br />
+</li>
+</ul>
+<div align="center">
+<img src="../forsetidoc/IMG/030201fig3.png" />
+<strong><br />
+<br />figura 3</strong>, parte del panel de la barra de información</div>
+</div>			  			  			  			  			  			  			  			  
+			  
+
 _FIN_PAG
 
 _INI_PAG
@@ -2569,12 +2636,36 @@ _CUERPO_PAG
  
 				
  
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
 				 				 				 				 				 				 				 				 				 				
 
 <div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 				 							El módulo administrativo de Servidor y Empresas del SAF te permite controlar:<br />
-<ul> <li>La configuración de propiedades del servidor.</li> <li>Las actualizaciones del mismo.</li> <li>Las propiedades de las empresas.</li> <li>Los respaldos y restauración de empresas individuales.</li> <li>El desarrollo de reportes y gráficas para el mismo SAF o para empresas del CEF.</li>
+<ul> <li>La configuración de propiedades del servidor.</li> <li>Las actualizaciones del mismo.</li> <li>Las propiedades de las empresas.</li> <li>Los respaldos y restauración de empresas individuales.</li>
+ <li>Los respaldos del servidor completo.<br />
+</li> <li>El desarrollo de reportes y gráficas para el mismo SAF o para empresas del CEF.</li>
 </ul>Los paneles Izquierdo, Derecho e Inferior aparecen vacíos porque este módulo no los utiliza.</div>
-<p>Las columnas por defecto que muestra el panel de cuerpo principal de este módulo son la siguientes:</p>
+<p>El panel de cuerpo principal muestra las bases de datos (empresas) instaladas en este servidor. Las columnas por defecto son la siguientes:</p>
 <div align="justify">
 <ul> <li>
 <strong>Clave.</strong> Es el identificador de la base de datos. Este, se debe ingresar al registro de inicio de sesión en el CEF.<br />
@@ -2614,8 +2705,10 @@ Estas propiedades engloban configuraciones generales que necesita el servidor pa
 <strong>Ruta de Instalación de TOMCAT</strong>, Es donde quedó instalado el servidor web Tomcat7. En distribuciones basadas en Ubuntu por lo general se instala en "/var/lib/tomcat7". &nbsp;&nbsp;&nbsp; </li> <li>
 <strong>Ruta del OpenJDK o Java JDK</strong>, Es donde quedó instalada la Máquina Virtual de Java utilizada por tomcat y la aplicación forseti.</li> <li>
 <strong>Nombre de este servidor,</strong> Un nombre común para identificar este servidor ante las terminales que se conecten a el. Si se es proveedor del servicio de Out-Sourcing, este nombre debería hacer referencia a tu negocio. &nbsp;&nbsp;&nbsp; </li> <li>
-<strong>URL de revisión y descarga de actualizaciones forseti</strong>, Es la URL del servidor que contenga las actualizaciones de forseti. Estas se publican en la sección la sección <a href="070205.html">SOF / Anexos / Rutas de descarga</a>. &nbsp;&nbsp;&nbsp; </li> <li>
-<strong>Contraseña de fsi</strong>, Esta es muy importante. fsi es el usuario administrativo del SAF, fsi puede hacer todo, y absolutamente todo dentro del SAF, por lo tanto, se debería proporcionar una contraseña bastante fuerte y cambiarse regularmente. Se sugiere no usar este usuario para ninguna tarea, por el contrario, se debería dar de alta un rol administrativo y asignarle los permisos necesarios. <strong>NOTA MUY IMPORTANTE</strong>: Si se deja en blanco esta contraseña, no se cambiará.</li> <li>
+<strong>URL de revisión y descarga de actualizaciones forseti</strong>, Es la URL del servidor que contenga las actualizaciones de forseti. Estas se publican en la sección <a href="070205.html">SOF / Anexos / Rutas de descarga</a>. &nbsp;&nbsp;&nbsp; </li> <li>
+<strong>Contraseña de fsi</strong>, Esta es muy importante. fsi es el usuario administrativo del SAF, fsi puede hacer todo, y absolutamente todo dentro del SAF, por lo tanto, se debería proporcionar una contraseña bastante fuerte y cambiarse regularmente. Se sugiere no usar este usuario para ninguna tarea, por el contrario, se debería dar de alta un rol administrativo y asignarle los permisos necesarios. <strong>NOTA MUY IMPORTANTE</strong>: Si se deja en blanco esta contraseña, no se cambiará.</li>
+ <li>
+<strong>Confirmación de contraseña de fsi</strong>, Debes confirmar aquí, la misma contraseña del campo anterior o dejarla en blanco si no se cambiará</li> <li>
 <strong>Infraestructura PostgreSQL</strong>, Esta debe ser Local o Segundo Servidor, AWS RDS se utilizaba en el pasado para infraestructuras de base de datos montadas en el servicio Amazon Relational Database Systems. Este campo indicaba al servidor ejecutar o no, respaldos de servidor al nivel de bases de datos. Como en una infraestructura RDS los respaldos se generan por el servicio,  en caso de estar seleccionado, el servidor forseti no generaba respaldos de todo el servidor. Hoy en día, esto no tiene efecto ya que se generan respaldo aún sobre infraestructuras RDS, y solo se proporciona para compatibilidad hacia atrás. </li> <li>
 <strong>Ruta de Respaldos</strong>, Es la ruta donde se guardarán los archivos ZIP de los respaldos generados de todo el servidor, o de las bases de datos individuales.</li>
 </ul>
@@ -2624,7 +2717,7 @@ El gestor de tareas automáticas, permite al servidor forseti, ejecutar procesos
 <ul> <li>
 <strong>Hora de comienzo de procesos</strong>, Es la hora a la que se ejecutará el gestor de tareas automáticas. Esta debe estar en formato <strong>hh:mm</strong> de 24 hrs, por ejemplo, 13:10 para la una de la tarde con diez minutos. La hora, la toma del reloj del servidor web y ésta debería ser una hora en la cual el servidor forseti tenga la menor carga de trabajo posible, ya que estos procesos pueden alentar bastante el servicio.</li> <li>
 <strong>Revisión de actualizaciones disponibles</strong>, Bandera para marcar si es que se desea que el gestor ejecute el proceso de actualización de versión del servidor (si administras bien el servidor te sugerimos no activar esta bandera y mejor hacer las actualizaciones manualmente). </li> <li>
-<strong>Respaldos</strong>, Bandera para marcar si es que se requieren respaldos diarios automáticos de todo el servidor. <strong>NOTA</strong>: Los respaldos de todo el servidor solo se pueden realizar desde el gestor de tareas, y no manualmente como si se puede con los respaldos de bases de datos individuales.</li> <li>
+<strong>Respaldos</strong>, Bandera para marcar si es que se requieren respaldos diarios automáticos de todo el servidor.</li> <li>
 <strong>Actualización de saldos y otros, en todas las empresas,</strong> Bandera para indicar si se desea realizar la actualización de saldos, existencias y otras actualizaciones que se necesitan realizar en cada empresa instalada en el servidor.Véase el <a href="051002.html">CEF/Centro de control/Saldos</a> para mayor información sobre lo que son estas actualizaciones.<br />
 </li>
 </ul>
@@ -2665,7 +2758,7 @@ Por último, la API JAwsS3Conn recibe el archivo desde el "servidor cliente" y l
 permiso para su consumo. Esta base de datos debe incluso contener un 
 registro del servidor local, de lo contrario, no se podrá consumir 
 localmente. Cada registro contiene el uuid del servidor cliente, el usuario y la
- contraseña. Además, debe de contener el nombre de cada base de datos de cada servidor cliente y algunas otras configuraciones para cada uno de los tres servicios. Estos datos se gestionan directamente en la base de datos FORSETI_ADMIN y no existe ninguna interfaz web para dicho propósito por lo que tendrán que ser manipuladas directamente a través de un cliente PostgreSQL como psql. La estructura utilizada es la siguiente:</p>
+ contraseña. Además, debe de contener el nombre de cada base de datos de cada servidor cliente y algunas otras configuraciones para cada uno de los tres servicios. Estos datos se gestionan directamente en la base de datos FORSETI_ADMIN ya que actualmente la interfaz web para dicho propósito está aún en desarrollo, por lo que tendrán que ser manipuladas directamente a través de un cliente PostgreSQL como psql. La estructura utilizada es la siguiente:</p>
 <table border="1">
   <tbody>
     <tr> 
@@ -2805,7 +2898,7 @@ no tenga cuenta con Edicom, con un servicio de SMTP o con Amazon S3 y que utilic
 empresarial, pueda aún timbrar sus facturas y demás comprobantes, mandar correo automático y alojar sus archivos en la nube. En el 
 proyecto <a href="070106.html">SOF</a> de la página oficial forseti.org.mx se brinda información sobre servidores con la API activa.</p>
 <p>
-Para dar de alta tu servidor forseti para tener tus APIs activas, necesitarás tener cuentas con los servicios de Edicom, de cualquier SMTP y de Amazon S3. Ya teniendo tus cuentas activas de estos servicios, podras configurarlas en las siguientes tres secciones.<br />
+Para dar de alta tu servidor forseti para tener tus APIs activas, necesitarás tener cuentas con los servicios de Edicom, de Amazon SES u otro SMTP y de Amazon S3. Ya teniendo tus cuentas activas de estos servicios, podrás configurarlas en las siguientes tres secciones.<br />
 </p>
 <strong>
 Datos del Proveedor Autorizado de Certificación (si, y solo si este servidor brinda el servicio de timbrado):</strong><br />
@@ -2836,7 +2929,7 @@ Datos del Proveedor Autorizado de Certificación (si, y solo si este servidor br
 </p>
 <p>
 <strong>2 .- Actualizar Servidor.</strong>
-</p>Al ejecutar este proceso, el servidor primero verifica si existen actualizaciones disponibles. Este proceso usa el URL configurada en las propiedades del servidor, y en caso de que este servidor demuestre estar en su última versión, el proceso terminará en este punto. De lo contrario, descargará todos los archivos de actualización necesarios para dejar este servidor en la última versión disponible, y los ejecutará uno por uno. Por ejemplo, si la versión del servidor es la 4.0.7, y hubieran disponibles las revisiones 8, 9 y 10, se instalará primero la actualización 4.0.8. Al finalizar, proseguirá con la instalación de la actualización 4.0.9, y al finalizar ésta, con la 4.0.10, y en este punto finalizará el proceso. Como cada una de las actualizaciones puede quedar inconclusa (por fallas en la luz etc.), durante el proceso crítico de la actualización, el servidor se pone en un estado inestable "Actualizando", el cual no permite que alguien se registre en el CEF. Aparte, se rigen por un archivo el cual contiene el status de cada actualización, para que así, se pueda reiniciar la actualización desde el punto en el que se quedó, justo antes de la falla eléctrica, y así, regresar al servidor a un estado estable. Las actualizaciones se pueden llevar a cabo de manera manual (este proceso) y/o de manera automática, configurándola en las propiedades del servidor. Es muy importante revisar el archivo de registro de la actualización para poder controlar algún error que pudiera presentarse durante el proceso. Cada actualización, actúa primero sobre cada base de datos de empresas instaladas, y al finalizar, sobre la base de datos principal FORSETI_ADMIN. Es por esto, que las actualizaciones pueden tardar un tiempo considerable antes de finalizar, sobre todo, cuando no se ha actualizado el servidor en un período de tiempo razonablemente largo.<br />
+</p>Al ejecutar este proceso, el servidor primero verifica si existen actualizaciones disponibles. Este proceso usa el URL configurada en las propiedades del servidor y en caso de que este servidor demuestre estar en su última versión, el proceso terminará en este punto. De lo contrario, descargará todos los archivos de actualización necesarios para dejar este servidor en la última versión disponible y los ejecutará uno por uno. Por ejemplo, si la versión del servidor es la 4.0.7 y hubieran disponibles las revisiones 8, 9 y 10, se instalará primero la actualización 4.0.8. Al finalizar, proseguirá con la instalación de la actualización 4.0.9 y al finalizar ésta, con la 4.0.10, y en este punto finalizará el proceso. Como cada una de las actualizaciones puede quedar inconclusa (por fallas en la luz etc.), durante el proceso crítico de la actualización, el servidor se pone en un estado inestable "Actualizando", el cual no permite que alguien se registre en el CEF. Aparte, se rigen por un archivo el cual contiene el estatus de cada actualización, para que así, se pueda reiniciar la actualización desde el punto en el que se quedó, justo antes de la falla eléctrica, y así, regresar al servidor a un estado estable. Las actualizaciones se pueden llevar a cabo de manera manual (este proceso) y/o de manera automática, configurándola en las propiedades del servidor. Es muy importante revisar el archivo de registro de la actualización para poder controlar algún error que pudiera presentarse durante el proceso. Cada actualización, actúa primero sobre cada base de datos de empresas instaladas, y al finalizar, sobre la base de datos principal FORSETI_ADMIN. Es por esto, que las actualizaciones pueden tardar un tiempo considerable antes de finalizar, sobre todo, cuando no se ha actualizado el servidor en un período de tiempo razonablemente largo.<br />
 <br />
 <br />
 <strong>3 .- Agregar Empresa.</strong><br />
@@ -2854,29 +2947,137 @@ Permite dar de alta empresas en este servidor. Cada empresa actúa como una base
 <strong>Confirmación de Contraseña</strong>, Debes confirmar la contraseña anterior.&nbsp; <br />
 </li>
 </ul>
-<strong><br />
-4 .- Cambiar Propiedades.</strong><br />
+Estos son los datos básicos para la creación de empresas. Con esta información ya se podrá crear una empresa configurable desde cero o totalmente virgen, sin embargo, el proceso de creación te permite establecer algunas características para la instalación, y por lo tanto, al seguir en el formulario se presentará la siguiente pantalla que permite la selección del tipo de instalación, establecida por los siguientes puntos:<br />
+<ol>
+ <li>
+<strong>Empresa configurada parcialmente.</strong> Te permite seleccionar entre algunos tipos de empresas o plantillas que ya están configuradas parcialmente, por ejemplo, una instalación exclusiva para facturación electrónica, una instalación de una empresa distribuidora con control estricto, una empresa productora general, una plantilla con catálogos contable y de gastos pre-registrados, etc. &nbsp;&nbsp;&nbsp; <br />
+</li>
+ <li> <strong>Selección de módulos.</strong> Si ninguna empresa o plantilla pre-configurada de la sección anterior se adapta a tus necesidades de control, podrás seleccionar los módulos que más te convengan, para darle mayor funcionalidad a tu negocio, por ejemplo, podrás incluir el módulo de nóminas, varios puntos de venta, por ejemplo, México DF, Monterrey y Guadalajara, plantas de producción, etc. &nbsp;&nbsp;&nbsp; <br />
+</li>
+ <li>
+<strong>Empresa configurable desde cero.</strong> Esta selección instala una empresa totalmente configurable desde cero (empresa virgen), por ejemplo, al instalar empresas o plantillas pre-configuradas o por selección de módulos, se instala el catálogo de cuentas contables definido por el SAT y sus asociaciones a los auxiliares. Esta selección no instala nada de configuraciones de sistema ni tampoco un catálogo de cuentas contables. Esta opción es importante para empresas que desean integrar un catálogo contable diferente al del SAT o para aquellas empresas con tiempo trabajando y que desean migrar a forseti. El inconveniente es que el trabajo de configuración de la empresa se tendrá que hacer manualmente desde distintos módulos del CEF.<br />
+</li>
+</ol>
+<p>En esta misma pantalla se debe ingresar el mes de inicio de actividades y la clave y nombre del usuario asociado a la configuración seleccionada, a menos que se haya seleccionado una empresa configurable desde cero. El formulario incluye:</p>
+<ul>
+ <li>
+<strong>Mes.</strong>
+</li>
+ <li>
+<strong>Año.</strong>
+</li>
+ <li>
+<strong>Usuario.</strong> Clave del usuario asociado a esta configuración, no la contraseña. Este usuario se utiliza para que te registres en el CEF y no usar el 
+usuario administrador. La contraseña inicial será igual al usuario, mas 
+el número 1 al final, por lo tanto, es indispensable cambiarla 
+inmediatamente después de instalar la empresa. Esto puedes hacerlo 
+ingresando al CEF y presionando las flechas que se encuentran 
+inmediatamente después del nombre ubicado en la barra de información 
+inferior.</li>
+ <li>
+<strong>Nombre.</strong> Nombre completo del usuario.</li>
+</ul>
+<p>
+<strong>NOTA MUY IMPORTANTE:</strong> El mes y año de inicio de actividades es una parte muy importante. A partir de este se podrán ingresar facturas, compras, y cualquier registro en forseti y no se puede cambiar, por lo tanto debes estar seguro de este dato. Para mayor información dirígete a la documentación de <a href="051007.html">Periodos</a> del Centro de control del CEF.</p>
+<p>Cualquiera de los tipos de instalación, podrá ser modificado después, por ejemplo, podrás agregar mas puntos de venta, mas bodegas, dar de alta módulo de nómina o de producción, etc. Esto lo puedes hacer entrando con el usuario administrativo del CEF especificado en la pantalla anterior. Al seguir en el formulario, dependiendo del tipo de instalación, se presentará la pantalla correspondiente. Si se ha seleccionado "Empresa configurada parcialmente" se presentará la pantalla con la siguiente información de formulario:</p>
+<ul>
+ <li>
+<strong>Sistema exclusivo de facturación electrónica.</strong> Puedes seleccionar esta opción si eres un pequeño empresario que no le interesa el manejo de su contabilidad ni el control de inventarios y/o flujo de efectivo. Este sistema permite agregar y cancelar facturas exclusivamente e incluye una pequeña parte de módulos. Estos son Productos y Servicios del módulo de Catálogos, Clientes y Facturas del módulo de Ventas, CFDI, CE y GDE, Periodos y Formatos del Centro de Control.</li>
+ <li>
+<strong>Empresa con la mayoría de módulos.</strong> Si tu empresa está establecida en un solo sitio físico, este es un ERP que integra contabilidad y auxiliares como un todo. Esta configuración agregará una bodega, un punto de venta, uno de compra, un banco y caja, etc. Se incluyen los módulos adecuados para su control administrativo los cuales son: Contabilidad, Catálogos, Caja y Bancos, Almacén, Compras, Ventas y Centro de Control. Además, dependiendo de tu tipo de empresa puedes optar por las siguientes opciones:<br />
+<ul>
+ <li>
+<strong>Empresa distribuidora.</strong>
+</li>
+ <li>
+<strong>Empresa manufacturera.</strong> Esta opción incluye además de lo anterior, los módulos de Producción y Nómina con sus debidas entidades dadas de alta.</li>
+</ul>
+</li>
+ <li>
+<strong>Plantilla base con catálogo de cuentas contables y catálogo de gastos predefinidos.</strong> Puedes seleccionar esta plantilla si deseas formar tu empresa a partir de esta base que es precisamente la base contable establecida por el SAT. Una vez instalada la plantilla, podrás dar de alta las bodegas, cajas, bancos, entidades de compra, venta, producción y nómina necesarias. Esta plantilla incluye los módulos y catálogos de Contabilidad, Gastos y el Centro de Control para realizar altas de entidades de ventas, compras, etc., además de otras configuraciones no establecidas por la plantilla. Además, dependiendo de tu tipo de empresa puedes optar por las siguientes opciones de base:<br />
+<ul>
+ <li>
+<strong>Base para empresa distribuidora.</strong>
+</li>
+ <li>
+<strong>Base para empresa manufacturera.</strong> Esta opción incluye además de lo anterior, las cuentas de gastos de fabricación y cuentas pertenecientes a la nómina, como sueldos y salarios, etc.</li>
+</ul>
+</li>
+</ul>
+<p>
+Si se ha seleccionado "Selección de módulos" se presentará la pantalla con el formulario dividido en tres partes las cuales irán apareciendo cuando seleccionemos el botón de siguiente:</p>
+<ol>
+ <li>
+<strong>Selecciona los módulos. </strong>En esta parte debes seleccionar los módulos de las secciones de Contabilidad, Catálogos, Caja y Bancos, Almacén, Compras, Ventas, Producción, Nómina y Centro de Control, que deseas dar de alta en tu instalación. Algunos módulos dependen de otros, por ejemplo, si deseas agregar el módulo de Pedidos de la sección de ventas, será indispensable agregar el módulo de Clientes y de Facturación, además del módulo de Productos o Servicios de la sección de catálogos. <strong>NOTA IMPORTANTE:</strong> Si no se desea llevar contabilidad en la instalación, no se deben seleccionar los módulos contables, esto hará que el sistema no registre pólizas desde los auxiliares ya que las entidades se especificarán como entidades no contables.<strong> <br />
+</strong>
+</li>
+ <li>
+<strong>Ingresa las entidades de tu empresa. </strong>Aquí se mostrarán las secciones seleccionadas que requieren el alta de por lo menos alguna entidad, por ejemplo, si se seleccionó el módulo de cajas, en este segundo paso se tendrá que especificar por lo menos una caja para el sistema. Se podrán especificar hasta 20 entidades por módulo ya que las subsecuentes las tendrás que definir desde el módulo de entidades del centro de control del CEF. Por ejemplo, si tienes 17 tiendas, podrás definir las 17 bodegas, 17 entidades de venta y las 17 cajas y/o cuentas bancarias para representar cada punto de venta. Esto obviamente si seleccionaste el módulo de movimientos al almacén, el de facturación y el de bancos y/o cajas. Dependiendo del tipo de entidad, tendrás que definir algunos campos de registro:<br />
+<ul>
+ <li>
+<strong>Cajas.</strong> Se tendrá que definir la ficha y descripción de la caja. Las fichas son la manera principal para identificar cualquier tipo de entidad y deben constar cuando mucho de 10 caracteres alfanuméricos.</li>
+ <li>
+<strong>Bancos.</strong> Debes definir la ficha, número de cuenta o tarjeta, número de cheque inicial y nombre del banco. Las entidades de banco extranjeras tienen que definirse desde el módulo de entidades del centro de control del CEF.</li>
+ <li>
+<strong>Bodegas de materiales y Almacenes de utensilios.</strong> Estas definen la ficha y descripción.</li>
+ <li>
+<strong>Áreas de Compras y/o Gastos y Puntos de Venta.</strong> Sobre estas entidades debes definir la ficha y el tipo de entidad. Dentro de los tipos de entidad se encuentran los siguientes:<br />
+<ul>
+ <li>
+<strong>Contado.</strong> Solo aceptará compras, gastos o ventas de contado. Con esta configuración será necesario enlazar esta entidad con por lo menos una caja o banco para el registro del pago.</li>
+ <li>
+<strong>Crédito.</strong> Solo aceptará compras, gastos o ventas a crédito. Solo será necesario el proveedor o cliente para el registro de la cuenta por pagar o cobrar.</li>
+ <li>
+<strong>Mixta.</strong> Esta configuración permitirá registros de contado o crédito, por lo tanto, será necesario el enlace a cajas o bancos.</li>
+ <li>
+<strong>Ninguna.</strong> Esta configuración no registrará ningún método de pago, por lo tanto, no registra ni cuentas por pagar o cobrar, ni movimientos de caja o banco.</li>
+</ul>
+</li>
+ <li>
+<strong>Puntos de Producción.</strong> En estos solo debemos definir la ficha y descripción de la entidad.</li>
+ <li>
+<strong>Áreas de Nómina.</strong> Debemos definir la ficha, descripción, periodo y tipo de entidad. Dentro del periodo, debemos especificar si es una nómina semanal, quincenal o mensual, y dentro del tipo, debemos decidir si se trata de una nómina estricta la cual requiere de un registro de asistencias, o de una nómina de confianza, la cual no requiere de este registro.</li>
+</ul>
+</li>
+ <li>
+<strong>Asocia las entidades lógicas con las físicas. </strong>En este tercer paso tenemos que asociar las entidades lógicas de compras, gastos, ventas, producción y nómina con sus entidades físicas de cajas, cuentas bancarias y bodegas. Aparecerán todas las entidades lógicas y por debajo de cada una aparecerán las entidades físicas disponibles para su asociación.&nbsp;</li>
+</ol>
+<p>Para mayor información sobre entidades lógicas y físicas, dirígete a la documentación del <a href="051004.html">Entidades</a> del Centro de Control del CEF. <br />
+</p>
+<p>Por último, si se ha seleccionado el tipo de instalación "Empresa configurable desde cero" o si ya se han configurado todas las pantallas del formulario de los otros tipos de instalación,&nbsp;se presentará la información de resumen en la pantalla "Resumen de instalación" la cual contiene la información de resumen para nuestra instalación. En este punto, si no estamos seguros deberemos regresar para hacer cambios, de lo contrario, debemos aceptar y esperar a que nuestra empresa sea instalada. Ya que se haya agregado la empresa, será posible ingresar a ella con el usuario administrador, o con el usuario asociado a la configuración. La diferencia esencial radica en que el usuario administrador tendrá acceso a todo el sistema, mientras que el usuario asociado a la configuración solo tendrá acceso a los módulos seleccionados para la instalación. Después de cualquier tipo de instalación, se podrá modificar el sistema, por ejemplo, se podrán agregar más usuarios, mas entidades, cambiar las asociaciones de entidades lógicas con físicas, y cualquier otro tipo de configuraciones soportadas por forseti. </p>
+<strong>4 .- Cambiar Propiedades.</strong><br />
 <br />
 Permite cambiar los datos de la empresa registrada en el SAF. Se pueden cambiar todos los datos excepto el               <strong>Nombre corto</strong> para identificar el registro de la empresa o persona física porque este campo es el nombre de la base de datos en el servidor.<br />
-Una de las principales causas de cambio, es el mantener la contraseña del dueño de la base de datos (usuario con el mismo nombre del Nombre corto) segura, actualizándola periódicamente.<br />
+Una de las principales causas de cambio, es el mantener la contraseña del dueño de la base de datos (usuario administrador con el mismo nombre del Nombre corto) segura, actualizándola periódicamente.<br />
 <br />
 <strong>5 .- Eliminar empresa.</strong><br />
 <br />
-Te permite eliminar la empresa seleccionada. Esto eliminará toda y absolutamente toda la base de datos y los archivos de configuración que fueron generados al agregar la empresa. <strong>NOTA:</strong> Es una buena idea respaldar una empresa justo antes de eliminarla, porque los datos de la empresa ya no se pueden recuperar a menos que se tenga el respaldo. Es importante saber que el respaldo completo de servidor no funciona para recuperar empresas individuales. <br />
+Te permite eliminar la empresa seleccionada. Esto eliminará toda y absolutamente toda la base de datos y los archivos de configuración que fueron generados al agregarla. <strong>NOTA:</strong> Es una buena idea respaldar una empresa justo antes de eliminarla, porque los datos de la empresa ya no se pueden recuperar a menos que se tenga el respaldo. Es importante saber que el respaldo completo de servidor no funciona para recuperar empresas individuales a menos que se extraiga del archivo zip y se vuelva a comprimir adecuada e individualmente. <br />
 <br />
 <strong>6 .- Respaldar empresa.</strong><br />
 <br />
 Permite respaldar la empresa seleccionada de la lista. Los respaldos se realizan como archivos comprimidos en ZIP y se guardan en la <strong>Ruta de Respaldos</strong> que fue configurada en las Propiedades del Servidor. Esta ruta debe apuntar a un medio independiente como por ejemplo a un disco duro externo o a otra máquina en la red.<br />
-Los archivos ZIP generados contendrán la estructura y los datos depositados en la base de datos, los archivos alternos a esta base de datos que usa la empresa respaldada para poder ser operada y el archivo oculto .version que contiene la versión del sistema perteneciente al respaldo. <strong>NOTA:</strong> Este proceso solo respalda bases de datos individuales y sirven para la recuperación de la empresa a un estado anterior en el tiempo. Este proceso NO sirve y no está enfocado para respaldar todo el servidor, para eso, se necesita establecer la bandera de Respaldos del gestor de tareas. Una vez esté activa esta bandera, los respaldos se llevarán a cabo a la hora en que se haya establecido el gestor. <br />
+<p>
+Los archivos ZIP generados contendrán la estructura y los datos depositados en la base de datos, los archivos alternos a esta base de datos que usa la empresa respaldada para poder ser operada y el archivo forseti.version que contiene la versión del sistema perteneciente al respaldo. <strong>NOTA:</strong> Este proceso solo respalda bases de datos individuales que sirven para la recuperación de la empresa a un estado anterior en el tiempo. <br />
+</p>
+<p>
+<strong>7 .- Respaldar servidor.</strong><br />
 <br />
+Permite respaldar el servidor completo lo cual incluye a todas las empresa instaladas con un estatus estable y a la base de datos principal FORSETI_ADMIN dentro del archivo de respaldo ZIP. Al igual que los respaldos de empresa, estos se guardan en la <strong>Ruta de Respaldos</strong>
+ con las mismas características de estructura y datos, asi como archivos alternos y el archivo 
+forseti.version. El respaldo de todo el servidor puede ser realizado, además de, con este proceso, estableciendo la bandera de "Respaldos" del 
+gestor de tareas. Una vez esté activa esta bandera, los respaldos se 
+llevarán a cabo a la hora en que se haya establecido el gestor. </p>
 <strong>7 .- Restaurar empresa.</strong><br />
 <br />
-Este proceso se utiliza para la recuperación de empresas a un estado anterior en el tiempo. El formulario para restauración incluye:<br />
+Este proceso se utiliza para copiar una empresa desde un respaldo de la original o para la recuperación de empresas perdidas desde respaldos que se hayan realizado cuando existía. El formulario para restauración incluye:<br />
 <ul> <li>
-<strong>Mostrar respaldos con fecha mayor o igual a</strong>, Es la fecha a partir de cuando deseas ver respaldos (inclusive).<br />
+<strong>Mostrar respaldos con fecha mayor o igual a</strong>. Es la fecha a partir de cuando deseas ver respaldos (inclusive).<br />
 </li> <li>
-<strong>De la empresa:</strong> Es el nombre corto de la empresa de la cual deseas ver sus respaldos. Este es el nombre en mayúsculas, tal y como lo escribes al registrarte en el CEF.<br />
-</li> <li>
+<strong>Copiar empresa instalada.</strong> Muestra las empresas instaladas actualmente, de las cuales debes seleccionar una para ver sus respaldos.<br />
+</li>
+ <li>
+<strong>Restaurar empresa perdida.</strong> En caso de que no desees hacer copia de una empresa instalada (a partir de su respaldo), debes indicar aquí, el nombre en mayúsculas, tal y como lo escribías al registrarte en el CEF, de la empresa a restaurar.</li> <li>
 <strong>Selecciona el archivo de respaldo</strong>, Si existen respaldos de esta empresa con esta fecha o posterior, aparecen en esta lista. Debes entonces seleccionar el archivo que deseas recuperar. Estos se muestran con el patrón de fecha y hora del respaldo. "FSIBD_[NOMBRE]-AAAA-MM-DD-hh-mm.zip", donde [NOMBRE] es el nombre corto de la base de datos, AAAA es el año, MM el mes, DD el día, hh la hora y mm los minutos en que se realizó este respaldo.<br />
 </li> <li>
 <strong>Restaurar como,</strong> Debes seleccionar el Nombre corto para la base de datos a restaurar. Si la restauración se está realizando porque se necesita una copia exacta de la base de datos respaldada, este nombre debe ser diferente al de la original ya que ésta, todavía existe en el servidor y no se puede duplicar, de lo contrario, es una buena práctica restaurar empresas perdidas con el nombre original.<br />
@@ -2885,13 +3086,34 @@ Este proceso se utiliza para la recuperación de empresas a un estado anterior e
 </li> <li>
 <strong>Confirmación de contraseña.</strong><br />
 </li>
-</ul> En el caso que no se tuviera un respaldo específico de una empresa eliminada accidentalmente, se debe extraer manualmente del respaldo del servidor (del archivo "FORSETI_ADMIN-AAAA-MM-DD-hh-mm.zip"). Una vez extraído, se necesitará comprimir este directorio en ZIP con el mismo nombre ( FSIBD_[NOMBRE]-AAAA-MM-DD-hh-mm.zip ) e ingresarlo a la ruta de respaldos. Entonces ya tenemos el respaldo y ya podemos restaurar la empresa eliminada.&nbsp; <br />
-<br />
-La restauración de servidores completos se lleva a cabo cuando hay una falla en el disco del servidor y otras situaciones desastrosas donde se pierde toda o parte de la información. Para recuperar un servidor completo, es estrictamente necesario seguir los siguientes pasos:<br />
-<br />
+</ul>
+<p> El proceso de restauración de bases de datos busca los archivos en la <strong>Ruta de Respaldos</strong> que fue configurada en las Propiedades del Servidor. En el caso que no se tuviera un respaldo específico de una empresa eliminada accidentalmente, se debe extraer manualmente del respaldo del servidor (del archivo "FORSETI_ADMIN-AAAA-MM-DD-hh-mm.zip"). Una vez extraído, se necesitará comprimir este directorio en ZIP con el mismo nombre ( FSIBD_[NOMBRE]-AAAA-MM-DD-hh-mm.zip ) e ingresarlo a la ruta de respaldos. Entonces ya tenemos el respaldo y ya podemos restaurar la empresa perdida.</p>
+<p>
+<strong>NOTA MUY IMPORTANTE:</strong> No se podrá llevar a cabo el proceso de restauración si la versión del servidor es diferente a la versión de la empresa contenida en el respaldo porque seguramente violará alguna parte de la integridad referencial. Esto sucede cuando los respaldos son anteriores a la última actualización del servidor. Si es crítico restaurar ese respaldo en este servidor, se tendrán que seguir los siguientes pasos:</p>
+<ol>
+ <li>Se debe consultar la <strong>versión del respaldo</strong> mirando dentro del archivo <strong>forseti.verson</strong>.</li>
+ <li>Deberás instalar un servidor temporal de esta versión en otro ordenador (ver documentación de instalación <a href="020201.html">aquí</a>).</li>
+ <li>En el servidor temporal instalado, debemos especificar una ruta de respaldos.</li>
+ <li>Ahora copiamos el archivo zip del respaldo de la empresa a esta ruta. <br />
+</li>
+ <li>Ahora debemos hacer dueño&nbsp; del respaldo a tomcat7 para que el proceso 
+tomcat pueda leerlo. Por ejemplo, si el respaldo se llama 
+FSIBD_TAJA-2014-10-30-23-17.zip, y se encuentra en la ruta 
+/home/ubuntu/respaldo, desde la terminal debes ejecutar lo siguiente:<br />
+<span style="color: rgb(0, 0, 255);">$ sudo chown tomcat7 /home/ubuntu/respaldo/</span>
+<span style="color: rgb(0, 0, 255);">FSIBD_TAJA-2014-10-30-23-17.zip</span>
+</li>
+ <li>Ejecutamos la restauración de la empresa.</li>
+ <li>Ahora que ya tenemos la empresa restaurada en el servidor temporal, lo actualizamos. Esto hará que la empresa se actualice también.</li>
+ <li>Ahora ejecutamos un nuevo respaldo de la empresa del servidor temporal.</li>
+ <li>Finalmente, copiamos el archivo zip del nuevo respaldo a la ruta del servidor principal, hacemos dueño del respaldo a tomcat7, y ejecutamos la restauración.</li>
+ <li>Ahora ya podremos ingresar de nuevo a la base de datos perdida, en el servidor principal.<br />
+</li>
+</ol>La restauración de servidores completos se lleva a cabo cuando hay una falla en el disco del servidor y otras situaciones desastrosas donde se pierde toda o parte de la información. Para recuperar un servidor completo, es estrictamente necesario seguir los siguientes pasos:<br />
 <ol> <li>Copiar el archivo "FORSETI_ADMIN-AAAA-MM-DD-hh-mm.zip" a una ruta en el nuevo servidor. Esta puede ser el directorio personal.<br />
 <br />
-</li> <li>Hacer la instalación de forseti en el servidor (para la instalación, ver sección de <a href="020201.html">Implantación / Instalación</a> en esta documentación) <strong>de la misma versión y revisión del respaldo. </strong>Esta se puede revisar en el archivo oculto llamado<strong> .version </strong>dentro del archivo zip<strong>.<br />
+</li>
+ <li>Hacer la instalación de forseti en el servidor (para la instalación, ver sección de <a href="020201.html">Implantación / Instalación</a> en esta documentación) <strong>de la misma versión y revisión del respaldo. </strong>Esta se puede revisar en el archivo llamado<strong> forseti.version </strong>dentro del archivo zip<strong>.<br />
 <br />
 </strong>
 </li> <li>Ya instalado, hacer dueño&nbsp; del respaldo a tomcat7 para que el proceso tomcat pueda leerlo. Por ejemplo, si el respaldo se llama FORSETI_ADMIN-2014-10-30-23-17.zip, y se encuentra en la ruta /home/ubuntu/respaldo, desde la terminal debes ejecutar lo siguiente:<br />
@@ -3215,6 +3437,28 @@ where f.status &lt;&gt; 'C' and f.fecha between '[fecha]' and '[fecha2]' and f.i
 <p>
 <strong>PRECAUCION: Este proceso no se puede llevar a cabo porque en estos momentos se esta actualizando el servidor.</strong> Cuando el servidor está ejecutando una actualización bloquea los procesos como agregar, cambiar, eliminar, respaldar o restaurar empresas, para mantener alineado el servidor.<br />
 </p><br />
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
+			  
+
 			  
 
 			  
@@ -3666,7 +3910,7 @@ _CUERPO_PAG
 _FIN_PAG
 
 _INI_PAG
-040401|Reportes|Lista los reportes y las gráficas de sistema que vienen integrados en el SAF|1|COMPLETA|
+040401|Reportes del SAF|Lista los reportes y gráficas de sistema que vienen integrados en el SAF|1|COMPLETA|FSI-SAFREP
 _CUERPO_PAG
 
 _FIN_PAG
@@ -3674,7 +3918,11 @@ _FIN_PAG
 _INI_PAG
 050101|¿ Que es el CEF ?|Información general del Centro Empresarial Forseti - CEF|2|COMPLETA|null
 _CUERPO_PAG
-Físicamente, un servidor Forseti controla distintos objetos de base de 
+
+ 
+				
+ 
+				Físicamente, un servidor Forseti controla distintos objetos de base de 
 datos. Lógicamente, cada objeto de base de datos es una empresa dada de 
 alta en el servidor forseti. <br />
 <br />
@@ -3728,7 +3976,8 @@ Desde el CEF, se gestionan los siguientes recursos:<br />
 </li>
  <li>Traspasos de material entre almacenes</li>
  <li>Requerimientos de material entre almacenes</li>
- <li>Gestión de chequeos físicos<br />
+ <li>Gestión de chequeos físicos</li>
+ <li>Control de utensilios.<br />
 </li>
 </ul>
 <strong>Compras<br />
@@ -3846,14 +4095,15 @@ desajustarse. <br />
 <ul>
  <li>Gestión de vendedores de la empresa</li>
 </ul>
-<strong>CFDI y CE<strong>:</strong>
+<strong>CFDI, CE y GDE<strong>:</strong>
 </strong>
 <ul>
  <li>Parámetros del emisor de Comprobantes Fiscales Digitales por Internet<br />
 </li>
  <li>Gestión de certificados</li>
  <li>Gestión de entidades de expedición de CFDI</li>
- <li>Gestión de Contabilidad Electrónica<br />
+ <li>Gestión de Contabilidad Electrónica</li>
+ <li>Gestión de CFDIs de proveedores y externos.<br />
 </li>
 </ul>
 <strong>Períodos:<br />
@@ -3889,6 +4139,10 @@ desajustarse. <br />
 <strong><br />
 Soporte de reportes y gráficas de los distintos módulos.<br />
 </strong>Para una lista completa de los reportes y gráficas soportados por el CEF véase Reportes del CEF<br />
+
+			  
+
+			  
 
 _FIN_PAG
 
@@ -6975,8 +7229,10 @@ _CUERPO_PAG
 				
  
 				
+ 
+				
 
-<p>El módulo de cierres de caja del CEF te permite gestionar las cuentas con los puntos de venta de tu empresa cuando estos manejan un fondo fijo de caja y utilizan un cierre para cubrir el reembolso de los gastos. Este módulo actúa conjuntamente con el módulo de cajas y vales de caja para generar los cierres. <br />
+<p>El módulo de cierres de caja del CEF te permite gestionar las cuentas con los puntos de venta de tu empresa cuando estos manejan un fondo fijo de caja y utilizan un cierre para cubrir el reembolso de los gastos. Este módulo actúa conjuntamente con el módulo de cajas, ventas y vales de caja para generar los cierres. <br />
 </p>
 <p>En el panel izquierdo, veremos las fichas de las <strong>entidades </strong>que
  dimos de alta previamente a través del módulo de Entidades de caja 
@@ -7055,7 +7311,7 @@ primarios de agregado y consulta.<br />
   <td>
 <strong>2</strong>
 </td>
-  <td>Cajas<br />
+  <td>Ventas<br />
 </td>
   <td>DEPOSITOS POR VENTA: Iztapalapa 39594 - Iztapalapa 39624</td>
   <td>$2,500.00</td>
@@ -7126,13 +7382,25 @@ primarios de agregado y consulta.<br />
 <strong>$2,600.00</strong>
 </td>
 </tr>
+ <tr>
+  <td>
+<strong>6</strong><br />
+</td>
+  <td>Ventas <br />
+</td>
+  <td>
+<strong>DESGLOSE DE FACTURAS EN ESTE CIERRE</strong><br />
+</td>
+  <td><br />
+</td>
+</tr>
 </tbody>
 </table>
 <ol>
  <li>Es el rango de movimientos de caja generados en el período de nuestro cierre, que en este caso, involucra 30 movimientos en el día. Este se determina desde el último cierre, al movimiento actual. En este ejemplo, el cierre del día anterior llegó al número 1553, por lo tanto, este cierre comienza en el número 1554 terminando en el número 1584, y el próximo cierre comenzará en el número 1585 a X número y así sucesivamente.<br />
 <br />
 </li>
- <li>Representa el monto total de movimientos de depósito generados por el módulo de ventas. De esta manera estaremos seguros del total de ventas de contado que se cargaron a esta caja. <strong>NOTA IMPORTANTE:</strong> La numeración de las ventas no indica que todas ellas fueron cargadas a la caja ya que podrían haber ventas a crédito en el rango de facturas si es que la entidad de ventas soporta ventas de crédito, no obstante, podremos estar seguros de que únicamente son las ventas de contado las que forman el monto total de depósitos por ventas. Esta numeración actúa de forma similar a como actúa la numeración de movimientos de caja anterior, por lo tanto, en nuestro ejemplo, el próximo cierre comenzará por la factura 39625.<br />
+ <li>Representa el <strong>monto total</strong> de movimientos de depósito generados por el módulo de ventas. De esta manera estaremos seguros del total de ventas de contado que se cargaron a esta caja. <strong>NOTA IMPORTANTE:</strong> La numeración de las ventas no indica que todas ellas fueron cargadas a la caja ya que podrían haber ventas a crédito en el rango de facturas si es que la entidad de ventas soporta ventas de crédito, no obstante, podremos estar seguros de que únicamente son las ventas de contado las que forman el monto total de depósitos por ventas. Esta numeración actúa de forma similar a como actúa la numeración de movimientos de caja anterior, por lo tanto, en nuestro ejemplo, el próximo cierre comenzará por la factura 39625.<br />
 <br />
 </li>
  <li>Es el total de gastos generados en el período del cierre, este dato lo toma directamente del total de vales de caja abiertos sin incluir los vales provisionales, porque estos, se quedarán en la caja en espera del gasto definitivo y no formarán parte del cierre. <strong>NOTA:</strong> En un cierre real desde este módulo, los gastos aparecerán desglosados vale por vale, y divididos por los tipos sin factura, facturas, pagos, otros y traspasados, por lo tanto, podremos verificar los documentos contra los vales registrados justo antes de la aplicación de un cierre.<br />
@@ -7142,6 +7410,9 @@ primarios de agregado y consulta.<br />
 <br />
 </li>
  <li>Es el total de vales provisionales que están aún en espera del gasto real. Al igual que los gastos, los vales provisionales también nos aparecerán desglosados para saber para qué se ha retirado el efectivo de la caja.<br />
+<br />
+</li>
+ <li>Mostrará el desglose de cada una de las facturas involucradas en este cierre, conteniendo la información de la entidad de venta, la fecha, el número, el estatus y el total de la factura. La suma de los totales de este desglose será igual al monto total establecido en el inciso 2 <br />
 </li>
 </ol>
 <p>Dentro de nuestro cierre, y a partir de los datos previamente explicados, nos aparecen los registros calculados de <strong>TRASPASO A GENERAR</strong>,<br />
@@ -7160,14 +7431,15 @@ primarios de agregado y consulta.<br />
 </ul>
 <p>Suponiendo que ya hemos verificado los comprobantes de los gastos de nuestro cierre, los vales provisionales, y hemos contado el efectivo que estamos recibiendo, y todo está correcto, al aplicar el cierre de caja se llevarán a cabo los siguientes procesos:</p>
 <ol>
- <li>Se verifica si existe la caja de destino para los fondos. Esta debe estar previamente configurada en el módulo de entidades del centro de control, de lo contrario, fallara al aplicar el cierre.<br />
+ <li>Se verifica si existe la caja de destino para los fondos. Esta debe estar previamente configurada en el módulo de entidades del centro de control, de lo contrario, fallara al aplicar el cierre.</li>
+ <li>Se verifica que no existan facturas revertidas. Las facturas revertidas afectan el cierre porque son facturas que necesitan forzosamente cancelarse, por lo tanto, al cancelarlas se regresa el dinero a la caja, lo cual causaría un cálculo erróneo del cierre.<br />
 </li>
  <li>Genera un traspaso de fondos por $2,500.00, lo cual generará el retiro en la caja de Iztapalapa y el depósito en la caja Matriz.</li>
  <li>Se generará el traspaso a la caja Matriz de los tipos de vale "sin factura", "facturas", "pagos", "otros" y "traspasar" que representan la cantidad de $350.</li>
  <li>En la caja de Iztapalapa quedará un saldo real de $450.00 compuesto por el fondo de $500.00 menos los $50.00 de vales provisionales.</li>
  <li>Suponiendo que la caja Matriz tenía un saldo real de $5,000.00, ahora su saldo real será de $7,150.00 compuesto de la siguiente manera:</li>
 </ol>
-<table  align="center" border="1">
+<table align="center" border="1">
 <tbody>
  <tr>
   <td>
@@ -7220,34 +7492,32 @@ primarios de agregado y consulta.<br />
  <li>El cuerpo del cierre muestra los elementos de toda la información que se despliega para poder llevar a cabo la revisión. En el cuerpo se mostrarán las siguientes columnas:<br />
 <ul>
  <li>
-<strong>Clave.</strong> Es la clave del gasto en caso de que este elemento sea un vale. De lo contrario aparece vacía. </li>
+<strong>Clave.</strong> Es la clave del gasto o de la entidad de venta en caso de que este elemento sea un vale o una factura del desglose de ventas respectivamente. Para cualquier otro tipo aparece vacía. </li>
  <li>
-<strong>Descripción.</strong> Es la descripción del elemento. Los elementos se dividen en "cabeceros" y "vales". En elementos de vales, se mostrará la fecha, seguida del concepto del vale. Los cabeceros pueden ser los siguientes:<br />
+<strong>Descripción.</strong> Es la descripción del elemento. Los elementos se dividen en "vales", "facturas" y "cabeceros".<br />
 <ul>
  <li>
-<strong>CIERRE Z.</strong> Es el rango de movimientos de caja involucrados en este cierre.<br />
-</li>
+<strong>Vales.</strong> En elementos de vales, se mostrará la fecha, seguida del concepto del vale.</li>
  <li>
-<strong>DEPÓSITOS POR VENTA. </strong>Es el total de depósitos por ventas de contado con esta caja.<strong><br />
-</strong>
-</li>
+<strong>Facturas.</strong> En elementos de facturas, se mostrará la fecha, número y estatus de la factura.</li>
+ <li> <strong>Cabeceros.</strong> Los cabeceros pueden ser los siguientes:<br />
+<ol>
  <li>
-<strong>RETIROS POR DEVOLUCIÓN.</strong> Es el total de retiros por motivo de devoluciones sobre ventas.<br />
-</li>
+<strong>CIERRE Z.</strong> Es el rango de movimientos de caja involucrados en este cierre.</li>
  <li>
-<strong>OTROS DEPÓSITOS.</strong> Es el total de depósitos por otros motivos que no sean ventas, como por ejemplo, depósitos directos a la caja.<br />
-</li>
+<strong>DEPÓSITOS POR VENTA. </strong>Es el total de depósitos por ventas de contado con esta caja.</li>
+ <li>
+<strong>RETIROS POR DEVOLUCIÓN.</strong> Es el total de retiros por motivo de devoluciones sobre ventas.</li>
+ <li>
+<strong>OTROS DEPÓSITOS.</strong> Es el total de depósitos por otros motivos que no sean ventas, como por ejemplo, depósitos directos a la caja.</li>
  <li>
 <strong>OTROS RETIROS.</strong> Es el total de retiros por otros motivos que no sean devoluciones sobre ventas, como por ejemplo, retiros directos a la caja.</li>
  <li>
-<strong>TRASPASO A GENERAR.</strong> Es el monto total del traspaso de fondos que se registrará al momento de aplicar el cierre, como un retiro en esta caja y un depósito en la caja de destino. <br />
-</li>
+<strong>TRASPASO A GENERAR.</strong> Es el monto total del traspaso de fondos que se registrará al momento de aplicar el cierre, como un retiro en esta caja y un depósito en la caja de destino.</li>
  <li>
-<strong>GASTOS POR VALES DE CAJA.</strong> Es la suma total de todos las vales de todos los tipos excepto del tipo "provisional".<br />
-</li>
+<strong>GASTOS POR VALES DE CAJA.</strong> Es la suma total de todos las vales de todos los tipos excepto del tipo "provisional".</li>
  <li>
-<strong>SIN COMPROBANTE.</strong> Es la suma total de todos los vales del tipo "sin factura".<br />
-</li>
+<strong>SIN COMPROBANTE.</strong> Es la suma total de todos los vales del tipo "sin factura".</li>
  <li>
 <strong>FACTURAS.</strong> Es la suma total de todos los vales del tipo "facturas".</li>
  <li>
@@ -7257,20 +7527,21 @@ primarios de agregado y consulta.<br />
  <li>
 <strong>OTROS VALES.</strong> Es la suma total de todos los vales del tipo "otros".</li>
  <li>
-<strong>EFECTIVO A TRASPASAR.</strong> Es el total de efectivo que debe entregar el encargado de la caja.<br />
-</li>
+<strong>EFECTIVO A TRASPASAR.</strong> Es el total de efectivo que debe entregar el encargado de la caja.</li>
  <li>
-<strong>FONDO DE CAJA.</strong> Es el fondo fijo de esta caja.<br />
-</li>
+<strong>FONDO DE CAJA.</strong> Es el fondo fijo de esta caja.</li>
  <li>
 <strong>VALES PROVISIONALES.</strong> Es la suma total de todos los vales del tipo "provisional".</li>
  <li>
-<strong>NETO DE EFECTIVO EN CAJA.</strong> Es el total en efectivo que debe haber en la caja en el momento justo de la verificación.<br />
+<strong>NETO DE EFECTIVO EN CAJA.</strong> Es el total en efectivo que debe haber en la caja en el momento justo de la verificación.</li>
+ <li>
+<strong>DESGLOSE DE FACTURAS EN ESTE CIERRE.</strong> Representa el punto a partir del cual se muestra el desglose de cada factura involucrada en este cierre</li>
+</ol>
 </li>
 </ul>
 </li>
  <li>
-<strong>Total.</strong> Es el monto total del cabecero o vale.</li>
+<strong>Total.</strong> Es el monto total del vale, factura o cabecero.</li>
 </ul>
 </li>
 </ul>
@@ -7295,8 +7566,15 @@ Entidades del Centro de Control, y debe ser una caja distinta a esta.<br />
 </li>
  <li>
 <strong>ERROR: El número inicial o final son Nulos. Es probable que no haya habido movimientos aun.</strong>
- Esto ocurre cuando se intenta generar un cierre que no tiene ningún movimiento de caja registrado a partir del último cierre generado.</li>
+ Esto ocurre cuando se intenta generar un cierre que no tiene ningún movimiento de caja registrado a partir del último cierre generado.<br />
+<br />
+</li>
+ <li>
+<strong>ERROR: Existen facturas revertidas en este cierre, no se puede generar el cierre hasta que se cancelen todas estas facturas.</strong> Supongamos que generamos un cierre del día por $1,000.00, estos se transfieren a la caja de destino, y la caja de origen termina con un saldo de $0.00 lo cual es absolutamente correcto. Ahora supongamos que dentro de este cierre existía una factura revertida (factura que debe cancelarse forzosamente) por $120.00. ¿Qué pasa cuando se cancela después de haber realizado el cierre?... En un principio, no debía haberse pagado, pero si de todas formas se pagó, cuando se cancela, el saldo de la caja de origen regresará a un estado negativo por -$120.00 y así se quedará por siempre. Esta situación puede ser evitada simplemente al no permitir generar cierres con facturas revertidas. <br />
+</li>
 </ul>
+			  
+
 _FIN_PAG
 
 _INI_PAG
@@ -7853,6 +8131,8 @@ _CUERPO_PAG
 				
  
 				
+ 
+				
 
 <div align="justify"> 				 				 				 				 				 				 				 				 				 				 
 				 				 				 				 				 				 				 				 				 				 				 				 				 				 		
@@ -7921,7 +8201,7 @@ objetos:<br />
  <li>
 <strong>Máximo.</strong> Es el precio máximo que podemos pagar por este producto o servicio. Se usa para 
 proteger el costo. Si se 
-rebasa el máximo, fallará la transacción y no se podrá ingresar el gasto.
+rebasa el máximo, fallará la transacción y no se podrá ingresar el gasto. <strong>NOTA:</strong> Si el máximo es de cero, se ignorará, y se permitirá especificar cualquier costo por muy alto que este sea.&nbsp;
 </li>
  <li>
 <strong>Linea.</strong> Ingresa aquí la clave de la linea según el catálogo. Si se
@@ -8036,14 +8316,18 @@ Los errores más comunes en estos procesos son los siguientes:<br />
 
 			  
 
+			  
+
 _FIN_PAG
 
 _INI_PAG
 050501|Introducción|Breve explicación de las bodegas y sus procesos que intervienen en forseti|1|COMPLETA|null
 _CUERPO_PAG
-La sección de Almacén en Forseti, está orientada para trabajar   con todo lo relacionado al control de nuestros productos, como los son, los movimientos al inventario en las distintas bodegas que se dan de alta para la empresa. Para este control, se incluyen los módulos de movimientos al almacén, plantillas de 
-almacén,  requerimientos de productos, traspasos entre bodegas y 
-chequeos físicos.<br />
+
+ 
+				La sección de Almacén en Forseti, está orientada para trabajar   con todo lo relacionado al control de nuestros productos, como los son, los movimientos al inventario en las distintas bodegas que se dan de alta para la empresa. Para este control, se incluyen los módulos de movimientos al almacén, plantillas de 
+almacén,  requerimientos de productos, traspasos entre bodegas, 
+chequeos físicos y control de utensilios.<br />
 <div align="justify">
 <strong><br />
 Movimientos al almacén</strong>.<br />
@@ -8063,15 +8347,13 @@ sucedido.<br />
 
 <strong>Plantillas.</strong>
 </p>
-<p>
-</p>Son plantillas de movimientos al almacén que se usan para que 
+Son plantillas de movimientos al almacén que se usan para que 
 el encargado del almacén, capture el movimiento directo de salida o 
 entrada, entonces, un supervisor puede revisar y utilizar esta plantilla para 
 procesar el movimiento final al almacén, con un solo click.<br />
 <strong><br />
 Traspasos de material.</strong>
-<p>
-</p>Son utilizados para mover materiales   de una bodega de origen a
+Son utilizados para mover materiales   de una bodega de origen a
  una de destino. Un traspaso generará   automáticamente dos movimientos 
 al almacén, uno por la salida   de materiales en la bodega de origen y 
 el otro por la entrada a la bodega de   destino. Los Traspasos, pueden generar comprobantes fiscales 
@@ -8079,16 +8361,20 @@ digitales ( CFD ) en forma de traslados, los cuales se pueden sellar.<br />
 <p>
 <strong>Requerimientos.</strong>
 </p>
-<p>
-</p>Son plantillas de materiales requeridos por   una bodega de 
+<p>Son plantillas de materiales requeridos por   una bodega de 
 destino, que podrá usar el encargado de la bodega de origen,   para 
-generar el traspaso de material, sin tener que capturarlo.<br />
+generar el traspaso de material, sin tener que capturarlo.</p>
 <p>
 <strong>Chequeo físico.</strong>
 </p>
+<p>Los chequeos físicos son situaciones donde se cuentan físicamente las existencias en una bodega y en una fecha determinada. Este módulo permite la captura de estas existencias, las cuales utiliza para calcular las diferencias contra lo que supuestamente debería de haber según el sistema, y genera 
+automáticamente los movimientos de salidas y entradas al almacén. <br />
+</p>
 <p>
-</p>Los chequeos físicos son situaciones donde se cuentan físicamente las existencias en una bodega y en una fecha determinada. Este módulo permite la captura de estas existencias, las cuales utiliza para calcular las diferencias contra lo que supuestamente debería de haber según el sistema, y genera 
-automáticamente los movimientos de salidas y entradas al almacén.
+<strong>Control de utensilios</strong>.<br />
+<br />
+En este módulo se controlan las entradas y salidas de utensilios en las distintas   bodegas. Este es un módulo 
+que por lo regular, se va alimentando a partir del módulo de gastos, para ir registrando las entradas de insumos y utensilios de trabajo, y sobre este módulo, dar el seguimiento de las salidas. Este módulo controla exclusivamente existencias y no costos, ya que al tratarse de gastos y no de materias primas, no influyen en costos de almacén. Se ha incluido este módulo en forseti, para satisfacer a la gente que requiere de un control minucioso, incluso de los insumos como los artículos de papelería, toners de impresoras, etc.</p>
 _FIN_PAG
 
 _INI_PAG
@@ -9440,6 +9726,8 @@ _CUERPO_PAG
 				
  
 				
+ 
+				
 
 <p>Un proveedor es la persona o empresa que surte a otras personas o empresas con materiales o servicios necesarios para el desarrollo de la actividad empresarial. El módulo de proveedores del CEF te permite 
 gestionar el catálogo de los proveedores de tu empresa en los distintos puntos de compra dados de 
@@ -9596,7 +9884,7 @@ Representan los datos del proveedor bajo la estructura siguiente:<br />
  <li>Si el límite es cero, se podrán realizar cualquier cantidad de compras a crédito a este proveedor sin importar nuestras deudas.</li>
  <li>Si el límite es mayor a cero, solo se podrán realizar compras a crédito donde la suma del total de la compra actual más el total de nuestras deudas con el proveedor sean menor o igual a éste límite.</li>
  <li>En caso de compras de contado, se podrán realizar compras a este proveedor sin importar las circunstancias de crédito.</li>
-</ul>Como el límite de crédito debe estar expresado en moneda nacional y tanto las cuentas por pagar como las compras actuales pueden estar establecidas en distintas monedas, se utilizará el tipo de cambio de estos recursos para calcular la deuda total con el proveedor y proceder al registro o rechazo de la compra de crédito.<br />
+</ul>Como el límite de crédito debe estar expresado en moneda nacional y tanto las cuentas por pagar como las compras actuales pueden estar establecidas en distintas monedas, se utilizará el tipo de cambio&nbsp;establecido en el módulo de monedas&nbsp;para calcular la deuda total con el proveedor y proceder al registro o rechazo de la compra de crédito.
 </li>
  <li>
 <strong>Fecha de nuestra última compra</strong>. Debes indicar la fecha de la última compra con este proveedor. Este dato se actualizará automáticamente al ir realizando compras y se utiliza para la generación de reportes principalmente.</li>
@@ -9689,6 +9977,8 @@ Los errores más comunes en estos procesos son los siguientes:<br />
 </ul>
  
 				
+			  
+
 			  
 
 			  
@@ -11049,6 +11339,8 @@ _CUERPO_PAG
 				
  
 				
+ 
+				
 
 <p>En forseti, el módulo de compras funciona para registrar las compras de materias primas que utiliza la empresa para posteriormente venderlas o transformarlas en productos terminados. Su estructura es idéntica a las ordenes y recepciones, por lo tanto se 
 pueden generar automáticamente desde una orden o una recepción, o 
@@ -11470,7 +11762,18 @@ sean diferentes, por ejemplo, dolares con euros.</li>
 </ol>
 <strong>B) Sobre una compra a crédito.</strong> Cuando la compra se haya establecido como "Crédito", se agregará un nuevo registro de cuenta por pagar siguiendo las reglas del módulo de cuentas por pagar y la deuda con este proveedor se actualizará. En caso de que la entidad de compra esté enlazada a la contabilidad, se generará la póliza de diario de la compra de crédito.<br />
 <br />
-<strong>C) Sobre el movimiento al almacén.</strong> El comportamiento para el movimiento de entrada al almacén dependerá de varios factores al momento de ingresar la compra:<br />
+<strong>C) Sobre una compra sin ningún método de pago específico. </strong>Cuando
+ la compra se haya
+ establecido sin ningún método de pago, no se agregará ni movimiento de 
+caja o banco, ni cuenta por pagar. En caso de que la entidad de compra 
+esté enlazada a la contabilidad, se generará la póliza de diario de la 
+compra a crédito con su partida doble a la cuenta especificada en la 
+variable "CC_COMPNP - Cuenta para registros de partida doble en compras o gastos 
+sin ningún tipo de pago, ni crédito, ni contado", establecida en el 
+módulo de variables de la sección de compras del centro de control del 
+CEF.&nbsp; <br />
+<br />
+<strong>D) Sobre el movimiento al almacén.</strong> El comportamiento para el movimiento de entrada al almacén dependerá de varios factores al momento de ingresar la compra:<br />
 <ol>
  <li>Si la entidad de compra tiene seleccionada la opción "<strong>No manejar movimientos al almacén de 
 productos o utensilios", </strong>no se agregará ningún movimiento al almacén al 
@@ -12396,7 +12699,18 @@ pagar enlazada a la compra original siguiendo las reglas del módulo de cuentas 
 con este proveedor se actualizará. En caso de que la entidad de compra 
 esté enlazada a la contabilidad, se generará la póliza de diario perteneciente a este saldo de cuenta.<br />
 <br />
-<strong>C) Sobre el movimiento al almacén.</strong> Primero que nada debemos saber que las rebajas no generan movimientos al almacén. El comportamiento para el movimiento de salida dependerá de varios factores al momento de ingresar una devolución:<br />
+<strong>C) Sobre una devolución o rebaja donde su compra fue realizada sin ningún método de pago específico. </strong>Cuando
+ la compra se haya
+ establecido sin ningún método de pago, no se agregará ni movimiento de 
+caja o banco, ni registro de saldo. En caso de que la entidad de compra 
+esté enlazada a la contabilidad, se generará la póliza de diario de la 
+devolución o rebaja a crédito con su partida doble a la cuenta especificada en la 
+variable "CC_COMPNP - Cuenta para registros de partida doble en compras o gastos 
+sin ningún tipo de pago, ni crédito, ni contado", establecida en el 
+módulo de variables de la sección de compras del centro de control del 
+CEF.&nbsp; <br />
+<br />
+<strong>D) Sobre el movimiento al almacén.</strong> Primero que nada debemos saber que las rebajas no generan movimientos al almacén. El comportamiento para el movimiento de salida dependerá de varios factores al momento de ingresar una devolución:<br />
 <ol>
  <li>Si la entidad de compra tiene seleccionada la opción "<strong>No manejar movimientos al almacén de 
 productos o utensilios", </strong>no se agregará ningún movimiento al almacén
@@ -12461,6 +12775,8 @@ Los errores mas comunes en estos procesos son los siguientes:<br />
 <strong>ERROR: La cuenta X, Y o Z no existe o no se ha enlazado.</strong> Este error es muy común en sistemas nuevos que se acaban de configurar y sucede cuando aún no se han especificado las variables de compras en la sección de compras del módulo de variables del centro de control del CEF. X, Y y Z representan en el mensaje de error, la descripción de la variable, ya que existen varias variables que deben ser especificadas. El sistema revisa por estas variables independientemente si se utilizarán o no, por ejemplo, aunque en la compra no exista un descuento, el sistema revisará el enlace de la variable para el descuento, y si no lo encuentra, fallará al agregarla. También es necesario especificar las variables aunque la entidad de compra no se enlace a la contabilidad. &nbsp; <br />
 </li>
 </ul>
+			  
+
 			  
 
 			  
@@ -12799,6 +13115,8 @@ _INI_PAG
 050609|Gastos|Documentación del módulo de gastos|0|COMPLETA|COMP_GAS
 _CUERPO_PAG
 
+ 
+				
  
 				
  
@@ -13207,7 +13525,17 @@ sean diferentes, por ejemplo, dolares con euros.</li>
 </ol>
 <strong>B) Sobre un gasto a crédito.</strong> Cuando el gasto se haya establecido como "Crédito", se agregará un nuevo registro de cuenta por pagar siguiendo las reglas del módulo de cuentas por pagar y la deuda con este proveedor se actualizará. En caso de que la entidad de gasto esté enlazada a la contabilidad, se generará la póliza de diario del gasto de crédito.<br />
 <br />
-<strong>C) Sobre el movimiento al almacén de utensilios.</strong> El comportamiento para el movimiento de entrada al almacén de utensilios dependerá de varios factores al momento de ingresar el gasto:<br />
+<strong>C) Sobre un gasto sin ningún método de pago específico. </strong>Cuando
+ el gasto se haya
+ establecido sin ningún método de pago, no se agregará ni movimiento de 
+caja o banco, ni cuenta por pagar. En caso de que la entidad del gasto 
+esté enlazada a la contabilidad, se generará la póliza de diario del gasto con su partida doble a la cuenta especificada en la 
+variable "CC_COMPNP - Cuenta para registros de partida doble en compras o gastos 
+sin ningún tipo de pago, ni crédito, ni contado", establecida en el 
+módulo de variables de la sección de compras del centro de control del 
+CEF. (ver inciso E para determinación de la póliza) <br />
+<br />
+<strong>D) Sobre el movimiento al almacén de utensilios.</strong> El comportamiento para el movimiento de entrada al almacén de utensilios dependerá de varios factores al momento de ingresar el gasto:<br />
 <ol>
  <li>Si la entidad de gasto tiene seleccionada la opción "<strong>No manejar movimientos al almacén de 
 productos o utensilios", </strong>no se agregará ningún movimiento al almacén de utensilios al 
@@ -13218,7 +13546,7 @@ agregar este gasto.</li>
 </li>
 </ol>
 <strong>
-<strong>D) Sobre la póliza del gasto.</strong> </strong>En caso de que la entidad de gasto se enlace a la contabilidad, el 
+<strong>E) Sobre la póliza del gasto.</strong> </strong>En caso de que la entidad de gasto se enlace a la contabilidad, el 
 comportamiento para formar la póliza del gasto dependerá en gran medida de las propiedades especificadas en cada clave del catálogo de gastos. Para un detalle del seguimiento de esta póliza te sugiero revises la documentación del <a href="050405.html">catálogo de gastos</a>. <br />
 <strong><br />
 Consultar Gasto.</strong><br />
@@ -13783,6 +14111,8 @@ Los errores mas comunes en estos procesos son los siguientes:<br />
 
 			  
 
+			  
+
 _FIN_PAG
 
 _INI_PAG
@@ -13929,6 +14259,8 @@ _INI_PAG
 050702|Clientes|Módulo de clientes|0|COMPLETA|VEN_CLIENT
 _CUERPO_PAG
 
+ 
+				
  
 				
  
@@ -14143,8 +14475,7 @@ las deudas de nuestro cliente sean menor o igual a éste límite.</li>
  <li>En caso de ventas de contado, se podrán realizar ventas a este cliente sin importar las circunstancias de crédito.</li>
 </ul>Como el límite de crédito debe estar expresado en moneda nacional y
  tanto las cuentas por cobrar como las ventas actuales pueden estar 
-establecidas en distintas monedas, se utilizará el tipo de cambio de 
-estos recursos para calcular la deuda total de nuestro cliente y proceder 
+establecidas en distintas monedas, se utilizará el tipo de cambio establecido en el módulo de monedas para calcular la deuda total de nuestro cliente y proceder 
 al registro o rechazo de la venta de crédito.<br />
 </li>
  <li>
@@ -14289,6 +14620,8 @@ Este error ocurre cuando estas registrando o cambiando a un cliente de
 </ul>
  
 				
+			  
+
 			  
 
 			  
@@ -16270,6 +16603,8 @@ _CUERPO_PAG
 				
  
 				
+ 
+				
 
 <p>En forseti, el módulo de ventas funciona para registrar las facturas 
 de productos y servicios que vende la empresa. Su estructura es idéntica a las
@@ -16723,9 +17058,14 @@ registros de cheques, transferencias y otros métodos de pago.<br />
 <strong>B) Sobre una factura a crédito.</strong> Cuando la factura se haya
  establecido como "Crédito", se agregará un nuevo registro de cuenta por cobrar siguiendo las reglas del módulo de cuentas por cobrar y la deuda de este cliente se actualizará. En caso de que la entidad de venta 
 esté enlazada a la contabilidad, se generará la póliza de diario de la 
-factura de crédito.<br />
+factura de crédito.&nbsp; <br />
 <br />
-<strong>C) Sobre el movimiento al almacén.</strong> El comportamiento para el movimiento de salida desde el almacén dependerá de varios factores al momento de ingresar la factura:<br />
+<strong> C) Sobre una factura sin ningún método de pago específico. </strong>Cuando la factura se haya
+ establecido sin ningún método de pago, no se agregará ni movimiento de caja o banco, ni cuenta por cobrar. En caso de que la entidad de venta 
+esté enlazada a la contabilidad, se generará la póliza de diario de la 
+factura de crédito con su partida doble a la cuenta especificada en la variable "CC_VENNP - Cuenta para registros de partida doble en ventas sin ningún tipo de cobro, ni crédito, ni contado", establecida en el módulo de variables de la sección de ventas del centro de control del CEF.&nbsp; <br />
+<br />
+<strong>D) Sobre el movimiento al almacén.</strong> El comportamiento para el movimiento de salida desde el almacén dependerá de varios factores al momento de ingresar la factura:<br />
 <ol>
  <li>Si la entidad de venta tiene seleccionada la opción "<strong>No manejar movimientos al almacén de 
 productos", </strong>no se agregará ningún movimiento al 
@@ -16756,7 +17096,7 @@ póliza de egresos en (caso de que esta entidad se enlace a la
 contabilidad), y además, enlazará esta factura a la remisión.&nbsp; <br />
 </li>
 </ol>
-<strong>D) Sobre la factura electrónica. </strong>En caso de que cuentes con todos los elementos y configuraciones necesarias para el sellado de comprobantes fiscales digitales directamente en forseti a través del servicio JPacConn de este servidor o de cualquier otro servidor externo, se generará y se sellará la factura electrónica de este registro. Además, se enviará automáticamente al cliente los archivos XML y PDF generados en caso de que todos los elementos y configuraciones necesarios para el envío estén establecidos. Revisa la documentación "Datos de este servidor, para autenticarse en un servicio web de 
+<strong>E) Sobre la factura electrónica. </strong>En caso de que cuentes con todos los elementos y configuraciones necesarias para el sellado de comprobantes fiscales digitales directamente en forseti a través del servicio JPacConn de este servidor o de cualquier otro servidor externo, se generará y se sellará la factura electrónica de este registro. Además, se enviará automáticamente al cliente los archivos XML y PDF generados en caso de que todos los elementos y configuraciones necesarios para el envío estén establecidos. Revisa la documentación "Datos de este servidor, para autenticarse en un servicio web de 
 forseti para recibir servicio de timbrado, correo electrónico automático
  y/o alojamiento de archivos en la nube" del módulo de "<a href="040201.html">Servidor y Empresa</a>s" en la sección "Administración" del SAF. También te sugiero revisar la sección de CFDI y CE 
 del Centro de Control, para entender y poder proceder.<strong><br />
@@ -17665,7 +18005,18 @@ cobrar enlazada a la factura original siguiendo las reglas del módulo de cuenta
 de este cliente se actualizará. En caso de que la entidad de venta 
 esté enlazada a la contabilidad, se generará la póliza de diario perteneciente a este saldo de cuenta.<br />
 <br />
-<strong>C) Sobre el movimiento al almacén.</strong> Primero que nada 
+<strong>C) Sobre una devolución o rebaja donde su factura fue realizada sin ningún método de pago específico. </strong>Cuando
+ la factura se haya
+ establecido sin ningún método de pago, no se agregará ni movimiento de 
+caja o banco, ni registro de saldo de la cuenta por cobrar enlazada a la factura original. En caso de que la entidad de venta 
+esté enlazada a la contabilidad, se generará la póliza de diario de la 
+devolución de crédito con su partida doble a la cuenta especificada en la 
+variable "CC_VENNP - Cuenta para registros de partida doble en ventas 
+sin ningún tipo de cobro, ni crédito, ni contado", establecida en el 
+módulo de variables de la sección de ventas del centro de control del 
+CEF. <br />
+<br />
+<strong>D) Sobre el movimiento al almacén.</strong> Primero que nada 
 debemos saber que las rebajas no generan movimientos al almacén. El 
 comportamiento para el movimiento de entrada dependerá de varios factores
  al momento de ingresar una devolución:<br />
@@ -17773,6 +18124,8 @@ enlace a la contabilidad. &nbsp; </li>
 </ul>
  
 				
+			  
+
 			  
 
 			  
@@ -20115,6 +20468,8 @@ _CUERPO_PAG
 				
  
 				
+ 
+				
 
 <div align="justify"> 				 				 				 				 				 				 				 				 				 				 
 				 				 				 				 				 				 				 				El módulo de Movimientos de los catálogos de
@@ -20156,7 +20511,8 @@ siguientes objetos de cabecero:<br />
  <li>
 <strong>Clave</strong>. Indica aquí, la clave numérica que identifica este movimiento de nómina definido por el usuario. La numeración del 10 al 990 con terminación en cero, es la numeración reservada para conceptos de movimientos de sistema que ya están definidos al momento de instalar forseti, o para futuros movimientos, definidos, por ejemplo, al actualizar el sistema. Además, forseti utiliza como estándar la numeración del 10 al 590 para percepciones y del 600 al 990 para las deducciones. Las claves indicadas aquí, deben terminar en cualquier numero menos cero, por ejemplo, las claves 1, 53 y 779 son claves válidas, mientras que las claves 20, 340 u 800 son claves inválidas porque terminan con el número cero. Por último, es aconsejable seguir el estándar que utiliza forseti definiendo las percepciones con claves menores a 600 y las deducciones con claves mayores a 600.</li>
  <li>
-<strong>Clave SAT.</strong> Selecciona de la lista, la clave del concepto establecido por el SAT, asociado a este movimiento en forseti. Este se utilizará en caso de que los Comprobantes Fiscales Digitales por Internet (CFDIs) de los recibos de nómina se generen directamente en forseti.</li>
+<strong>Clave SAT.</strong> Selecciona de la lista, la clave del concepto establecido por el SAT, asociado a este movimiento en forseti. Este se utilizará en caso de que los Comprobantes Fiscales Digitales por Internet (CFDIs) de los recibos de nómina se generen directamente en forseti. Esta lista muestra los conceptos de percepciones precedidos por una "P" y los de deducciones por una "D". En caso de que al agregar o cambiar un movimiento de percepción se intente asociarlo con un concepto del SAT de deducción o viceversa, nos mandará el siguiente aviso: "PRECAUCION: Una percepción o deducción debe corresponder con una percepción o deducción del catálogo del SAT. Esta regla solo puede quebrarse para el movimiento 710 de sistema correspondiente al subsidio al empleo".<br />
+El movimiento 710 es la excepción a esta situación ya que pertenece al "subsidio al empleo" el cual se trata como una deducción positiva en forseti, pero en el sat lo manejan como una percepción.</li>
  <li>
 <strong>Es Deducción.</strong> Si está seleccionado, indica que este movimiento se refiere a una 
 deducción, de lo contrario, será una percepción.</li>
@@ -20199,6 +20555,8 @@ Los errores más comunes en estos procesos son los siguientes:</p>
 
 <strong>PRECAUCIÓN: La cuenta y departamento ya están en la lista, No se agregó la partida.</strong>
  Probablemente intentas agregar un enlace a un departamento que ya se encuentra en la lista. Los enlaces a los departamentos no se pueden duplicar.
+			  
+
 			  
 
 			  
@@ -25007,6 +25365,8 @@ _INI_PAG
 _CUERPO_PAG
 
  
+				
+ 
 				 				 				 				 				 				 				 				El Centro de Control del CEF es la columna vertebral de una empresa instalada en el servidor Forseti. Los módulos de esta sección están destinados a proveer a la empresa, las configuraciones, propiedades y procesos globales que intervienen en ella. Este puede ser un buen punto de partida para empresas que recién se han dado de alta en el servidor. A continuación, se muestra una breve introducción a los módulos del Centro de Control.<br />
 <br />
 <strong>Saldos.</strong><br />
@@ -25045,9 +25405,9 @@ módulo   vamos a dar de alta y a cambiar los parámetros de cada una de las ent
 
 <strong>Periodos.</strong>
 </p>
-<p>
-</p>En Forseti, toda la información que se pretenda agregar a la base de datos de la empresa se organiza por medio de periodos. Cada periodo representa un mes en el tiempo, lo cual nos permite dividir por meses la información. En Forseti, debe existir el periodo antes de poder agregar facturas, gastos, pólizas, etc., y estos periodos se gestionan a través de este módulo.<strong><br />
-<br />Variables.<br />
+En Forseti, toda la información que se pretenda agregar a la base de datos de la empresa se organiza por medio de periodos. Cada periodo representa un mes en el tiempo, lo cual nos permite dividir por meses la información. En Forseti, debe existir el periodo antes de poder agregar facturas, gastos, pólizas, etc., y estos periodos se gestionan a través de este módulo.<strong><br />
+<br />
+Variables.<br />
 <br />
 </strong>Nos permite manipular las configuraciones del sistema definiendo valores
  generales de varios tipos de variables como alfanumérico, decimales, 
@@ -25081,7 +25441,8 @@ El módulo de formatos permite la gestión de las estructuras para la generació
 algún tipo de registro como facturas, pedidos, cheques etc.   Aquí 
 podemos darlos de alta, revisarlos y cambiarlos.<br />
 <p>
-<strong>CFDI y CE</strong>.</p>
+<strong>CFDI, CE y GDE.</strong>
+</p>
 Este módulo nos permite la configuración de la empresa, para poder emitir Comprobantes Fiscales 
 Digitales necesarios para la Facturación, Notas de crédito, Remisiones, 
 Cartas Porte y Recibos de Nómina. En este módulo podemos configurar:<br />
@@ -25102,6 +25463,10 @@ pólizas, que son requeridos por hacienda a partir de 2015. Este módulo
 también genera un archivo de estatus el cual informa de anomalías y/o 
 alertas en los xml. Un ejemplo sería un registro de póliza de ingresos 
 donde el campo de RFC está vacío o la cuenta bancaria está indefinida.</p>
+<p>Por último, este módulo nos permite desenlazar y eliminar documentos CFDI generados externamente, por ejemplo, por el portal del SAT&nbsp; u otro sistema de cómputo, los cuales han sido cargados a forseti y enlazados a registros de compra, venta, recibos de nómina, etc. <br />
+</p>
+			  
+
 _FIN_PAG
 
 _INI_PAG
@@ -25520,6 +25885,14 @@ _INI_PAG
 051004|Entidades|Modulo de entidades de la empresa|0|COMPLETA|ADM_ENTIDADES
 _CUERPO_PAG
 
+ 
+				
+ 
+				
+ 
+				
+ 
+				
  
 				
  
@@ -26525,7 +26898,23 @@ momento de capturar una partida en una compra o gasto. Calcular este IVA
 que figura en los catálogos. Esto no es imperativo, gracias a la 
 complejidad que acarrea la automatización de la captura por medio de 
 CFDIs que nos expiden nuestros proveedores, y por lo tanto, podrás 
-cambiar el IVA al momento de la captura. <br />
+cambiar el IVA al momento de la captura.</li>
+ <li>
+<strong>Pago.</strong> Es el tipo de pago establecido para de esta entidad. Estos pueden ser los siguientes:<br />
+<ul>
+ <li>
+<strong>Contado.</strong> Esta entidad generará exclusivamente compras o gastos de contado. 
+Generará los retiros del banco o caja al momento de agregar.</li>
+ <li>
+<strong>Crédito.</strong> Esta entidad generará exclusivamente compras o gastos a crédito. Se puede usar por ejemplo,
+ para compras por mayoreo donde tengamos crédito. Generará las cuentas por pagar al momento de agregar.</li>
+ <li>
+<strong>Mixto.</strong> Esta entidad generará compras o gastos de contado o de crédito según se decida al momento de agregar el registro.</li>
+ <li>
+<strong>Ninguno.</strong> Esta entidad generará la pura compra o gasto, sin 
+movimiento de caja o banco, ni movimiento de cuenta por pagar. Esta 
+opción no lleva ningún seguimiento del pago.</li>
+</ul>
 </li>
  <li>
 <strong>Compra / Gasto.</strong> Ingresa aquí el número de la próxima compra o gasto de esta entidad.</li>
@@ -26701,7 +27090,7 @@ agregar una devolución,
 siempre y cuando, el objeto anterior "No manejar movimientos al almacén 
 de productos" <strong>NO</strong> este seleccionado.</li>
  <li>
-<strong>Tipo.</strong> Es el tipo de manejo de esta entidad. Estos pueden ser los siguientes:<br />
+<strong>Pago.</strong> Es el tipo de manejo del pago de esta entidad. Estos pueden ser los siguientes:<br />
 <ul>
  <li>
 <strong>Contado.</strong> Esta entidad generará exclusivamente ventas de contado. 
@@ -26712,7 +27101,10 @@ tienda. Generará los depósitos de banco o caja al momento de agregar.<br />
 <strong>Crédito.</strong> Esta entidad generará exclusivamente ventas a crédito. Se puede usar por ejemplo
  para puntos de venta de distribución por mayoreo. Generará las cuentas por cobrar al momento de agregar.</li>
  <li>
-<strong>Mixto.</strong> Esta entidad generará ventas de contado o de crédito, según sea decidido al momento de la captura. </li>
+<strong>Mixto.</strong> Esta entidad generará ventas de contado o de crédito según se decida al momento de agregar la venta.</li>
+ <li>
+<strong>Ninguno.</strong> Esta entidad generará la pura venta, sin movimiento de caja o banco, ni movimiento de cuenta por cobrar. Esta opción no lleva ningún seguimiento del cobro.<br />
+</li>
 </ul>
 </li>
  <li>
@@ -27008,6 +27400,14 @@ representará el elemento "ExpedidoEn" de los archivos xml de los CFDs generados
 
 			  
 
+			  
+
+			  
+
+			  
+
+			  
+
 _FIN_PAG
 
 _INI_PAG
@@ -27094,12 +27494,541 @@ Este proceso Elimina permanentemente al vendedor seleccionado. Cuando se elimina
 _FIN_PAG
 
 _INI_PAG
-051006|CFDI y CE|Módulo de gestión de comprobantes fiscales digitales y contabilidad electrónica.|0|COMPLETA|ADM_CFDI
+051006|CFDI, CE y GDE|Módulo de gestión de comprobantes fiscales digitales, contabilidad electrónica y otros documentos.|0|COMPLETA|ADM_CFDI
 _CUERPO_PAG
-El módulo de CFDI y CE del Centro de Control del CEF, te permite gestionar los Comprobantes Fiscales Digitales por Internet, así como también, la Contabilidad Electrónica, ambos, son requerimientos del SAT para cualquier empresa. ¿ Qué son, y cómo funcionan CFDI y CE ?. A continuación, se muestran las respuestas a estas preguntas:<br />
-<br />CFDI, mejor conocida como facturación electrónica por internet, o simplemente facturación electrónica, es el proceso de generar, ya sea una factura, una remisión, una carta porte, un recibo de nómina, etc., en un archivo con formato XML (lenguaje de marcas extensible utilizado para almacenar datos en forma legible), y a este archivo, agregarle un sello digital generado por medio de un certificado expedido por el SAT, exclusivamente para nuestra empresa, para que posteriormente, enviemos este archivo a un PAC (Proveedor Autorizado de Certificación), el cual, funje como un auditor de Hacienda que verifica la autenticidad de este sello, y nos genera otro sello llamado "timbre", el cual es anexado al archivo XML. Posteriormente, con el XML timbrado, se genera un segundo archivo con extensión PDF (formato de documento portátil utilizado para almacenar documentos digitales y que sean legíbles independientemente de la plataforma de software o hardware). Este formato es de tipo compuesto (imagen vectorial, mapa de bits y texto).
+
  
 				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				El módulo de CFDI, CE y GDE del Centro de Control del CEF, te permite gestionar los Comprobantes Fiscales Digitales por Internet, la Contabilidad Electrónica y los documentos externos cargados al sistema, todos estos son requerimientos del SAT para cualquier empresa. ¿Qué son y cómo funcionan CFDI, CE y GDE?. A continuación, se muestran las respuestas a estas preguntas:<br />
+<p>
+<strong>¿Qué es CFDI?<br />
+</strong>
+</p>
+<p>
+<strong>CFDI,</strong> mejor conocida como facturación electrónica por internet, o simplemente facturación electrónica, es el proceso de generar, ya sea una factura, una remisión, una carta porte, un recibo de nómina, etc., en un archivo con formato XML (lenguaje de marcas extensible utilizado para almacenar datos en forma legible) y a este archivo agregarle un sello digital generado por medio de un certificado expedido por el SAT exclusivamente para nuestra empresa. Este archivo xml es llamado CFD, y es enviado a un PAC (Proveedor Autorizado de Certificación) el cual funje como un auditor de hacienda que verifica la autenticidad del sello digital y nos genera otro sello llamado "timbre", el cual es anexado a este CFD convirtiéndolo en un CFDI. Posteriormente, con este CFDI se debe generar un segundo archivo con extensión PDF el cual es utilizado para la impresión.</p>
+<p>
+<strong>¿Cómo funciona CFDI?</strong>
+
+</p>
+<p>En forseti, puedes generar los CFDIs al agregar una factura desde el 
+módulo de facturación, un recibo de nómina desde el módulo de nómina, 
+etc., sin embargo, para que el servidor pueda realizar esta tarea será 
+necesario configurarlo bajo dos escenarios:</p>
+<ul>
+ <li>Realizar las configuraciones necesarias para que tu propio servidor
+ se conecte directamente al PAC Edicom a través de la API JPacConn.</li>
+ <li>Obtener una cuenta (usuario y contraseña) en un servidor forseti 
+externo y que este brinde el servicio de timbrado a tu servidor a través
+ de su API. Esta es la opción mas sencilla de configurar, además con 
+esta opción liberas a tu servidor de la carga que conlleva el timbrado y
+ el costo por el servicio es mínimo, por lo regular será un 20% mas caro
+ que un timbre directo con Edicom. Esta opción también te permitirá 
+utilizar las APIs de envío de correo automático y de alojamiento de 
+archivos en la nube a través de esta misma cuenta ya que seguramente 
+también estarán activadas. <br />
+</li>
+</ul>
+<p>La sección <strong>Propiedades del Servidor</strong> de la documentación del <a href="https://localhost:8443/servlet/040201.html">SAF / Servidor y Empresas</a>, abarca los aspectos de las APIs y la configuración para estas.</p>
+<p>Teniendo nuestro servidor con disponibilidad del servicio de timbrado
+ bajo cualquiera de los escenarios anteriores, el siguiente paso es 
+configurar nuestra empresa en este módulo con los elementos necesarios 
+para nuestros CFDIs:</p>
+<ul>
+ <li>
+<strong>Datos de Emisor.</strong> Son los datos de nuestra empresa, como RFC, domicilio, Régimen Fiscal, etc.</li>
+ <li>
+<strong>Certificado.</strong> Es el certificado proporcionado por el SAT.</li>
+ <li>
+<strong>Datos de Expedición.</strong> Son objetos que contienen el domicilio de 
+donde se expide el CFDI, por ejemplo, si tenemos sucursal DF y 
+Monterrey, tendremos que cargar ambos objetos de expedición y a cada 
+entidad de venta enlazarle su propio objeto.&nbsp;</li>
+</ul>
+<p>En este punto, ya podemos expedir CFDIs directamente desde forseti al
+ momento de agregar una factura, un recibo de nómina, un traspaso de 
+material, etc., siempre y cuando la entidad este enlazada a los 
+elementos anteriores. Revisa la documentación de <a href="https://localhost:8443/servlet/051004.html">Entidades</a> del Centro de Control del CEF si no sabes como enlazar.</p>
+
+<p>
+<strong>¿Qué es CE?<br />
+</strong>
+</p>
+<p>
+<strong>CE,</strong> acrónimo de contabilidad electrónica, es la obligación de llevar los registros y asientos contables (pólizas) a través de medios electrónicos tomando en cuenta la operación de actividades diarias. Este proceso 
+requiere el registro de póliza por póliza diariamente, y que lleven datos que son obligatorios, por ejemplo, quien emite y recibe 
+facturas, necesitará incluir en cada póliza la descripción de 
+los artículos, cantidades, costos unitarios y totales de los productos o
+ servicios, además de sus formas de pago, ya sea efectivo, por 
+transferencia, cheque o desconocido, por mencionar algunos. Es obligatorio ingresar de forma mensual la información al SAT por medio de reportes contables (catálogo de cuentas, balanza de comprobación, diario de pólizas, etc. ) los cuales deben de ser transformados en archivos electrónicos con la extensión XML.</p>
+<p>
+<strong>¿Cómo funciona CE?</strong>
+
+</p>
+<p>Cuando damos de alta entidades de compra, venta, bancos, cajas, etc.,
+ debemos indicar si se enlazan a la contabilidad o no. Las entidades que
+ enlazan a la contabilidad generan una póliza por cada registro, por 
+ejemplo, al agregar una factura se generará su póliza, y si esta generó 
+un CFDI, la información requerida por el SAT del archivo XML como el 
+UUID, total, RFC, etc., será anexada a la póliza en ese preciso momento.
+ En casos de compra o gastos, si estos se cargan a través del CFDI del 
+proveedor anexará también la información a la póliza. Así mismo, si 
+estos documentos fueron pagados de contado se anexará también a la 
+póliza la información del cobro o pago con objetos de cheque, 
+transferencia u otros métodos de pago, como lo requiere el SAT. Si la 
+compra o venta fue realizada a crédito, al momento de liquidar la cuenta
+ por cobrar o por pagar se generará una nueva póliza a la cual se le 
+anexarán los objetos de cheque, transferencia u otros métodos de pago.</p>
+<p>Al tener nuestras pólizas guardadas día a día con los objetos 
+requeridos por la contabilidad electrónica, será posible generar los 
+reportes en cualquier momento desde este módulo sin la necesidad de la 
+recaudación de información, y por ende, el doble trabajo que implica una
+ contabilidad independiente.</p>
+
+
+<p>
+<strong>¿Qué es GDE?</strong>
+</p>
+<p>
+<strong>GDE,</strong> acrónimo de gestión de documentos externos, abarca la carga al sistema de CFDIs expedidos por terceros que recibimos cuando hacemos una compra por ejemplo, o cuando nuestras
+ facturas y recibos de nómina electrónicos son generados por un servicio
+ externo, como por ejemplo, el portal del SAT u otro sistema diferente de forseti. También abarca objetos de facturas impresas con código de barras bidimensional (CBBs) y objetos de facturas extranjeras,los cuales deben capturarse manualmente subiendo su archivo escaneado de la factura, y son obligatorios para reportar en la 
+contabilidad electrónica.<br />
+</p>
+<strong>¿Cómo funciona GDE?</strong>
+
+<p>Cuando
+ cargamos un documento desde el módulo de compras, gastos, ventas o nómina y lo enlazamos a su 
+registro en forseti, en ese momento se agregará a la póliza del registro el objeto de contabilidad electrónica del documento CFDI, CBB o factura extranjera. Sobre este módulo podremos desasociar el documento para liberarlo y poderlo asociar a otro registro, también podremos eliminar documentos que no se pudieron asociar a ningún registro porque se cargaron en una entidad diferente. La eliminación liberará el documento para poderlo cargar sobre la entidad a la que pertenece. &nbsp; <br />
+</p>En el panel izquierdo de este módulo veremos las siguientes fichas:<br />
+
+<ul>
+ <li>
+<strong>Emisor</strong>. Esta ficha nos dirigirá a la sección de gestión de los datos del emisor de CFDI.</li>
+ <li>
+<strong>Certificados</strong>. La ficha de certificados nos dirigirá a la sección donde se gestionan los certificados digitales de la empresa que serán utilizados por CFDI.</li>
+ <li>
+<strong>Expeditores</strong>. Esta ficha nos dirigirá a la sección de gestión de elementos de expedición de CFDI.</li>
+ <li>
+<strong>Catálogo</strong>. Es la sección de gestión y generación del reporte mensual del catálogo de cuentas para la contabilidad electrónica.</li>
+ <li>
+<strong>Balanza</strong>. Es la sección de gestión y generación del reporte mensual de la balanza de comprobación para la contabilidad electrónica.</li>
+ <li>
+<strong>Pólizas.</strong> Es la sección de gestión y generación del reporte de pólizas para la contabilidad electrónica.</li>
+ <li>
+<strong>Documentos.</strong> Esta ficha nos dirigirá a la sección de gestión de documentos externos CFDI, CBB y Facturas Extranjeras.<br />
+</li>
+</ul>
+<p>El panel inferior, estando en cualquiera de las secciones de gestión de CFDI o CE aparece vacío, sin embargo, estando en la sección de documentos veremos las siguientes fichas:</p>
+<ul>
+ <li>
+<strong>Especial</strong>. La ficha de especial, permite filtrar documentos cargados de cierto mes específico, que no aparezca como meses.</li>
+ <li>
+<strong>Hoy</strong>. Filtra y muestra solo los documentos cargados de hoy (Esta es la selección por defecto).</li>
+ <li>
+<strong>Semana</strong>. Filtra y muestra los documentos cargados pertenecientes a los últimos siete días.</li>
+ <li>
+<strong>Meses... </strong>Esta ficha filtra y muestra los documentos cargados del mes seleccionado.</li>
+</ul>
+<p>El panel derecho, estando en cualquiera de las secciones de gestión 
+de CFDI o CE aparece vacío, sin embargo, estando en la sección de 
+documentos veremos las siguientes fichas:</p>
+<ul>
+ <li>
+<div align="justify">
+<strong>CFDIs.</strong> Esta ficha muestra los CFDIs cargados de compras o gastos. Los CFDIs de compras o gastos son aquellos que recibimos al hacer una compra, donde el elemento receptor pertenece a nuestra empresa o persona y el emisor es nuestro proveedor.</div>
+</li>
+ <li>
+<strong>CBB/Ext.</strong> Muestra los objetos dados de alta como CBBs o facturas extranjeras sobre los módulos de compras o gastos.</li>
+ <li>
+<strong>Terceros.</strong> Esta ficha muestra los CFDIs de nuestras facturas, cargados sobre el módulo de ventas. Los CFDIs externos de ventas son las facturas electrónicas que 
+generamos a través de terceros y enlazamos a nuestro registro de factura en forseti.</li>
+ <li>
+<strong>Recibos.</strong> Esta ficha muestra los CFDIs de nuestros empleados, cargados 
+sobre el módulo de nómina. Los CFDIs externos de nómina son los recibos electrónicos que 
+generamos a través de terceros y enlazamos al registro de nómina del empleado
+ en forseti.</li>
+</ul>Las columnas por defecto que muestra el panel de cuerpo principal 
+estando en cada sección son
+ las siguientes:
+<ul>
+ <li>
+<strong>Emisor.</strong> <br />
+<ul>
+ <li>
+<strong>Atributo.</strong> Es el nombre del atributo del emisor de CFDIs, por ejemplo: Nombre, RFC, Calle, Colonia, etc.</li>
+ <li>
+<strong>Valor.</strong> Es el valor asignado al atributo.</li>
+</ul>
+</li>
+ <li>
+<strong>Certificados.<br />
+</strong>
+<ul>
+ <li>
+<strong>Número.</strong> Es el número de certificado cargado al sistema.</li>
+ <li>
+<strong>Archivo.</strong> Es el nombre del archivo del certificado cargado al sistema.</li>
+ <li>
+<strong>Caducidad.</strong> Es la fecha de expiración del certificado.</li>
+ <li>
+<strong>Hora.</strong> Es la hora en que expira. <br />
+</li>
+</ul>
+</li>
+ <li>
+<strong>Expeditores.<br />
+</strong>
+<ul>
+ <li>
+<strong>Cve.</strong> Es la clave numérica de este objeto de expedición.</li>
+ <li>
+<strong>Nombre.</strong> Es el nombre para identificar este objeto de expedición.<br />
+</li>
+ <li>
+<strong>Calle.</strong> La calle y los campos subsecuentes son los atributos del elemento "ExpedidoEn" del CFDI que se generará.<br />
+</li>
+ <li>
+<strong>Ext.</strong> Se refiere al número exterior "NoExt".<br />
+</li>
+ <li>
+<strong>Int.</strong> Es el número interior "NoInt".<br />
+</li>
+ <li>
+<strong>Col.</strong> El atributo "Colonia".<br />
+</li>
+ <li>
+<strong>Localidad.</strong>
+</li>
+ <li>
+<strong>Municipio.</strong>
+</li>
+ <li>
+<strong>Estado.</strong>
+</li>
+ <li>
+<strong>Pais.</strong>
+</li>
+ <li>
+<strong>CP.</strong> Código Postal.</li>
+</ul>
+</li>
+ <li>
+<strong>Catálogo, Balanza </strong>y<strong> Pólizas.</strong> Sobre estas tres secciones de la contabilidad electrónica se muestran las mismas columnas pertenecientes al estado de los reportes mensuales de cada sección.<br />
+<ul>
+ <li>
+<strong>Mes.</strong> Es el mes del periodo contable dado de alta en forseti. Se mostrarán todos los meses dados de alta en el sistema, excepto los de cierre de año (mes especial).<br />
+</li>
+ <li>
+<strong>Año.</strong> Es el año del mes.</li>
+ <li>
+<strong>Generado.</strong> Una "X" indica que el reporte de este periodo ya ha sido generado. "---" Indica que no se ha generado aún.</li>
+ <li>
+<strong>Errores.</strong> En reportes generados, arrojará el número de errores detectados por el sistema en la última generación. Si no se ha generado el reporte en ninguna ocasión en este periodo, no mostrará nada.</li>
+ <li>
+<strong>Alertas.</strong> En reportes generados, arrojará el número de 
+alertas detectadas por el sistema en la última generación. Si no se ha 
+generado el reporte en ninguna ocasión en este periodo, no mostrará 
+nada.<br />
+</li>
+</ul>
+</li>
+ <li>
+<strong>Documentos. </strong>Sobre la sección de documentos, estando en las vistas de CFDIs, Terceros y Recibos, se muestran las siguientes columnas:<strong><br />
+</strong>
+<ul>
+ <li>
+<strong>Enlace.</strong> Muestra el enlace de este documento con su registro en forseti. Los enlaces de compras y ventas se muestran a manera de <strong>"Entidad/Mod3:Num"</strong>. Entidad es la ficha de la entidad de compra - gasto o venta (según estemos en la la vista de CFDIs o Terceros). Mod3 se refiere a la clave de tres letras del módulo al cual está enlazado el documento. Num es el número del registro en forseti. Los enlaces de recibos de nómina (sobre la vista de Recibos) se muestran a manera de <strong>"Entidad/Número:Año:Clave"</strong>.
+ Entidad es la ficha de la entidad de la nómina. Numero:Año se refiere al número y año de la nómina y la Clave 
+al Identificador del empleado en el catálogo de empleados.<br />
+Los siguientes son ejemplos de enlace de la vista CFDIs: <strong>Monterrey/FAC:19456</strong>, significa que este documento se enlaza a una factura de compra (FAC) de la entidad de compra de Monterrey y que el registro de esta compra tiene el número 19456. <strong>GastosDF/GAS:23234,</strong> significa que este documento se enlaza a una factura de gastos (GAS) de 
+la entidad de compra de GastosDF y que el registro de este gasto tiene
+ el número 23234. Ahora un ejemplo de enlace de la vista de Terceros y Recibos respectivamente: <strong>Monterrey/DSV:456,</strong> significa que este documento se enlaza a una devolución sobre venta (DSV) de la entidad de ventas de Monterrey con número 456. <strong>General/24:2015:GUFG01,</strong> es un enlace al recibo del empleado con clave GUFG01 de la nómina 24 del 2015 de la entidad dada de alta como General. <strong>NOTA MUY IMPORTANTE:</strong> Los documentos de cualquiera de las vistas que no han sido enlazados aun, solo muestran la entidad sobre la que se cargó.<br />
+</li>
+ <li>
+<strong>Fecha.</strong> Es la fecha de generación del CFD.</li>
+ <li>
+<strong>Total.</strong> Es el monto del atributo total del elemento Comprobante del CFDI.</li>
+ <li>
+<strong>Efecto.</strong> Este puede ser Ingreso, Egreso o Traslado según sea el caso del CFDI.</li>
+ <li>
+<strong>UUID.</strong> Es el identificador único asignado al CFDI por el PAC. <br />
+</li>
+ <li>
+<strong>RFC.</strong> Es el RFC ya sea del Emisor o Receptor según sea un comprobante que recibimos por compras, o uno que enviamos por ventas o recibo de nómina.<br />
+</li>
+ <li>
+<strong>Timbre.</strong> Es la fecha y hora en que fue timbrado el CFD por el PAC, convirtiéndolo en CFDI.</li>
+</ul>
+</li>
+ <li>
+Estando en la vista de CBB/Ext se muestran las siguientes columnas:
+<ul>
+ <li>
+<strong>Tipo.</strong> Muestra el tipo y enlace de este documento con su registro en forseti a manera de <strong>"Tipo: Entidad/Mod3:Num"</strong>.
+ Tipo puede ser "CBB" o "EXT" según sea una factura impresa con código de barras bidimensional o una factura extranjera. El siguiente es un ejemplo de enlace de esta vista: <strong>CBB: GastosDF/GAS:</strong>
+<strong>23235,</strong>
+ significa que este documento es una factura impresa con código de barras bidimensional que enlaza a una factura de gastos (GAS) de 
+la entidad de compra de GastosDF y que el registro de este gasto tiene
+ el número 23235. <strong>NOTA MUY IMPORTANTE:</strong> Los documentos que no han sido enlazados aun, solo muestran el tipo y la entidad sobre la que se cargó.</li>
+ <li>
+<strong>Factura.</strong> En documentos CBB muestra la serie seguida del folio. En documentos de facturas extranjeras, es el número de la factura.<br />
+</li>
+ <li>
+<strong>Fecha.</strong> Es la fecha del documento. <br />
+</li>
+ <li>
+<strong>Nombre.</strong> Es el nombre del archivo de imagen escaneado de la factura original de este registro de documento.<br />
+</li>
+ <li>
+<strong>Mon.</strong> La clave de la moneda del documento según el módulo de monedas del centro de control.<br />
+</li>
+ <li>
+<strong>TC.</strong> Es el tipo de cambio. En la moneda 1 perteneciente a la moneda nacional el tipo de cambio siempre es 1.00.<br />
+</li>
+ <li>
+<strong>Total.</strong> Es el importe total de este registro</li>
+</ul>
+</li>
+</ul>
+<h2 align="center">
+<strong>Procesos del Módulo de CFDI, CE y GDE</strong>
+</h2>
+<p>En
+ el módulo de CFDI, CE y GDE intervienen los procesos primarios de 
+cambiar emisor, agregar certificado, agregar expeditor, cambiar expeditor, generar archivos xml, consultar estatus, consultar archivo, validar archivo, descargar archivo, desenlazar documento y eliminar documento.</p>
+<p>
+<strong>PROCESO DE LA SECCION DE EMISOR DE CFDI.</strong><br />
+</p>
+<p>
+<strong>Cambiar emisor.</strong>
+</p>
+<p>Permite definir los datos del emisor de los CFDIs que se generarán directamente en forseti a través de la API JPacConn al agregar una venta, un traspaso, un recibo de nómina, etc., desde sus módulos. El formulario para definir los datos del emisor contiene los siguientes objetos:</p>
+<ul>
+ <li>
+<strong>Nombre.</strong> Este es un campo informativo que pertenece al nombre de la empresa o persona física registrado al momento de agregar la empresa desde el CEF.<br />
+</li>
+ <li>
+<strong>RFC.</strong> Debes ingresar aquí el RFC de la empresa o persona física. Este
+ RFC debe estar limpio, sin guiones, y con mayúsculas.
+</li>
+ <li>
+<strong>CFD.</strong> Puede ser cualquiera de las dos siguientes opciones:<br />
+<ul>
+ <li>
+<strong>No.</strong> No se generarán CFDIs, incluso si las entidades indican que si.</li>
+ <li>
+<strong>CFDI 3.2.</strong> Se generarán CFDIs con la versión 3.2 al agregar registros desde los módulos de ventas, traspasos y nóminas cuando sus entidades indiquen que se deben de generar.</li>
+</ul>
+</li>
+ <li>
+<strong>Calle.</strong> La calle y los campos subsecuentes son atributos de la dirección del emisor.<br />
+</li>
+ <li>
+<strong>No. Exterior.</strong> Se refiere al número exterior "NoExt".<br />
+</li>
+ <li>
+<strong>No. Interior.</strong> Es el número interior "NoInt".<br />
+</li>
+ <li>
+<strong>Col.</strong> El atributo "Colonia".<br />
+</li>
+ <li>
+<strong>Localidad.</strong>
+</li>
+ <li>
+<strong>Código Postal<br />
+</strong>
+</li>
+ <li>
+<strong>Municipio.</strong>
+</li>
+ <li>
+<strong>Estado.</strong>
+</li>
+ <li>
+<strong>País.</strong>
+</li>
+ <li>
+<strong>Régimen Fiscal.</strong> Debes indicar aquí el régimen del alta en hacienda de la persona moral o física.</li>
+</ul>
+<strong>PROCESO DE LA SECCION DE CERTIFICADOS DE CFDI.</strong>
+
+<p>
+<strong>Agregar certificado.</strong>
+</p>
+<p>Permite agregar al sistema el certificado digital asignado a este emisor por el SAT. Los certificados constan de dos archivos, el certificado .cer y la llave .key que requiere de una contraseña. Esta llave pertenece a este certificado exclusivamente. Al agregar, tanto el certificado como la llave se guardan en formato PEM. PEM es una forma de codificación de certificados X.509 y su mayor beneficio es que son mas seguros para guardarlos, que guardar los archivos .cer, .key y la contraseña, por lo tanto, la contraseña introducida para la verificación de la llave y a su vez del certificado, solo se utilizará al agregarlo y no, por cada CFD que se genere. El formulario para agregar el certificado contiene los siguientes objetos:</p>
+<ul>
+ <li>
+<strong>Archivo cer.</strong> Debes seleccionar del diálogo la ruta completa del archivo .cer</li>
+ <li>
+<strong>Archivo key. </strong>Debes seleccionar del diálogo la ruta completa del archivo .key</li>
+ 
+</ul>Ya que se han agregado y verificado que los archivos cer y key pertenecen a certificados X.509, el sistema mostrara nos dirigirá al siguiente formulario:<ul>
+ <li>
+<strong>Contraseña.</strong> Debes indicar aquí la contraseña para el archivo de llave. NOTA: Como ya se ha dicha anteriormente, esta contraseña no se guardará en la base de datos ya que el sistema utiliza la codificación de certificados PEM para todo el trabajo posterior.</li>
+</ul>
+<strong>PROCESOS DE LA SECCION DE EXPEDITORES DE CFDI.</strong><br />
+
+<p>
+<strong>Agregar expeditor.</strong>
+</p>Este proceso permite definir nuevos objetos de expedición. El formulario para definición contiene los siguientes objetos:<br />
+<ul>
+ <li>
+<strong>Clave.</strong> Indica aquí la clave numérica de este objeto de expedición.</li>
+ <li>
+<strong>Nombre.</strong> Proporciona una pequeña descripción que identifique este objeto de expedición.<br />
+</li>
+ <li>
+<strong>Calle.</strong><br />
+</li>
+ <li>
+<strong>No. Exterior.</strong><br />
+</li>
+ <li>
+<strong>No. Interior.</strong><br />
+</li>
+ <li>
+<strong>Colonia.</strong><br />
+</li>
+ <li>
+<strong>Localidad.</strong>
+</li>
+ <li>
+<strong>Código Postal.<br />
+</strong>
+</li>
+ <li>
+<strong>Municipio.</strong>
+</li>
+ <li>
+<strong>Estado.</strong>
+</li>
+ <li>
+<strong>País.</strong>
+<span style="font-size: large;">
+</span>
+</li>
+</ul>
+<p>
+<strong>Cambiar expeditor.</strong><br />
+</p>
+<p>Permite cambiar los datos del objeto de expedición seleccionado.</p>
+<p>
+<strong>PROCESOS DE LAS SECCIONES DE CATALOGO, BALANZA Y POLIZAS DE CE.</strong><br />
+
+</p>
+<p>
+<strong>Generar archivos xml.</strong>
+</p>Este proceso permite crear, o volver a crear en caso de que ya se haya creado antes, el reporte mensual del catálogo, balanza o pólizas (según la sección en la que estemos) perteneciente al mes seleccionado de la lista. La definición del reporte del catálogo no requiere de parámetros. Para la generación del reporte de la balanza contamos con el siguiente formulario:<br />
+<ul>
+ <li>
+<strong>Tipo de envío.</strong> Debes seleccionar la opción del tipo de envío:<br />
+<ul>
+ <li>
+<strong>Normal</strong>
+</li>
+ <li>
+<strong>Complementaria</strong>.</li>
+</ul>
+</li>
+</ul>
+<p>El formulario para la definición del reporte de pólizas contiene los siguientes objetos:</p>
+<ul>
+ <li>
+<strong>Tipo de solicitud.</strong> Debes seleccionar la opción para el tipo de solicitud:<br />
+<ul>
+ <li>
+<strong>Acto de fiscalización.</strong>
+</li>
+ <li>
+<strong>Fiscalización compulsa.</strong>
+</li>
+ <li>
+<strong>Devolución.</strong>
+</li>
+ <li>
+<strong>Compensación.</strong>
+</li>
+</ul>
+</li>
+ <li>
+<strong>Número de orden. </strong>Indica aquí el número de la orden proporcionada por el SAT.<strong><br />
+</strong>
+</li>
+ <li>
+<strong>Número de trámite. </strong>El número de trámite se debe proporcionar aquí.<strong><br />
+</strong>
+</li>
+</ul>
+<p>
+<strong>Consultar estatus.</strong>
+</p>Este proceso permite consultar en linea el archivo de registro de errores y alertas de la generación del reporte del mes seleccionado. Los errores y alertas son la primera fase de verificación antes de la validación, por ejemplo, si un RFC está mal formado, enviará el error al archivo de registro o si un número de cheque o cuenta contiene caracteres alfanuméricos enviará la alerta. Lo ideal será no encontrar ni errores ni alertas.<br />
+<p>
+<strong>Consultar archivo.</strong>
+</p>Este proceso permite consultar en linea el archivo xml del reporte generado del mes seleccionado.<br />
+
+<p>
+<strong>Validar archivo.</strong>
+</p>
+<p>Este proceso permite validar el archivo xml en forma y sintaxis antes de enviarlo. Si el archivo de registro de estatus ya no contiene errores, debes proceder a validar. La validación es la última fase de verificación del archivo xml y por lo tanto, un reporte validado debe ser aceptado por el SAT. La validación detecta errores mas profundos, por ejemplo, si un código agrupador es nulo, mandará el error al registro de errores y alertas, sin embargo, si existe el código agrupador pero no es válido para el SAT, no será reportado en el registro de errores sino será reportado hasta esta validación.</p>
+<p>
+<strong>Descargar archivo.</strong>
+</p>
+<p>Este proceso permite descargar del servidor el archivo xml del reporte generado del mes seleccionado. El reporte será comprimido en formato ZIP y su nombre será el apropiado (según RFC, periodo y tipo de reporte) para cumplir con los requerimientos del SAT.</p>
+<p>
+<strong>PROCESOS DE LA SECCION DE DOCUMENTOS DE GDE.</strong><br />
+
+</p>
+<p>
+<strong>Desenlazar documento.</strong>
+</p>
+<p>Este proceso permite eliminar el enlace entre el documento seleccionado de la lista y el registro de forseti. Por ejemplo, si tenemos un CFDI enlazado a un registro de compra en forseti, al quitar el enlace, el objeto de contabilidad electrónica "CompNal" (Comprobante Nacional) se eliminará de la póliza de este registro y el CFDI quedará disponible para enlazarlo a otra compra diferente de la misma entidad de compra.</p>
+<p>
+<strong>Eliminar documento.</strong>
+</p>
+<p>Permite eliminar el documento seleccionado de la lista cuando no está enlazado a ningún registro en forseti. Este proceso debe utilizarse cuando el documento se haya cargado en una entidad diferente de su objetivo (para que posteriormente se cargue en su entidad) o cuando por alguna circunstancia no se pueda enlazar al registro. <br />
+</p>
+<h2 align="center">
+<strong>Errores comunes del módulo de CFDI, CE y GDE.</strong><br />
+</h2>
+<ul>
+ <li>
+<strong>PRECAUCION: No se pueden generar los archivos XML de la Contabilidad Electrónica, porque el mes seleccionado no esta cerrado aun.</strong> Es absolutamente indispensable cerrar el periodo del reporte que se intenta generar desde el módulo de periodos del centro de control del CEF.</li>
+ <li>
+<strong>PRECAUCION: No se puede eliminar el documento porque ya se encuentra enlazado a un registro.</strong> Por motivos de integridad referencial, para eliminar un documento externo necesitas forzosamente desenlazarlo primero de su registro en forseti.<br />
+</li>
+</ul>
+			  
+
+			  
+
+			  
+
 			  
 
 _FIN_PAG
@@ -27281,9 +28210,9 @@ cambiarlo diariamente con este proceso.</li>
 _FIN_PAG
 
 _INI_PAG
-051101|Reportes y gráficas|Reportes y gráficas en el CEF y SAF|0|COMPLETA|REPS_REPORTES
+051101|Reportes del CEF|Listado de los reportes y gráficas de sistema que vienen integrados en el CEF|1|COMPLETA|FSI-CEFREP
 _CUERPO_PAG
-<div align="justify"> 				 				 				 				 				 				 				 				 				 				 				 				 				 				Los reportes y gráficas son accesibles al pulsar el elemento Reportes que presentan los módulos y submódulos de las raíces de Módulos, Centro de Control y Mensajes del menú principal. Por ejemplo, al pulsar la raíz de Módulos, se presentan los módulos correspondientes a los departamentos de la empresa, al pulsar el módulo de Contabilidad se despliega en primer lugar el elemento "Reportes" y luego los submódulos contables. Este elemento "Reportes" contendrá los reportes globales de la contabilidad como el Balance General. Al pulsar en un submódulo como Pólizas, el primer elemento será también "Reportes", y contendrá los reportes de pólizas de la contabilidad.<br /><br />Esta mecánica se presenta en todos los módulos y submódulos que contengan reportes asociados. Al pulsar en el elemento Reportes, estos se listarán en el panel de cuerpo principal. Si el usuario no tiene acceso a ningún reporte del módulo o submódulo seleccionado, la lista de reportes se mostrará vacía.<br /><br />El panel mostrará los reportes accesibles al usuario con una descripción breve del objetivo del reporte, y una bandera marcada como <strong>GRF</strong> que informa si este reporte se puede graficar o no. Los reportes de <strong>sistema</strong> se muestran en color azul, mientras los reportes <strong>definidos por el usuario</strong> en color negro.<br /><br />Los reportes contienen un solo botón de proceso que se llama <strong>CARGAR</strong>, que al pulsarlo mostrará una ventana emergente que contiene el filtro del reporte en el cual se deben seleccionar los valores del filtro según las instrucciones de cada valor.<br /><br /></div><div align="justify"><img alt="fig3.1.3.1" src="../forsetidoc/IMG/fig3.1.3.1.gif" style="border: 0px solid; margin: 0px;" /><br /><br /><strong>Figura 3.1.3.1</strong>, filtro del reporte de Balance General del módulo contable.<br /></div><div align="justify"><br />Adicionalmente, si el reporte se puede graficar, se muestran las propiedades de configuración para la gráfica. Estas incluyen los siguientes valores:<br /><br /><ul> <li><strong>Si "si" se desea graficar o "no" se desea graficar</strong>: En caso de si graficar, se mostrará una gráfica según la configuración, de lo contrario, se muestra el reporte para impresión.</li> <li><strong>Tipo de gráfica</strong>: Esta incluye Barras, Lineas, Circular o Areas. <strong>Nota</strong>: incluso que el reporte acepte graficar, no siempre se permite cualquier tipo de gráfica. Revisa la documentación del reporte para ver que tipos de gráficas acepta.</li> <li><strong>Variación</strong>: Esta propiedad permite ver una gráfica en valores "Normales" (iguales al reporte), valores "En Pila" o valores "En Porcentaje".</li> <li><strong>Dirección de datos</strong>: Permite mostrar la gráfica desde dos distintas perspectivas, "En Filas" o "En Columnas". <br /></li> <li><strong>Mostrar lineas eje</strong>: Propiedad que permite mostrar u ocultar las lineas del eje de la gráfica. Esta no aplica a gráficas Circulares ya que en este tipo de gráficas no existen los ejes.<br /></li></ul><br /></div><div align="justify"><img alt="fig3.1.3.1" src="../forsetidoc/IMG/fig3.1.3.2.gif" style="border: 0px solid; margin: 0px;" /><br /><br /><strong>Figura 3.1.3.2</strong> Ejemplo de ventana de filtrado para reportes que soportan gráficas.<br /></div><div align="justify"><br />Para entender mejor los conceptos, veámoslo en un ejemplo completo. La siguiente tabla representa el reporte para nuestra gráfica:<br /><br /></div><div align="justify"><img alt="fig3.1.3.3" src="../forsetidoc/IMG/fig3.1.3.3.gif" style="border: 0px solid; margin: 0px;" /><br /></div><div align="justify"><br /></div><div align="justify"><strong>Figura 3.1.3.3</strong>, Reporte de comparativo de ventas mensuales de entidades<br /></div><div align="justify"><br />Ahora supongamos los siguientes valores de configuración para la gráfica: Tipo de gráfica <strong>Barras</strong>, Variación <strong>Normal</strong>, Dirección de datos <strong>En Filas</strong>, Lineas eje <strong>SI</strong>. El resultado se observa como la figura 3.1.3.4.<br /><br /></div><div align="justify"><img alt="fig3.1.3.4" src="../forsetidoc/IMG/fig3.1.3.4.gif" style="border: 0px solid; margin: 0px;" /><br /></div><div align="justify"><br /></div><div align="justify"><strong>Figura 3.1.3.4</strong>, Gráfica de barras con dirección de datos en filas.<br /></div><div align="justify"><br />Ahora, cambiamos a esta gráfica la dirección de datos a <strong>Columnas</strong> y Lineas eje a <strong>NO:</strong><br /><br /></div><div align="justify"><img alt="fig3.1.3.5" src="../forsetidoc/IMG/fig3.1.3.5.gif" style="border: 0px solid; margin: 0px;" /><br /></div><div align="justify"><br /></div><div align="justify"><strong>Figura 3.1.3.5</strong>, Gráfica de barras con dirección de datos en columnas y sin lineas eje.<br /></div><div align="justify"><br />También podemos conseguir distintas gráficas del mismo reporte. Por ejemplo, la figura 3.1.3.6 muestra exactamente la misma configuración de la gráfica de la figura 3.1.3.4, pero como una gráfica de áreas:<br /><br /></div><div align="justify"><img alt="fig3.1.3.6" src="../forsetidoc/IMG/fig3.1.3.6.gif" style="border: 0px solid; margin: 0px;" /><br /></div><div align="justify"><br /></div> <div align="justify"><strong>Figura 3.1.3.6</strong>, Gráfica de áreas con dirección de datos en filas.<br /></div><div align="justify"><br />Como te puedes dar cuenta, si un reporte soporta las gráficas, éstas puedes configurarlas de varias maneras. <br /></div>			  			  			  			  			  			  			  			  			  			  			  			  			  			  
+
 _FIN_PAG
 
 _INI_PAG
@@ -29585,6 +30514,10 @@ _INI_PAGINAS_ENLACES
 010102|010008
 080203|070204
 070204|080203
+040401|030103
+030103|040401
+051101|030103
+030103|051101
 _FIN_PAGINAS_ENLACES
 
 _INI_PAGINAS_SUBTIPOS
@@ -29611,27 +30544,27 @@ _INI_PAGINAS_SUBTIPOS
 01.01|010103
 05.09|050916
 05.08|050803
-05.06|050609
 05.09|050903
 05.07|050705
+05.06|050609
 01.02|010202
 05.07|050706
 01.02|010203
 01.02|010204
-01.02|010205
-01.02|010206
 05.09|050904
-05.04|050405
 01.01|010109
 01.02|010207
 05.09|050917
+01.02|010206
+01.02|010205
+05.04|050405
 02.01|020101
 01.02|010213
 01.02|010210
 05.09|050905
 05.07|050702
-01.02|010212
 01.02|010209
+01.02|010212
 02.01|020102
 05.07|050703
 02.03|020303
@@ -29644,7 +30577,6 @@ _INI_PAGINAS_SUBTIPOS
 02.03|020301
 02.02|020202
 03.01|030102
-03.02|030201
 03.02|030202
 04.01|040101
 04.01|040102
@@ -29652,6 +30584,8 @@ _INI_PAGINAS_SUBTIPOS
 04.02|040204
 04.03|040301
 05.07|050707
+05.05|050501
+05.03|050305
 05.02|050201
 05.07|050701
 05.02|050205
@@ -29660,26 +30594,23 @@ _INI_PAGINAS_SUBTIPOS
 05.08|050801
 05.01|050102
 05.03|050303
+05.10|051004
 05.02|050203
 05.03|050302
 05.09|050901
+05.10|051001
 05.10|051003
 05.06|050601
 05.04|050403
-05.05|050501
 05.03|050304
-05.10|051001
-05.03|050305
-05.10|051004
 05.10|051002
 06.01|060101
 06.01|060102
+03.01|030103
 08.02|080201
-05.10|051101
 05.05|050506
 07.01|070102
 05.07|050709
-05.10|051006
 05.09|050908
 05.02|050207
 05.09|050910
@@ -29696,38 +30627,41 @@ _INI_PAGINAS_SUBTIPOS
 08.02|081005
 01.01|010100
 05.05|050507
+05.09|050902
+03.02|030201
 05.09|050915
 08.02|081015
 08.02|081014
-05.09|050902
 08.01|080104
 07.02|070204
 08.01|080103
 07.02|070202
 07.01|070105
 01.00|010001
-05.01|050101
 08.02|081013
 07.01|070101
 07.02|070203
 07.01|070107
+05.10|051006
+05.01|050101
 01.01|010105
 07.02|070201
 05.09|050909
+05.11|051101
 05.09|050918
 01.02|010201
 07.01|070104
-04.04|040401
 07.02|070205
 04.02|040202
 05.03|050306
+04.04|040401
 05.06|050605
 01.01|010107
 01.02|010208
 05.06|050603
-05.06|050606
 05.09|050911
 05.06|050602
+05.06|050606
 02.01|020103
 08.02|AVPRV
 07.01|070103
@@ -29735,9 +30669,9 @@ _INI_PAGINAS_SUBTIPOS
 05.06|050604
 07.01|070106
 05.02|050204
-04.02|040201
 05.10|051005
 05.02|050202
+04.02|040201
 05.09|050913
 04.02|04020202
 04.02|04020201

@@ -209,6 +209,12 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				 </tr>
 				 
 
+              	 <tr>
+				 	<td width="5" valign="top" class="txtSubMenu"><font color="#0099FF">-</font></td>
+                    <td valign="top"><a href="051101.html" class="txtSubMenu" target="_self"><font color="#0099FF">Reportes</font></a></td>
+				 </tr>
+				 
+
 				</table>
 				
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -239,6 +245,8 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				  <tr>
 					<td> 
                     
+ 
+				
  
 				
  
@@ -290,7 +298,8 @@ siguientes objetos de cabecero:<br />
  <li>
 <strong>Clave</strong>. Indica aquí, la clave numérica que identifica este movimiento de nómina definido por el usuario. La numeración del 10 al 990 con terminación en cero, es la numeración reservada para conceptos de movimientos de sistema que ya están definidos al momento de instalar forseti, o para futuros movimientos, definidos, por ejemplo, al actualizar el sistema. Además, forseti utiliza como estándar la numeración del 10 al 590 para percepciones y del 600 al 990 para las deducciones. Las claves indicadas aquí, deben terminar en cualquier numero menos cero, por ejemplo, las claves 1, 53 y 779 son claves válidas, mientras que las claves 20, 340 u 800 son claves inválidas porque terminan con el número cero. Por último, es aconsejable seguir el estándar que utiliza forseti definiendo las percepciones con claves menores a 600 y las deducciones con claves mayores a 600.</li>
  <li>
-<strong>Clave SAT.</strong> Selecciona de la lista, la clave del concepto establecido por el SAT, asociado a este movimiento en forseti. Este se utilizará en caso de que los Comprobantes Fiscales Digitales por Internet (CFDIs) de los recibos de nómina se generen directamente en forseti.</li>
+<strong>Clave SAT.</strong> Selecciona de la lista, la clave del concepto establecido por el SAT, asociado a este movimiento en forseti. Este se utilizará en caso de que los Comprobantes Fiscales Digitales por Internet (CFDIs) de los recibos de nómina se generen directamente en forseti. Esta lista muestra los conceptos de percepciones precedidos por una "P" y los de deducciones por una "D". En caso de que al agregar o cambiar un movimiento de percepción se intente asociarlo con un concepto del SAT de deducción o viceversa, nos mandará el siguiente aviso: "PRECAUCION: Una percepción o deducción debe corresponder con una percepción o deducción del catálogo del SAT. Esta regla solo puede quebrarse para el movimiento 710 de sistema correspondiente al subsidio al empleo".<br />
+El movimiento 710 es la excepción a esta situación ya que pertenece al "subsidio al empleo" el cual se trata como una deducción positiva en forseti, pero en el sat lo manejan como una percepción.</li>
  <li>
 <strong>Es Deducción.</strong> Si está seleccionado, indica que este movimiento se refiere a una 
 deducción, de lo contrario, será una percepción.</li>
@@ -333,6 +342,8 @@ Los errores más comunes en estos procesos son los siguientes:</p>
 
 <strong>PRECAUCIÓN: La cuenta y departamento ya están en la lista, No se agregó la partida.</strong>
  Probablemente intentas agregar un enlace a un departamento que ya se encuentra en la lista. Los enlaces a los departamentos no se pueden duplicar.
+			  
+
 			  
 
 			  

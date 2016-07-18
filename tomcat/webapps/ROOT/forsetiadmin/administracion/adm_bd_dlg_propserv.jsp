@@ -155,7 +155,13 @@ function enviarlo(formAct)
           </tr>
 		  <tr> 
             <td align="right">Contraseña de fsi</td>
-            <td><input name="fsi_pass" type="text" id="fsi_pass" size="25" maxlength="50"> Dejar en blanco para no cambiar la contraseña</td>
+            <td><input name="fsi_pass" type="password" id="fsi_pass" size="25" maxlength="50">
+              Dejar en blanco para no cambiar la contraseña. Se sugiere una contraseña 
+              muy fuerte.</td>
+          </tr>
+		  <tr> 
+            <td align="right">Confirmación de contraseña de fsi</td>
+            <td><input name="fsi_passconf" type="password" id="fsi_passconf" size="25" maxlength="50"></td>
           </tr>
 		  <tr> 
             <td align="right">Infraestructura PostgreSQL</td>

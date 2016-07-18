@@ -22,6 +22,8 @@ import java.io.*;
 //import java.util.Calendar;
 //import java.util.Date;
 import java.util.Enumeration;
+
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,14 +51,16 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import com.lowagie.text.DocumentException;
 
-import Acme.JPM.Encoders.GifEncoder;
+//import Acme.JPM.Encoders.GifEncoder;
 
+import forseti.JBajarArchivo;
 import forseti.JForsetiApl;
 import forseti.JFsiGrafAreas;
 import forseti.JFsiGrafCirc;
 import forseti.JFsiGrafLineas;
 import forseti.JFsiGraficas;
 import forseti.JRepCellStyles;
+import forseti.sets.JProcessSet;
 import forseti.sets.JReportesBind2Set;
 import forseti.sets.JReportesBind3Set;
 import forseti.sets.JReportesBindFSet;
@@ -116,13 +120,25 @@ public class JReportesDlg extends JForsetiApl
                    return;
                }
                
-               if (request.getParameter("subproceso") != null && request.getParameter("subproceso").equals("GENERAR"))
+               if(request.getParameter("subproceso") != null && request.getParameter("subproceso").equals("GENERAR"))
                {
                  // Solicitud de envio a procesar
+            	      
             	 if(VerificarFiltro(request, response))
             	 {
-            		 try { CargarReporte(request, response); } catch (DocumentException e) { e.printStackTrace(); }
-            		 return;
+            		 try 
+            		 {
+            			 CargarReporte(request, response);
+            		 } 
+            		 catch (DocumentException e) 
+            		 {
+            			 idmensaje = 3; mensaje += e.getMessage();
+            			 getSesion(request).setID_Mensaje(idmensaje, mensaje);
+            			 RDP("CEF",getSesion(request).getConBD(),"ER",getSesion(request).getID_Usuario(),"REP_REPORTES","RREP|" + request.getParameter("REPID") + "|||",mensaje);
+            			 irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+            			 return;
+					}
+            		return; 
             	 }
                }
                else
@@ -186,10 +202,11 @@ public class JReportesDlg extends JForsetiApl
       }
     }
 
-    public String generarReporteHtml(HttpServletRequest request, HttpServletResponse response)
+    public String generarReporteHtml(HttpServletRequest request, HttpServletResponse response, boolean lineas)
     	throws ServletException, IOException
     {
     	String html = "";
+    	float anchuraL1 = 0.00F, anchuraL2 = 0.00F, anchuraL3 = 0.00F;
     	
     	JReportesSet m_RepSet = (JReportesSet)request.getAttribute("m_RepSet");
         JReportesLevel1 m_setL1 = (JReportesLevel1)request.getAttribute("m_setL1");
@@ -239,7 +256,7 @@ public class JReportesDlg extends JForsetiApl
     	html += "<title>";
     	html +=  m_RepSet.getAbsRow(0).getDescription();
     	html += "</title>\r\n";
-    	//html += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n";
+    	html += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></meta>\r\n";
     	html += "<style type=\"text/css\">\r\n";
     	html += "<!--\r\n";
     	html += ".fsiTitulo {\r\n";
@@ -305,20 +322,24 @@ public class JReportesDlg extends JForsetiApl
     	html += "  <tr>\r\n";
     	html += "    <td class=\"fsiL1\" align=\"center\">&nbsp;</td>\r\n";
     	html += "  </tr>\r\n";
-    	html += "  <tr>\r\n";
-    	html += "\t<td><img src=\"../imgfsi/t_negra.gif\" style=\"height:0.5mm; width:100%;\" border=\"0\"></img></td>\r\n";
-    	html += "  </tr>  \r\n";
+    	if(lineas)
+    	{
+    		html += "  <tr>\r\n";
+    		html += "\t<td bgcolor=\"#000000\" style=\"height:0.5mm;\"></td>\r\n";
+    		html += "  </tr>  \r\n";
+    	}
     	html += "  <tr>\r\n";
     	html += "    <td>\r\n";
     	html += "\t\t<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n";
     	html += "\t\t  <tr>\r\n";
     	html += "\t\t\t<td>\r\n";
     	if(m_bSelectL1.booleanValue())
-    	{	
+    	{
     		html += "\r\n";
     		html += "\t\t\t  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\">\r\n";
     		html += "\t\t\t  \t<tr>\r\n";
-    		if(m_selectL1.getAbsRow(0).getTabPrintPnt() > 0) 
+    		anchuraL1 = m_selectL1.getAbsRow(0).getTabPrintPnt();
+			if(m_selectL1.getAbsRow(0).getTabPrintPnt() > 0) 
     		{ 
     			html += " \r\n";
     			html += "\t\t  <td class=\"fsiEncL1\" width=\"";
@@ -330,6 +351,15 @@ public class JReportesDlg extends JForsetiApl
     		{ 
     			if(m_colL1.getAbsRow(i).getWillShow()) 
     			{ 
+    				anchuraL1 += m_colL1.getAbsRow(i).getAncho();
+    				if(anchuraL1 > 100) //Si el ancho de este elemento sobrepasa el 100%, brinca a la siguiente linea
+    				{
+    					anchuraL1 = m_selectL1.getAbsRow(0).getTabPrintPnt() + m_colL1.getAbsRow(i).getAncho();
+    					html += "\t\t\t\t</tr>\r\n";
+    		    		html += "\t\t\t  </table>\r\n";
+    		    		html += "\t\t\t  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\">\r\n";
+    		    		html += "\t\t\t  \t<tr>\r\n";
+    		    	}
     				html += "\r\n";
     				html += "\t\t\t\t  <td class=\"fsiEncL1\" width=\"";
     				html +=  m_colL1.getAbsRow(i).getAncho() ;
@@ -338,7 +368,7 @@ public class JReportesDlg extends JForsetiApl
     				html += '"';
     				html +=  (( m_colL1.getAbsRow(i).getFGColor() != null ) ? " style=\"color:#" +  m_colL1.getAbsRow(i).getFGColor() + ";\"" : "" ) ;
     				html += '>';
-    				html +=  m_colL1.getAbsRow(i).getColName() ;
+    				html +=  m_colL1.getAbsRow(i).getColName().toUpperCase() ;
     				html += "</td>\r\n";
     				html += "\t";
     			} 
@@ -358,7 +388,8 @@ public class JReportesDlg extends JForsetiApl
     		html += "\r\n";
     		html += "\t\t\t  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\">\r\n";
     		html += "\t\t\t  \t<tr>\r\n";
-    		if(m_selectL2.getAbsRow(0).getTabPrintPnt() > 0) 
+    		anchuraL2 = m_selectL2.getAbsRow(0).getTabPrintPnt();
+			if(m_selectL2.getAbsRow(0).getTabPrintPnt() > 0) 
     		{ 
     			html += " \r\n";
     			html += "\t\t  <td class=\"fsiEncL2\" width=\"";
@@ -370,6 +401,15 @@ public class JReportesDlg extends JForsetiApl
     		{ 
     			if(m_colL2.getAbsRow(i).getWillShow()) 
     			{ 
+    				anchuraL2 += m_colL2.getAbsRow(i).getAncho();
+    				if(anchuraL2 > 100) //Si el ancho de este elemento sobrepasa el 100%, brinca a la siguiente linea
+    				{
+    					anchuraL2 = m_selectL2.getAbsRow(0).getTabPrintPnt() + m_colL2.getAbsRow(i).getAncho();
+    					html += "\t\t\t\t</tr>\r\n";
+    		    		html += "\t\t\t  </table>\r\n";
+    		    		html += "\t\t\t  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\">\r\n";
+    		    		html += "\t\t\t  \t<tr>\r\n";
+    		    	}
     				html += "\r\n";
     				html += "\t\t\t\t  <td class=\"fsiEncL2\" width=\"";
     				html +=  m_colL2.getAbsRow(i).getAncho() ;
@@ -378,7 +418,7 @@ public class JReportesDlg extends JForsetiApl
     				html += '"';
     				html +=  (( m_colL2.getAbsRow(i).getFGColor() != null ) ? " style=\"color:#" +  m_colL2.getAbsRow(i).getFGColor() + ";\"" : "" ) ;
     				html += '>';
-    				html +=  m_colL2.getAbsRow(i).getColName() ;
+    				html +=  m_colL2.getAbsRow(i).getColName().toUpperCase() ;
     				html += "</td>\r\n";
     				html += "\t";
     			} 
@@ -398,6 +438,7 @@ public class JReportesDlg extends JForsetiApl
     		html += "\r\n";
     		html += "\t\t\t  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\">\r\n";
     		html += "\t\t\t  \t<tr>\r\n";
+    		anchuraL3 = m_selectL3.getAbsRow(0).getTabPrintPnt();
     		if(m_selectL3.getAbsRow(0).getTabPrintPnt() > 0) 
     		{ 
     			html += " \r\n";
@@ -410,6 +451,15 @@ public class JReportesDlg extends JForsetiApl
     		{ 
     			if(m_colL3.getAbsRow(i).getWillShow()) 
     			{ 
+    				anchuraL3 += m_colL3.getAbsRow(i).getAncho();
+    				if(anchuraL3 > 100) //Si el ancho de este elemento sobrepasa el 100%, brinca a la siguiente linea
+    				{
+    					anchuraL3 = m_selectL3.getAbsRow(0).getTabPrintPnt() + m_colL3.getAbsRow(i).getAncho();
+    					html += "\t\t\t\t</tr>\r\n";
+    		    		html += "\t\t\t  </table>\r\n";
+    		    		html += "\t\t\t  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\">\r\n";
+    		    		html += "\t\t\t  \t<tr>\r\n";
+    		    	}
     				html += "\r\n";
     				html += "\t\t\t\t  <td class=\"fsiEncL3\" width=\"";
     				html +=  m_colL3.getAbsRow(i).getAncho() ;
@@ -418,7 +468,7 @@ public class JReportesDlg extends JForsetiApl
     				html += '"';
     				html +=  (( m_colL3.getAbsRow(i).getFGColor() != null ) ? " style=\"color:#" +  m_colL3.getAbsRow(i).getFGColor() + ";\"" : "" ) ;
     				html += '>';
-    				html +=  m_colL3.getAbsRow(i).getColName() ;
+    				html +=  m_colL3.getAbsRow(i).getColName().toUpperCase() ;
     				html += "</td>\r\n";
     				html += "\t";
     			} 
@@ -434,9 +484,12 @@ public class JReportesDlg extends JForsetiApl
     	html += "\t\t</table>\r\n";
     	html += "\t</td>\r\n";
     	html += "  </tr>\r\n";
-    	html += "  <tr>\r\n";
-    	html += "\t<td><img src=\"../imgfsi/t_negra.gif\" style=\"height:0.5mm; width:100%;\" border=\"0\"></img></td>\r\n";
-    	html += "  </tr>  \r\n";
+    	if(lineas)
+    	{
+    		html += "  <tr>\r\n";
+    		html += "\t<td bgcolor=\"#000000\" style=\"height:0.5mm;\"></td>\r\n";
+    		html += "  </tr>  \r\n";
+    	}
     	html += "  <tr>\r\n";
     	html += "    <td class=\"fsiL1\" align=\"center\">&nbsp;</td>\r\n";
     	html += "  </tr>\r\n";
@@ -451,6 +504,7 @@ public class JReportesDlg extends JForsetiApl
     			html += "\t  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\">\r\n";
     			html += "\t  \t<tr> \r\n";
     			html += "\t";
+    			anchuraL1 = m_selectL1.getAbsRow(0).getTabPrintPnt();
     			if(m_selectL1.getAbsRow(0).getTabPrintPnt() > 0) 
     			{ 
     				html += " \r\n";
@@ -464,7 +518,16 @@ public class JReportesDlg extends JForsetiApl
     				if(m_colL1.getAbsRow(CL1).getWillShow()) 
     				{ 
     					String cabval = JUtil.FormatearRep(m_setL1.getAbsRow(RL1).getSTS(m_colL1.getAbsRow(CL1).getColName()), m_colL1.getAbsRow(CL1).getFormat(), m_colL1.getAbsRow(CL1).getBindDataType(), request); 
-    					html += "\r\n";
+    					anchuraL1 += m_colL1.getAbsRow(CL1).getAncho();
+        				if(anchuraL1 > 100) //Si el ancho de este elemento sobrepasa el 100%, brinca a la siguiente linea
+        				{
+        					anchuraL1 = m_selectL1.getAbsRow(0).getTabPrintPnt() + m_colL1.getAbsRow(CL1).getAncho();
+        					html += "\t\t\t\t</tr>\r\n";
+        		    		html += "\t\t\t  </table>\r\n";
+        		    		html += "\t\t\t  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\">\r\n";
+        		    		html += "\t\t\t  \t<tr>\r\n";
+        		    	}
+        				html += "\r\n";
     					html += "\t\t  <td class=\"fsiL1\" width=\"";
     					html +=  m_colL1.getAbsRow(CL1).getAncho() ;
     					html += "%\" align=\"";
@@ -490,11 +553,12 @@ public class JReportesDlg extends JForsetiApl
     					html += "\t  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\">\r\n";
     					html += "\t  \t<tr> \r\n";
     					html += "\t\t\t";
+    					anchuraL2 = m_selectL2.getAbsRow(0).getTabPrintPnt();
     					if(m_selectL2.getAbsRow(0).getTabPrintPnt() > 0) 
     					{ 
     						html += " \r\n";
     						html += "\t\t  <td class=\"fsiL2\" width=\"";
-    						html +=  m_selectL2.getAbsRow(0).getTabPrintPnt()  ;
+    						html +=  m_selectL2.getAbsRow(0).getTabPrintPnt();
     						html += "%\">&nbsp;  </td> \r\n";
     						html += "\t\t\t";
     					}
@@ -503,6 +567,15 @@ public class JReportesDlg extends JForsetiApl
     						if(m_colL2.getAbsRow(CL2).getWillShow()) 
     						{ 
     							String cabval = JUtil.FormatearRep(m_setL1.getAbsRow(RL1).getSetL2().getAbsRow(RL2).getSTS(m_colL2.getAbsRow(CL2).getColName()), m_colL2.getAbsRow(CL2).getFormat(), m_colL2.getAbsRow(CL2).getBindDataType(), request); 
+    							anchuraL2 += m_colL2.getAbsRow(CL2).getAncho();
+    	        				if(anchuraL2 > 100) //Si el ancho de este elemento sobrepasa el 100%, brinca a la siguiente linea
+    	        				{
+    	        					anchuraL2 = m_selectL2.getAbsRow(0).getTabPrintPnt() + m_colL2.getAbsRow(CL2).getAncho();
+    	        					html += "\t\t\t\t</tr>\r\n";
+    	        		    		html += "\t\t\t  </table>\r\n";
+    	        		    		html += "\t\t\t  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\">\r\n";
+    	        		    		html += "\t\t\t  \t<tr>\r\n";
+    	        		    	}
     							html += "\r\n";
     							html += "\t\t  <td class=\"fsiL2\" width=\"";
     							html +=  m_colL2.getAbsRow(CL2).getAncho() ;
@@ -529,6 +602,7 @@ public class JReportesDlg extends JForsetiApl
     							html += "\t  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\">\r\n";
     							html += "\t  \t<tr> \r\n";
     							html += "\t\t\t\t\t";
+    							anchuraL3 = m_selectL3.getAbsRow(0).getTabPrintPnt();
     							if(m_selectL3.getAbsRow(0).getTabPrintPnt() > 0) 
     							{ 
     								html += " \r\n";
@@ -542,6 +616,15 @@ public class JReportesDlg extends JForsetiApl
     								if(m_colL3.getAbsRow(CL3).getWillShow()) 
     								{  
     									String cabval = JUtil.FormatearRep(m_setL1.getAbsRow(RL1).getSetL2().getAbsRow(RL2).getSetL3().getAbsRow(RL3).getSTS(m_colL3.getAbsRow(CL3).getColName()), m_colL3.getAbsRow(CL3).getFormat(), m_colL3.getAbsRow(CL3).getBindDataType(), request); 
+    									anchuraL3 += m_colL3.getAbsRow(CL3).getAncho();
+    	    	        				if(anchuraL3 > 100) //Si el ancho de este elemento sobrepasa el 100%, brinca a la siguiente linea
+    	    	        				{
+    	    	        					anchuraL3 = m_selectL3.getAbsRow(0).getTabPrintPnt() + m_colL3.getAbsRow(CL3).getAncho();
+    	    	        					html += "\t\t\t\t</tr>\r\n";
+    	    	        		    		html += "\t\t\t  </table>\r\n";
+    	    	        		    		html += "\t\t\t  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\">\r\n";
+    	    	        		    		html += "\t\t\t  \t<tr>\r\n";
+    	    	        		    	}
     									html += "\r\n";
     									html += "\t\t  <td class=\"fsiL3\" width=\"";
     									html +=  m_colL3.getAbsRow(CL3).getAncho() ;
@@ -1147,7 +1230,7 @@ public class JReportesDlg extends JForsetiApl
     		{ 
     			if(m_colL1.getAbsRow(i).getWillShow()) 
     			{
-					JUtil.DatoXLS(cellStyles, rowl, i, m_colL1.getAbsRow(i).getColName(), "general", "STRING", m_colL1.getAbsRow(i).getAlinHor(), "encabezado", "fenc", request);
+					JUtil.DatoXLS(cellStyles, rowl, i, m_colL1.getAbsRow(i).getColName().toUpperCase(), "general", "STRING", m_colL1.getAbsRow(i).getAlinHor(), "encabezado", "fenc", request);
 					//celll1.getCellStyle().setBorderTop(CellStyle.BORDER_THIN);
 					//celll1.getCellStyle().setBorderBottom(CellStyle.BORDER_THIN);
 				}
@@ -1161,7 +1244,7 @@ public class JReportesDlg extends JForsetiApl
        		{ 
        			if(m_colL2.getAbsRow(i).getWillShow()) 
        			{
-       				JUtil.DatoXLS(cellStyles, rowl, i, m_colL2.getAbsRow(i).getColName(), "general", "STRING", m_colL2.getAbsRow(i).getAlinHor(), "encabezado", "fenc", request);
+       				JUtil.DatoXLS(cellStyles, rowl, i, m_colL2.getAbsRow(i).getColName().toUpperCase(), "general", "STRING", m_colL2.getAbsRow(i).getAlinHor(), "encabezado", "fenc", request);
        				//celll2.getCellStyle().setBorderTop(CellStyle.BORDER_THIN);
 					//celll2.getCellStyle().setBorderBottom(CellStyle.BORDER_THIN);
 				}
@@ -1175,7 +1258,7 @@ public class JReportesDlg extends JForsetiApl
         	{ 
         		if(m_colL3.getAbsRow(i).getWillShow()) 
         		{
-        			JUtil.DatoXLS(cellStyles, rowl, i, m_colL3.getAbsRow(i).getColName(), "general", "STRING", m_colL3.getAbsRow(i).getAlinHor(), "encabezado", "fenc", request);
+        			JUtil.DatoXLS(cellStyles, rowl, i, m_colL3.getAbsRow(i).getColName().toUpperCase(), "general", "STRING", m_colL3.getAbsRow(i).getAlinHor(), "encabezado", "fenc", request);
         			//celll3.getCellStyle().setBorderTop(CellStyle.BORDER_THIN);
 					//celll3.getCellStyle().setBorderBottom(CellStyle.BORDER_THIN);
 				}
@@ -1280,8 +1363,6 @@ public class JReportesDlg extends JForsetiApl
     {
       super.doPost(request, response);
 
-      response.setContentType("text/html");
-     
       int m_ID_Report = Integer.parseInt(request.getParameter("REPID"));
       int m_LinesNum = 0;
 
@@ -1404,6 +1485,7 @@ public class JReportesDlg extends JForsetiApl
         {
           // si existe un filtro especial lo cargar�
           String sqll1 = VerifyFilerClause(new StringBuffer(m_selectL1.getRow(0).getSelect_Clause()), request);
+          //System.out.println(sqll1);
           m_setL1.setSQL(sqll1);
         }
         else
@@ -1422,7 +1504,7 @@ public class JReportesDlg extends JForsetiApl
           else
             m_setCL1.setSQL(m_computeL1.getRow(0).getSelect_Clause());
 
-            //AfxMessageBox(sql);
+          //System.out.println(m_setCL1.getSQL());
           m_setCL1.Open();
           m_LinesNum += m_setCL1.getNumRows();
         }
@@ -1433,12 +1515,14 @@ public class JReportesDlg extends JForsetiApl
           {
             REP_LEVEL1 pNodeL1 = (REP_LEVEL1)m_setL1.getAbsRow(contL1);
             pNodeL1.getSetL2().setSQL(VerifyWhereClause(new StringBuffer(m_selectL2.getAbsRow(0).getSelect_Clause()), pNodeL1));
+            //System.out.println(pNodeL1.getSetL2().getSQL());
             pNodeL1.getSetL2().Open();
             m_LinesNum += pNodeL1.getSetL2().getNumRows();
 
             if (m_bComputeL2.booleanValue())
             {
               pNodeL1.getSetCL2().setSQL(VerifyWhereClause(new StringBuffer(m_computeL2.getRow(0).getSelect_Clause()), pNodeL1));
+              //System.out.println(pNodeL1.getSetCL2().getSQL());
               pNodeL1.getSetCL2().Open();
               m_LinesNum += pNodeL1.getSetCL2().getNumRows();
             }
@@ -1449,12 +1533,14 @@ public class JReportesDlg extends JForsetiApl
               {
                 REP_LEVEL2 pNodeL2 = pNodeL1.getSetL2().getAbsRow(contL2);
                 pNodeL2.getSetL3().setSQL(VerifyWhereClause(new StringBuffer(m_selectL3.getAbsRow(0).getSelect_Clause()), pNodeL2));
+                //System.out.println(pNodeL2.getSetL3().getSQL());
                 pNodeL2.getSetL3().Open();
                 m_LinesNum += pNodeL2.getSetL3().getNumRows();
 
                 if (m_bComputeL3.booleanValue())
                 {
                   pNodeL2.getSetCL3().setSQL(VerifyWhereClause(new StringBuffer(m_computeL3.getAbsRow(0).getSelect_Clause()), pNodeL2));
+                  //System.out.println(pNodeL2.getSetCL3().getSQL());
                   pNodeL2.getSetCL3().Open();
                   m_LinesNum += pNodeL2.getSetCL3().getNumRows();
                 }
@@ -1464,7 +1550,7 @@ public class JReportesDlg extends JForsetiApl
         }
       }
 
-//    Verifica a donde irse
+      //Verifica a donde irse
       boolean graficar = false;
       
       if(m_Graficar) // es gráfica
@@ -1477,10 +1563,8 @@ public class JReportesDlg extends JForsetiApl
     	  boolean linejes = (request.getParameter("fsi_linejes").equals("1") ? true : false);
     	  byte tipo = Byte.parseByte(request.getParameter("fsi_tipo"));
     	  String fsi_filtro = (String)request.getAttribute("fsi_filtro");
+    	  String formato = request.getParameter("formato");
     	  
-    	  response.setContentType("image/gif");
-    	  OutputStream Out = response.getOutputStream();
-        	  
     	  JFsiGraficas graf;
         	  
     	  if(GRAF.equals("BAR"))
@@ -1498,16 +1582,25 @@ public class JReportesDlg extends JForsetiApl
         	  
     	  try
     	  {
-    		  new GifEncoder(graf.getGrafica(), Out).encode();
+    		  ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    		  ImageIO.write(graf.getBufferedImage(), formato, baos);
+    		  byte[] imageInByte = baos.toByteArray();
+    		  ByteArrayInputStream bais = new ByteArrayInputStream(imageInByte);
+	    	  JBajarArchivo fd = new JBajarArchivo();
+	  		  fd.doDownload(response, getServletConfig().getServletContext(), bais, ("image/" + formato), imageInByte.length, ("grafica." + formato));
     	  }
     	  catch(IOException ioe)
     	  {
-    		  System.out.println("Error en el GIF: " + ioe);
+    		  response.setContentType("text/html");
+    	      PrintWriter out = response.getWriter();
+    	      out.print("Error en el gráfico: " + ioe);
+    	      out.flush();
+    	      ioe.printStackTrace(out);
     	  }
       }
       else
       {
-	      String rep_permitido = "true";
+    	  String rep_permitido = "true";
 	      request.setAttribute("rep_permitido", rep_permitido);
 	
 	      // Ahora pone los atributos para el jsp
@@ -1532,82 +1625,140 @@ public class JReportesDlg extends JForsetiApl
 	      request.setAttribute("m_colCL1", m_colCL1);
 	      request.setAttribute("m_colCL2", m_colCL2);
 	      request.setAttribute("m_colCL3", m_colCL3);
-
+	      	      
 	      if(request.getParameter("exportacion").equals("html"))
 	      { 
-	    	  response.setContentType("text/html");
-	    	  PrintWriter out = response.getWriter();
-		      out.print(generarReporteHtml(request, response));
+	    	  //Para archivos muy pequeños
+	    	  //response.setContentType("text/html");
+	    	  //PrintWriter out = response.getWriter();
+		      //out.print(generarReporteHtml(request, response));
+		      byte [] byteArray = generarReporteHtml(request, response, true).getBytes();
+	    	  ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+	    	  JBajarArchivo fd = new JBajarArchivo();
+	  		  fd.doDownload(response, getServletConfig().getServletContext(), bais, "text/html", byteArray.length, "reporte.html");
 	      }
 	      else if(request.getParameter("exportacion").equals("odt"))
 	      { 
-	    	  response.setContentType("application/vnd.oasis.opendocument.text");
-	    	  PrintWriter out = response.getWriter();
-		      out.print(generarReporteHtml(request, response));
+	    	  //response.setContentType("application/vnd.oasis.opendocument.text");
+	    	  //PrintWriter out = response.getWriter();
+		      //out.print(generarReporteHtml(request, response));
+		      byte [] byteArray = generarReporteHtml(request, response, false).getBytes();
+	    	  ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+	    	  JBajarArchivo fd = new JBajarArchivo();
+	  		  fd.doDownload(response, getServletConfig().getServletContext(), bais, "application/vnd.oasis.opendocument.text", byteArray.length, "reporte.odt");
 	      }
 	      else if(request.getParameter("exportacion").equals("doc"))
 	      { 
-	    	  response.setContentType("application/msword");
-	    	  PrintWriter out = response.getWriter();
-		      out.print(generarReporteHtml(request, response));
+	    	  //response.setContentType("application/msword");
+	    	  //PrintWriter out = response.getWriter();
+		      //out.print(generarReporteHtml(request, response));
+		      byte [] byteArray = generarReporteHtml(request, response, false).getBytes();
+	    	  ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+	    	  JBajarArchivo fd = new JBajarArchivo();
+	  		  fd.doDownload(response, getServletConfig().getServletContext(), bais, "application/msword", byteArray.length, "reporte.doc");
 	      }
 	      else if(request.getParameter("exportacion").equals("rtf"))
 	      { 
-	    	  response.setContentType("application/rtf");
-	    	  PrintWriter out = response.getWriter();
-		      out.print(generarReporteHtml(request, response));
+	    	  //response.setContentType("application/rtf");
+	    	  //PrintWriter out = response.getWriter();
+		      //out.print(generarReporteHtml(request, response));
+		      byte [] byteArray = generarReporteHtml(request, response, false).getBytes();
+	    	  ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+	    	  JBajarArchivo fd = new JBajarArchivo();
+	  		  fd.doDownload(response, getServletConfig().getServletContext(), bais, "application/rtf", byteArray.length, "reporte.rtf");
 	      }
 	      else if(request.getParameter("exportacion").equals("xls"))
 	      {
-	    	  response.setContentType("application/vnd.ms-excel");
-	    	  OutputStream Out = response.getOutputStream();
-        	  Workbook wb = new HSSFWorkbook();
+	    	  //response.setContentType("application/vnd.ms-excel");
+	    	  //OutputStream Out = response.getOutputStream();
+        	  //Workbook wb = new HSSFWorkbook();
+        	  //generarArchivoXLS(request, response, wb);
+        	  //wb.write(Out);
+        	  //Out.close();
+	    	  ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    	  Workbook wb = new HSSFWorkbook();
         	  generarArchivoXLS(request, response, wb);
-        	  wb.write(Out);
-        	  Out.close();
-	      }
+        	  wb.write(baos);
+        	  byte[] byteArray = baos.toByteArray();
+    		  ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+	    	  JBajarArchivo fd = new JBajarArchivo();
+	  		  fd.doDownload(response, getServletConfig().getServletContext(), bais, "application/vnd.ms-excel", byteArray.length, "reporte.xls");
+          }
 	      else if(request.getParameter("exportacion").equals("ods"))
 	      {
-	    	  response.setContentType("application/vnd.oasis.opendocument.spreadsheet");
-	    	  OutputStream Out = response.getOutputStream();
-        	  Workbook wb = new HSSFWorkbook();
+	    	  //response.setContentType("application/vnd.oasis.opendocument.spreadsheet");
+	    	  //OutputStream Out = response.getOutputStream();
+        	  //Workbook wb = new HSSFWorkbook();
+        	  //generarArchivoXLS(request, response, wb);
+        	  //wb.write(Out);
+        	  //Out.close();
+	    	  ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    	  Workbook wb = new HSSFWorkbook();
         	  generarArchivoXLS(request, response, wb);
-        	  wb.write(Out);
-        	  Out.close();
+        	  wb.write(baos);
+        	  byte[] byteArray = baos.toByteArray();
+    		  ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+	    	  JBajarArchivo fd = new JBajarArchivo();
+	  		  fd.doDownload(response, getServletConfig().getServletContext(), bais, "application/vnd.oasis.opendocument.spreadsheet", byteArray.length, "reporte.ods");
 	      }
 	      else if(request.getParameter("exportacion").equals("csv"))
 	      {
-	    	  response.setContentType("text/plain");
-	    	  PrintWriter out = response.getWriter();
-		      out.print(generarArchivoCSV(request, response, "|"));
+	    	  //response.setContentType("text/plain");
+	    	  //PrintWriter out = response.getWriter();
+		      //out.print(generarArchivoCSV(request, response, "|"));
+		      byte [] byteArray = generarArchivoCSV(request, response, "|").getBytes();
+	    	  ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+	    	  JBajarArchivo fd = new JBajarArchivo();
+	  		  fd.doDownload(response, getServletConfig().getServletContext(), bais, "text/plain", byteArray.length, "reporte.csv");
 	      }
 	      else if(request.getParameter("exportacion").equals("xml"))
 	      {
 	    	  Document document = new Document();
-	    	  response.setContentType("application/xml");
-	    	  PrintWriter out = response.getWriter();
-		      out.print(generarArchivoDOM(request, response, document));
+	    	  //response.setContentType("application/xml");
+	    	  //PrintWriter out = response.getWriter();
+		      //out.print(generarArchivoDOM(request, response, document));
+		      byte [] byteArray = generarArchivoDOM(request, response, document).getBytes();
+	    	  ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+	    	  JBajarArchivo fd = new JBajarArchivo();
+	  		  fd.doDownload(response, getServletConfig().getServletContext(), bais, "text/xml", byteArray.length, "reporte.xml");
 	      }
           else if(request.getParameter("exportacion").equals("pdf"))
           {
-        	  response.setContentType("application/pdf");
-        	  OutputStream Out = response.getOutputStream();
-        	  ITextRenderer renderer = new ITextRenderer();
-        	  renderer.setDocumentFromString(generarReporteHtml(request, response));
+        	  //response.setContentType("application/pdf");
+        	  //OutputStream Out = response.getOutputStream();
+        	  //ITextRenderer renderer = new ITextRenderer();
+        	  //renderer.setDocumentFromString(generarReporteHtml(request, response));
+        	  //renderer.layout();
+        	  //renderer.createPDF(Out);
+           	  ITextRenderer renderer = new ITextRenderer();
+        	  renderer.setDocumentFromString(generarReporteHtml(request, response, true));
+        	  ByteArrayOutputStream baos = new ByteArrayOutputStream();
         	  renderer.layout();
-        	  renderer.createPDF(Out);
-          }
+        	  renderer.createPDF(baos);
+           	  byte[] byteArray = baos.toByteArray();
+    		  ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+	    	  JBajarArchivo fd = new JBajarArchivo();
+	  		  fd.doDownload(response, getServletConfig().getServletContext(), bais, "application/pdf", byteArray.length, "reporte.pdf");
+    	  }
           else if(request.getParameter("exportacion").equals("sql"))
 	      {
-	    	  response.setContentType("text/plain");
-	    	  PrintWriter out = response.getWriter();
-		      out.print(generarArchivoSQL(request, response));
+	    	  //response.setContentType("text/plain");
+	    	  //PrintWriter out = response.getWriter();
+		      //out.print(generarArchivoSQL(request, response));
+    	      byte [] byteArray = generarArchivoSQL(request, response).getBytes();
+	    	  ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+	    	  JBajarArchivo fd = new JBajarArchivo();
+	  		  fd.doDownload(response, getServletConfig().getServletContext(), bais, "text/plain", byteArray.length, "reporte.sql");
 	      }
-          else
+          else //xhtml
       	  {
-      		  response.setContentType("text/plain");
-    	      PrintWriter out = response.getWriter();
-    	      out.print(generarReporteHtml(request, response));
+        	  //response.setContentType("text/plain");
+    	      //PrintWriter out = response.getWriter();
+    	      //out.print(generarReporteHtml(request, response));
+    	      byte [] byteArray = generarReporteHtml(request, response, true).getBytes();
+	    	  ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+	    	  JBajarArchivo fd = new JBajarArchivo();
+	  		  fd.doDownload(response, getServletConfig().getServletContext(), bais, "text/plain", byteArray.length, "reporte.txt");
       	  }
 	      
     	  //irApag("/forsetiweb/reportes/rep_reportes_imp.jsp", request, response); 
@@ -1619,11 +1770,11 @@ public class JReportesDlg extends JForsetiApl
     {
     	  short idmensaje = -1; String mensaje = "", Descripcion = "";
     	  
-          JReportesBindFSet setF = new JReportesBindFSet(request);
-          setF.m_Where = "ID_Report = '" + p(request.getParameter("REPID")) + "'";
-          setF.m_OrderBy = "ID_Column ASC";
-          setF.Open();
-          
+    	  JReportesBindFSet setF = new JReportesBindFSet(request);
+    	  setF.m_Where = "ID_Report = '" + p(request.getParameter("REPID")) + "'";
+    	  setF.m_OrderBy = "ID_Column ASC";
+    	  setF.Open();
+     	
           for(int i = 0; i < setF.getNumRows(); i++)
           {
         	  String atr = request.getParameter(setF.getAbsRow(i).getPriDataName());
@@ -1632,102 +1783,97 @@ public class JReportesDlg extends JForsetiApl
 
         	  if(!setF.getAbsRow(i).getFromCatalog()) // No es de catalogo
         	  { 
-        		  // --------------------------------------------------------------------------------
-        		  	
-        			if(setF.getAbsRow(i).getBindDataType().equals("INT") || setF.getAbsRow(i).getBindDataType().equals("BYTE"))
-    				{ 
-    					if(setF.getAbsRow(i).getPriDefault().equals("mes"))
-    					{
-    						int mes = Integer.parseInt(atr);
-       						Descripcion += JUtil.convertirMesLargo(mes);
+        		  if(setF.getAbsRow(i).getBindDataType().equals("INT") || setF.getAbsRow(i).getBindDataType().equals("BYTE"))
+        		  { 
+        			  if(setF.getAbsRow(i).getPriDefault().equals("{mes}"))
+        			  {
+        				  int mes = Integer.parseInt(atr);
+        				  Descripcion += JUtil.convertirMesLargo(mes);
+        			  }
+        			  else if(setF.getAbsRow(i).getPriDefault().length() > 0 && setF.getAbsRow(i).getPriDefault().substring(0,1).equals("["))
+        			  {
+        				  Descripcion += JUtil.obtValorDeFiltro(setF.getAbsRow(i).getPriDefault(), atr);
+        			  }
+        			  else 
+        			  {
+        				  Descripcion += atr;
+        			  }
+    					
+        			  if(setF.getAbsRow(i).getIsRange())
+        			  { 
+        				  if(setF.getAbsRow(i).getSecDefault().equals("{mes}"))
+        				  {
+        					  int mes2 = Integer.parseInt(atr2);
+        					  Descripcion += " a " + JUtil.convertirMesLargo(mes2);
+        				  }
+        				  else if(setF.getAbsRow(i).getSecDefault().length() > 0 && setF.getAbsRow(i).getSecDefault().substring(0,1).equals("["))
+        				  {
+        					  Descripcion += " a " + JUtil.obtValorDeFiltro(setF.getAbsRow(i).getSecDefault(), atr2);
+        				  }
+        				  else
+        				  {
+        					  Descripcion += " a " + atr2;
+        				  }
+        			  }				
+        		  }
+        		  else if(setF.getAbsRow(i).getBindDataType().equals("BOOL"))
+        		  { 
+        			  Descripcion += atr.equals("1") ? "SI" : "NO";
+        		  }	
+        		  else if(setF.getAbsRow(i).getBindDataType().equals("TIME"))
+        		  { 
+        			  Descripcion += atr;
+        			  if(setF.getAbsRow(i).getIsRange())
+        			  { 
+        				  Descripcion += " a " + atr2;
+        			  }				
+        		  }
+        		  else if(setF.getAbsRow(i).getBindDataType().equals("DECIMAL") || setF.getAbsRow(i).getBindDataType().equals("MONEY"))
+        		  { 
+        			  if(setF.getAbsRow(i).getPriDefault().length() > 0 && setF.getAbsRow(i).getPriDefault().substring(0,1).equals("["))
+        			  {
+        				  Descripcion += JUtil.obtValorDeFiltro(setF.getAbsRow(i).getPriDefault(), atr);
+        			  }
+        			  else
+        			  {
+        				  Descripcion += atr;
+        			  }
     
-    					}
-    					else if(setF.getAbsRow(i).getPriDefault().length() > 0 && setF.getAbsRow(i).getPriDefault().substring(0,1).equals("["))
-    					{
-    						Descripcion += JUtil.obtValorDeFiltro(setF.getAbsRow(i).getPriDefault(), atr);
-    					}
-    					else 
-    					{
-    						Descripcion += atr;
-    					}
+        			  if(setF.getAbsRow(i).getIsRange())
+        			  { 
+        				  if(setF.getAbsRow(i).getSecDefault().length() > 0 && setF.getAbsRow(i).getSecDefault().substring(0,1).equals("["))
+        				  {
+        					  Descripcion += " a " + JUtil.obtValorDeFiltro(setF.getAbsRow(i).getSecDefault(), atr2);
+        				  }
+        				  else
+        				  {
+        					  Descripcion += " a " + atr2;
+        				  }
+        			  }				
+        		  }
+        		  else // STRING O CUALQUIER OTRO MAS
+        		  {
+        			  if(setF.getAbsRow(i).getPriDefault().length() > 0 && setF.getAbsRow(i).getPriDefault().substring(0,1).equals("["))
+        			  {
+        				  Descripcion += JUtil.obtValorDeFiltro(setF.getAbsRow(i).getPriDefault(), atr);
+        			  }
+        			  else
+        			  { 
+        				  Descripcion += atr;
+        			  }
     					
-     					if(setF.getAbsRow(i).getIsRange())
-    					{ 
-    
-    						if(setF.getAbsRow(i).getSecDefault().equals("mes"))
-    						{
-    							int mes2 = Integer.parseInt(atr2);
-    							Descripcion += " a " + JUtil.convertirMesLargo(mes2);
-    						}
-    						else if(setF.getAbsRow(i).getSecDefault().length() > 0 && setF.getAbsRow(i).getSecDefault().substring(0,1).equals("["))
-    						{
-        						Descripcion += " a " + JUtil.obtValorDeFiltro(setF.getAbsRow(i).getSecDefault(), atr2);
-    						}
-    						else
-    						{
-    							Descripcion += " a " + atr2;
-     						}
-    					}				
-    				}
-    				else if(setF.getAbsRow(i).getBindDataType().equals("BOOL"))
-    				{ 
-    					Descripcion += atr.equals("1") ? "SI" : "NO";
-    				}	
-    				else if(setF.getAbsRow(i).getBindDataType().equals("TIME"))
-    				{ 
-    					Descripcion += atr;
-    					if(setF.getAbsRow(i).getIsRange())
-    					{ 
-    						Descripcion += " a " + atr2;
-    					}				
-    				}
-    				else if(setF.getAbsRow(i).getBindDataType().equals("DECIMAL") || setF.getAbsRow(i).getBindDataType().equals("MONEY"))
-    				{ 
-    					if(setF.getAbsRow(i).getPriDefault().length() > 0 && setF.getAbsRow(i).getPriDefault().substring(0,1).equals("["))
-    					{
-       						Descripcion += JUtil.obtValorDeFiltro(setF.getAbsRow(i).getPriDefault(), atr);
-       					}
-    					else
-    					{
-    						Descripcion += atr;
-     					}
-    					
-     					if(setF.getAbsRow(i).getIsRange())
-    					{ 
-     						if(setF.getAbsRow(i).getSecDefault().length() > 0 && setF.getAbsRow(i).getSecDefault().substring(0,1).equals("["))
-    						{
-        						Descripcion += " a " + JUtil.obtValorDeFiltro(setF.getAbsRow(i).getSecDefault(), atr2);
-    						}
-    						else
-    						{
-    							Descripcion += " a " + atr2;
-     						}
-    					}				
-    				}
-    				else // STRING O CUALQUIER OTRO MAS
-    				{
-    					if(setF.getAbsRow(i).getPriDefault().length() > 0 && setF.getAbsRow(i).getPriDefault().substring(0,1).equals("["))
-    					{
-    						Descripcion += JUtil.obtValorDeFiltro(setF.getAbsRow(i).getPriDefault(), atr);
-    					}
-    					else
-    					{ 
-    						Descripcion += atr;
-     					}
-    					
-     					if(setF.getAbsRow(i).getIsRange())
-    					{ 
-      						if(setF.getAbsRow(i).getSecDefault().length() > 0 && setF.getAbsRow(i).getSecDefault().substring(0,1).equals("["))
-    						{
-      							Descripcion += JUtil.obtValorDeFiltro(setF.getAbsRow(i).getSecDefault(), atr);
-    						}
-    						else
-    						{
-    							Descripcion += " a " + atr2;
-    						}	
-    					}				
-    				}
-    				  
+        			  if(setF.getAbsRow(i).getIsRange())
+        			  { 
+        				  if(setF.getAbsRow(i).getSecDefault().length() > 0 && setF.getAbsRow(i).getSecDefault().substring(0,1).equals("["))
+        				  {
+        					  Descripcion += JUtil.obtValorDeFiltro(setF.getAbsRow(i).getSecDefault(), atr);
+        				  }
+        				  else
+        				  {
+        					  Descripcion += " a " + atr2;
+        				  }	
+        			  }				
+        		  }
         		  
         	  } // --------------------------------------------------------------------------------
         	  else // Si es de catalogo
@@ -1735,146 +1881,153 @@ public class JReportesDlg extends JForsetiApl
         		  JListasCatalogosSet cats = new  JListasCatalogosSet(request);
         		  cats.ConCat(true);
         						
-        		  int idcatalogo;
-        		  try {
-        			  idcatalogo = Integer.parseInt(setF.getAbsRow(i).getSelect_Clause());
-        		  } catch(NumberFormatException e) {
-        			  idcatalogo = 0;
-        		  }
-        						
-        		  if(idcatalogo == 0) // El catalogo no esta especificado en los catalogos, el filtro simplemente muestra el nombre del atributo y su valor
+        		  int idcatalogo = Integer.parseInt(setF.getAbsRow(i).getSelect_Clause());
+        		          						
+        		  cats.m_Where = "ID_Catalogo = '" + idcatalogo + "'";
+        		  cats.Open();
+        		 
+        		  JProcessSet setcat = new JProcessSet(request);
+        		  setcat.setSelect(cats.getAbsRow(0).getSelect_Clause());
+        		  setcat.m_Where = "Clave = '" + q(atr)  + "'";
+        		  setcat.Open();
+        		  
+        		  if(atr.equals("0") && (cats.getAbsRow(0).getSeguridad().equals("PROVEEDORES") || cats.getAbsRow(0).getSeguridad().equals("CLIENTES")))
         		  {
-        			  Descripcion +=  request.getParameter(setF.getAbsRow(i).getPriDataName() + "_FSIDESC");
-  					  if(setF.getAbsRow(i).getIsRange())
-  					  { 
-  						Descripcion += " a " + request.getParameter(setF.getAbsRow(i).getSecDataName() + "_FSIDESC");
-      				  }		
-  					  //Descripcion += atr;
-        			  //if(setF.getAbsRow(i).getIsRange())
-        				//  Descripcion += " a " + atr2;
-        		      // continue;
+        			  //Cuando es un catalogo de proveedores o de clientes, y la clave es cero (proveedor o cliente de mostrador) permitirá el paso a pesar de que la clave cero no existe en proveedores ni clientes
+        			  Descripcion += "Mostrador";
         		  }
-        		  else //es de catalogo especificado
+        		  else
         		  {
-        			  cats.m_Where = "ID_Catalogo = '" + idcatalogo + "'";
-        			  cats.Open();
-        			  if(!cats.getAbsRow(0).getSeguridad().equals("")) // Significa que es catalogo de seguridad
+	        		  if(setcat.getNumRows() == 0) // Significa que la clave especificada en el atributo no existe en el catálogo
+	        		  {
+	        			  idmensaje = 3;
+	    				  mensaje = "ERROR: El atributo " + setF.getAbsRow(i).getPriDataName() + " de este filtro, no pertenece a ningún elemento del catálogo. Si no recuerdas la clave, puedes seleccionarla buscándola sobre el catálogo emergente";
+	    				  break;
+	        		  }
+	        		  Descripcion += setcat.getAbsRow(0).getSTS("Col2"); 
+        		  }
+        		  
+        		  if(!cats.getAbsRow(0).getSeguridad().equals("")) // Significa que es catalogo de seguridad
+        		  {
+        			  // Los catalogos de seguridad, no pueden ser rango
+        			  if(setF.getAbsRow(i).getIsRange())
         			  {
-        				  // Los catalogos de seguridad, no pueden ser rango
-        				  if(setF.getAbsRow(i).getIsRange())
-        				  {
-        					  idmensaje = 3;
-        					  mensaje = "ERROR: El atributo " + setF.getAbsRow(i).getPriDataName() + " de este filtro, no puede pertenecer a un rango, porque el catálogo requiere seguridad";
-        					  break;
-        				  }
-        				  else
-        				  {
-        					  // Revisa el nivel de seguridad del catalogo
-        					  String usuario = getSesion(request).getID_Usuario();
-        					  String seg = cats.getAbsRow(0).getSeguridad();
-        					  if(seg.equals("VENTAS")) // Revisa por la seguridad en ventas o en otras entidades
-        					  {
-        						  JUsuariosSubmoduloVentasPerm set = new JUsuariosSubmoduloVentasPerm(request, usuario, atr);
-        						  set.Open();
-        						  if(set.getNumRows() < 1)
-        						  {
-        							  idmensaje = 3;
-                					  mensaje = "ERROR: No tienes acceso a la entidad de venta " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
-                					  break;
-        						  }
-        						  Descripcion += set.getAbsRow(0).getDescripcion();
-        					  }
-        					  else if(seg.equals("COMPRAS"))
-        					  {
-        						  JUsuariosSubmoduloComprasPerm set = new JUsuariosSubmoduloComprasPerm(request, usuario, atr);
-        						  set.Open();
-        						  if(set.getNumRows() < 1)
-        						  {
-        							  idmensaje = 3;
-                					  mensaje = "ERROR: No tienes acceso a la entidad de compra " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
-                					  break;
-        						  }
-        						  Descripcion += set.getAbsRow(0).getDescripcion();
-        					  }
-        					  else if(seg.equals("BANCOS")) // Revisa por la seguridad en ventas
-        					  {
-        						  JUsuariosSubmoduloBancosPerm set = new JUsuariosSubmoduloBancosPerm(request, usuario, "0", atr);
-        						  set.Open();
-        						  if(set.getNumRows() < 1)
-        						  {
-        							  idmensaje = 3;
-                					  mensaje = "ERROR: No tienes acceso a la entidad de banco " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
-                					  break;
-        						  }
-        						  Descripcion += set.getAbsRow(0).getCuenta();
-        					  }
-        					  else if(seg.equals("CAJAS")) // Revisa por la seguridad en ventas
-        					  {
-        						  JUsuariosSubmoduloBancosPerm set = new JUsuariosSubmoduloBancosPerm(request, usuario, "1", atr);
-        						  set.Open();
-        						  if(set.getNumRows() < 1)
-        						  {
-        							  idmensaje = 3;
-                					  mensaje = "ERROR: No tienes acceso a la entidad de caja " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
-                					  break;
-        						  }
-        						  Descripcion += set.getAbsRow(0).getCuenta();
-        					  }
-        					  else if(seg.equals("BODEGAS")) // Revisa por la seguridad en ventas
-        					  {
-        						  JUsuariosSubmoduloBodegasPerm set = new JUsuariosSubmoduloBodegasPerm(request, usuario, atr);
-        						  set.Open();
-        						  if(set.getNumRows() < 1)
-        						  {
-        							  idmensaje = 3;
-                					  mensaje = "ERROR: No tienes acceso a la entidad de bodega " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
-                					  break;
-        						  }
-        						  Descripcion += set.getAbsRow(0).getNombre();
-        					  }
-        					  else if(seg.equals("PRODUCCION")) // Revisa por la seguridad en ventas
-        					  {
-        						  JUsuariosSubmoduloProduccionPerm set = new JUsuariosSubmoduloProduccionPerm(request, usuario, atr);
-        						  set.Open();
-        						  if(set.getNumRows() < 1)
-        						  {
-        							  idmensaje = 3;
-                					  mensaje = "ERROR: No tienes acceso a la entidad de producción " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
-                					  break;
-        						  }
-        						  Descripcion += set.getAbsRow(0).getDescripcion();
-        					  }
-        					  else if(seg.equals("NOMINA")) // Revisa por la seguridad en ventas
-        					  {
-        						  JUsuariosSubmoduloNominaPerm set = new JUsuariosSubmoduloNominaPerm(request, usuario, atr);
-        						  set.Open();
-        						  if(set.getNumRows() < 1)
-        						  {
-        							  idmensaje = 3;
-                					  mensaje = "ERROR: No tienes acceso a la entidad de nómina " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
-                					  break;
-        						  } 
-        						  Descripcion += set.getAbsRow(0).getDescripcion();
-        					  }
-        					  else // Revisa por la seguridad en ventas
-        					  {
-        						  idmensaje = 3;
-                				  mensaje = "ERROR: No existe la etiqueta de seguridad: " + seg + ". Revisa con el proveedor del sistema sobre este error";
-                				  break;
-        						
-        					  }
-        				  }
+        				  idmensaje = 3;
+        				  mensaje = "ERROR: El atributo " + setF.getAbsRow(i).getPriDataName() + " de este filtro, no puede pertenecer a un rango, porque el catálogo requiere seguridad";
+        				  break;
         			  }
         			  else
         			  {
-      					  Descripcion +=  request.getParameter(setF.getAbsRow(i).getPriDataName() + "_FSIDESC");
-      					  if(setF.getAbsRow(i).getIsRange())
-      					  { 
-      						Descripcion += " a " + request.getParameter(setF.getAbsRow(i).getSecDataName() + "_FSIDESC");
-          				  }				
-
+        				  // Revisa el nivel de seguridad del catalogo
+        				  String usuario = getSesion(request).getID_Usuario();
+        				  String seg = cats.getAbsRow(0).getSeguridad();
+        				  if(seg.equals("VENTAS")) // Revisa por la seguridad en ventas
+        				  {
+        					  JUsuariosSubmoduloVentasPerm set = new JUsuariosSubmoduloVentasPerm(request, usuario, atr);
+        					  set.Open();
+        					  if(set.getNumRows() < 1)
+        					  {
+        						  idmensaje = 3;
+        						  mensaje = "ERROR: No tienes acceso a la entidad de venta " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
+        						  break;
+        					  }
+        				  }
+        				  else if(seg.equals("COMPRAS")) // Revisa por la seguridad en compras
+        				  {
+        					  JUsuariosSubmoduloComprasPerm set = new JUsuariosSubmoduloComprasPerm(request, usuario, atr);
+        					  set.Open();
+        					  if(set.getNumRows() < 1)
+        					  {
+        						  idmensaje = 3;
+        						  mensaje = "ERROR: No tienes acceso a la entidad de compra " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
+        						  break;
+        					  }
+        				  }
+        				  else if(seg.equals("BANCOS")) // Revisa por la seguridad en bancos
+        				  {
+        					  JUsuariosSubmoduloBancosPerm set = new JUsuariosSubmoduloBancosPerm(request, usuario, "0", atr);
+        					  set.Open();
+        					  if(set.getNumRows() < 1)
+        					  {
+        						  idmensaje = 3;
+        						  mensaje = "ERROR: No tienes acceso a la entidad de banco " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
+        						  break;
+        					  }
+        				  }
+        				  else if(seg.equals("CAJAS")) // Revisa por la seguridad en cajas
+        				  {
+        					  JUsuariosSubmoduloBancosPerm set = new JUsuariosSubmoduloBancosPerm(request, usuario, "1", atr);
+        					  set.Open();
+        					  if(set.getNumRows() < 1)
+        					  {
+        						  idmensaje = 3;
+        						  mensaje = "ERROR: No tienes acceso a la entidad de caja " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
+        						  break;
+        					  }
+        				  }
+        				  else if(seg.equals("BODEGAS")) // Revisa por la seguridad en bodegas
+        				  {
+        					  JUsuariosSubmoduloBodegasPerm set = new JUsuariosSubmoduloBodegasPerm(request, usuario, atr);
+        					  set.Open();
+        					  if(set.getNumRows() < 1)
+        					  {
+        						  idmensaje = 3;
+        						  mensaje = "ERROR: No tienes acceso a la entidad de bodega " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
+        						  break;
+        					  }
+        				  }
+        				  else if(seg.equals("PRODUCCION")) // Revisa por la seguridad en entidades de produccion
+        				  {
+        					  JUsuariosSubmoduloProduccionPerm set = new JUsuariosSubmoduloProduccionPerm(request, usuario, atr);
+        					  set.Open();
+        					  if(set.getNumRows() < 1)
+        					  {
+        						  idmensaje = 3;
+        						  mensaje = "ERROR: No tienes acceso a la entidad de producción " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
+        						  break;
+        					  }
+        				  }
+        				  else if(seg.equals("NOMINA")) // Revisa por la seguridad en entidades de nómina
+        				  {
+        					  JUsuariosSubmoduloNominaPerm set = new JUsuariosSubmoduloNominaPerm(request, usuario, atr);
+        					  set.Open();
+        					  if(set.getNumRows() < 1)
+        					  {
+        						  idmensaje = 3;
+        						  mensaje = "ERROR: No tienes acceso a la entidad de nómina " + atr + " del atributo " + setF.getAbsRow(i).getPriDataName();
+        						  break;
+        					  } 
+        				  }
+        				  else if(seg.equals("PROVEEDORES") || seg.equals("CLIENTES") || seg.equals("EMPLEADOS")) 
+        				  {																
+        					  // Si es de proveedores, clientes o empleados
+            				  // Simplemente ignora porque la seguridad la
+            				  // trae en la entidad de compra o venta
+        				  }
+        				  else // Error no se ha especificado esta etiqueta de seguridad
+        				  {
+        					  idmensaje = 3;
+        					  mensaje = "ERROR: No existe la etiqueta de seguridad: " + seg + ". Revisa con el proveedor del sistema sobre este error";
+        					  break;
+        				  }
         			  }
         		  }
+        		  
+        		  
+        		  if(setF.getAbsRow(i).getIsRange())
+        		  {
+        			  JProcessSet setcat2 = new JProcessSet(request);
+            		  setcat2.setSelect(cats.getAbsRow(0).getSelect_Clause());
+            		  setcat2.m_Where = "Clave = '" + q(atr2)  + "'";
+            		  setcat2.Open();
+            		  if(setcat2.getNumRows() == 0) // Significa que la clave especificada en el atributo no existe en el catálogo
+            		  {
+            			  idmensaje = 3;
+        				  mensaje = "ERROR: El atributo " + setF.getAbsRow(i).getPriDataName() + " (Hasta) de este rango, no pertenece a ningún elemento del catálogo. Si no recuerdas la clave, puedes seleccionarla buscándola sobre el catálogo emergente";
+        				  break;
+            		  }
+        			  Descripcion += " a " + setcat2.getAbsRow(0).getSTS("Col2"); //request.getParameter(setF.getAbsRow(i).getSecDataName() + "_FSIDESC");
+        		  }				
            	  }
         	  
         	  Descripcion += ", ";
@@ -1896,55 +2049,118 @@ public class JReportesDlg extends JForsetiApl
           request.setAttribute("fsi_filtro", fsi_filtro);
           
           return true;
-
-  }
+    }
     
     @SuppressWarnings({ "rawtypes" })
 	private String VerifyFilerClause(StringBuffer select, HttpServletRequest request)
-      throws ServletException, IOException
+      throws ServletException, IOException, DocumentException
     {
-            /*System.out.println( "----------------------------" );
-            System.out.println( select.toString() );
-            System.out.println( "----------------------------" );*/
-            
-    		//String fsi_filtro = "";
+    	//System.out.println("------------------------------------------------------------------------------------");
+    	int totalatrs = 0, totalfil = 0;
+    	
+    	JReportesBindFSet setF = new JReportesBindFSet(request);
+  	  	setF.m_Where = "ID_Report = '" + p(request.getParameter("REPID")) + "'";
+  	  	setF.m_OrderBy = "ID_Column ASC";
+  	  	setF.Open();
+  	  	
+  	  	int initial = select.indexOf("[",0);
+  	  	int fin = (initial == -1) ? -1 : select.indexOf("]", initial);
 
-            int initial = select.indexOf("[",0);
-            int fin = (initial == -1) ? -1 : select.indexOf("]", initial);
+  	  	while(initial != -1 && fin != -1)
+  	  	{
+  	  		String atr = select.substring(initial+1, fin); // ej ID_Empleado
+  	  		totalatrs += 1;
+  	  		//System.out.println("ATRIBUTO: " + atr + " Ini: " + (initial+1) + " Fin: " + fin);
+  	  		Enumeration nombresAtr = request.getParameterNames();
+	  		while(nombresAtr.hasMoreElements())
+	  		{
+	  			String nombreAtr = (String)nombresAtr.nextElement();
+	  			
+  	  			if(atr.equals(nombreAtr))
+  	  			{
+  	  				totalfil += 1;
+  	  				//System.out.println(nombreAtr);
+  	  			}
+			}
+  	  		initial = select.indexOf("[", fin);
+	  		fin = (initial == -1) ? -1 : select.indexOf("]", initial);
+	  	}
+  	  	
+  	  	if(totalatrs != totalfil)
+			throw new DocumentException("Intento de inyección SQL detectada. El total de atributos no coincide con el total de elementos del filtro, se ha registrado tu usuario y host desde el cual estas queriendo corromper el sistema");
+  	 
+  	  	//System.out.println("-----------------------" + totalatrs + " : " + totalfil + "------------------------");
+  	
+  	  	initial = select.indexOf("[",0);
+  	  	fin = (initial == -1) ? -1 : select.indexOf("]", initial);
 
-            while(initial != -1 && fin != -1)
-            {
-                    String key = select.substring(initial+1, fin); // ej ID_Empleado
+  	  	while(initial != -1 && fin != -1)
+  	  	{
+  	  		String key = select.substring(initial+1, fin); // ej ID_Empleado
 
-                    // Carga los valores por default
-                    Enumeration nombresAtr = request.getParameterNames();
-                    while(nombresAtr.hasMoreElements())
-                    {
-                        String nombreAtr = (String)nombresAtr.nextElement();
-                        String valorAtr = (String)request.getParameter(nombreAtr);
-                        if(nombreAtr.equals(key))
-                        {
-                        	if(valorAtr.matches("\\d{1,2}/(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)/\\d{4}")) // Es fecha....
-                        		valorAtr = JUtil.obtFechaSQL(valorAtr);
-                            
-                        	select.replace(initial, fin+1, valorAtr);
-                        	//System.out.println(key  + "|"  + nombreAtr  + "|"  + valorAtr);
-                        	//fsi_filtro += " { " + nombreAtr + " " + valorAtr + " } ";
-                        }
-                    }
-                    //System.out.println(key  + "|"  + initial  + "|"  + fin);
-
-                    initial = select.indexOf("[",0);
-                    fin = (initial == -1) ? -1 : select.indexOf("]", initial);
-            }
-
-            /*System.out.println( "----------------------------" );
-            System.out.println( select.toString() );
-            System.out.println( "----------------------------" );*/
-
-            //request.setAttribute("fsi_filtro", fsi_filtro);
-
-            return select.toString();
+  	  		// Carga los valores por default
+  	  		Enumeration nombresAtr = request.getParameterNames();
+  	  		while(nombresAtr.hasMoreElements())
+  	  		{
+  	  			String nombreAtr = (String)nombresAtr.nextElement();
+  	  			String valorAtr = (String)request.getParameter(nombreAtr);
+  	  			if(nombreAtr.equals(key))
+  	  			{
+  	  				if(valorAtr.matches("\\d{1,2}/(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)/\\d{4}")) // Es fecha....
+  	  					valorAtr = JUtil.obtFechaSQL(valorAtr);
+  	  				//System.out.println(select + "\n");
+  	  				//System.out.println("KV:"  + nombreAtr  + "|"  + valorAtr + "\n");
+  	  				for(int i = 0; i < setF.getNumRows(); i++)
+  	  				{
+  	  					if(setF.getAbsRow(i).getPriDataName().equals(nombreAtr))
+  	  					{
+  	  						//System.out.println("FILTRO1:" + nombreAtr  + "|"  + setF.getAbsRow(i).getPriDefault() + "\n");
+  	  						if(!setF.getAbsRow(i).getFromCatalog()) // No es de catalogo
+  	  						{
+  	  							if(setF.getAbsRow(i).getPriDefault().length() > 0 && setF.getAbsRow(i).getPriDefault().substring(0,1).equals("[")) //Es lista de seleccion
+  	  							{
+  	  								//En filtros de selección, verificará que efectivamente exista la selección. Si no existe, significa intento de inyección SQL a través de la modificación directa del codigo html del filtro
+  	  								if(!JUtil.verificarElementoDeFiltro(setF.getAbsRow(i).getPriDefault(), valorAtr))
+  	  									throw new DocumentException("Intento de inyección SQL detectada, se ha registrado tu usuario y host desde el cual estas queriendo corromper el sistema");
+  	  								select.replace(initial, fin+1, valorAtr);
+  	  							}
+  	  							else
+  	  								select.replace(initial, fin+1, q(valorAtr)); //Como es captura directa, utiliza q() para agregar escapes de ' al valor introducido por el usuario para evitar errores de sql o intentos de ataques de inyección sql
+  	  						}
+  	  						else // Si es de catalogo
+  	  						{
+  	  							select.replace(initial, fin+1, valorAtr);
+  	   						}
+  	  					}
+  	  					if(setF.getAbsRow(i).getSecDataName().equals(nombreAtr))
+  	  					{
+  	  						//System.out.println("FILTRO2:" + nombreAtr  + "|"  + setF.getAbsRow(i).getSecDefault() + "\n");
+  	  						if(!setF.getAbsRow(i).getFromCatalog()) // No es de catalogo
+	  						{
+	  							if(setF.getAbsRow(i).getSecDefault().length() > 0 && setF.getAbsRow(i).getSecDefault().substring(0,1).equals("[")) //Es lista de seleccion
+	  							{
+	  								//En filtros de selección, verificará que efectivamente exista la selección. Si no existe, significa intento de inyección SQL a través de la modificación directa del codigo html del filtro
+	  								if(!JUtil.verificarElementoDeFiltro(setF.getAbsRow(i).getSecDefault(), valorAtr))
+	  									throw new DocumentException("Intento de inyección SQL detectada, se ha registrado tu usuario y host desde el cual estas queriendo corromper el sistema");
+	  								select.replace(initial, fin+1, valorAtr);
+	  							}
+	  							else
+	  								select.replace(initial, fin+1, q(valorAtr)); //Como es captura directa, utiliza q() para agregar escapes de ' al valor introducido por el usuario para evitar errores de sql o intentos de ataques de inyección sql
+	  						}
+	  						else // Si es de catalogo
+	  						{
+	  							select.replace(initial, fin+1, valorAtr);
+	   						}
+  	  					}
+  	  				}
+  	  			}
+  	  		}
+  	  		
+  	  		initial = select.indexOf("[",0);
+  	  		fin = (initial == -1) ? -1 : select.indexOf("]", initial);
+  	  	}
+  	  	
+  	  	return select.toString();
 
     }
 
@@ -1990,5 +2206,7 @@ public class JReportesDlg extends JForsetiApl
 		
             return select.toString();
     }
-    
+   
+   
+        
 }

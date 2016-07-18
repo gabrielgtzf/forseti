@@ -29,6 +29,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -41,6 +42,7 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -63,6 +65,10 @@ import fsi_admin.JFsiTareas;
 
 public final class JUtil
 {
+	public static final short AGREGAR = 1;
+	public static final short CAMBIAR = 2;
+	public static final short ELIMINAR = -1;
+	
 	private static final boolean m_INIT = INIT();
 	private static String m_LANG;
 	private static String m_PASS;
@@ -275,6 +281,38 @@ public final class JUtil
 		return res; 
 	}
 	
+	public static synchronized String Elm(String base, int elm, String sep)
+	{
+		String res;
+		try
+		{
+			String[] arrayBase = base.split("\\" + sep);
+			res = arrayBase[(elm -1)];
+		}
+		catch(Exception e)
+		{
+			res = "-ERROR-";
+		}
+		
+		return res; 
+	}
+	
+	public static synchronized int ElmNum(String base, String sep)
+	{
+		int res;
+		try
+		{
+			String[] arrayBase = base.split("\\" + sep);
+			res = arrayBase.length;
+		}
+		catch(Exception e)
+		{
+			res = 0;
+		}
+		
+		return res; 
+	}
+	
 	public static synchronized int obtNumElm(String base)
 	{
 		int res;
@@ -425,6 +463,33 @@ public final class JUtil
 			}
 	    }
 		
+		return xmlse(res);
+	}
+	
+    /** 
+	* El metodo xmlsec formatea un elemento para que lleve la secuencia de escape valida para los caracteres
+	* & " < > ' rfc de la cadena original quitando guiones del rfc
+	*/
+	protected static synchronized String xmlse(String str)
+	{
+		String res = "";
+
+		for(int i = 0; i < str.length(); i++)
+		{
+			if(str.charAt(i) == '&')
+				res += "&amp;";
+			else if(str.charAt(i) == '"')
+				res += "&quot;";
+			else if(str.charAt(i) == '<')
+				res += "&lt;";
+			else if(str.charAt(i) == '>')
+				res += "&gt;";
+			else if(str.charAt(i) == 39)
+				res += "&apos;";
+			else		
+				res += str.charAt(i);
+	    }
+
 		return res;
 	}
 	
@@ -946,20 +1011,43 @@ public final class JUtil
       while (initial != -1 && fin != -1)
       {
         String elem = strval.substring(initial + 1, fin);
+        elem = replace(elem, "\\=", "&#61;");
         StringTokenizer st = new StringTokenizer(elem,"=");
         String key         = st.nextToken();
         String value       = st.nextToken();
+        key = replace(key, "&#61;", "=");
+        value = replace(value, "&#61;", "=");
+        //System.out.println(key + " " + value);
         ops.put(key, value);
-
-        //
-
-        //
         
         initial = strval.indexOf("[", fin);
         fin = (initial == -1) ? -1 : strval.indexOf("]", initial);
       }
   }
  
+  public static synchronized void obtValoresFiltro(String strval, Vector<JLlaveValor> ops)
+  {
+      int initial = strval.indexOf("[", 0);
+      int fin = (initial == -1) ? -1 : strval.indexOf("]", initial);
+
+      while (initial != -1 && fin != -1)
+      {
+        String elem = strval.substring(initial + 1, fin);
+        elem = replace(elem, "\\=", "&#61;");
+        StringTokenizer st = new StringTokenizer(elem,"=");
+        String key         = st.nextToken();
+        String value       = st.nextToken();
+        key = replace(key, "&#61;", "=");
+        value = replace(value, "&#61;", "=");
+        JLlaveValor lv = new JLlaveValor(key, value);
+        //System.out.println(key + " " + value);
+        ops.addElement(lv);
+        
+        initial = strval.indexOf("[", fin);
+        fin = (initial == -1) ? -1 : strval.indexOf("]", initial);
+      }
+  }
+  
   public static synchronized String obtValorDeFiltro(String strval, String atr)
   {
 	  String res = "";
@@ -969,12 +1057,45 @@ public final class JUtil
       while (initial != -1 && fin != -1)
       {
         String elem = strval.substring(initial + 1, fin);
+        elem = replace(elem, "\\=", "&#61;");
         StringTokenizer st = new StringTokenizer(elem,"=");
         String key         = st.nextToken();
         String value       = st.nextToken();
+        key = replace(key, "&#61;", "=");
+        value = replace(value, "&#61;", "=");
+        	
         if(key.equals(atr))
         {
         	res = value;
+        	break;
+        }
+                
+        initial = strval.indexOf("[", fin);
+        fin = (initial == -1) ? -1 : strval.indexOf("]", initial);
+      }
+      
+      return res;
+  }
+  
+  public static synchronized boolean verificarElementoDeFiltro(String strval, String valorAtr)
+  {
+	  boolean res = false;
+      int initial = strval.indexOf("[", 0);
+      int fin = (initial == -1) ? -1 : strval.indexOf("]", initial);
+
+      while (initial != -1 && fin != -1)
+      {
+        String elem = strval.substring(initial + 1, fin);
+        elem = replace(elem, "\\=", "&#61;");
+        StringTokenizer st = new StringTokenizer(elem,"=");
+        String key         = st.nextToken();
+        String value       = st.nextToken();
+        key = replace(key, "&#61;", "=");
+        value = replace(value, "&#61;", "=");
+        	
+        if(key.equals(valorAtr))
+        {
+        	res = true;
         	break;
         }
                 
@@ -1283,15 +1404,35 @@ public final class JUtil
 
   public static synchronized String Converts(float val, String separador, String punto, int dec, boolean si_o_ret_nada)
   {
-    float cantidad = val;
+	  if(val == 0 && si_o_ret_nada)
+	      return "&nbsp;";
+
+	  String pattern = "###";
+	  if(!separador.equals(""))
+		  pattern += ",###";
+	  if(dec > 0)
+	  {
+		  pattern += ".";
+		  for(int p = 0; p < dec; p++)
+			  pattern += "0";
+	  }
+	  //System.out.println(pattern);
+	  DecimalFormat myFormatter = new DecimalFormat(pattern);
+	  return myFormatter.format(val);
+	  /*
+	float cantidad = val;
+	int exp = Math.getExponent(cantidad);
+	
     int index, comas, len;
     boolean negativo = (cantidad < 0) ? true : false;
     if(cantidad == 0 && si_o_ret_nada)
       return "&nbsp;";
 
     String s = Float.toString(redondear(cantidad,dec));
+    
+    	    
     StringBuffer str = new StringBuffer(s);
-
+    
     if(negativo)
       str.deleteCharAt(0);
 
@@ -1327,12 +1468,29 @@ public final class JUtil
     if(negativo)
       str.insert(0,'-');
 
+    //System.out.println("FINAL: " + str.toString());
     return str.toString();
-
+	 */
   }
 
   public static synchronized String Converts(double val, String separador, String punto, int dec, boolean si_o_ret_nada)
   {
+	  if(val == 0 && si_o_ret_nada)
+	      return "&nbsp;";
+
+	  String pattern = "###";
+	  if(!separador.equals(""))
+		  pattern += ",###";
+	  if(dec > 0)
+	  {
+		  pattern += ".";
+		  for(int p = 0; p < dec; p++)
+			  pattern += "0";
+	  }
+	  //System.out.println(pattern);
+	  DecimalFormat myFormatter = new DecimalFormat(pattern);
+	  return myFormatter.format(val);
+	  /*
     double cantidad = val;
     int index, comas, len;
     boolean negativo = (cantidad < 0) ? true : false;
@@ -1378,11 +1536,32 @@ public final class JUtil
       str.insert(0,'-');
 
     return str.toString();
-
+	   */
   }
   
   public static synchronized String Converts(String strval, String separador, String punto, int dec, boolean si_o_ret_nada)
   {
+	  if(strval == null || strval.equals("") || strval.equals("null"))
+			return "&nbsp;";
+				
+	  double val = Double.parseDouble(strval);
+
+	  if(val == 0 && si_o_ret_nada)
+	      return "&nbsp;";
+
+	  String pattern = "###";
+	  if(!separador.equals(""))
+		  pattern += ",###";
+	  if(dec > 0)
+	  {
+		  pattern += ".";
+		  for(int p = 0; p < dec; p++)
+			  pattern += "0";
+	  }
+	  //System.out.println(pattern);
+	  DecimalFormat myFormatter = new DecimalFormat(pattern);
+	  return myFormatter.format(val); 
+	  /*
 	if(strval == null || strval.equals("") || strval.equals("null"))
 		return "&nbsp;";
 			
@@ -1431,7 +1610,7 @@ public final class JUtil
       str.insert(0,'-');
 
     return str.toString();
-
+	   */
   }
   
   public static synchronized Cell DatoXLS(/*Workbook wb*/ JRepCellStyles cellStyles, Row row, int cel, String strval, String formato, 
@@ -1475,6 +1654,23 @@ public final class JUtil
 	return cell;
   }
 
+  public static synchronized void getReporteFiltroProps(String str, MutableInt propMin, MutableInt propMax)
+  {
+	  int index = str.indexOf('{');
+	  if(index == -1)
+		  return;
+	  int indfin = str.indexOf('}');
+	  if(indfin == -1)
+		  return;
+	  int comaind = str.indexOf(',');
+	  if(comaind == -1)
+		  return;
+	  String min = str.substring((index+1), comaind);
+	  String max = str.substring((comaind+1), indfin);
+	  propMin.setValue(Integer.parseInt(min));
+	  propMax.setValue(Integer.parseInt(max));
+  }
+  
   public static synchronized String FormatearRep(String strval, String formato, String tipocol, HttpServletRequest request)
   {
 	if(strval == null)
@@ -1482,9 +1678,9 @@ public final class JUtil
 	
 	if(tipocol.equals("BYTE") || tipocol.equals("INT"))
     {
-      String separador = formato.substring(0, 1);
-      boolean si_o_ret_nada = formato.substring(2, 3).equals("1") ? true : false;
-      return Converts(strval, separador, si_o_ret_nada);
+	  String separador = formato.substring(0, 1);
+	  boolean si_o_ret_nada = formato.substring(2, 3).equals("1") ? true : false;
+	  return Converts(strval, separador, si_o_ret_nada);
     }
     else if(tipocol.equals("STRING"))
     {
@@ -1517,12 +1713,16 @@ public final class JUtil
     }
     else if(tipocol.equals("TIME"))
     {
-    	System.out.println(strval + " " + formato);
+    	//System.out.println(strval + " " + formato);
     	return obtFechaIMP(strval, formato);
+    }
+    else if(tipocol.equals("BOOL"))
+    {
+    	return ConvertsBool(strval, formato);
     }
     else
     {
-      return strval;
+    	return strval;
     }
 
   }
@@ -2429,6 +2629,8 @@ public static synchronized String depurarParametros(HttpServletRequest request)
     return res;
 
   }
+  
+  
   // Regresa verdadero si ya existe un registro, y falso si no existe
   public static synchronized  boolean yaRegistradoEnFsi(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException

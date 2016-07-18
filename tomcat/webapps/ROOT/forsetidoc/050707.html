@@ -209,6 +209,12 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				 </tr>
 				 
 
+              	 <tr>
+				 	<td width="5" valign="top" class="txtSubMenu"><font color="#0099FF">-</font></td>
+                    <td valign="top"><a href="051101.html" class="txtSubMenu" target="_self"><font color="#0099FF">Reportes</font></a></td>
+				 </tr>
+				 
+
 				</table>
 				
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -239,6 +245,8 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				  <tr>
 					<td> 
                     
+ 
+				
  
 				
  
@@ -704,9 +712,14 @@ registros de cheques, transferencias y otros métodos de pago.<br />
 <strong>B) Sobre una factura a crédito.</strong> Cuando la factura se haya
  establecido como "Crédito", se agregará un nuevo registro de cuenta por cobrar siguiendo las reglas del módulo de cuentas por cobrar y la deuda de este cliente se actualizará. En caso de que la entidad de venta 
 esté enlazada a la contabilidad, se generará la póliza de diario de la 
-factura de crédito.<br />
+factura de crédito.&nbsp; <br />
 <br />
-<strong>C) Sobre el movimiento al almacén.</strong> El comportamiento para el movimiento de salida desde el almacén dependerá de varios factores al momento de ingresar la factura:<br />
+<strong> C) Sobre una factura sin ningún método de pago específico. </strong>Cuando la factura se haya
+ establecido sin ningún método de pago, no se agregará ni movimiento de caja o banco, ni cuenta por cobrar. En caso de que la entidad de venta 
+esté enlazada a la contabilidad, se generará la póliza de diario de la 
+factura de crédito con su partida doble a la cuenta especificada en la variable "CC_VENNP - Cuenta para registros de partida doble en ventas sin ningún tipo de cobro, ni crédito, ni contado", establecida en el módulo de variables de la sección de ventas del centro de control del CEF.&nbsp; <br />
+<br />
+<strong>D) Sobre el movimiento al almacén.</strong> El comportamiento para el movimiento de salida desde el almacén dependerá de varios factores al momento de ingresar la factura:<br />
 <ol>
  <li>Si la entidad de venta tiene seleccionada la opción "<strong>No manejar movimientos al almacén de 
 productos", </strong>no se agregará ningún movimiento al 
@@ -737,7 +750,7 @@ póliza de egresos en (caso de que esta entidad se enlace a la
 contabilidad), y además, enlazará esta factura a la remisión.&nbsp; <br />
 </li>
 </ol>
-<strong>D) Sobre la factura electrónica. </strong>En caso de que cuentes con todos los elementos y configuraciones necesarias para el sellado de comprobantes fiscales digitales directamente en forseti a través del servicio JPacConn de este servidor o de cualquier otro servidor externo, se generará y se sellará la factura electrónica de este registro. Además, se enviará automáticamente al cliente los archivos XML y PDF generados en caso de que todos los elementos y configuraciones necesarios para el envío estén establecidos. Revisa la documentación "Datos de este servidor, para autenticarse en un servicio web de 
+<strong>E) Sobre la factura electrónica. </strong>En caso de que cuentes con todos los elementos y configuraciones necesarias para el sellado de comprobantes fiscales digitales directamente en forseti a través del servicio JPacConn de este servidor o de cualquier otro servidor externo, se generará y se sellará la factura electrónica de este registro. Además, se enviará automáticamente al cliente los archivos XML y PDF generados en caso de que todos los elementos y configuraciones necesarios para el envío estén establecidos. Revisa la documentación "Datos de este servidor, para autenticarse en un servicio web de 
 forseti para recibir servicio de timbrado, correo electrónico automático
  y/o alojamiento de archivos en la nube" del módulo de "<a href="040201.html">Servidor y Empresa</a>s" en la sección "Administración" del SAF. También te sugiero revisar la sección de CFDI y CE 
 del Centro de Control, para entender y poder proceder.<strong><br />
@@ -1646,7 +1659,18 @@ cobrar enlazada a la factura original siguiendo las reglas del módulo de cuenta
 de este cliente se actualizará. En caso de que la entidad de venta 
 esté enlazada a la contabilidad, se generará la póliza de diario perteneciente a este saldo de cuenta.<br />
 <br />
-<strong>C) Sobre el movimiento al almacén.</strong> Primero que nada 
+<strong>C) Sobre una devolución o rebaja donde su factura fue realizada sin ningún método de pago específico. </strong>Cuando
+ la factura se haya
+ establecido sin ningún método de pago, no se agregará ni movimiento de 
+caja o banco, ni registro de saldo de la cuenta por cobrar enlazada a la factura original. En caso de que la entidad de venta 
+esté enlazada a la contabilidad, se generará la póliza de diario de la 
+devolución de crédito con su partida doble a la cuenta especificada en la 
+variable "CC_VENNP - Cuenta para registros de partida doble en ventas 
+sin ningún tipo de cobro, ni crédito, ni contado", establecida en el 
+módulo de variables de la sección de ventas del centro de control del 
+CEF. <br />
+<br />
+<strong>D) Sobre el movimiento al almacén.</strong> Primero que nada 
 debemos saber que las rebajas no generan movimientos al almacén. El 
 comportamiento para el movimiento de entrada dependerá de varios factores
  al momento de ingresar una devolución:<br />
@@ -1754,6 +1778,8 @@ enlace a la contabilidad. &nbsp; </li>
 </ul>
  
 				
+			  
+
 			  
 
 			  

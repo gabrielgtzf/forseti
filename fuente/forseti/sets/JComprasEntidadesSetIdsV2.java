@@ -25,13 +25,14 @@ import forseti.JManejadorSet;
 
 public class JComprasEntidadesSetIdsV2 extends JManejadorSet
 {
+	
 	public JComprasEntidadesSetIdsV2(HttpServletRequest request, String usuario, String entidad)
 	{
 		m_Select = " * FROM view_compras_entidades_ids ";
 		String sql = "select * from view_compras_entidades_ids('" + usuario + "','" + entidad +  
 		"') as ( " +
 		"id_usuario varchar, id_entidad smallint, ID_Tipo smallint, Serie varchar, Descripcion varchar, Doc int, Formato varchar, ID_Bodega smallint, " +
-		" Bodega varchar, AuditarAlm bit, ManejoStocks smallint, Orden int, Devolucion int, IVA numeric, Fmt_Orden varchar, Fmt_Devolucion varchar, Fija bit, FijaCost bit, Recepcion int, Fmt_Recepcion varchar )";
+		" Bodega varchar, AuditarAlm bit, ManejoStocks smallint, Orden int, Devolucion int, IVA numeric, Fmt_Orden varchar, Fmt_Devolucion varchar, Fija bit, FijaCost bit, Recepcion int, Fmt_Recepcion varchar, TipoCobro smallint )";
 		setSQL(sql);
         m_PageSize = 50;
 		this.request = request;
@@ -43,7 +44,7 @@ public class JComprasEntidadesSetIdsV2 extends JManejadorSet
 		String sql = "select * from view_compras_entidades_ids('" + usuario + "','" + entidad + "','" + tipoentidad + 
 		"') as ( " +
 		"id_usuario varchar, id_entidad smallint, ID_Tipo smallint, Serie varchar, Descripcion varchar, Doc int, Formato varchar, ID_Bodega smallint, " +
-		" Bodega varchar, AuditarAlm bit, ManejoStocks smallint, Orden int, Devolucion int, IVA numeric, Fmt_Orden varchar, Fmt_Devolucion varchar, Fija bit, FijaCost bit, Recepcion int, Fmt_Recepcion varchar )";
+		" Bodega varchar, AuditarAlm bit, ManejoStocks smallint, Orden int, Devolucion int, IVA numeric, Fmt_Orden varchar, Fmt_Devolucion varchar, Fija bit, FijaCost bit, Recepcion int, Fmt_Recepcion varchar, TipoCobro smallint )";
 		setSQL(sql);
         m_PageSize = 50;
 		this.request = request;
@@ -60,8 +61,8 @@ public class JComprasEntidadesSetIdsV2 extends JManejadorSet
 	}
 
 	 
-  @SuppressWarnings("unchecked")
-  protected void BindRow()
+	@SuppressWarnings("unchecked")
+	protected void BindRow()
 	{
 		try
 		{
@@ -87,6 +88,7 @@ public class JComprasEntidadesSetIdsV2 extends JManejadorSet
 			pNode.setFijaCost(m_RS.getBoolean("FijaCost"));
 			pNode.setRecepcion(m_RS.getInt("Recepcion"));
 			pNode.setFmt_Recepcion(m_RS.getString("Fmt_Recepcion"));
+			pNode.setTipoCobro(m_RS.getInt("TipoCobro"));
 						
 			m_Rows.addElement(pNode);
 

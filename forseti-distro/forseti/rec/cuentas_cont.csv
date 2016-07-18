@@ -1,0 +1,1082 @@
+|||||||||||||
+Nivel|Agrupador|Apl|MP|MS|ID_Gasto|Descripcion Gasto|Nombre de la cuenta y/o subcuenta Forseti|Nombre de la cuenta y/o subcuenta SAT|Cuenta Forseti|Nat|Acum|Enl|Var
+|||||||Activo|Activo|||||
+|||||||Activo a corto plazo|Activo a corto plazo|||||
+1|101|1|G|G|X|X|Caja|Caja|1010000000000000000|D|1|X|X
+2|101.01|0|G|G|X|X|Caja general|Caja y efectivo|1010010000000000000|D|0|X|X
+1|102|1|G|G|X|X|Bancos|Bancos|1020000000000000000|D|1|X|X
+2|102.01|1|G|G|X|X|Bancos nacionales|Bancos nacionales|1020010000000000000|D|1|X|X
+2|102.01|1|G|G|X|X|Traspasos en transito|X|1020900000000000000|D|0|X|CC_TET
+2|102.02|1|G|G|X|X|Bancos extranjeros|Bancos extranjeros|1020020000000000000|D|1|X|X
+1|103|1|G|G|X|X|Inversiones|Inversiones|1030000000000000000|D|1|X|X
+2|103.01|0|G|G|X|X|Inversiones temporales|Inversiones temporales|1030010000000000000|D|0|X|X
+2|103.02|0|G|G|X|X|Inversiones en fideicomisos|Inversiones en fideicomisos|1030020000000000000|D|0|X|X
+2|103.03|1|G|G|X|X|Inversiones|Otras inversiones|1030030000000000000|D|0|X|X
+1|104|1|G|G|X|X|Otros instrumentos financieros|Otros instrumentos financieros|1040000000000000000|D|1|X|X
+2|104.01|1|G|G|X|X|Otros instrumentos financieros|Otros instrumentos financieros|1040010000000000000|D|0|X|X
+1|105|1|G|G|X|X|Clientes|Clientes|1050000000000000000|D|1|X|X
+2|105.01|1|G|G|X|X|Clientes nacionales|Clientes nacionales|1050010000000000000|D|1|X|X
+2|105.02|1|G|G|X|X|Clientes extranjeros|Clientes extranjeros|1050020000000000000|D|1|X|X
+2|105.03|0|G|G|X|X|Clientes nacionales parte relacionada|Clientes nacionales parte relacionada|1050030000000000000|D|1|X|X
+2|105.04|0|G|G|X|X|Clientes extranjeros parte relacionada|Clientes extranjeros parte relacionada|1050040000000000000|D|1|X|X
+1|106|1|G|G|X|X|Cuentas y documentos por cobrar a corto plazo|Cuentas y documentos por cobrar a corto plazo|1060000000000000000|D|1|X|X
+2|106.01|1|G|G|X|X|Cuentas y documentos por cobrar a corto plazo|Cuentas y documentos por cobrar a corto plazo nacional|1060010000000000000|D|0|X|CC_VENNP
+2|106.02|0|G|G|X|X|Cuentas y documentos por cobrar a corto plazo extranjero|Cuentas y documentos por cobrar a corto plazo extranjero|1060020000000000000|D|0|X|X
+2|106.03|0|G|G|X|X|Cuentas y documentos por cobrar a corto plazo nacional parte relacionada|Cuentas y documentos por cobrar a corto plazo nacional parte relacionada|1060030000000000000|D|0|X|X
+2|106.04|0|G|G|X|X|Cuentas y documentos por cobrar a corto plazo extranjero parte relacionada|Cuentas y documentos por cobrar a corto plazo extranjero parte relacionada|1060040000000000000|D|0|X|X
+2|106.05|1|G|G|X|X|Intereses por cobrar a corto plazo|Intereses por cobrar a corto plazo nacional|1060050000000000000|D|0|X|X
+2|106.06|0|G|G|X|X|Intereses por cobrar a corto plazo extranjero|Intereses por cobrar a corto plazo extranjero|1060060000000000000|D|0|X|X
+2|106.07|0|G|G|X|X|Intereses por cobrar a corto plazo nacional parte relacionada|Intereses por cobrar a corto plazo nacional parte relacionada|1060070000000000000|D|0|X|X
+2|106.08|0|G|G|X|X|Intereses por cobrar a corto plazo extranjero parte relacionada|Intereses por cobrar a corto plazo extranjero parte relacionada|1060080000000000000|D|0|X|X
+2|106.09|1|G|G|X|X|Otras cuentas y documentos por cobrar a corto plazo|Otras cuentas y documentos por cobrar a corto plazo|1060090000000000000|D|0|X|X
+2|106.1|0|G|G|X|X|Otras cuentas y documentos por cobrar a corto plazo parte relacionada|Otras cuentas y documentos por cobrar a corto plazo parte relacionada|1060100000000000000|D|0|X|X
+1|107|1|G|G|X|X|Deudores diversos|Deudores diversos|1070000000000000000|D|1|X|X
+2|107.01|1|G|G|X|X|Funcionarios y empleados|Funcionarios y empleados|1070010000000000000|D|1|X|X
+2|107.02|1|G|G|X|X|Socios y accionistas|Socios y accionistas|1070020000000000000|D|1|X|X
+2|107.03|0|G|G|X|X|Partes relacionadas nacionales|Partes relacionadas nacionales|1070030000000000000|D|1|X|X
+2|107.04|0|G|G|X|X|Partes relacionadas extranjeros|Partes relacionadas extranjeros|1070040000000000000|D|1|X|X
+2|107.05|1|G|G|X|X|Otros deudores diversos|Otros deudores diversos|1070050000000000000|D|1|X|X
+1|108|1|G|G|X|X|Estimación de cuentas incobrables|Estimación de cuentas incobrables|1080000000000000000|D|1|X|X
+2|108.01|1|G|G|X|X|Estimación de cuentas incobrables|Estimación de cuentas incobrables nacional|1080010000000000000|D|0|X|X
+2|108.02|0|G|G|X|X|Estimación de cuentas incobrables extranjero|Estimación de cuentas incobrables extranjero|1080020000000000000|D|0|X|X
+2|108.03|0|G|G|X|X|Estimación de cuentas incobrables nacional parte relacionada|Estimación de cuentas incobrables nacional parte relacionada|1080030000000000000|D|0|X|X
+2|108.04|0|G|G|X|X|Estimación de cuentas incobrables extranjero parte relacionada|Estimación de cuentas incobrables extranjero parte relacionada|1080040000000000000|D|0|X|X
+1|109|1|G|G|X|X|Pagos anticipados|Pagos anticipados|1090000000000000000|D|1|X|X
+2|109.01|1|G|G|X|X|Seguros y fianzas pagados por anticipado|Seguros y fianzas pagados por anticipado nacional|1090010000000000000|D|0|X|X
+2|109.02|0|G|G|X|X|Seguros y fianzas pagados por anticipado extranjero|Seguros y fianzas pagados por anticipado extranjero|1090020000000000000|D|0|X|X
+2|109.03|0|G|G|X|X|Seguros y fianzas pagados por anticipado nacional parte relacionada|Seguros y fianzas pagados por anticipado nacional parte relacionada|1090030000000000000|D|0|X|X
+2|109.04|0|G|G|X|X|Seguros y fianzas pagados por anticipado extranjero parte relacionada|Seguros y fianzas pagados por anticipado extranjero parte relacionada|1090040000000000000|D|0|X|X
+2|109.05|1|G|G|X|X|Rentas pagados por anticipado|Rentas pagados por anticipado nacional|1090050000000000000|D|0|X|X
+2|109.06|0|G|G|X|X|Rentas pagados por anticipado extranjero|Rentas pagados por anticipado extranjero|1090060000000000000|D|0|X|X
+2|109.07|0|G|G|X|X|Rentas pagados por anticipado nacional parte relacionada|Rentas pagados por anticipado nacional parte relacionada|1090070000000000000|D|0|X|X
+2|109.08|0|G|G|X|X|Rentas pagados por anticipado extranjero parte relacionada|Rentas pagados por anticipado extranjero parte relacionada|1090080000000000000|D|0|X|X
+2|109.09|1|G|G|X|X|Intereses pagados por anticipado|Intereses pagados por anticipado nacional|1090090000000000000|D|0|X|X
+2|109.1|0|G|G|X|X|Intereses pagados por anticipado extranjero|Intereses pagados por anticipado extranjero|1090100000000000000|D|0|X|X
+2|109.11|0|G|G|X|X|Intereses pagados por anticipado nacional parte relacionada|Intereses pagados por anticipado nacional parte relacionada|1090110000000000000|D|0|X|X
+2|109.12|0|G|G|X|X|Intereses pagados por anticipado extranjero parte relacionada|Intereses pagados por anticipado extranjero parte relacionada|1090120000000000000|D|0|X|X
+2|109.13|1|G|G|X|X|Factoraje financiero pagados por anticipado|Factoraje financiero pagados por anticipado nacional|1090130000000000000|D|0|X|X
+2|109.14|0|G|G|X|X|Factoraje financiero pagados por anticipado extranjero|Factoraje financiero pagados por anticipado extranjero|1090140000000000000|D|0|X|X
+2|109.15|0|G|G|X|X|Factoraje financiero pagados por anticipado nacional parte relacionada|Factoraje financiero pagados por anticipado nacional parte relacionada|1090150000000000000|D|0|X|X
+2|109.16|0|G|G|X|X|Factoraje financiero pagados por anticipado extranjero parte relacionada|Factoraje financiero pagados por anticipado extranjero parte relacionada|1090160000000000000|D|0|X|X
+2|109.17|1|G|G|X|X|Arrendamiento financiero pagados por anticipado|Arrendamiento financiero pagados por anticipado nacional|1090170000000000000|D|0|X|X
+2|109.18|0|G|G|X|X|Arrendamiento financiero pagados por anticipado extranjero|Arrendamiento financiero pagados por anticipado extranjero|1090180000000000000|D|0|X|X
+2|109.19|0|G|G|X|X|Arrendamiento financiero pagados por anticipado nacional parte relacionada|Arrendamiento financiero pagados por anticipado nacional parte relacionada|1090190000000000000|D|0|X|X
+2|109.2|0|G|G|X|X|Arrendamiento financiero pagados por anticipado extranjero parte relacionada|Arrendamiento financiero pagados por anticipado extranjero parte relacionada|1090200000000000000|D|0|X|X
+2|109.21|1|G|G|X|X|Pérdida por deterioro de pagos anticipados|Pérdida por deterioro de pagos anticipados|1090210000000000000|D|0|X|X
+2|109.22|1|G|G|X|X|Derechos fiduciarios|Derechos fiduciarios|1090220000000000000|D|0|X|X
+2|109.23|1|G|G|X|X|Otros pagos anticipados|Otros pagos anticipados|1090230000000000000|D|0|X|X
+1|110|1|N|G|X|X|Subsidio al empleo por aplicar|Subsidio al empleo por aplicar|1100000000000000000|D|1|X|X
+2|110.01|1|N|G|X|X|Subsidio al empleo por aplicar|Subsidio al empleo por aplicar|1100010000000000000|D|0|X|X
+1|111|0|G|G|X|X|Crédito al diesel por acreditar|Crédito al diesel por acreditar|1110000000000000000|D|1|X|X
+2|111.01|0|G|G|X|X|Crédito al diesel por acreditar|Crédito al diesel por acreditar|1110010000000000000|D|0|X|X
+1|112|1|G|G|X|X|Otros estímulos|Otros estímulos|1120000000000000000|D|1|X|X
+2|112.01|1|G|G|X|X|Otros estímulos|Otros estímulos|1120010000000000000|D|0|X|X
+1|113|1|G|G|X|X|Impuestos a favor|Impuestos a favor|1130000000000000000|D|1|X|X
+2|113.01|1|G|G|X|X|IVA a favor|IVA a favor|1130010000000000000|D|0|X|CC_IVARETV
+2|113.02|1|G|G|X|X|ISR a favor|ISR a favor|1130020000000000000|D|0|X|CC_ISRRETV
+2|113.03|1|G|G|X|X|IETU a favor|IETU a favor|1130030000000000000|D|0|X|X
+2|113.04|1|G|G|X|X|IDE a favor|IDE a favor|1130040000000000000|D|0|X|X
+2|113.05|1|G|G|X|X|IA a favor|IA a favor|1130050000000000000|D|0|X|X
+2|113.06|1|N|G|X|X|Subsidio al empleo|Subsidio al empleo|1130060000000000000|D|0|X|X
+2|113.07|1|G|G|X|X|Pago de lo indebido|Pago de lo indebido|1130070000000000000|D|0|X|X
+2|113.08|1|G|G|X|X|Otros impuestos a favor|Otros impuestos a favor|1130080000000000000|D|0|X|X
+1|114|1|G|G|X|X|Pagos provisionales|Pagos provisionales|1140000000000000000|D|1|X|X
+2|114.01|1|G|G|X|X|Pagos provisionales de ISR|Pagos provisionales de ISR|1140010000000000000|D|0|X|X
+1|115|1|G|G|X|X|Inventario|Inventario|1150000000000000000|D|1|X|X
+2|115.01|1|G|G|X|X|Inventario|Inventario|1150010000000000000|D|0|X|X
+2|115.02|1|G|G|X|X|Materia prima y materiales|Materia prima y materiales|1150020000000000000|D|1|X|X
+2|115.03|1|G|G|X|X|Productos en proceso de fabricación|Producción en proceso|1150030000000000000|D|0|0;51|X
+2|115.04|1|G|G|X|X|Productos terminados|Productos terminados|1150040000000000000|D|1|X|X
+2|115.05|1|G|G|X|X|Mercancías en tránsito|Mercancías en tránsito|1150050000000000000|D|0|52;100|X
+2|115.06|1|G|G|X|X|Mercancías en poder de terceros|Mercancías en poder de terceros|1150060000000000000|D|0|X|X
+2|115.07|1|G|G|X|X|Otros|Otros|1150070000000000000|D|0|X|X
+1|116|0|G|G|X|X|Estimación de inventarios obsoletos y de lento movimiento|Estimación de inventarios obsoletos y de lento movimiento|1160000000000000000|D|1|X|X
+2|116.01|0|G|G|X|X|Estimación de inventarios obsoletos y de lento movimiento|Estimación de inventarios obsoletos y de lento movimiento|1160010000000000000|D|0|X|X
+1|117|1|G|G|X|X|Obras en proceso de inmuebles|Obras en proceso de inmuebles|1170000000000000000|D|1|X|X
+2|117.01|1|G|G|X|X|Obras en proceso de inmuebles|Obras en proceso de inmuebles|1170010000000000000|D|0|X|X
+1|118|1|G|G|X|X|Impuestos acreditables pagados|Impuestos acreditables pagados|1180000000000000000|D|1|X|X
+2|118.01|1|G|G|X|X|IVA acreditable pagado|IVA acreditable pagado|1180010000000000000|D|0|X|CC_IVAAC
+2|118.02|0|G|G|X|X|IVA acreditable de importación pagado|IVA acreditable de importación pagado|1180020000000000000|D|0|X|X
+2|118.03|1|G|G|X|X|IEPS acreditable pagado|IEPS acreditable pagado|1180030000000000000|D|0|X|CC_IEPSC
+2|118.04|0|G|G|X|X|IEPS pagado en importación|IEPS pagado en importación|1180040000000000000|D|0|X|X
+1|119|1|G|G|X|X|Impuestos acreditables por pagar|Impuestos acreditables por pagar|1190000000000000000|D|1|X|X
+2|119.01|1|G|G|X|X|IVA pendiente de pago|IVA pendiente de pago|1190010000000000000|D|0|X|CC_IVAACPN
+2|119.02|0|G|G|X|X|IVA de importación pendiente de pago|IVA de importación pendiente de pago|1190020000000000000|D|0|X|X
+2|119.03|1|G|G|X|X|IEPS pendiente de pago|IEPS pendiente de pago|1190030000000000000|D|0|X|CC_IEPSCPN
+2|119.04|0|G|G|X|X|IEPS pendiente de pago en importación|IEPS pendiente de pago en importación|1190040000000000000|D|0|X|X
+1|120|0|G|G|X|X|Anticipo a proveedores|Anticipo a proveedores|1200000000000000000|D|1|X|X
+2|120.01|0|G|G|X|X|Anticipo a proveedores nacional|Anticipo a proveedores nacional|1200010000000000000|D|0|X|X
+2|120.02|0|G|G|X|X|Anticipo a proveedores extranjero|Anticipo a proveedores extranjero|1200020000000000000|D|0|X|X
+2|120.03|0|G|G|X|X|Anticipo a proveedores nacional parte relacionada|Anticipo a proveedores nacional parte relacionada|1200030000000000000|D|0|X|X
+2|120.04|0|G|G|X|X|Anticipo a proveedores extranjero parte relacionada|Anticipo a proveedores extranjero parte relacionada|1200040000000000000|D|0|X|X
+1|121|1|G|G|X|X|Otros activos a corto plazo|Otros activos a corto plazo|1210000000000000000|D|1|X|X
+2|121.01|1|G|G|X|X|Otros activos a corto plazo|Otros activos a corto plazo|1210010000000000000|D|0|X|X
+|||||||Activo a largo plazo|Activo a largo plazo|||||
+1|151|1|G|G|X|X|Terrenos|Terrenos|1510000000000000000|D|1|X|X
+2|151.01|1|G|G|X|X|Terrenos|Terrenos|1510010000000000000|D|0|X|X
+1|152|1|G|G|X|X|Edificios|Edificios|1520000000000000000|D|1|X|X
+2|152.01|1|G|G|X|X|Edificios|Edificios|1520010000000000000|D|0|X|X
+1|153|1|G|G|X|X|Maquinaria y equipo|Maquinaria y equipo|1530000000000000000|D|1|X|X
+2|153.01|1|G|G|MAQ-EQUIPO:1:0:0:0:100|Maquinaria y equipo|Maquinaria y equipo|Maquinaria y equipo|1530010000000000000|D|0|X|X
+1|154|1|G|G|X|X|Automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|Automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|1540000000000000000|D|1|X|X
+2|154.01|1|G|G|VEHICULO:1:0:0:0:100|Automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|Automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|Automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|1540010000000000000|D|0|X|X
+1|155|1|G|G|X|X|Mobiliario y equipo de oficina|Mobiliario y equipo de oficina|1550000000000000000|D|1|X|X
+2|155.01|1|G|G|EQ-OFICINA:1:0:0:0:100|Mobiliario y equipo de oficina|Mobiliario y equipo de oficina|Mobiliario y equipo de oficina|1550010000000000000|D|0|X|X
+1|156|1|G|G|X|X|Equipo de cómputo|Equipo de cómputo|1560000000000000000|D|1|X|X
+2|156.01|1|G|G|EQ-COMPUTO:1:0:0:0:100|Equipo de cómputo|Equipo de cómputo|Equipo de cómputo|1560010000000000000|D|0|X|X
+1|157|1|G|G|X|X|Equipo de comunicación|Equipo de comunicación|1570000000000000000|D|1|X|X
+2|157.01|1|G|G|EQ-COMINICACION:1:0:0:0:100|Equipo de comunicación|Equipo de comunicación|Equipo de comunicación|1570010000000000000|D|0|X|X
+1|158|1|G|G|X|X|Activos biológicos, vegetales y semovientes|Activos biológicos, vegetales y semovientes|1580000000000000000|D|1|X|X
+2|158.01|1|G|G|ACT-BIOLOGICO:1:0:0:0:100|Activos biológicos, vegetales y semovientes|Activos biológicos, vegetales y semovientes|Activos biológicos, vegetales y semovientes|1580010000000000000|D|0|X|X
+1|159|1|G|G|X|X|Obras en proceso de activos fijos|Obras en proceso de activos fijos|1590000000000000000|D|1|X|X
+2|159.01|1|G|G|X|X|Obras en proceso de activos fijos|Obras en proceso de activos fijos|1590010000000000000|D|0|X|X
+1|160|1|G|G|X|X|Otros activos fijos|Otros activos fijos|1600000000000000000|D|1|X|X
+2|160.01|1|G|G|X|X|Otros activos fijos|Otros activos fijos|1600010000000000000|D|0|X|X
+1|161|0|G|G|X|X|Ferrocarriles|Ferrocarriles|1610000000000000000|D|1|X|X
+2|161.01|0|G|G|X|X|Ferrocarriles|Ferrocarriles|1610010000000000000|D|0|X|X
+1|162|0|G|G|X|X|Embarcaciones|Embarcaciones|1620000000000000000|D|1|X|X
+2|162.01|0|G|G|X|X|Embarcaciones|Embarcaciones|1620010000000000000|D|0|X|X
+1|163|0|G|G|X|X|Aviones|Aviones|1630000000000000000|D|1|X|X
+2|163.01|0|G|G|X|X|Aviones|Aviones|1630010000000000000|D|0|X|X
+1|164|1|G|G|X|X|Troqueles, moldes, matrices y herramental|Troqueles, moldes, matrices y herramental|1640000000000000000|D|1|X|X
+2|164.01|1|G|G|HERRAMENTAL:1:0:0:0:100|Troqueles, moldes, matrices y herramental|Troqueles, moldes, matrices y herramental|Troqueles, moldes, matrices y herramental|1640010000000000000|D|0|X|X
+1|165|1|G|G|X|X|Equipo de comunicaciones telefónicas|Equipo de comunicaciones telefónicas|1650000000000000000|D|1|X|X
+2|165.01|1|G|G|EQ-TELEFONIA:1:0:0:0:100|Equipo de comunicaciones telefónicas|Equipo de comunicaciones telefónicas|Equipo de comunicaciones telefónicas|1650010000000000000|D|0|X|X
+1|166|1|G|G|X|X|Equipo de comunicación satelital|Equipo de comunicación satelital|1660000000000000000|D|1|X|X
+2|166.01|1|G|G|EQ-SATELITAL:1:0:0:0:100|Equipo de comunicación satelital|Equipo de comunicación satelital|Equipo de comunicación satelital|1660010000000000000|D|0|X|X
+1|167|1|G|G|X|X|Equipo de adaptaciones para personas con capacidades diferentes|Equipo de adaptaciones para personas con capacidades diferentes|1670000000000000000|D|1|X|X
+2|167.01|1|G|G|EQ-DISCAPACITADOS:1:0:0:0:100|Equipo de adaptaciones para personas con capacidades diferentes|Equipo de adaptaciones para personas con capacidades diferentes|Equipo de adaptaciones para personas con capacidades diferentes|1670010000000000000|D|0|X|X
+1|168|0|G|G|X|X|Maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|Maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|1680000000000000000|D|1|X|X
+2|168.01|0|G|G|X|X|Maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|Maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|1680010000000000000|D|0|X|X
+1|169|1|G|G|X|X|Otra maquinaria y equipo|Otra maquinaria y equipo|1690000000000000000|D|1|X|X
+2|169.01|1|G|G|EQ-OTRO:1:0:0:0:100|Otra maquinaria y equipo|Otra maquinaria y equipo|Otra maquinaria y equipo|1690010000000000000|D|0|X|X
+1|170|1|G|G|X|X|Adaptaciones y mejoras|Adaptaciones y mejoras|1700000000000000000|D|1|X|X
+2|170.01|1|G|G|MEJORA:1:0:0:0:100|Adaptaciones y mejoras|Adaptaciones y mejoras|Adaptaciones y mejoras|1700010000000000000|D|0|X|X
+1|171|1|G|G|X|X|Depreciación acumulada de activos fijos|Depreciación acumulada de activos fijos|1710000000000000000|A|1|X|X
+2|171.01|1|G|G|X|X|Depreciación acumulada de edificios|Depreciación acumulada de edificios|1710010000000000000|A|0|X|X
+2|171.02|1|G|G|X|X|Depreciación acumulada de maquinaria y equipo|Depreciación acumulada de maquinaria y equipo|1710020000000000000|A|0|X|X
+2|171.03|1|G|G|X|X|Depreciación acumulada de automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|Depreciación acumulada de automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|1710030000000000000|A|0|X|X
+2|171.04|1|G|G|X|X|Depreciación acumulada de mobiliario y equipo de oficina|Depreciación acumulada de mobiliario y equipo de oficina|1710040000000000000|A|0|X|X
+2|171.05|1|G|G|X|X|Depreciación acumulada de equipo de cómputo|Depreciación acumulada de equipo de cómputo|1710050000000000000|A|0|X|X
+2|171.06|1|G|G|X|X|Depreciación acumulada de equipo de comunicación|Depreciación acumulada de equipo de comunicación|1710060000000000000|A|0|X|X
+2|171.07|1|G|G|X|X|Depreciación acumulada de activos biológicos, vegetales y semovientes|Depreciación acumulada de activos biológicos, vegetales y semovientes|1710070000000000000|A|0|X|X
+2|171.08|1|G|G|X|X|Depreciación acumulada de otros activos fijos|Depreciación acumulada de otros activos fijos|1710080000000000000|A|0|X|X
+2|171.09|0|G|G|X|X|Depreciación acumulada de ferrocarriles|Depreciación acumulada de ferrocarriles|1710090000000000000|A|0|X|X
+2|171.1|0|G|G|X|X|Depreciación acumulada de embarcaciones|Depreciación acumulada de embarcaciones|1710100000000000000|A|0|X|X
+2|171.11|0|G|G|X|X|Depreciación acumulada de aviones|Depreciación acumulada de aviones|1710110000000000000|A|0|X|X
+2|171.12|1|G|G|X|X|Depreciación acumulada de troqueles, moldes, matrices y herramental|Depreciación acumulada de troqueles, moldes, matrices y herramental|1710120000000000000|A|0|X|X
+2|171.13|1|G|G|X|X|Depreciación acumulada de equipo de comunicaciones telefónicas|Depreciación acumulada de equipo de comunicaciones telefónicas|1710130000000000000|A|0|X|X
+2|171.14|1|G|G|X|X|Depreciación acumulada de equipo de comunicación satelital|Depreciación acumulada de equipo de comunicación satelital|1710140000000000000|A|0|X|X
+2|171.15|1|G|G|X|X|Depreciación acumulada de equipo de adaptaciones para personas con capacidades diferentes|Depreciación acumulada de equipo de adaptaciones para personas con capacidades diferentes|1710150000000000000|A|0|X|X
+2|171.16|0|G|G|X|X|Depreciación acumulada de maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|Depreciación acumulada de maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|1710160000000000000|A|0|X|X
+2|171.17|1|G|G|X|X|Depreciación acumulada de adaptaciones y mejoras|Depreciación acumulada de adaptaciones y mejoras|1710170000000000000|A|0|X|X
+2|171.18|1|G|G|X|X|Depreciación acumulada de otra maquinaria y equipo|Depreciación acumulada de otra maquinaria y equipo|1710180000000000000|A|0|X|X
+1|172|0|G|G|X|X|Pérdida por deterioro acumulado de activos fijos|Pérdida por deterioro acumulado de activos fijos|1720000000000000000|D|1|X|X
+2|172.01|0|G|G|X|X|Pérdida por deterioro acumulado de edificios|Pérdida por deterioro acumulado de edificios|1720010000000000000|D|0|X|X
+2|172.02|0|G|G|X|X|Pérdida por deterioro acumulado de maquinaria y equipo|Pérdida por deterioro acumulado de maquinaria y equipo|1720020000000000000|D|0|X|X
+2|172.03|0|G|G|X|X|Pérdida por deterioro acumulado de automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|Pérdida por deterioro acumulado de automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|1720030000000000000|D|0|X|X
+2|172.04|0|G|G|X|X|Pérdida por deterioro acumulado de mobiliario y equipo de oficina|Pérdida por deterioro acumulado de mobiliario y equipo de oficina|1720040000000000000|D|0|X|X
+2|172.05|0|G|G|X|X|Pérdida por deterioro acumulado de equipo de cómputo|Pérdida por deterioro acumulado de equipo de cómputo|1720050000000000000|D|0|X|X
+2|172.06|0|G|G|X|X|Pérdida por deterioro acumulado de equipo de comunicación|Pérdida por deterioro acumulado de equipo de comunicación|1720060000000000000|D|0|X|X
+2|172.07|0|G|G|X|X|Pérdida por deterioro acumulado de activos biológicos, vegetales y semovientes|Pérdida por deterioro acumulado de activos biológicos, vegetales y semovientes|1720070000000000000|D|0|X|X
+2|172.08|0|G|G|X|X|Pérdida por deterioro acumulado de otros activos fijos|Pérdida por deterioro acumulado de otros activos fijos|1720080000000000000|D|0|X|X
+2|172.09|0|G|G|X|X|Pérdida por deterioro acumulado de ferrocarriles|Pérdida por deterioro acumulado de ferrocarriles|1720090000000000000|D|0|X|X
+2|172.1|0|G|G|X|X|Pérdida por deterioro acumulado de embarcaciones|Pérdida por deterioro acumulado de embarcaciones|1720100000000000000|D|0|X|X
+2|172.11|0|G|G|X|X|Pérdida por deterioro acumulado de aviones|Pérdida por deterioro acumulado de aviones|1720110000000000000|D|0|X|X
+2|172.12|0|G|G|X|X|Pérdida por deterioro acumulado de troqueles, moldes, matrices y herramental|Pérdida por deterioro acumulado de troqueles, moldes, matrices y herramental|1720120000000000000|D|0|X|X
+2|172.13|0|G|G|X|X|Pérdida por deterioro acumulado de equipo de comunicaciones telefónicas|Pérdida por deterioro acumulado de equipo de comunicaciones telefónicas|1720130000000000000|D|0|X|X
+2|172.14|0|G|G|X|X|Pérdida por deterioro acumulado de equipo de comunicación satelital|Pérdida por deterioro acumulado de equipo de comunicación satelital|1720140000000000000|D|0|X|X
+2|172.15|0|G|G|X|X|Pérdida por deterioro acumulado de equipo de adaptaciones para personas con capacidades diferentes|Pérdida por deterioro acumulado de equipo de adaptaciones para personas con capacidades diferentes|1720150000000000000|D|0|X|X
+2|172.16|0|G|G|X|X|Pérdida por deterioro acumulado de maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|Pérdida por deterioro acumulado de maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|1720160000000000000|D|0|X|X
+2|172.17|0|G|G|X|X|Pérdida por deterioro acumulado de adaptaciones y mejoras|Pérdida por deterioro acumulado de adaptaciones y mejoras|1720170000000000000|D|0|X|X
+2|172.18|0|G|G|X|X|Pérdida por deterioro acumulado de otra maquinaria y equipo|Pérdida por deterioro acumulado de otra maquinaria y equipo|1720180000000000000|D|0|X|X
+1|173|1|G|G|X|X|Gastos diferidos|Gastos diferidos|1730000000000000000|D|1|X|X
+2|173.01|1|G|G|G-DIFERIDO:1:0:0:0:100|Gastos diferidos|Gastos diferidos|Gastos diferidos|1730010000000000000|D|0|X|X
+1|174|1|G|G|X|X|Gastos pre operativos|Gastos pre operativos|1740000000000000000|D|1|X|X
+2|174.01|1|G|G|G-PREOPERATIVO:1:0:0:0:100|Gastos pre operativos|Gastos pre operativos|Gastos pre operativos|1740010000000000000|D|0|X|X
+1|175|1|G|G|X|X|Regalías, asistencia técnica y otros gastos diferidos|Regalías, asistencia técnica y otros gastos diferidos|1750000000000000000|D|1|X|X
+2|175.01|1|G|G|G-REGALIA:1:0:0:0:100|Regalías, asistencia técnica y otros gastos diferidos|Regalías, asistencia técnica y otros gastos diferidos|Regalías, asistencia técnica y otros gastos diferidos|1750010000000000000|D|0|X|X
+1|176|1|G|G|X|X|Activos intangibles|Activos intangibles|1760000000000000000|D|1|X|X
+2|176.01|1|G|G|ACT-INTANGIBLE:1:0:0:0:100|Activos intangibles|Activos intangibles|Activos intangibles|1760010000000000000|D|0|X|X
+1|177|1|G|G|X|X|Gastos de organización|Gastos de organización|1770000000000000000|D|1|X|X
+2|177.01|1|G|G|G-ORGANIZACION:1:0:0:0:100|Gastos de organización|Gastos de organización|Gastos de organización|1770010000000000000|D|0|X|X
+1|178|1|G|G|X|X|Investigación y desarrollo de mercado|Investigación y desarrollo de mercado|1780000000000000000|D|1|X|X
+2|178.01|1|G|G|ACT-MERCADOTECNIA:1:0:0:0:100|Investigación y desarrollo de mercado|Investigación y desarrollo de mercado|Investigación y desarrollo de mercado|1780010000000000000|D|0|X|X
+1|179|1|G|G|X|X|Marcas y patentes|Marcas y patentes|1790000000000000000|D|1|X|X
+2|179.01|1|G|G|MARCA-PATENTE:1:0:0:0:100|Marcas y patentes|Marcas y patentes|Marcas y patentes|1790010000000000000|D|0|X|X
+1|180|1|G|G|X|X|Crédito mercantil|Crédito mercantil|1800000000000000000|D|1|X|X
+2|180.01|1|G|G|C-MERCANTIL:1:0:0:0:100|Crédito mercantil|Crédito mercantil|Crédito mercantil|1800010000000000000|D|0|X|X
+1|181|1|G|G|X|X|Gastos de instalación|Gastos de instalación|1810000000000000000|D|1|X|X
+2|181.01|1|G|G|G-INSTALACION:1:0:0:0:100|Gastos de instalación|Gastos de instalación|Gastos de instalación|1810010000000000000|D|0|X|X
+1|182|1|G|G|X|X|Otros activos diferidos|Otros activos diferidos|1820000000000000000|D|1|X|X
+2|182.01|1|G|G|X|X|Otros activos diferidos|Otros activos diferidos|1820010000000000000|D|0|X|X
+1|183|1|G|G|X|X|Amortización acumulada de activos diferidos|Amortización acumulada de activos diferidos|1830000000000000000|A|1|X|X
+2|183.01|1|G|G|X|X|Amortización acumulada de gastos diferidos|Amortización acumulada de gastos diferidos|1830010000000000000|A|0|X|X
+2|183.02|1|G|G|X|X|Amortización acumulada de gastos pre operativos|Amortización acumulada de gastos pre operativos|1830020000000000000|A|0|X|X
+2|183.03|1|G|G|X|X|Amortización acumulada de regalías, asistencia técnica y otros gastos diferidos|Amortización acumulada de regalías, asistencia técnica y otros gastos diferidos|1830030000000000000|A|0|X|X
+2|183.04|1|G|G|X|X|Amortización acumulada de activos intangibles|Amortización acumulada de activos intangibles|1830040000000000000|A|0|X|X
+2|183.05|1|G|G|X|X|Amortización acumulada de gastos de organización|Amortización acumulada de gastos de organización|1830050000000000000|A|0|X|X
+2|183.06|1|G|G|X|X|Amortización acumulada de investigación y desarrollo de mercado|Amortización acumulada de investigación y desarrollo de mercado|1830060000000000000|A|0|X|X
+2|183.07|1|G|G|X|X|Amortización acumulada de marcas y patentes|Amortización acumulada de marcas y patentes|1830070000000000000|A|0|X|X
+2|183.08|1|G|G|X|X|Amortización acumulada de crédito mercantil|Amortización acumulada de crédito mercantil|1830080000000000000|A|0|X|X
+2|183.09|1|G|G|X|X|Amortización acumulada de gastos de instalación|Amortización acumulada de gastos de instalación|1830090000000000000|A|0|X|X
+2|183.1|1|G|G|X|X|Amortización acumulada de otros activos diferidos|Amortización acumulada de otros activos diferidos|1830100000000000000|A|0|X|X
+1|184|1|G|G|X|X|Depósitos en garantía|Depósitos en garantía|1840000000000000000|D|1|X|X
+2|184.01|1|G|G|X|X|Depósitos de fianzas|Depósitos de fianzas|1840010000000000000|D|0|X|X
+2|184.02|1|G|G|X|X|Depósitos de arrendamiento de bienes inmuebles|Depósitos de arrendamiento de bienes inmuebles|1840020000000000000|D|0|X|X
+2|184.03|1|G|G|X|X|Otros depósitos en garantía|Otros depósitos en garantía|1840030000000000000|D|0|X|X
+1|185|1|G|G|X|X|Impuestos diferidos|Impuestos diferidos|1850000000000000000|D|1|X|X
+2|185.01|1|G|G|X|X|Impuestos diferidos ISR|Impuestos diferidos ISR|1850010000000000000|D|0|X|X
+1|186|1|G|G|X|X|Cuentas y documentos por cobrar a largo plazo|Cuentas y documentos por cobrar a largo plazo|1860000000000000000|D|1|X|X
+2|186.01|1|G|G|X|X|Cuentas y documentos por cobrar a largo plazo|Cuentas y documentos por cobrar a largo plazo nacional|1860010000000000000|D|0|X|X
+2|186.02|0|G|G|X|X|Cuentas y documentos por cobrar a largo plazo extranjero|Cuentas y documentos por cobrar a largo plazo extranjero|1860020000000000000|D|0|X|X
+2|186.03|0|G|G|X|X|Cuentas y documentos por cobrar a largo plazo nacional parte relacionada|Cuentas y documentos por cobrar a largo plazo nacional parte relacionada|1860030000000000000|D|0|X|X
+2|186.04|0|G|G|X|X|Cuentas y documentos por cobrar a largo plazo extranjero parte relacionada|Cuentas y documentos por cobrar a largo plazo extranjero parte relacionada|1860040000000000000|D|0|X|X
+2|186.05|1|G|G|X|X|Intereses por cobrar a largo plazo|Intereses por cobrar a largo plazo nacional|1860050000000000000|D|0|X|X
+2|186.06|0|G|G|X|X|Intereses por cobrar a largo plazo extranjero|Intereses por cobrar a largo plazo extranjero|1860060000000000000|D|0|X|X
+2|186.07|0|G|G|X|X|Intereses por cobrar a largo plazo nacional parte relacionada|Intereses por cobrar a largo plazo nacional parte relacionada|1860070000000000000|D|0|X|X
+2|186.08|0|G|G|X|X|Intereses por cobrar a largo plazo extranjero parte relacionada|Intereses por cobrar a largo plazo extranjero parte relacionada|1860080000000000000|D|0|X|X
+2|186.09|1|G|G|X|X|Otras cuentas y documentos por cobrar a largo plazo|Otras cuentas y documentos por cobrar a largo plazo|1860090000000000000|D|0|X|X
+2|186.1|0|G|G|X|X|Otras cuentas y documentos por cobrar a largo plazo parte relacionada|Otras cuentas y documentos por cobrar a largo plazo parte relacionada|1860100000000000000|D|0|X|X
+1|187|1|G|G|X|X|Participación de los trabajadores en las utilidades diferidas|Participación de los trabajadores en las utilidades diferidas|1870000000000000000|D|1|X|X
+2|187.01|1|G|G|X|X|Participación de los trabajadores en las utilidades diferidas|Participación de los trabajadores en las utilidades diferidas|1870010000000000000|D|0|X|X
+1|188|1|G|G|X|X|Inversiones permanentes en acciones|Inversiones permanentes en acciones|1880000000000000000|D|1|X|X
+2|188.01|1|G|G|X|X|Inversiones a largo plazo en subsidiarias|Inversiones a largo plazo en subsidiarias|1880010000000000000|D|0|X|X
+2|188.02|1|G|G|X|X|Inversiones a largo plazo en asociadas|Inversiones a largo plazo en asociadas|1880020000000000000|D|0|X|X
+2|188.03|1|G|G|X|X|Otras inversiones permanentes en acciones|Otras inversiones permanentes en acciones|1880030000000000000|D|0|X|X
+1|189|1|G|G|X|X|Estimación por deterioro de inversiones permanentes en acciones|Estimación por deterioro de inversiones permanentes en acciones|1890000000000000000|D|1|X|X
+2|189.01|1|G|G|X|X|Estimación por deterioro de inversiones permanentes en acciones|Estimación por deterioro de inversiones permanentes en acciones|1890010000000000000|D|0|X|X
+1|190|1|G|G|X|X|Otros instrumentos financieros|Otros instrumentos financieros|1900000000000000000|D|1|X|X
+2|190.01|1|G|G|X|X|Otros instrumentos financieros|Otros instrumentos financieros|1900010000000000000|D|0|X|X
+1|191|1|G|G|X|X|Otros activos a largo plazo|Otros activos a largo plazo|1910000000000000000|D|1|X|X
+2|191.01|1|G|G|X|X|Otros activos a largo plazo|Otros activos a largo plazo|1910010000000000000|D|0|X|X
+|||||||Pasivo|Pasivo|||||
+|||||||Pasivo a corto plazo|Pasivo a corto plazo|||||
+1|201|1|G|G|X|X|Proveedores|Proveedores|2010000000000000000|A|1|X|X
+2|201.01|1|G|G|X|X|Proveedores nacionales|Proveedores nacionales|2010010000000000000|A|1|X|X
+2|201.02|1|G|G|X|X|Proveedores extranjeros|Proveedores extranjeros|2010020000000000000|A|1|X|X
+2|201.03|0|G|G|X|X|Proveedores nacionales parte relacionada|Proveedores nacionales parte relacionada|2010030000000000000|A|1|X|X
+2|201.04|0|G|G|X|X|Proveedores extranjeros parte relacionada|Proveedores extranjeros parte relacionada|2010040000000000000|A|1|X|X
+1|202|1|G|G|X|X|Cuentas por pagar a corto plazo|Cuentas por pagar a corto plazo|2020000000000000000|A|1|X|X
+2|202.01|1|G|G|X|X|Documentos por pagar bancario y financiero|Documentos por pagar bancario y financiero nacional|2020010000000000000|A|0|X|CC_COMPNP
+2|202.02|0|G|G|X|X|Documentos por pagar bancario y financiero extranjero|Documentos por pagar bancario y financiero extranjero|2020020000000000000|A|0|X|X
+2|202.03|1|G|G|X|X|Documentos y cuentas por pagar a corto plazo|Documentos y cuentas por pagar a corto plazo nacional|2020030000000000000|A|0|X|X
+2|202.04|0|G|G|X|X|Documentos y cuentas por pagar a corto plazo extranjero|Documentos y cuentas por pagar a corto plazo extranjero|2020040000000000000|A|0|X|X
+2|202.05|0|G|G|X|X|Documentos y cuentas por pagar a corto plazo nacional parte relacionada|Documentos y cuentas por pagar a corto plazo nacional parte relacionada|2020050000000000000|A|0|X|X
+2|202.06|0|G|G|X|X|Documentos y cuentas por pagar a corto plazo extranjero parte relacionada|Documentos y cuentas por pagar a corto plazo extranjero parte relacionada|2020060000000000000|A|0|X|X
+2|202.07|1|G|G|X|X|Intereses por pagar a corto plazo|Intereses por pagar a corto plazo nacional|2020070000000000000|A|0|X|X
+2|202.08|0|G|G|X|X|Intereses por pagar a corto plazo extranjero|Intereses por pagar a corto plazo extranjero|2020080000000000000|A|0|X|X
+2|202.09|0|G|G|X|X|Intereses por pagar a corto plazo nacional parte relacionada|Intereses por pagar a corto plazo nacional parte relacionada|2020090000000000000|A|0|X|X
+2|202.1|0|G|G|X|X|Intereses por pagar a corto plazo extranjero parte relacionada|Intereses por pagar a corto plazo extranjero parte relacionada|2020100000000000000|A|0|X|X
+2|202.11|1|G|G|X|X|Dividendo por pagar|Dividendo por pagar nacional|2020110000000000000|A|0|X|X
+2|202.12|0|G|G|X|X|Dividendo por pagar extranjero|Dividendo por pagar extranjero|2020120000000000000|A|0|X|X
+1|203|1|G|G|X|X|Cobros anticipados a corto plazo|Cobros anticipados a corto plazo|2030000000000000000|A|1|X|X
+2|203.01|1|G|G|X|X|Rentas cobradas por anticipado a corto plazo|Rentas cobradas por anticipado a corto plazo nacional|2030010000000000000|A|0|X|X
+2|203.02|0|G|G|X|X|Rentas cobradas por anticipado a corto plazo extranjero|Rentas cobradas por anticipado a corto plazo extranjero|2030020000000000000|A|0|X|X
+2|203.03|0|G|G|X|X|Rentas cobradas por anticipado a corto plazo nacional parte relacionada|Rentas cobradas por anticipado a corto plazo nacional parte relacionada|2030030000000000000|A|0|X|X
+2|203.04|0|G|G|X|X|Rentas cobradas por anticipado a corto plazo extranjero parte relacionada|Rentas cobradas por anticipado a corto plazo extranjero parte relacionada|2030040000000000000|A|0|X|X
+2|203.05|1|G|G|X|X|Intereses cobrados por anticipado a corto plazo|Intereses cobrados por anticipado a corto plazo nacional|2030050000000000000|A|0|X|X
+2|203.06|0|G|G|X|X|Intereses cobrados por anticipado a corto plazo extranjero|Intereses cobrados por anticipado a corto plazo extranjero|2030060000000000000|A|0|X|X
+2|203.07|0|G|G|X|X|Intereses cobrados por anticipado a corto plazo nacional parte relacionada|Intereses cobrados por anticipado a corto plazo nacional parte relacionada|2030070000000000000|A|0|X|X
+2|203.08|0|G|G|X|X|Intereses cobrados por anticipado a corto plazo extranjero parte relacionada|Intereses cobrados por anticipado a corto plazo extranjero parte relacionada|2030080000000000000|A|0|X|X
+2|203.09|1|G|G|X|X|Factoraje financiero cobrados por anticipado a corto plazo|Factoraje financiero cobrados por anticipado a corto plazo nacional|2030090000000000000|A|0|X|X
+2|203.1|0|G|G|X|X|Factoraje financiero cobrados por anticipado a corto plazo extranjero|Factoraje financiero cobrados por anticipado a corto plazo extranjero|2030100000000000000|A|0|X|X
+2|203.11|0|G|G|X|X|Factoraje financiero cobrados por anticipado a corto plazo nacional parte relacionada|Factoraje financiero cobrados por anticipado a corto plazo nacional parte relacionada|2030110000000000000|A|0|X|X
+2|203.12|0|G|G|X|X|Factoraje financiero cobrados por anticipado a corto plazo extranjero parte relacionada|Factoraje financiero cobrados por anticipado a corto plazo extranjero parte relacionada|2030120000000000000|A|0|X|X
+2|203.13|1|G|G|X|X|Arrendamiento financiero cobrados por anticipado a corto plazo|Arrendamiento financiero cobrados por anticipado a corto plazo nacional|2030130000000000000|A|0|X|X
+2|203.14|0|G|G|X|X|Arrendamiento financiero cobrados por anticipado a corto plazo extranjero|Arrendamiento financiero cobrados por anticipado a corto plazo extranjero|2030140000000000000|A|0|X|X
+2|203.15|0|G|G|X|X|Arrendamiento financiero cobrados por anticipado a corto plazo nacional parte relacionada|Arrendamiento financiero cobrados por anticipado a corto plazo nacional parte relacionada|2030150000000000000|A|0|X|X
+2|203.16|0|G|G|X|X|Arrendamiento financiero cobrados por anticipado a corto plazo extranjero parte relacionada|Arrendamiento financiero cobrados por anticipado a corto plazo extranjero parte relacionada|2030160000000000000|A|0|X|X
+2|203.17|1|G|G|X|X|Derechos fiduciarios|Derechos fiduciarios|2030170000000000000|A|0|X|X
+2|203.18|1|G|G|X|X|Otros cobros anticipados|Otros cobros anticipados|2030180000000000000|A|0|X|X
+1|204|1|G|G|X|X|Instrumentos financieros a corto plazo|Instrumentos financieros a corto plazo|2040000000000000000|A|1|X|X
+2|204.01|1|G|G|X|X|Instrumentos financieros a corto plazo|Instrumentos financieros a corto plazo|2040010000000000000|A|0|X|X
+1|205|1|G|G|X|X|Acreedores diversos a corto plazo|Acreedores diversos a corto plazo|2050000000000000000|A|1|X|X
+2|205.01|1|G|G|X|X|Socios, accionistas o representante legal|Socios, accionistas o representante legal|2050010000000000000|A|1|X|X
+2|205.02|1|G|G|X|X|Acreedores diversos a corto plazo nacional|Acreedores diversos a corto plazo nacional|2050020000000000000|A|1|X|X
+2|205.03|1|G|G|X|X|Acreedores diversos a corto plazo extranjero|Acreedores diversos a corto plazo extranjero|2050030000000000000|A|1|X|X
+2|205.04|0|G|G|X|X|Acreedores diversos a corto plazo nacional parte relacionada|Acreedores diversos a corto plazo nacional parte relacionada|2050040000000000000|A|1|X|X
+2|205.05|0|G|G|X|X|Acreedores diversos a corto plazo extranjero parte relacionada|Acreedores diversos a corto plazo extranjero parte relacionada|2050050000000000000|A|1|X|X
+2|205.06|1|G|G|X|X|Otros acreedores diversos a corto plazo|Otros acreedores diversos a corto plazo|2050060000000000000|A|1|X|X
+1|206|0|G|G|X|X|Anticipo de cliente|Anticipo de cliente|2060000000000000000|A|1|X|X
+2|206.01|0|G|G|X|X|Anticipo de cliente nacional|Anticipo de cliente nacional|2060010000000000000|A|0|X|X
+2|206.02|0|G|G|X|X|Anticipo de cliente extranjero|Anticipo de cliente extranjero|2060020000000000000|A|0|X|X
+2|206.03|0|G|G|X|X|Anticipo de cliente nacional parte relacionada|Anticipo de cliente nacional parte relacionada|2060030000000000000|A|0|X|X
+2|206.04|0|G|G|X|X|Anticipo de cliente extranjero parte relacionada|Anticipo de cliente extranjero parte relacionada|2060040000000000000|A|0|X|X
+2|206.05|0|G|G|X|X|Otros anticipos de clientes|Otros anticipos de clientes|2060050000000000000|A|0|X|X
+1|207|0|G|G|X|X|Impuestos trasladados|Impuestos trasladados|2070000000000000000|A|1|X|X
+2|207.01|0|G|G|X|X|IVA trasladado|IVA trasladado|2070010000000000000|A|0|X|X
+2|207.02|0|G|G|X|X|IEPS trasladado|IEPS trasladado|2070020000000000000|A|0|X|X
+1|208|1|G|G|X|X|Impuestos trasladados cobrados|Impuestos trasladados cobrados|2080000000000000000|A|1|X|X
+2|208.01|1|G|G|X|X|IVA trasladado cobrado|IVA trasladado cobrado|2080010000000000000|A|0|X|CC_IVAPP
+2|208.02|1|G|G|X|X|IEPS trasladado cobrado|IEPS trasladado cobrado|2080020000000000000|A|0|X|CC_IEPSV
+1|209|1|G|G|X|X|Impuestos trasladados no cobrados|Impuestos trasladados no cobrados|2090000000000000000|A|1|X|X
+2|209.01|1|G|G|X|X|IVA trasladado no cobrado|IVA trasladado no cobrado|2090010000000000000|A|0|X|CC_IVAPPPN
+2|209.02|1|G|G|X|X|IEPS trasladado no cobrado|IEPS trasladado no cobrado|2090020000000000000|A|0|X|CC_IEPSVPN
+1|210|1|N|G|X|X|Provisión de sueldos y salarios por pagar|Provisión de sueldos y salarios por pagar|2100000000000000000|A|1|X|X
+2|210.01|1|N|G|X|X|Provisión de sueldos y salarios por pagar|Provisión de sueldos y salarios por pagar|2100010000000000000|A|0|X|X
+2|210.02|1|N|G|X|X|Provisión de vacaciones por pagar|Provisión de vacaciones por pagar|2100020000000000000|A|0|X|X
+2|210.03|1|N|G|X|X|Provisión de aguinaldo por pagar|Provisión de aguinaldo por pagar|2100030000000000000|A|0|X|X
+2|210.04|1|N|G|X|X|Provisión de fondo de ahorro por pagar|Provisión de fondo de ahorro por pagar|2100040000000000000|A|0|X|X
+2|210.05|1|N|G|X|X|Provisión de asimilados a salarios por pagar|Provisión de asimilados a salarios por pagar|2100050000000000000|A|0|X|X
+2|210.06|1|N|G|X|X|Provisión de anticipos o remanentes por distribuir|Provisión de anticipos o remanentes por distribuir|2100060000000000000|A|0|X|X
+2|210.07|1|N|G|X|X|Provisión de otros sueldos y salarios por pagar|Provisión de otros sueldos y salarios por pagar|2100070000000000000|A|0|X|X
+1|211|1|N|G|X|X|Provisión de contribuciones de seguridad social por pagar|Provisión de contribuciones de seguridad social por pagar|2110000000000000000|A|1|X|X
+2|211.01|1|N|G|X|X|Provisión de IMSS patronal por pagar|Provisión de IMSS patronal por pagar|2110010000000000000|A|0|X|X
+2|211.02|1|N|G|X|X|Provisión de SAR por pagar|Provisión de SAR por pagar|2110020000000000000|A|0|X|X
+2|211.03|1|N|G|X|X|Provisión de infonavit por pagar|Provisión de infonavit por pagar|2110030000000000000|A|0|X|X
+1|212|1|N|G|X|X|Provisión de impuesto estatal sobre nómina por pagar|Provisión de impuesto estatal sobre nómina por pagar|2120000000000000000|A|1|X|X
+2|212.01|1|N|G|X|X|Provisión de impuesto estatal sobre nómina por pagar|Provisión de impuesto estatal sobre nómina por pagar|2120010000000000000|A|0|X|X
+1|213|1|G|G|X|X|Impuestos y derechos por pagar|Impuestos y derechos por pagar|2130000000000000000|A|1|X|X
+2|213.01|1|G|G|X|X|IVA por pagar|IVA por pagar|2130010000000000000|A|0|X|X
+2|213.02|1|G|G|X|X|IEPS por pagar|IEPS por pagar|2130020000000000000|A|0|X|X
+2|213.03|1|G|G|X|X|ISR por pagar|ISR por pagar|2130030000000000000|A|0|X|X
+2|213.04|1|N|G|X|X|Impuesto estatal sobre nómina por pagar|Impuesto estatal sobre nómina por pagar|2130040000000000000|A|0|X|X
+2|213.05|1|G|G|X|X|Impuesto estatal y municipal por pagar|Impuesto estatal y municipal por pagar|2130050000000000000|A|0|X|X
+2|213.06|1|G|G|X|X|Derechos por pagar|Derechos por pagar|2130060000000000000|A|0|X|X
+2|213.07|1|G|G|X|X|Otros impuestos por pagar|Otros impuestos por pagar|2130070000000000000|A|0|X|X
+1|214|1|G|G|X|X|Dividendos por pagar|Dividendos por pagar|2140000000000000000|A|1|X|X
+2|214.01|1|G|G|X|X|Dividendos por pagar|Dividendos por pagar|2140010000000000000|A|0|X|X
+1|215|1|G|G|X|X|PTU por pagar|PTU por pagar|2150000000000000000|A|1|X|X
+2|215.01|1|G|G|X|X|PTU por pagar|PTU por pagar|2150010000000000000|A|0|X|X
+2|215.02|1|G|G|X|X|PTU por pagar de ejercicios anteriores|PTU por pagar de ejercicios anteriores|2150020000000000000|A|0|X|X
+2|215.03|1|G|G|X|X|Provisión de PTU por pagar|Provisión de PTU por pagar|2150030000000000000|A|0|X|X
+1|216|1|G|G|X|X|Impuestos retenidos|Impuestos retenidos|2160000000000000000|A|1|X|X
+2|216.01|1|N|G|X|X|Impuestos retenidos de ISR por sueldos y salarios|Impuestos retenidos de ISR por sueldos y salarios|2160010000000000000|A|0|X|X
+2|216.02|1|N|G|X|X|Impuestos retenidos de ISR por asimilados a salarios|Impuestos retenidos de ISR por asimilados a salarios|2160020000000000000|A|0|X|X
+2|216.03|1|G|G|X|X|Impuestos retenidos de ISR por arrendamiento|Impuestos retenidos de ISR por arrendamiento|2160030000000000000|A|0|X|X
+2|216.04|1|G|G|X|X|Impuestos retenidos de ISR por servicios profesionales|Impuestos retenidos de ISR por servicios profesionales|2160040000000000000|A|0|X|CC_ISRRETC
+2|216.05|0|G|G|X|X|Impuestos retenidos de ISR por dividendos|Impuestos retenidos de ISR por dividendos|2160050000000000000|A|0|X|X
+2|216.06|0|G|G|X|X|Impuestos retenidos de ISR por intereses|Impuestos retenidos de ISR por intereses|2160060000000000000|A|0|X|X
+2|216.07|0|G|G|X|X|Impuestos retenidos de ISR por pagos al extranjero|Impuestos retenidos de ISR por pagos al extranjero|2160070000000000000|A|0|X|X
+2|216.08|0|G|G|X|X|Impuestos retenidos de ISR por venta de acciones|Impuestos retenidos de ISR por venta de acciones|2160080000000000000|A|0|X|X
+2|216.09|0|G|G|X|X|Impuestos retenidos de ISR por venta de partes sociales|Impuestos retenidos de ISR por venta de partes sociales|2160090000000000000|A|0|X|X
+2|216.1|1|G|G|X|X|Impuestos retenidos de IVA|Impuestos retenidos de IVA|2160100000000000000|A|0|X|CC_IVARETC
+2|216.11|1|G|G|X|X|Retenciones de IMSS a los trabajadores|Retenciones de IMSS a los trabajadores|2160110000000000000|A|0|X|X
+2|216.12|1|G|G|X|X|Otras impuestos retenidos|Otras impuestos retenidos|2160120000000000000|A|0|X|X
+1|217|1|G|G|X|X|Pagos realizados por cuenta de terceros|Pagos realizados por cuenta de terceros|2170000000000000000|A|1|X|X
+2|217.01|1|G|G|X|X|Pagos realizados por cuenta de terceros|Pagos realizados por cuenta de terceros|2170010000000000000|A|0|X|X
+1|218|1|G|G|X|X|Otros pasivos a corto plazo|Otros pasivos a corto plazo|2180000000000000000|A|1|X|X
+2|218.01|1|G|G|X|X|Otros pasivos a corto plazo|Otros pasivos a corto plazo|2180010000000000000|A|0|X|X
+|||||||Pasivo a largo plazo|Pasivo a largo plazo|||||
+1|251|1|G|G|X|X|Acreedores diversos a largo plazo|Acreedores diversos a largo plazo|2510000000000000000|A|1|X|X
+2|251.01|1|G|G|X|X|Socios, accionistas o representante legal|Socios, accionistas o representante legal|2510010000000000000|A|1|X|X
+2|251.02|1|G|G|X|X|Acreedores diversos a largo plazo nacional|Acreedores diversos a largo plazo nacional|2510020000000000000|A|1|X|X
+2|251.03|1|G|G|X|X|Acreedores diversos a largo plazo extranjero|Acreedores diversos a largo plazo extranjero|2510030000000000000|A|1|X|X
+2|251.04|0|G|G|X|X|Acreedores diversos a largo plazo nacional parte relacionada|Acreedores diversos a largo plazo nacional parte relacionada|2510040000000000000|A|1|X|X
+2|251.05|0|G|G|X|X|Acreedores diversos a largo plazo extranjero parte relacionada|Acreedores diversos a largo plazo extranjero parte relacionada|2510050000000000000|A|1|X|X
+2|251.06|1|G|G|X|X|Otros acreedores diversos a largo plazo|Otros acreedores diversos a largo plazo|2510060000000000000|A|1|X|X
+1|252|1|G|G|X|X|Cuentas por pagar a largo plazo|Cuentas por pagar a largo plazo|2520000000000000000|A|1|X|X
+2|252.01|1|G|G|X|X|Documentos bancarios y financieros por pagar a largo plazo|Documentos bancarios y financieros por pagar a largo plazo nacional|2520010000000000000|A|0|X|X
+2|252.02|0|G|G|X|X|Documentos bancarios y financieros por pagar a largo plazo extranjero|Documentos bancarios y financieros por pagar a largo plazo extranjero|2520020000000000000|A|0|X|X
+2|252.03|1|G|G|X|X|Documentos y cuentas por pagar a largo plazo|Documentos y cuentas por pagar a largo plazo nacional|2520030000000000000|A|0|X|X
+2|252.04|0|G|G|X|X|Documentos y cuentas por pagar a largo plazo extranjero|Documentos y cuentas por pagar a largo plazo extranjero|2520040000000000000|A|0|X|X
+2|252.05|0|G|G|X|X|Documentos y cuentas por pagar a largo plazo nacional parte relacionada|Documentos y cuentas por pagar a largo plazo nacional parte relacionada|2520050000000000000|A|0|X|X
+2|252.06|0|G|G|X|X|Documentos y cuentas por pagar a largo plazo extranjero parte relacionada|Documentos y cuentas por pagar a largo plazo extranjero parte relacionada|2520060000000000000|A|0|X|X
+2|252.07|1|G|G|X|X|Hipotecas por pagar a largo plazo|Hipotecas por pagar a largo plazo nacional|2520070000000000000|A|0|X|X
+2|252.08|0|G|G|X|X|Hipotecas por pagar a largo plazo extranjero|Hipotecas por pagar a largo plazo extranjero|2520080000000000000|A|0|X|X
+2|252.09|0|G|G|X|X|Hipotecas por pagar a largo plazo nacional parte relacionada|Hipotecas por pagar a largo plazo nacional parte relacionada|2520090000000000000|A|0|X|X
+2|252.1|0|G|G|X|X|Hipotecas por pagar a largo plazo extranjero parte relacionada|Hipotecas por pagar a largo plazo extranjero parte relacionada|2520100000000000000|A|0|X|X
+2|252.11|1|G|G|X|X|Intereses por pagar a largo plazo|Intereses por pagar a largo plazo nacional|2520110000000000000|A|0|X|X
+2|252.12|0|G|G|X|X|Intereses por pagar a largo plazo extranjero|Intereses por pagar a largo plazo extranjero|2520120000000000000|A|0|X|X
+2|252.13|0|G|G|X|X|Intereses por pagar a largo plazo nacional parte relacionada|Intereses por pagar a largo plazo nacional parte relacionada|2520130000000000000|A|0|X|X
+2|252.14|0|G|G|X|X|Intereses por pagar a largo plazo extranjero parte relacionada|Intereses por pagar a largo plazo extranjero parte relacionada|2520140000000000000|A|0|X|X
+2|252.15|1|G|G|X|X|Dividendos por pagar|Dividendos por pagar nacionales|2520150000000000000|A|0|X|X
+2|252.16|0|G|G|X|X|Dividendos por pagar extranjeros|Dividendos por pagar extranjeros|2520160000000000000|A|0|X|X
+2|252.17|1|G|G|X|X|Otras cuentas y documentos por pagar a largo plazo|Otras cuentas y documentos por pagar a largo plazo|2520170000000000000|A|0|X|X
+1|253|1|G|G|X|X|Cobros anticipados a largo plazo|Cobros anticipados a largo plazo|2530000000000000000|A|1|X|X
+2|253.01|1|G|G|X|X|Rentas cobradas por anticipado a largo plazo|Rentas cobradas por anticipado a largo plazo nacional|2530010000000000000|A|0|X|X
+2|253.02|0|G|G|X|X|Rentas cobradas por anticipado a largo plazo extranjero|Rentas cobradas por anticipado a largo plazo extranjero|2530020000000000000|A|0|X|X
+2|253.03|0|G|G|X|X|Rentas cobradas por anticipado a largo plazo nacional parte relacionada|Rentas cobradas por anticipado a largo plazo nacional parte relacionada|2530030000000000000|A|0|X|X
+2|253.04|0|G|G|X|X|Rentas cobradas por anticipado a largo plazo extranjero parte relacionada|Rentas cobradas por anticipado a largo plazo extranjero parte relacionada|2530040000000000000|A|0|X|X
+2|253.05|1|G|G|X|X|Intereses cobrados por anticipado a largo plazo|Intereses cobrados por anticipado a largo plazo nacional|2530050000000000000|A|0|X|X
+2|253.06|0|G|G|X|X|Intereses cobrados por anticipado a largo plazo extranjero|Intereses cobrados por anticipado a largo plazo extranjero|2530060000000000000|A|0|X|X
+2|253.07|0|G|G|X|X|Intereses cobrados por anticipado a largo plazo nacional parte relacionada|Intereses cobrados por anticipado a largo plazo nacional parte relacionada|2530070000000000000|A|0|X|X
+2|253.08|0|G|G|X|X|Intereses cobrados por anticipado a largo plazo extranjero parte relacionada|Intereses cobrados por anticipado a largo plazo extranjero parte relacionada|2530080000000000000|A|0|X|X
+2|253.09|1|G|G|X|X|Factoraje financiero cobrados por anticipado a largo plazo|Factoraje financiero cobrados por anticipado a largo plazo nacional|2530090000000000000|A|0|X|X
+2|253.1|0|G|G|X|X|Factoraje financiero cobrados por anticipado a largo plazo extranjero|Factoraje financiero cobrados por anticipado a largo plazo extranjero|2530100000000000000|A|0|X|X
+2|253.11|0|G|G|X|X|Factoraje financiero cobrados por anticipado a largo plazo nacional parte relacionada|Factoraje financiero cobrados por anticipado a largo plazo nacional parte relacionada|2530110000000000000|A|0|X|X
+2|253.12|0|G|G|X|X|Factoraje financiero cobrados por anticipado a largo plazo extranjero parte relacionada|Factoraje financiero cobrados por anticipado a largo plazo extranjero parte relacionada|2530120000000000000|A|0|X|X
+2|253.13|1|G|G|X|X|Arrendamiento financiero cobrados por anticipado a largo plazo|Arrendamiento financiero cobrados por anticipado a largo plazo nacional|2530130000000000000|A|0|X|X
+2|253.14|0|G|G|X|X|Arrendamiento financiero cobrados por anticipado a largo plazo extranjero|Arrendamiento financiero cobrados por anticipado a largo plazo extranjero|2530140000000000000|A|0|X|X
+2|253.15|0|G|G|X|X|Arrendamiento financiero cobrados por anticipado a largo plazo nacional parte relacionada|Arrendamiento financiero cobrados por anticipado a largo plazo nacional parte relacionada|2530150000000000000|A|0|X|X
+2|253.16|0|G|G|X|X|Arrendamiento financiero cobrados por anticipado a largo plazo extranjero parte relacionada|Arrendamiento financiero cobrados por anticipado a largo plazo extranjero parte relacionada|2530160000000000000|A|0|X|X
+2|253.17|1|G|G|X|X|Derechos fiduciarios|Derechos fiduciarios|2530170000000000000|A|0|X|X
+2|253.18|1|G|G|X|X|Otros cobros anticipados|Otros cobros anticipados|2530180000000000000|A|0|X|X
+1|254|1|G|G|X|X|Instrumentos financieros a largo plazo|Instrumentos financieros a largo plazo|2540000000000000000|A|1|X|X
+2|254.01|1|G|G|X|X|Instrumentos financieros a largo plazo|Instrumentos financieros a largo plazo|2540010000000000000|A|0|X|X
+1|255|1|G|G|X|X|Pasivos por beneficios a los empleados a largo plazo|Pasivos por beneficios a los empleados a largo plazo|2550000000000000000|A|1|X|X
+2|255.01|1|G|G|X|X|Pasivos por beneficios a los empleados a largo plazo|Pasivos por beneficios a los empleados a largo plazo|2550010000000000000|A|0|X|X
+1|256|1|G|G|X|X|Otros pasivos a largo plazo|Otros pasivos a largo plazo|2560000000000000000|A|1|X|X
+2|256.01|1|G|G|X|X|Otros pasivos a largo plazo|Otros pasivos a largo plazo|2560010000000000000|A|0|X|X
+1|257|1|G|G|X|X|Participación de los trabajadores en las utilidades diferida|Participación de los trabajadores en las utilidades diferida|2570000000000000000|A|1|X|X
+2|257.01|1|G|G|X|X|Participación de los trabajadores en las utilidades diferida|Participación de los trabajadores en las utilidades diferida|2570010000000000000|A|0|X|X
+1|258|1|G|G|X|X|Obligaciones contraídas de fideicomisos|Obligaciones contraídas de fideicomisos|2580000000000000000|A|1|X|X
+2|258.01|1|G|G|X|X|Obligaciones contraídas de fideicomisos|Obligaciones contraídas de fideicomisos|2580010000000000000|A|0|X|X
+1|259|1|G|G|X|X|Impuestos diferidos|Impuestos diferidos|2590000000000000000|A|1|X|X
+2|259.01|1|G|G|X|X|ISR diferido|ISR diferido|2590010000000000000|A|0|X|X
+2|259.02|1|G|G|X|X|ISR por dividendo diferido|ISR por dividendo diferido|2590020000000000000|A|0|X|X
+2|259.03|1|G|G|X|X|Otros impuestos diferidos|Otros impuestos diferidos|2590030000000000000|A|0|X|X
+1|260|1|G|G|X|X|Pasivos diferidos|Pasivos diferidos|2600000000000000000|A|1|X|X
+2|260.01|1|G|G|X|X|Pasivos diferidos|Pasivos diferidos|2600010000000000000|A|0|X|X
+|||||||Capital|Capital|||||
+1|301|1|G|G|X|X|Capital social|Capital social|3010000000000000000|A|1|X|X
+2|301.01|1|G|G|X|X|Capital fijo|Capital fijo|3010010000000000000|A|0|X|X
+2|301.02|1|G|G|X|X|Capital variable|Capital variable|3010020000000000000|A|0|X|X
+2|301.03|1|G|G|X|X|Aportaciones para futuros aumentos de capital|Aportaciones para futuros aumentos de capital|3010030000000000000|A|0|X|X
+2|301.04|1|G|G|X|X|Prima en suscripción de acciones|Prima en suscripción de acciones|3010040000000000000|A|0|X|X
+2|301.05|1|G|G|X|X|Prima en suscripción de partes sociales|Prima en suscripción de partes sociales|3010050000000000000|A|0|X|X
+1|302|1|G|G|X|X|Patrimonio|Patrimonio|3020000000000000000|A|1|X|X
+2|302.01|1|G|G|X|X|Patrimonio|Patrimonio|3020010000000000000|A|0|X|X
+2|302.02|1|G|G|X|X|Aportación patrimonial|Aportación patrimonial|3020020000000000000|A|0|X|X
+2|302.03|1|G|G|X|X|Déficit o remanente del ejercicio|Déficit o remanente del ejercicio|3020030000000000000|A|0|X|X
+1|303|1|G|G|X|X|Reserva legal|Reserva legal|3030000000000000000|A|1|X|X
+2|303.01|1|G|G|X|X|Reserva legal|Reserva legal|3030010000000000000|A|0|X|X
+1|304|1|G|G|X|X|Resultado de ejercicios anteriores|Resultado de ejercicios anteriores|3040000000000000000|A|1|X|X
+2|304.01|1|G|G|X|X|Utilidad de ejercicios anteriores|Utilidad de ejercicios anteriores|3040010000000000000|A|0|X|X
+2|304.02|1|G|G|X|X|Pérdida de ejercicios anteriores|Pérdida de ejercicios anteriores|3040020000000000000|D|0|X|X
+2|304.03|1|G|G|X|X|Resultado integral de ejercicios anteriores|Resultado integral de ejercicios anteriores|3040030000000000000|A|0|X|X
+2|304.04|1|G|G|X|X|Déficit o remanente de ejercicio anteriores|Déficit o remanente de ejercicio anteriores|3040040000000000000|A|0|X|X
+1|305|1|G|G|X|X|Resultado del ejercicio|Resultado del ejercicio|3050000000000000000|A|1|X|X
+2|305.01|1|G|G|X|X|Utilidad del ejercicio|Utilidad del ejercicio|3050010000000000000|A|0|X|X
+2|305.02|1|G|G|X|X|Pérdida del ejercicio|Pérdida del ejercicio|3050020000000000000|D|0|X|X
+2|305.03|1|G|G|X|X|Resultado integral|Resultado integral|3050030000000000000|A|0|X|X
+1|306|1|G|G|X|X|Otras cuentas de capital|Otras cuentas de capital|3060000000000000000|A|1|X|X
+2|306.01|1|G|G|X|X|Otras cuentas de capital|Otras cuentas de capital|3060010000000000000|A|0|X|X
+|||||||Resultados|Resultados|||||
+|||||||Ventas e Ingresos|Ventas e Ingresos|||||
+1|401|1|G|G|X|X|Ingresos|Ingresos|4010000000000000000|A|1|X|X
+2|401.01|1|G|G|X|X|Ventas y/o servicios gravados a la tasa general|Ventas y/o servicios gravados a la tasa general|4010010000000000000|A|0|X|X
+2|401.02|1|G|G|X|X|Ventas y/o servicios gravados a la tasa general de contado|Ventas y/o servicios gravados a la tasa general de contado|4010020000000000000|A|0|X|CC_VENCONT
+2|401.03|1|G|G|X|X|Ventas y/o servicios gravados a la tasa general a crédito|Ventas y/o servicios gravados a la tasa general a crédito|4010030000000000000|A|0|X|CC_VEN
+2|401.04|0|G|G|X|X|Ventas y/o servicios gravados al 0%|Ventas y/o servicios gravados al 0%|4010040000000000000|A|0|X|X
+2|401.05|0|G|G|X|X|Ventas y/o servicios gravados al 0% de contado|Ventas y/o servicios gravados al 0% de contado|4010050000000000000|A|0|X|X
+2|401.06|0|G|G|X|X|Ventas y/o servicios gravados al 0% a crédito|Ventas y/o servicios gravados al 0% a crédito|4010060000000000000|A|0|X|X
+2|401.07|0|G|G|X|X|Ventas y/o servicios exentos|Ventas y/o servicios exentos|4010070000000000000|A|0|X|X
+2|401.08|0|G|G|X|X|Ventas y/o servicios exentos de contado|Ventas y/o servicios exentos de contado|4010080000000000000|A|0|X|X
+2|401.09|0|G|G|X|X|Ventas y/o servicios exentos a crédito|Ventas y/o servicios exentos a crédito|4010090000000000000|A|0|X|X
+2|401.1|0|G|G|X|X|Ventas y/o servicios gravados a la tasa general nacionales partes relacionadas|Ventas y/o servicios gravados a la tasa general nacionales partes relacionadas|4010100000000000000|A|0|X|X
+2|401.11|0|G|G|X|X|Ventas y/o servicios gravados a la tasa general extranjeros partes relacionadas|Ventas y/o servicios gravados a la tasa general extranjeros partes relacionadas|4010110000000000000|A|0|X|X
+2|401.12|0|G|G|X|X|Ventas y/o servicios gravados al 0% nacionales partes relacionadas|Ventas y/o servicios gravados al 0% nacionales partes relacionadas|4010120000000000000|A|0|X|X
+2|401.13|0|G|G|X|X|Ventas y/o servicios gravados al 0% extranjeros partes relacionadas|Ventas y/o servicios gravados al 0% extranjeros partes relacionadas|4010130000000000000|A|0|X|X
+2|401.14|0|G|G|X|X|Ventas y/o servicios exentos nacionales partes relacionadas|Ventas y/o servicios exentos nacionales partes relacionadas|4010140000000000000|A|0|X|X
+2|401.15|0|G|G|X|X|Ventas y/o servicios exentos extranjeros partes relacionadas|Ventas y/o servicios exentos extranjeros partes relacionadas|4010150000000000000|A|0|X|X
+2|401.16|1|G|G|X|X|Ingresos por servicios administrativos|Ingresos por servicios administrativos|4010160000000000000|A|0|X|X
+2|401.17|0|G|G|X|X|Ingresos por servicios administrativos nacionales partes relacionadas|Ingresos por servicios administrativos nacionales partes relacionadas|4010170000000000000|A|0|X|X
+2|401.18|0|G|G|X|X|Ingresos por servicios administrativos extranjeros partes relacionadas|Ingresos por servicios administrativos extranjeros partes relacionadas|4010180000000000000|A|0|X|X
+2|401.19|1|G|G|X|X|Ingresos por servicios profesionales|Ingresos por servicios profesionales|4010190000000000000|A|0|X|X
+2|401.2|0|G|G|X|X|Ingresos por servicios profesionales nacionales partes relacionadas|Ingresos por servicios profesionales nacionales partes relacionadas|4010200000000000000|A|0|X|X
+2|401.21|0|G|G|X|X|Ingresos por servicios profesionales extranjeros partes relacionadas|Ingresos por servicios profesionales extranjeros partes relacionadas|4010210000000000000|A|0|X|X
+2|401.22|1|G|G|X|X|Ingresos por arrendamiento|Ingresos por arrendamiento|4010220000000000000|A|0|X|X
+2|401.23|0|G|G|X|X|Ingresos por arrendamiento nacionales partes relacionadas|Ingresos por arrendamiento nacionales partes relacionadas|4010230000000000000|A|0|X|X
+2|401.24|0|G|G|X|X|Ingresos por arrendamiento extranjeros partes relacionadas|Ingresos por arrendamiento extranjeros partes relacionadas|4010240000000000000|A|0|X|X
+2|401.25|1|G|G|X|X|Ingresos por exportación|Ingresos por exportación|4010250000000000000|A|0|X|X
+2|401.26|1|G|G|X|X|Ingresos por comisiones|Ingresos por comisiones|4010260000000000000|A|0|X|X
+2|401.27|1|G|G|X|X|Ingresos por maquila|Ingresos por maquila|4010270000000000000|A|0|X|X
+2|401.28|1|G|G|X|X|Ingresos por coordinados|Ingresos por coordinados|4010280000000000000|A|0|X|X
+2|401.29|1|G|G|X|X|Ingresos por regalías|Ingresos por regalías|4010290000000000000|A|0|X|X
+2|401.3|1|G|G|X|X|Ingresos por asistencia técnica|Ingresos por asistencia técnica|4010300000000000000|A|0|X|X
+2|401.31|1|G|G|X|X|Ingresos por donativos|Ingresos por donativos|4010310000000000000|A|0|X|X
+2|401.32|1|G|G|X|X|Ingresos por intereses (actividad propia)|Ingresos por intereses (actividad propia)|4010320000000000000|A|0|X|X
+2|401.33|1|G|G|X|X|Ingresos de copropiedad|Ingresos de copropiedad|4010330000000000000|A|0|X|X
+2|401.34|1|G|G|X|X|Ingresos por fideicomisos|Ingresos por fideicomisos|4010340000000000000|A|0|X|X
+2|401.35|1|G|G|X|X|Ingresos por factoraje financiero|Ingresos por factoraje financiero|4010350000000000000|A|0|X|X
+2|401.36|1|G|G|X|X|Ingresos por arrendamiento financiero|Ingresos por arrendamiento financiero|4010360000000000000|A|0|X|X
+2|401.37|1|G|G|X|X|Ingresos de extranjeros con establecimiento en el país|Ingresos de extranjeros con establecimiento en el país|4010370000000000000|A|0|X|X
+2|401.38|1|G|G|X|X|Otros ingresos propios|Otros ingresos propios|4010380000000000000|A|0|X|X
+1|402|1|G|G|X|X|Devoluciones, descuentos o bonificaciones sobre ingresos|Devoluciones, descuentos o bonificaciones sobre ingresos|4020000000000000000|D|1|X|X
+2|402.01|1|G|G|X|X|Devoluciones, descuentos o bonificaciones sobre ventas y/o servicios|Devoluciones, descuentos o bonificaciones sobre ventas y/o servicios a la tasa general|4020010000000000000|D|0|X|CC_DSVCONT;CC_DSV
+2|402.02|0|G|G|X|X|Devoluciones, descuentos o bonificaciones sobre ventas y/o servicios al 0%|Devoluciones, descuentos o bonificaciones sobre ventas y/o servicios al 0%|4020020000000000000|D|0|X|X
+2|402.03|0|G|G|X|X|Devoluciones, descuentos o bonificaciones sobre ventas y/o servicios exentos|Devoluciones, descuentos o bonificaciones sobre ventas y/o servicios exentos|4020030000000000000|D|0|X|X
+2|402.04|0|G|G|X|X|Devoluciones, descuentos o bonificaciones de otros ingresos|Devoluciones, descuentos o bonificaciones de otros ingresos|4020040000000000000|D|0|X|X
+1|403|0|G|G|X|X|Otros ingresos|Otros ingresos|4030000000000000000|A|1|X|X
+2|403.01|0|G|G|X|X|Otros Ingresos|Otros Ingresos|4030010000000000000|A|0|X|X
+2|403.02|0|G|G|X|X|Otros ingresos nacionales parte relacionada|Otros ingresos nacionales parte relacionada|4030020000000000000|A|0|X|X
+2|403.03|0|G|G|X|X|Otros ingresos extranjeros parte relacionada|Otros ingresos extranjeros parte relacionada|4030030000000000000|A|0|X|X
+2|403.04|0|G|G|X|X|Ingresos por operaciones discontinuas|Ingresos por operaciones discontinuas|4030040000000000000|A|0|X|X
+2|403.05|0|G|G|X|X|Ingresos por condonación de adeudo|Ingresos por condonación de adeudo|4030050000000000000|A|0|X|X
+|||||||Compras y Costos|Compras y Costos|||||
+1|501|1|G|G|X|X|Costo de venta y/o servicio|Costo de venta y/o servicio|5010000000000000000|D|1|X|X
+2|501.01|1|G|G|X|X|Costo de venta|Costo de venta|5010010000000000000|D|0|50;2|X
+2|501.02|1|G|G|X|X|Costo de servicios (Mano de obra)|Costo de servicios (Mano de obra)|5010020000000000000|D|0|X|X
+2|501.03|1|G|G|X|X|Materia prima directa|Materia prima directa utilizada para la producción|5010030000000000000|D|0|1;53|X
+2|501.04|0|G|G|X|X|Materia prima consumida en el proceso productivo|Materia prima consumida en el proceso productivo|5010040000000000000|D|0|X|X
+2|501.05|0|G|G|X|X|Mano de obra directa consumida|Mano de obra directa consumida|5010050000000000000|D|0|X|X
+2|501.06|0|G|G|X|X|Mano de obra directa|Mano de obra directa|5010060000000000000|D|0|X|X
+2|501.07|1|P|G|X|X|Cargos indirectos de producción|Cargos indirectos de producción|5010070000000000000|D|0|X|X
+2|501.08|1|G|G|X|X|Otros conceptos de costo|Otros conceptos de costo|5010080000000000000|D|1|X|X
+2|501.08|1|G|G|X|X|Chequeo físico de mas|X|5010080010000000000|D|0|149|X
+2|501.08|1|G|G|X|X|Chequeo físico de menos|X|5010080020000000000|D|0|199|X
+1|502|1|G|G|X|X|Compras|Compras|5020000000000000000|D|1|X|X
+2|502.01|1|G|G|X|X|Compras nacionales|Compras nacionales|5020010000000000000|D|0|X|CC_COMCONT;CC_COMP
+2|502.02|0|G|G|X|X|Compras nacionales parte relacionada|Compras nacionales parte relacionada|5020020000000000000|D|0|X|X
+2|502.03|1|G|G|X|X|Compras de Importación|Compras de Importación|5020030000000000000|D|0|X|X
+2|502.04|0|G|G|X|X|Compras de Importación partes relacionadas|Compras de Importación partes relacionadas|5020040000000000000|D|0|X|X
+1|503|1|G|G|X|X|Devoluciones, descuentos o bonificaciones sobre compras|Devoluciones, descuentos o bonificaciones sobre compras|5030000000000000000|A|1|X|X
+2|503.01|1|G|G|X|X|Devoluciones, descuentos o bonificaciones sobre compras|Devoluciones, descuentos o bonificaciones sobre compras|5030010000000000000|A|0|X|CC_DSCCONT;CC_DSC
+1|504|1|G|G|X|X|Otras cuentas de costos|Otras cuentas de costos|5040000000000000000|D|1|X|X
+2|504.01|1|P|G|X|X|Gastos indirectos de fabricación|Gastos indirectos de fabricación|5040010000000000000|D|0|X|X
+2|504.02|0|P|G|X|X|Gastos indirectos de fabricación de partes relacionadas nacionales|Gastos indirectos de fabricación de partes relacionadas nacionales|5040020000000000000|D|0|X|X
+2|504.03|0|P|G|X|X|Gastos indirectos de fabricación de partes relacionadas extranjeras|Gastos indirectos de fabricación de partes relacionadas extranjeras|5040030000000000000|D|0|X|X
+2|504.04|1|G|G|X|X|Otras cuentas de costos incurridos|Otras cuentas de costos incurridos|5040040000000000000|D|0|X|X
+2|504.05|0|G|G|X|X|Otras cuentas de costos incurridos con partes relacionadas nacionales|Otras cuentas de costos incurridos con partes relacionadas nacionales|5040050000000000000|D|0|X|X
+2|504.06|0|G|G|X|X|Otras cuentas de costos incurridos con partes relacionadas extranjeras|Otras cuentas de costos incurridos con partes relacionadas extranjeras|5040060000000000000|D|0|X|X
+2|504.07|1|G|G|X|X|Depreciación de edificios|Depreciación de edificios|5040070000000000000|A|0|X|X
+2|504.08|1|G|G|X|X|Depreciación de maquinaria y equipo|Depreciación de maquinaria y equipo|5040080000000000000|A|0|X|X
+2|504.09|1|G|G|X|X|Depreciación de automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|Depreciación de automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|5040090000000000000|A|0|X|X
+2|504.1|1|G|G|X|X|Depreciación de mobiliario y equipo de oficina|Depreciación de mobiliario y equipo de oficina|5040100000000000000|A|0|X|X
+2|504.11|1|G|G|X|X|Depreciación de equipo de cómputo|Depreciación de equipo de cómputo|5040110000000000000|A|0|X|X
+2|504.12|1|G|G|X|X|Depreciación de equipo de comunicación|Depreciación de equipo de comunicación|5040120000000000000|A|0|X|X
+2|504.13|1|G|G|X|X|Depreciación de activos biológicos, vegetales y semovientes|Depreciación de activos biológicos, vegetales y semovientes|5040130000000000000|A|0|X|X
+2|504.14|1|G|G|X|X|Depreciación de otros activos fijos|Depreciación de otros activos fijos|5040140000000000000|A|0|X|X
+2|504.15|0|G|G|X|X|Depreciación de ferrocarriles|Depreciación de ferrocarriles|5040150000000000000|A|0|X|X
+2|504.16|0|G|G|X|X|Depreciación de embarcaciones|Depreciación de embarcaciones|5040160000000000000|A|0|X|X
+2|504.17|0|G|G|X|X|Depreciación de aviones|Depreciación de aviones|5040170000000000000|A|0|X|X
+2|504.18|1|G|G|X|X|Depreciación de troqueles, moldes, matrices y herramental|Depreciación de troqueles, moldes, matrices y herramental|5040180000000000000|A|0|X|X
+2|504.19|1|G|G|X|X|Depreciación de equipo de comunicaciones telefónicas|Depreciación de equipo de comunicaciones telefónicas|5040190000000000000|A|0|X|X
+2|504.2|1|G|G|X|X|Depreciación de equipo de comunicación satelital|Depreciación de equipo de comunicación satelital|5040200000000000000|A|0|X|X
+2|504.21|1|G|G|X|X|Depreciación de equipo de adaptaciones para personas con capacidades diferentes|Depreciación de equipo de adaptaciones para personas con capacidades diferentes|5040210000000000000|A|0|X|X
+2|504.22|0|G|G|X|X|Depreciación de maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|Depreciación de maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|5040220000000000000|A|0|X|X
+2|504.23|1|G|G|X|X|Depreciación de adaptaciones y mejoras|Depreciación de adaptaciones y mejoras|5040230000000000000|A|0|X|X
+2|504.24|1|G|G|X|X|Depreciación de otra maquinaria y equipo|Depreciación de otra maquinaria y equipo|5040240000000000000|A|0|X|X
+2|504.25|1|G|G|X|X|Otras cuentas de costos|Otras cuentas de costos|5040250000000000000|D|0|X|X
+1|505|1|G|G|X|X|Costo de activo fijo|Costo de activo fijo|5050000000000000000|D|0|X|X
+2|505.01|1|G|G|X|X|Costo por venta de activo fijo|Costo por venta de activo fijo|5050010000000000000|D|0|X|X
+2|505.01|1|G|G|X|X|Costo por baja de activo fijo|Costo por baja de activo fijo|5050020000000000000|D|0|X|X
+|||||||Gastos de Operación|Gastos de Operación|||||
+1|601|1|G|G|X|X| Gastos generales| Gastos generales|6010000000000000000|D|1|X|X
+2|601.01|0|G|G|X|X| Sueldos y salarios| Sueldos y salarios|6010010000000000000|D|0|X|X
+2|601.02|0|G|G|X|X| Compensaciones| Compensaciones|6010020000000000000|D|0|X|X
+2|601.03|0|G|G|X|X| Tiempos extras| Tiempos extras|6010030000000000000|D|0|X|X
+2|601.04|0|G|G|X|X| Premios de asistencia| Premios de asistencia|6010040000000000000|D|0|X|X
+2|601.05|0|G|G|X|X| Premios de puntualidad| Premios de puntualidad|6010050000000000000|D|0|X|X
+2|601.06|0|G|G|X|X| Vacaciones| Vacaciones|6010060000000000000|D|0|X|X
+2|601.07|0|G|G|X|X| Prima vacacional| Prima vacacional|6010070000000000000|D|0|X|X
+2|601.08|0|G|G|X|X| Prima dominical| Prima dominical|6010080000000000000|D|0|X|X
+2|601.09|0|G|G|X|X| Días festivos| Días festivos|6010090000000000000|D|0|X|X
+2|601.1|0|G|G|X|X| Gratificaciones| Gratificaciones|6010100000000000000|D|0|X|X
+2|601.11|0|G|G|X|X| Primas de antigüedad| Primas de antigüedad|6010110000000000000|D|0|X|X
+2|601.12|0|G|G|X|X| Aguinaldo| Aguinaldo|6010120000000000000|D|0|X|X
+2|601.13|0|G|G|X|X| Indemnizaciones| Indemnizaciones|6010130000000000000|D|0|X|X
+2|601.14|0|G|G|X|X| Destajo| Destajo|6010140000000000000|D|0|X|X
+2|601.15|0|G|G|X|X| Despensa| Despensa|6010150000000000000|D|0|X|X
+2|601.16|0|G|G|X|X| Transporte| Transporte|6010160000000000000|D|0|X|X
+2|601.17|0|G|G|X|X| Servicio médico| Servicio médico|6010170000000000000|D|0|X|X
+2|601.18|0|G|G|X|X| Ayuda en gastos funerarios| Ayuda en gastos funerarios|6010180000000000000|D|0|X|X
+2|601.19|0|G|G|X|X| Fondo de ahorro| Fondo de ahorro|6010190000000000000|D|0|X|X
+2|601.2|0|G|G|X|X| Cuotas sindicales| Cuotas sindicales|6010200000000000000|D|0|X|X
+2|601.21|0|G|G|X|X| PTU| PTU|6010210000000000000|D|0|X|X
+2|601.22|0|G|G|X|X| Estímulo al personal| Estímulo al personal|6010220000000000000|D|0|X|X
+2|601.23|0|G|G|X|X| Previsión social| Previsión social|6010230000000000000|D|0|X|X
+2|601.24|0|G|G|X|X| Aportaciones para el plan de jubilación| Aportaciones para el plan de jubilación|6010240000000000000|D|0|X|X
+2|601.25|0|G|G|X|X| Otras prestaciones al personal| Otras prestaciones al personal|6010250000000000000|D|0|X|X
+2|601.26|0|G|G|X|X| Cuotas al IMSS| Cuotas al IMSS|6010260000000000000|D|0|X|X
+2|601.27|0|G|G|X|X| Aportaciones al infonavit| Aportaciones al infonavit|6010270000000000000|D|0|X|X
+2|601.28|0|G|G|X|X| Aportaciones al SAR| Aportaciones al SAR|6010280000000000000|D|0|X|X
+2|601.29|0|G|G|X|X| Impuesto estatal sobre nóminas| Impuesto estatal sobre nóminas|6010290000000000000|D|0|X|X
+2|601.3|0|G|G|X|X| Otras aportaciones| Otras aportaciones|6010300000000000000|D|0|X|X
+2|601.31|0|G|G|X|X| Asimilados a salarios| Asimilados a salarios|6010310000000000000|D|0|X|X
+2|601.32|0|G|G|X|X| Servicios administrativos| Servicios administrativos|6010320000000000000|D|0|X|X
+2|601.33|0|G|G|X|X| Servicios administrativos partes relacionadas| Servicios administrativos partes relacionadas|6010330000000000000|D|0|X|X
+2|601.34|0|G|G|X|X| Honorarios a personas físicas residentes nacionales| Honorarios a personas físicas residentes nacionales|6010340000000000000|D|0|X|X
+2|601.35|0|G|G|X|X| Honorarios a personas físicas residentes nacionales partes relacionadas| Honorarios a personas físicas residentes nacionales partes relacionadas|6010350000000000000|D|0|X|X
+2|601.36|0|G|G|X|X| Honorarios a personas físicas residentes del extranjero| Honorarios a personas físicas residentes del extranjero|6010360000000000000|D|0|X|X
+2|601.37|0|G|G|X|X| Honorarios a personas físicas residentes del extranjero partes relacionadas| Honorarios a personas físicas residentes del extranjero partes relacionadas|6010370000000000000|D|0|X|X
+2|601.38|0|G|G|X|X| Honorarios a personas morales residentes nacionales| Honorarios a personas morales residentes nacionales|6010380000000000000|D|0|X|X
+2|601.39|0|G|G|X|X| Honorarios a personas morales residentes nacionales partes relacionadas| Honorarios a personas morales residentes nacionales partes relacionadas|6010390000000000000|D|0|X|X
+2|601.4|0|G|G|X|X| Honorarios a personas morales residentes del extranjero| Honorarios a personas morales residentes del extranjero|6010400000000000000|D|0|X|X
+2|601.41|0|G|G|X|X| Honorarios a personas morales residentes del extranjero partes relacionadas| Honorarios a personas morales residentes del extranjero partes relacionadas|6010410000000000000|D|0|X|X
+2|601.42|0|G|G|X|X| Honorarios aduanales personas físicas| Honorarios aduanales personas físicas|6010420000000000000|D|0|X|X
+2|601.43|0|G|G|X|X| Honorarios aduanales personas morales| Honorarios aduanales personas morales|6010430000000000000|D|0|X|X
+2|601.44|0|G|G|X|X| Honorarios al consejo de administración| Honorarios al consejo de administración|6010440000000000000|D|0|X|X
+2|601.45|0|G|G|X|X|Arrendamiento a personas físicas residentes nacionales|Arrendamiento a personas físicas residentes nacionales|6010450000000000000|D|0|X|X
+2|601.46|0|G|G|X|X|Arrendamiento a personas morales residentes nacionales|Arrendamiento a personas morales residentes nacionales|6010460000000000000|D|0|X|X
+2|601.47|0|G|G|X|X|Arrendamiento a residentes del extranjero|Arrendamiento a residentes del extranjero|6010470000000000000|D|0|X|X
+2|601.48|0|G|G|X|X|Combustibles y lubricantes|Combustibles y lubricantes|6010480000000000000|D|0|X|X
+2|601.49|0|G|G|X|X|Viáticos y gastos de viaje|Viáticos y gastos de viaje|6010490000000000000|D|0|X|X
+2|601.5|0|G|G|X|X|Teléfono, internet|Teléfono, internet|6010500000000000000|D|0|X|X
+2|601.51|0|G|G|X|X|Agua|Agua|6010510000000000000|D|0|X|X
+2|601.52|0|G|G|X|X|Energía eléctrica|Energía eléctrica|6010520000000000000|D|0|X|X
+2|601.53|0|G|G|X|X|Vigilancia y seguridad|Vigilancia y seguridad|6010530000000000000|D|0|X|X
+2|601.54|0|G|G|X|X|Limpieza|Limpieza|6010540000000000000|D|0|X|X
+2|601.55|0|G|G|X|X|Papelería y artículos de oficina|Papelería y artículos de oficina|6010550000000000000|D|0|X|X
+2|601.56|0|G|G|X|X|Mantenimiento y conservación|Mantenimiento y conservación|6010560000000000000|D|0|X|X
+2|601.57|0|G|G|X|X|Seguros y fianzas|Seguros y fianzas|6010570000000000000|D|0|X|X
+2|601.58|0|G|G|X|X|Otros impuestos y derechos|Otros impuestos y derechos|6010580000000000000|D|0|X|X
+2|601.59|0|G|G|X|X|Recargos fiscales|Recargos fiscales|6010590000000000000|D|0|X|X
+2|601.6|0|G|G|X|X|Cuotas y suscripciones|Cuotas y suscripciones|6010600000000000000|D|0|X|X
+2|601.61|0|G|G|X|X|Propaganda y publicidad|Propaganda y publicidad|6010610000000000000|D|0|X|X
+2|601.62|0|G|G|X|X|Capacitación al personal|Capacitación al personal|6010620000000000000|D|0|X|X
+2|601.63|0|G|G|X|X|Donativos y ayudas|Donativos y ayudas|6010630000000000000|D|0|X|X
+2|601.64|0|G|G|X|X|Asistencia técnica|Asistencia técnica|6010640000000000000|D|0|X|X
+2|601.65|0|G|G|X|X|Regalías sujetas a otros porcentajes|Regalías sujetas a otros porcentajes|6010650000000000000|D|0|X|X
+2|601.66|0|G|G|X|X|Regalías sujetas al 5%|Regalías sujetas al 5%|6010660000000000000|D|0|X|X
+2|601.67|0|G|G|X|X|Regalías sujetas al 10%|Regalías sujetas al 10%|6010670000000000000|D|0|X|X
+2|601.68|0|G|G|X|X|Regalías sujetas al 15%|Regalías sujetas al 15%|6010680000000000000|D|0|X|X
+2|601.69|0|G|G|X|X|Regalías sujetas al 25%|Regalías sujetas al 25%|6010690000000000000|D|0|X|X
+2|601.7|0|G|G|X|X|Regalías sujetas al 30%|Regalías sujetas al 30%|6010700000000000000|D|0|X|X
+2|601.71|0|G|G|X|X|Regalías sin retención|Regalías sin retención|6010710000000000000|D|0|X|X
+2|601.72|0|G|G|X|X|Fletes y acarreos|Fletes y acarreos|6010720000000000000|D|0|X|X
+2|601.73|0|G|G|X|X|Gastos de importación|Gastos de importación|6010730000000000000|D|0|X|X
+2|601.74|0|G|G|X|X|Comisiones sobre ventas|Comisiones sobre ventas|6010740000000000000|D|0|X|X
+2|601.75|0|G|G|X|X|Comisiones por tarjetas de crédito|Comisiones por tarjetas de crédito|6010750000000000000|D|0|X|X
+2|601.76|0|G|G|X|X|Patentes y marcas|Patentes y marcas|6010760000000000000|D|0|X|X
+2|601.77|0|G|G|X|X|Uniformes|Uniformes|6010770000000000000|D|0|X|X
+2|601.78|0|G|G|X|X|Prediales|Prediales|6010780000000000000|D|0|X|X
+2|601.79|0|G|G|X|X|Gastos generales de urbanización|Gastos generales de urbanización|6010790000000000000|D|0|X|X
+2|601.8|0|G|G|X|X|Gastos generales de construcción|Gastos generales de construcción|6010800000000000000|D|0|X|X
+2|601.81|0|G|G|X|X|Fletes del extranjero|Fletes del extranjero|6010810000000000000|D|0|X|X
+2|601.82|0|G|G|X|X|Recolección de bienes del sector agropecuario y/o ganadero|Recolección de bienes del sector agropecuario y/o ganadero|6010820000000000000|D|0|X|X
+2|601.83|1|G|G|X|X|Gastos no deducibles|Gastos no deducibles (sin requisitos fiscales)|6010830000000000000|D|0|X|CC_GND
+2|601.84|1|G|G|X|X|Gastos Generales|Otros gastos generales|6010840000000000000|D|0|X|X
+1|602|1|G|G|X|X|Gastos de venta|Gastos de venta|6020000000000000000|D|1|X|X
+2|602.01|1|N|G|X|X|Sueldos y salarios|Sueldos y salarios|6020010000000000000|D|0|X|X
+2|602.02|1|N|G|X|X|Compensaciones|Compensaciones|6020020000000000000|D|0|X|X
+2|602.03|1|N|G|X|X|Tiempos extras|Tiempos extras|6020030000000000000|D|0|X|X
+2|602.04|1|N|G|X|X|Premios de asistencia|Premios de asistencia|6020040000000000000|D|0|X|X
+2|602.05|1|N|G|X|X|Premios de puntualidad|Premios de puntualidad|6020050000000000000|D|0|X|X
+2|602.06|1|N|G|X|X|Vacaciones|Vacaciones|6020060000000000000|D|0|X|X
+2|602.07|1|N|G|X|X|Prima vacacional|Prima vacacional|6020070000000000000|D|0|X|X
+2|602.08|1|N|G|X|X|Prima dominical|Prima dominical|6020080000000000000|D|0|X|X
+2|602.09|1|N|G|X|X|Días festivos|Días festivos|6020090000000000000|D|0|X|X
+2|602.1|1|N|G|X|X|Gratificaciones|Gratificaciones|6020100000000000000|D|0|X|X
+2|602.11|1|N|G|X|X|Primas de antigüedad|Primas de antigüedad|6020110000000000000|D|0|X|X
+2|602.12|1|N|G|X|X|Aguinaldo|Aguinaldo|6020120000000000000|D|0|X|X
+2|602.13|1|N|G|X|X|Indemnizaciones|Indemnizaciones|6020130000000000000|D|0|X|X
+2|602.14|1|N|G|X|X|Destajo|Destajo|6020140000000000000|D|0|X|X
+2|602.15|1|N|G|X|X|Despensa|Despensa|6020150000000000000|D|0|X|X
+2|602.16|1|N|G|X|X|Transporte|Transporte|6020160000000000000|D|0|X|X
+2|602.17|1|N|G|X|X|Servicio médico|Servicio médico|6020170000000000000|D|0|X|X
+2|602.18|1|N|G|X|X|Ayuda en gastos funerarios|Ayuda en gastos funerarios|6020180000000000000|D|0|X|X
+2|602.19|1|N|G|X|X|Fondo de ahorro|Fondo de ahorro|6020190000000000000|D|0|X|X
+2|602.2|1|N|G|X|X|Cuotas sindicales|Cuotas sindicales|6020200000000000000|D|0|X|X
+2|602.21|1|N|G|X|X|PTU|PTU|6020210000000000000|D|0|X|X
+2|602.22|1|N|G|X|X|Estímulo al personal|Estímulo al personal|6020220000000000000|D|0|X|X
+2|602.23|1|N|G|X|X|Previsión social|Previsión social|6020230000000000000|D|0|X|X
+2|602.24|1|N|G|X|X|Aportaciones para el plan de jubilación|Aportaciones para el plan de jubilación|6020240000000000000|D|0|X|X
+2|602.25|1|N|G|X|X|Otras prestaciones al personal|Otras prestaciones al personal|6020250000000000000|D|0|X|X
+2|602.26|1|N|G|X|X|Cuotas al IMSS|Cuotas al IMSS|6020260000000000000|D|0|X|X
+2|602.27|1|N|G|X|X|Aportaciones al infonavit|Aportaciones al infonavit|6020270000000000000|D|0|X|X
+2|602.28|1|N|G|X|X|Aportaciones al SAR|Aportaciones al SAR|6020280000000000000|D|0|X|X
+2|602.29|1|N|G|X|X|Impuesto estatal sobre nóminas|Impuesto estatal sobre nóminas|6020290000000000000|D|0|X|X
+2|602.3|1|N|G|X|X|Otras aportaciones|Otras aportaciones|6020300000000000000|D|0|X|X
+2|602.31|1|N|G|X|X|Asimilados a salarios|Asimilados a salarios|6020310000000000000|D|0|X|X
+2|602.32|1|G|G|SERV-ADMIN:1:0:0:0:100|Servicios administrativos|Servicios administrativos|Servicios administrativos|6020320000000000000|D|0|X|X
+2|602.33|0|G|G|X|X|Servicios administrativos partes relacionadas|Servicios administrativos partes relacionadas|6020330000000000000|D|0|X|X
+2|602.34|1|G|G|HONORARIO-PF:1:0:10.666667:10:100|Honorarios a personas físicas|Honorarios a personas físicas|Honorarios a personas físicas residentes nacionales|6020340000000000000|D|0|X|X
+2|602.35|0|G|G|X|X|Honorarios a personas físicas residentes nacionales partes relacionadas|Honorarios a personas físicas residentes nacionales partes relacionadas|6020350000000000000|D|0|X|X
+2|602.36|0|G|G|X|X|Honorarios a personas físicas residentes del extranjero|Honorarios a personas físicas residentes del extranjero|6020360000000000000|D|0|X|X
+2|602.37|0|G|G|X|X|Honorarios a personas físicas residentes del extranjero partes relacionadas|Honorarios a personas físicas residentes del extranjero partes relacionadas|6020370000000000000|D|0|X|X
+2|602.38|1|G|G|HONORARIO-PM:1:0:10.666667:10:100|Honorarios a personas morales|Honorarios a personas morales|Honorarios a personas morales residentes nacionales|6020380000000000000|D|0|X|X
+2|602.39|0|G|G|X|X|Honorarios a personas morales residentes nacionales partes relacionadas|Honorarios a personas morales residentes nacionales partes relacionadas|6020390000000000000|D|0|X|X
+2|602.4|0|G|G|X|X|Honorarios a personas morales residentes del extranjero|Honorarios a personas morales residentes del extranjero|6020400000000000000|D|0|X|X
+2|602.41|0|G|G|X|X|Honorarios a personas morales residentes del extranjero partes relacionadas|Honorarios a personas morales residentes del extranjero partes relacionadas|6020410000000000000|D|0|X|X
+2|602.42|1|G|G|HONORARIO-AD-PF:1:0:10.666667:10:100|Honorarios aduanales personas físicas|Honorarios aduanales personas físicas|Honorarios aduanales personas físicas|6020420000000000000|D|0|X|X
+2|602.43|1|G|G|HONORARIO-AD-PM:1:0:10.666667:10:100|Honorarios aduanales personas morales|Honorarios aduanales personas morales|Honorarios aduanales personas morales|6020430000000000000|D|0|X|X
+2|602.44|1|G|G|HONORARIO-CA:1:0:10.666667:10:100|Honorarios al consejo de administración|Honorarios al consejo de administración|Honorarios al consejo de administración|6020440000000000000|D|0|X|X
+2|602.45|1|G|G|RENTA-PF:1:0:10.666667:10:100|Arrendamiento a personas físicas|Arrendamiento a personas físicas|Arrendamiento a personas físicas residentes nacionales|6020450000000000000|D|0|X|X
+2|602.46|1|G|G|RENTA-PM:1:0:10.666667:10:100|Arrendamiento a personas morales|Arrendamiento a personas morales|Arrendamiento a personas morales residentes nacionales|6020460000000000000|D|0|X|X
+2|602.47|1|G|G|RENTA-EXT:1:0:10.666667:10:100|Arrendamiento a residentes del extranjero|Arrendamiento a residentes del extranjero|Arrendamiento a residentes del extranjero|6020470000000000000|D|0|X|X
+2|602.48|1|G|G|COMBUSTIBLE:1:3.3230:0:0:100|Combustibles y lubricantes|Combustibles y lubricantes|Combustibles y lubricantes|6020480000000000000|D|0|X|X
+2|602.49|1|G|G|VIATICO:1:0:0:0:100|Viáticos y gastos de viaje|Viáticos y gastos de viaje|Viáticos y gastos de viaje|6020490000000000000|D|0|X|X
+2|602.5|1|G|G|TELEFONO:1:2.20044:0:0:100|Teléfono, internet|Teléfono, internet|Teléfono, internet|6020500000000000000|D|0|X|X
+2|602.51|1|G|G|AGUA:1:0:0:0:100|Agua|Agua|Agua|6020510000000000000|D|0|X|X
+2|602.52|1|G|G|LUZ:1:0:0:0:100|Energía eléctrica|Energía eléctrica|Energía eléctrica|6020520000000000000|D|0|X|X
+2|602.53|1|G|G|VIGILANCIA:1:0:0:0:100|Vigilancia y seguridad|Vigilancia y seguridad|Vigilancia y seguridad|6020530000000000000|D|0|X|X
+2|602.54|1|G|G|LIMPIEZA:1:0:0:0:100|Limpieza|Limpieza|Limpieza|6020540000000000000|D|0|X|X
+2|602.55|1|G|G|ART-PAPELERIA:1:0:0:0:100|Papelería y artículos de oficina|Papelería y artículos de oficina|Papelería y artículos de oficina|6020550000000000000|D|0|X|X
+2|602.56|1|G|G|MANTENIMIENTO:1:0:0:0:100|Mantenimiento y conservación|Mantenimiento y conservación|Mantenimiento y conservación|6020560000000000000|D|0|X|X
+2|602.57|1|G|G|SEGURO:1:0:0:0:100|Seguros y fianzas|Seguros y fianzas|Seguros y fianzas|6020570000000000000|D|0|X|X
+2|602.58|1|G|G|DERECHO:1:0:0:0:100|Otros impuestos y derechos|Otros impuestos y derechos|Otros impuestos y derechos|6020580000000000000|D|0|X|X
+2|602.59|1|G|G|RECARGO:1:0:0:0:100|Recargos fiscales|Recargos fiscales|Recargos fiscales|6020590000000000000|D|0|X|X
+2|602.6|1|G|G|SUSCRIPCION:1:0:0:0:100|Cuotas y suscripciones|Cuotas y suscripciones|Cuotas y suscripciones|6020600000000000000|D|0|X|X
+2|602.61|1|G|G|PUBLICIDAD:1:0:0:0:100|Propaganda y publicidad|Propaganda y publicidad|Propaganda y publicidad|6020610000000000000|D|0|X|X
+2|602.62|1|G|G|CAPACITACION:1:0:0:0:100|Capacitación al personal|Capacitación al personal|Capacitación al personal|6020620000000000000|D|0|X|X
+2|602.63|1|G|G|DONACION:0:0:0:0:100|Donativos y ayudas|Donativos y ayudas|Donativos y ayudas|6020630000000000000|D|0|X|X
+2|602.64|1|G|G|ASISTENCIA:1:0:0:0:100|Asistencia técnica|Asistencia técnica|Asistencia técnica|6020640000000000000|D|0|X|X
+2|602.65|1|G|G|REGALIA:1:0:0:0:100|Regalías|Regalías|Regalías sujetas a otros porcentajes|6020650000000000000|D|0|X|X
+2|602.66|0|G|G|X|X|Regalías sujetas al 5%|Regalías sujetas al 5%|6020660000000000000|D|0|X|X
+2|602.67|0|G|G|X|X|Regalías sujetas al 10%|Regalías sujetas al 10%|6020670000000000000|D|0|X|X
+2|602.68|0|G|G|X|X|Regalías sujetas al 15%|Regalías sujetas al 15%|6020680000000000000|D|0|X|X
+2|602.69|0|G|G|X|X|Regalías sujetas al 25%|Regalías sujetas al 25%|6020690000000000000|D|0|X|X
+2|602.7|0|G|G|X|X|Regalías sujetas al 30%|Regalías sujetas al 30%|6020700000000000000|D|0|X|X
+2|602.71|0|G|G|X|X|Regalías sin retención|Regalías sin retención|6020710000000000000|D|0|X|X
+2|602.72|1|G|G|FLETE:1:0:4:0:100|Fletes y acarreos|Fletes y acarreos|Fletes y acarreos|6020720000000000000|D|0|X|X
+2|602.73|1|G|G|G-IMPORTACION:1:0:0:0:100|Gastos de importación|Gastos de importación|Gastos de importación|6020730000000000000|D|0|X|X
+2|602.74|1|G|G|COMISION-VEN:1:0:0:0:100|Comisiones sobre ventas|Comisiones sobre ventas|Comisiones sobre ventas|6020740000000000000|D|0|X|X
+2|602.75|1|G|G|COMISION-TC:1:0:0:0:100|Comisiones por tarjetas de crédito|Comisiones por tarjetas de crédito|Comisiones por tarjetas de crédito|6020750000000000000|D|0|X|X
+2|602.76|1|G|G|PATENTE:1:0:0:0:100|Patentes y marcas|Patentes y marcas|Patentes y marcas|6020760000000000000|D|0|X|X
+2|602.77|1|G|G|UNIFORME:1:0:0:0:100|Uniformes|Uniformes|Uniformes|6020770000000000000|D|0|X|X
+2|602.78|1|G|G|PREDIAL:1:0:0:0:100|Prediales|Prediales|Prediales|6020780000000000000|D|0|X|X
+2|602.79|1|G|G|URBANIZACION:1:0:0:0:100|Gastos de urbanización|Gastos de urbanización|Gastos de venta de urbanización|6020790000000000000|D|0|X|X
+2|602.8|1|G|G|CONSTRUCCION:1:0:0:0:100|Gastos de construcción|Gastos de construcción|Gastos de venta de construcción|6020800000000000000|D|0|X|X
+2|602.81|1|G|G|FLETE-EXT:1:0:0:0:100|Fletes del extranjero|Fletes del extranjero|Fletes del extranjero|6020810000000000000|D|0|X|X
+2|602.82|1|G|G|BIEN-AGROPECUARIO:1:0:0:0:100|Recolección de bienes del sector agropecuario y/o ganadero|Recolección de bienes del sector agropecuario y/o ganadero|Recolección de bienes del sector agropecuario y/o ganadero|6020820000000000000|D|0|X|X
+2|602.83|1|G|G|X|X|Gastos no deducibles (sin requisitos fiscales)|Gastos no deducibles (sin requisitos fiscales)|6020830000000000000|D|0|X|X
+2|602.84|1|G|G|COMIDA:1:0:0:0:8.5;G-OTRO:1:0:0:0:100|Comida de trabajo;Otro gasto|Otros gastos|Otros gastos de venta|6020840000000000000|D|0|X|X
+1|603|1|G|G|X|X|Gastos de administración|Gastos de administración|6030000000000000000|D|1|X|X
+2|603.01|1|N|G|X|X|Sueldos y salarios|Sueldos y salarios|6030010000000000000|D|0|X|X
+2|603.02|1|N|G|X|X|Compensaciones|Compensaciones|6030020000000000000|D|0|X|X
+2|603.03|1|N|G|X|X|Tiempos extras|Tiempos extras|6030030000000000000|D|0|X|X
+2|603.04|1|N|G|X|X|Premios de asistencia|Premios de asistencia|6030040000000000000|D|0|X|X
+2|603.05|1|N|G|X|X|Premios de puntualidad|Premios de puntualidad|6030050000000000000|D|0|X|X
+2|603.06|1|N|G|X|X|Vacaciones|Vacaciones|6030060000000000000|D|0|X|X
+2|603.07|1|N|G|X|X|Prima vacacional|Prima vacacional|6030070000000000000|D|0|X|X
+2|603.08|1|N|G|X|X|Prima dominical|Prima dominical|6030080000000000000|D|0|X|X
+2|603.09|1|N|G|X|X|Días festivos|Días festivos|6030090000000000000|D|0|X|X
+2|603.1|1|N|G|X|X|Gratificaciones|Gratificaciones|6030100000000000000|D|0|X|X
+2|603.11|1|N|G|X|X|Primas de antigüedad|Primas de antigüedad|6030110000000000000|D|0|X|X
+2|603.12|1|N|G|X|X|Aguinaldo|Aguinaldo|6030120000000000000|D|0|X|X
+2|603.13|1|N|G|X|X|Indemnizaciones|Indemnizaciones|6030130000000000000|D|0|X|X
+2|603.14|1|N|G|X|X|Destajo|Destajo|6030140000000000000|D|0|X|X
+2|603.15|1|N|G|X|X|Despensa|Despensa|6030150000000000000|D|0|X|X
+2|603.16|1|N|G|X|X|Transporte|Transporte|6030160000000000000|D|0|X|X
+2|603.17|1|N|G|X|X|Servicio médico|Servicio médico|6030170000000000000|D|0|X|X
+2|603.18|1|N|G|X|X|Ayuda en gastos funerarios|Ayuda en gastos funerarios|6030180000000000000|D|0|X|X
+2|603.19|1|N|G|X|X|Fondo de ahorro|Fondo de ahorro|6030190000000000000|D|0|X|X
+2|603.2|1|N|G|X|X|Cuotas sindicales|Cuotas sindicales|6030200000000000000|D|0|X|X
+2|603.21|1|N|G|X|X|PTU|PTU|6030210000000000000|D|0|X|X
+2|603.22|1|N|G|X|X|Estímulo al personal|Estímulo al personal|6030220000000000000|D|0|X|X
+2|603.23|1|N|G|X|X|Previsión social|Previsión social|6030230000000000000|D|0|X|X
+2|603.24|1|N|G|X|X|Aportaciones para el plan de jubilación|Aportaciones para el plan de jubilación|6030240000000000000|D|0|X|X
+2|603.25|1|N|G|X|X|Otras prestaciones al personal|Otras prestaciones al personal|6030250000000000000|D|0|X|X
+2|603.26|1|N|G|X|X|Cuotas al IMSS|Cuotas al IMSS|6030260000000000000|D|0|X|X
+2|603.27|1|N|G|X|X|Aportaciones al infonavit|Aportaciones al infonavit|6030270000000000000|D|0|X|X
+2|603.28|1|N|G|X|X|Aportaciones al SAR|Aportaciones al SAR|6030280000000000000|D|0|X|X
+2|603.29|1|N|G|X|X|Impuesto estatal sobre nóminas|Impuesto estatal sobre nóminas|6030290000000000000|D|0|X|X
+2|603.3|1|N|G|X|X|Otras aportaciones|Otras aportaciones|6030300000000000000|D|0|X|X
+2|603.31|1|N|G|X|X|Asimilados a salarios|Asimilados a salarios|6030310000000000000|D|0|X|X
+2|603.32|1|N|G|SERV-ADMIN:1:0:0:0:100|Servicios administrativos|Servicios administrativos|Servicios administrativos|6030320000000000000|D|0|X|X
+2|603.33|1|N|G|X|X|Servicios administrativos partes relacionadas|Servicios administrativos partes relacionadas|6030330000000000000|D|0|X|X
+2|603.34|1|G|G|HONORARIO-PF:1:0:10.666667:10:100|Honorarios a personas físicas|Honorarios a personas físicas|Honorarios a personas físicas residentes nacionales|6030340000000000000|D|0|X|X
+2|603.35|0|G|G|X|X|Honorarios a personas físicas residentes nacionales partes relacionadas|Honorarios a personas físicas residentes nacionales partes relacionadas|6030350000000000000|D|0|X|X
+2|603.36|0|G|G|X|X|Honorarios a personas físicas residentes del extranjero|Honorarios a personas físicas residentes del extranjero|6030360000000000000|D|0|X|X
+2|603.37|0|G|G|X|X|Honorarios a personas físicas residentes del extranjero partes relacionadas|Honorarios a personas físicas residentes del extranjero partes relacionadas|6030370000000000000|D|0|X|X
+2|603.38|1|G|G|HONORARIO-PM:1:0:10.666667:10:100|Honorarios a personas morales|Honorarios a personas morales|Honorarios a personas morales residentes nacionales|6030380000000000000|D|0|X|X
+2|603.39|0|G|G|X|X|Honorarios a personas morales residentes nacionales partes relacionadas|Honorarios a personas morales residentes nacionales partes relacionadas|6030390000000000000|D|0|X|X
+2|603.4|0|G|G|X|X|Honorarios a personas morales residentes del extranjero|Honorarios a personas morales residentes del extranjero|6030400000000000000|D|0|X|X
+2|603.41|0|G|G|X|X|Honorarios a personas morales residentes del extranjero partes relacionadas|Honorarios a personas morales residentes del extranjero partes relacionadas|6030410000000000000|D|0|X|X
+2|603.42|1|G|G|HONORARIO-AD-PF:1:0:10.666667:10:100|Honorarios aduanales personas físicas|Honorarios aduanales personas físicas|Honorarios aduanales personas físicas|6030420000000000000|D|0|X|X
+2|603.43|1|G|G|HONORARIO-AD-PM:1:0:10.666667:10:100|Honorarios aduanales personas morales|Honorarios aduanales personas morales|Honorarios aduanales personas morales|6030430000000000000|D|0|X|X
+2|603.44|1|G|G|HONORARIO-CA:1:0:10.666667:10:100|Honorarios al consejo de administración|Honorarios al consejo de administración|Honorarios al consejo de administración|6030440000000000000|D|0|X|X
+2|603.45|1|G|G|RENTA-PF:1:0:10.666667:10:100|Arrendamiento a personas físicas|Arrendamiento a personas físicas|Arrendamiento a personas físicas residentes nacionales|6030450000000000000|D|0|X|X
+2|603.46|1|G|G|RENTA-PM:1:0:10.666667:10:100|Arrendamiento a personas morales|Arrendamiento a personas morales|Arrendamiento a personas morales residentes nacionales|6030460000000000000|D|0|X|X
+2|603.47|1|G|G|RENTA-EXT:1:0:10.666667:10:100|Arrendamiento a residentes del extranjero|Arrendamiento a residentes del extranjero|Arrendamiento a residentes del extranjero|6030470000000000000|D|0|X|X
+2|603.48|1|G|G|COMBUSTIBLE:1:3.3230:0:0:100|Combustibles y lubricantes|Combustibles y lubricantes|Combustibles y lubricantes|6030480000000000000|D|0|X|X
+2|603.49|1|G|G|VIATICO:1:0:0:0:100|Viáticos y gastos de viaje|Viáticos y gastos de viaje|Viáticos y gastos de viaje|6030490000000000000|D|0|X|X
+2|603.5|1|G|G|TELEFONO:1:2.20044:0:0:100|Teléfono, internet|Teléfono, internet|Teléfono, internet|6030500000000000000|D|0|X|X
+2|603.51|1|G|G|AGUA:1:0:0:0:100|Agua|Agua|Agua|6030510000000000000|D|0|X|X
+2|603.52|1|G|G|LUZ:1:0:0:0:100|Energía eléctrica|Energía eléctrica|Energía eléctrica|6030520000000000000|D|0|X|X
+2|603.53|1|G|G|VIGILANCIA:1:0:0:0:100|Vigilancia y seguridad|Vigilancia y seguridad|Vigilancia y seguridad|6030530000000000000|D|0|X|X
+2|603.54|1|G|G|LIMPIEZA:1:0:0:0:100|Limpieza|Limpieza|Limpieza|6030540000000000000|D|0|X|X
+2|603.55|1|G|G|ART-PAPELERIA:1:0:0:0:100|Papelería y artículos de oficina|Papelería y artículos de oficina|Papelería y artículos de oficina|6030550000000000000|D|0|X|X
+2|603.56|1|G|G|MANTENIMIENTO:1:0:0:0:100|Mantenimiento y conservación|Mantenimiento y conservación|Mantenimiento y conservación|6030560000000000000|D|0|X|X
+2|603.57|1|G|G|SEGURO:1:0:0:0:100|Seguros y fianzas|Seguros y fianzas|Seguros y fianzas|6030570000000000000|D|0|X|X
+2|603.58|1|G|G|DERECHO:1:0:0:0:100|Otros impuestos y derechos|Otros impuestos y derechos|Otros impuestos y derechos|6030580000000000000|D|0|X|X
+2|603.59|1|G|G|RECARGO:1:0:0:0:100|Recargos fiscales|Recargos fiscales|Recargos fiscales|6030590000000000000|D|0|X|X
+2|603.6|1|G|G|SUSCRIPCION:1:0:0:0:100|Cuotas y suscripciones|Cuotas y suscripciones|Cuotas y suscripciones|6030600000000000000|D|0|X|X
+2|603.61|1|G|G|PUBLICIDAD:1:0:0:0:100|Propaganda y publicidad|Propaganda y publicidad|Propaganda y publicidad|6030610000000000000|D|0|X|X
+2|603.62|1|G|G|CAPACITACION:1:0:0:0:100|Capacitación al personal|Capacitación al personal|Capacitación al personal|6030620000000000000|D|0|X|X
+2|603.63|1|G|G|DONACION:0:0:0:0:100|Donativos y ayudas|Donativos y ayudas|Donativos y ayudas|6030630000000000000|D|0|X|X
+2|603.64|1|G|G|ASISTENCIA:1:0:0:0:100|Asistencia técnica|Asistencia técnica|Asistencia técnica|6030640000000000000|D|0|X|X
+2|603.65|1|G|G|REGALIA:1:0:0:0:100|Regalías|Regalías|Regalías sujetas a otros porcentajes|6030650000000000000|D|0|X|X
+2|603.66|0|G|G|X|X|Regalías sujetas al 5%|Regalías sujetas al 5%|6030660000000000000|D|0|X|X
+2|603.67|0|G|G|X|X|Regalías sujetas al 10%|Regalías sujetas al 10%|6030670000000000000|D|0|X|X
+2|603.68|0|G|G|X|X|Regalías sujetas al 15%|Regalías sujetas al 15%|6030680000000000000|D|0|X|X
+2|603.69|0|G|G|X|X|Regalías sujetas al 25%|Regalías sujetas al 25%|6030690000000000000|D|0|X|X
+2|603.7|0|G|G|X|X|Regalías sujetas al 30%|Regalías sujetas al 30%|6030700000000000000|D|0|X|X
+2|603.71|0|G|G|X|X|Regalías sin retención|Regalías sin retención|6030710000000000000|D|0|X|X
+2|603.72|1|G|G|FLETE:1:0:4:0:100|Fletes y acarreos|Fletes y acarreos|Fletes y acarreos|6030720000000000000|D|0|X|X
+2|603.73|1|G|G|G-IMPORTACION:1:0:0:0:100|Gastos de importación|Gastos de importación|Gastos de importación|6030730000000000000|D|0|X|X
+2|603.74|1|G|G|PATENTE:1:0:0:0:100|Patentes y marcas|Patentes y marcas|Patentes y marcas|6030740000000000000|D|0|X|X
+2|603.75|1|G|G|UNIFORME:1:0:0:0:100|Uniformes|Uniformes|Uniformes|6030750000000000000|D|0|X|X
+2|603.76|1|G|G|PREDIAL:1:0:0:0:100|Prediales|Prediales|Prediales|6030760000000000000|D|0|X|X
+2|603.77|1|G|G|URBANIZACION:1:0:0:0:100|Gastos de urbanización|Gastos de urbanización|Gastos de administración de urbanización|6030770000000000000|D|0|X|X
+2|603.78|1|G|G|CONSTRUCCION:1:0:0:0:100|Gastos de construcción|Gastos de construcción|Gastos de administración de construcción|6030780000000000000|D|0|X|X
+2|603.79|1|G|G|FLETE-EXT:1:0:0:0:100|Fletes del extranjero|Fletes del extranjero|Fletes del extranjero|6030790000000000000|D|0|X|X
+2|603.8|1|G|G|BIEN-AGROPECUARIO:1:0:0:0:100|Recolección de bienes del sector agropecuario y/o ganadero|Recolección de bienes del sector agropecuario y/o ganadero|Recolección de bienes del sector agropecuario y/o ganadero|6030800000000000000|D|0|X|X
+2|603.81|1|G|G|X|X|Gastos no deducibles (sin requisitos fiscales)|Gastos no deducibles (sin requisitos fiscales)|6030810000000000000|D|0|X|X
+2|603.82|1|G|G|COMIDA:1:0:0:0:8.5;G-OTRO:1:0:0:0:100|Comida de trabajo;Otro gasto|Otros gastos|Otros gastos de administración|6030820000000000000|D|0|X|X
+1|604|1|P|G|X|Gastos de fabricación|Gastos de fabricación|Gastos de fabricación|6040000000000000000|D|1|X|X
+2|604.01|1|N|P|X|Sueldos y salarios|Sueldos y salarios|Sueldos y salarios|6040010000000000000|D|0|X|X
+2|604.02|1|N|P|X|Compensaciones|Compensaciones|Compensaciones|6040020000000000000|D|0|X|X
+2|604.03|1|N|P|X|Tiempos extras|Tiempos extras|Tiempos extras|6040030000000000000|D|0|X|X
+2|604.04|1|N|P|X|Premios de asistencia|Premios de asistencia|Premios de asistencia|6040040000000000000|D|0|X|X
+2|604.05|1|N|P|X|Premios de puntualidad|Premios de puntualidad|Premios de puntualidad|6040050000000000000|D|0|X|X
+2|604.06|1|N|P|X|Vacaciones|Vacaciones|Vacaciones|6040060000000000000|D|0|X|X
+2|604.07|1|N|P|X|Prima vacacional|Prima vacacional|Prima vacacional|6040070000000000000|D|0|X|X
+2|604.08|1|N|P|X|Prima dominical|Prima dominical|Prima dominical|6040080000000000000|D|0|X|X
+2|604.09|1|N|P|X|Días festivos|Días festivos|Días festivos|6040090000000000000|D|0|X|X
+2|604.1|1|N|P|X|Gratificaciones|Gratificaciones|Gratificaciones|6040100000000000000|D|0|X|X
+2|604.11|1|N|P|X|Primas de antigüedad|Primas de antigüedad|Primas de antigüedad|6040110000000000000|D|0|X|X
+2|604.12|1|N|P|X|Aguinaldo|Aguinaldo|Aguinaldo|6040120000000000000|D|0|X|X
+2|604.13|1|N|P|X|Indemnizaciones|Indemnizaciones|Indemnizaciones|6040130000000000000|D|0|X|X
+2|604.14|1|N|P|X|Destajo|Destajo|Destajo|6040140000000000000|D|0|X|X
+2|604.15|1|N|P|X|Despensa|Despensa|Despensa|6040150000000000000|D|0|X|X
+2|604.16|1|N|P|X|Transporte|Transporte|Transporte|6040160000000000000|D|0|X|X
+2|604.17|1|N|P|X|Servicio médico|Servicio médico|Servicio médico|6040170000000000000|D|0|X|X
+2|604.18|1|N|P|X|Ayuda en gastos funerarios|Ayuda en gastos funerarios|Ayuda en gastos funerarios|6040180000000000000|D|0|X|X
+2|604.19|1|N|P|X|Fondo de ahorro|Fondo de ahorro|Fondo de ahorro|6040190000000000000|D|0|X|X
+2|604.2|1|N|P|X|Cuotas sindicales|Cuotas sindicales|Cuotas sindicales|6040200000000000000|D|0|X|X
+2|604.21|1|N|P|X|PTU|PTU|PTU|6040210000000000000|D|0|X|X
+2|604.22|1|N|P|X|Estímulo al personal|Estímulo al personal|Estímulo al personal|6040220000000000000|D|0|X|X
+2|604.23|1|N|P|X|Previsión social|Previsión social|Previsión social|6040230000000000000|D|0|X|X
+2|604.24|1|N|P|X|Aportaciones para el plan de jubilación|Aportaciones para el plan de jubilación|Aportaciones para el plan de jubilación|6040240000000000000|D|0|X|X
+2|604.25|1|N|P|X|Otras prestaciones al personal|Otras prestaciones al personal|Otras prestaciones al personal|6040250000000000000|D|0|X|X
+2|604.26|1|N|P|X|Cuotas al IMSS|Cuotas al IMSS|Cuotas al IMSS|6040260000000000000|D|0|X|X
+2|604.27|1|N|P|X|Aportaciones al infonavit|Aportaciones al infonavit|Aportaciones al infonavit|6040270000000000000|D|0|X|X
+2|604.28|1|N|P|X|Aportaciones al SAR|Aportaciones al SAR|Aportaciones al SAR|6040280000000000000|D|0|X|X
+2|604.29|1|N|P|X|Impuesto estatal sobre nóminas|Impuesto estatal sobre nóminas|Impuesto estatal sobre nóminas|6040290000000000000|D|0|X|X
+2|604.3|1|N|P|X|Otras aportaciones|Otras aportaciones|Otras aportaciones|6040300000000000000|D|0|X|X
+2|604.31|1|N|P|X|Asimilados a salarios|Asimilados a salarios|Asimilados a salarios|6040310000000000000|D|0|X|X
+2|604.32|1|P|G|SERV-ADMIN:1:0:0:0:100|Servicios administrativos|Servicios administrativos|Servicios administrativos|6040320000000000000|D|0|X|X
+2|604.33|1|P|G|X|X|Servicios administrativos partes relacionadas|Servicios administrativos partes relacionadas|6040330000000000000|D|0|X|X
+2|604.34|1|P|G|HONORARIO-PF:1:0:10.666667:10:100|Honorarios a personas físicas|Honorarios a personas físicas|Honorarios a personas físicas residentes nacionales|6040340000000000000|D|0|X|X
+2|604.35|0|P|G|X|X|Honorarios a personas físicas residentes nacionales partes relacionadas|Honorarios a personas físicas residentes nacionales partes relacionadas|6040350000000000000|D|0|X|X
+2|604.36|0|P|G|X|X|Honorarios a personas físicas residentes del extranjero|Honorarios a personas físicas residentes del extranjero|6040360000000000000|D|0|X|X
+2|604.37|0|P|G|X|X|Honorarios a personas físicas residentes del extranjero partes relacionadas|Honorarios a personas físicas residentes del extranjero partes relacionadas|6040370000000000000|D|0|X|X
+2|604.38|1|P|G|HONORARIO-PM:1:0:10.666667:10:100|Honorarios a personas morales|Honorarios a personas morales|Honorarios a personas morales residentes nacionales|6040380000000000000|D|0|X|X
+2|604.39|0|P|G|X|X|Honorarios a personas morales residentes nacionales partes relacionadas|Honorarios a personas morales residentes nacionales partes relacionadas|6040390000000000000|D|0|X|X
+2|604.4|0|P|G|X|X|Honorarios a personas morales residentes del extranjero|Honorarios a personas morales residentes del extranjero|6040400000000000000|D|0|X|X
+2|604.41|0|P|G|X|X|Honorarios a personas morales residentes del extranjero partes relacionadas|Honorarios a personas morales residentes del extranjero partes relacionadas|6040410000000000000|D|0|X|X
+2|604.42|1|P|G|HONORARIO-AD-PF:1:0:10.666667:10:100|Honorarios aduanales personas físicas|Honorarios aduanales personas físicas|Honorarios aduanales personas físicas|6040420000000000000|D|0|X|X
+2|604.43|1|P|G|HONORARIO-AD-PM:1:0:10.666667:10:100|Honorarios aduanales personas morales|Honorarios aduanales personas morales|Honorarios aduanales personas morales|6040430000000000000|D|0|X|X
+2|604.44|1|P|G|HONORARIO-CA:1:0:10.666667:10:100|Honorarios al consejo de administración|Honorarios al consejo de administración|Honorarios al consejo de administración|6040440000000000000|D|0|X|X
+2|604.45|1|P|G|RENTA-PF:1:0:10.666667:10:100|Arrendamiento a personas físicas|Arrendamiento a personas físicas|Arrendamiento a personas físicas residentes nacionales|6040450000000000000|D|0|X|X
+2|604.46|1|P|G|RENTA-PM:1:0:10.666667:10:100|Arrendamiento a personas morales|Arrendamiento a personas morales|Arrendamiento a personas morales residentes nacionales|6040460000000000000|D|0|X|X
+2|604.47|1|P|G|RENTA-EXT:1:0:10.666667:10:100|Arrendamiento a residentes del extranjero|Arrendamiento a residentes del extranjero|Arrendamiento a residentes del extranjero|6040470000000000000|D|0|X|X
+2|604.48|1|P|G|COMBUSTIBLE:1:3.3230:0:0:100|Combustibles y lubricantes|Combustibles y lubricantes|Combustibles y lubricantes|6040480000000000000|D|0|X|X
+2|604.49|1|P|G|VIATICO:1:0:0:0:100|Viáticos y gastos de viaje|Viáticos y gastos de viaje|Viáticos y gastos de viaje|6040490000000000000|D|0|X|X
+2|604.5|1|P|G|TELEFONO:1:2.20044:0:0:100|Teléfono, internet|Teléfono, internet|Teléfono, internet|6040500000000000000|D|0|X|X
+2|604.51|1|P|G|AGUA:1:0:0:0:100|Agua|Agua|Agua|6040510000000000000|D|0|X|X
+2|604.52|1|P|G|LUZ:1:0:0:0:100|Energía eléctrica|Energía eléctrica|Energía eléctrica|6040520000000000000|D|0|X|X
+2|604.53|1|P|G|VIGILANCIA:1:0:0:0:100|Vigilancia y seguridad|Vigilancia y seguridad|Vigilancia y seguridad|6040530000000000000|D|0|X|X
+2|604.54|1|P|G|LIMPIEZA:1:0:0:0:100|Limpieza|Limpieza|Limpieza|6040540000000000000|D|0|X|X
+2|604.55|1|P|G|ART-PAPELERIA:1:0:0:0:100|Papelería y artículos de oficina|Papelería y artículos de oficina|Papelería y artículos de oficina|6040550000000000000|D|0|X|X
+2|604.56|1|P|G|MANTENIMIENTO:1:0:0:0:100|Mantenimiento y conservación|Mantenimiento y conservación|Mantenimiento y conservación|6040560000000000000|D|0|X|X
+2|604.57|1|P|G|SEGURO:1:0:0:0:100|Seguros y fianzas|Seguros y fianzas|Seguros y fianzas|6040570000000000000|D|0|X|X
+2|604.58|1|P|G|DERECHO:1:0:0:0:100|Otros impuestos y derechos|Otros impuestos y derechos|Otros impuestos y derechos|6040580000000000000|D|0|X|X
+2|604.59|1|P|G|RECARGO:1:0:0:0:100|Recargos fiscales|Recargos fiscales|Recargos fiscales|6040590000000000000|D|0|X|X
+2|604.6|1|P|G|SUSCRIPCION:1:0:0:0:100|Cuotas y suscripciones|Cuotas y suscripciones|Cuotas y suscripciones|6040600000000000000|D|0|X|X
+2|604.61|1|P|G|PUBLICIDAD:1:0:0:0:100|Propaganda y publicidad|Propaganda y publicidad|Propaganda y publicidad|6040610000000000000|D|0|X|X
+2|604.62|1|P|G|CAPACITACION:1:0:0:0:100|Capacitación al personal|Capacitación al personal|Capacitación al personal|6040620000000000000|D|0|X|X
+2|604.63|1|P|G|DONACION:0:0:0:0:100|Donativos y ayudas|Donativos y ayudas|Donativos y ayudas|6040630000000000000|D|0|X|X
+2|604.64|1|P|G|ASISTENCIA:1:0:0:0:100|Asistencia técnica|Asistencia técnica|Asistencia técnica|6040640000000000000|D|0|X|X
+2|604.65|1|P|G|REGALIA:1:0:0:0:100|Regalías|Regalías|Regalías sujetas a otros porcentajes|6040650000000000000|D|0|X|X
+2|604.66|0|P|G|X|X|Regalías sujetas al 5%|Regalías sujetas al 5%|6040660000000000000|D|0|X|X
+2|604.67|0|P|G|X|X|Regalías sujetas al 10%|Regalías sujetas al 10%|6040670000000000000|D|0|X|X
+2|604.68|0|P|G|X|X|Regalías sujetas al 15%|Regalías sujetas al 15%|6040680000000000000|D|0|X|X
+2|604.69|0|P|G|X|X|Regalías sujetas al 25%|Regalías sujetas al 25%|6040690000000000000|D|0|X|X
+2|604.7|0|P|G|X|X|Regalías sujetas al 30%|Regalías sujetas al 30%|6040700000000000000|D|0|X|X
+2|604.71|0|P|G|X|X|Regalías sin retención|Regalías sin retención|6040710000000000000|D|0|X|X
+2|604.72|1|P|G|FLETE:1:0:4:0:100|Fletes y acarreos|Fletes y acarreos|Fletes y acarreos|6040720000000000000|D|0|X|X
+2|604.73|1|P|G|G-IMPORTACION:1:0:0:0:100|Gastos de importación|Gastos de importación|Gastos de importación|6040730000000000000|D|0|X|X
+2|604.74|1|P|G|PATENTE:1:0:0:0:100|Patentes y marcas|Patentes y marcas|Patentes y marcas|6040740000000000000|D|0|X|X
+2|604.75|1|P|G|UNIFORME:1:0:0:0:100|Uniformes|Uniformes|Uniformes|6040750000000000000|D|0|X|X
+2|604.76|1|P|G|PREDIAL:1:0:0:0:100|Prediales|Prediales|Prediales|6040760000000000000|D|0|X|X
+2|604.77|1|P|G|URBANIZACION:1:0:0:0:100|Gastos de urbanización|Gastos de urbanización|Gastos de fabricación de urbanización|6040770000000000000|D|0|X|X
+2|604.78|1|P|G|CONSTRUCCION:1:0:0:0:100|Gastos de construcción|Gastos de construcción|Gastos de fabricación de construcción|6040780000000000000|D|0|X|X
+2|604.79|1|P|G|FLETE-EXT:1:0:0:0:100|Fletes del extranjero|Fletes del extranjero|Fletes del extranjero|6040790000000000000|D|0|X|X
+2|604.8|1|P|G|BIEN-AGROPECUARIO:1:0:0:0:100|Recolección de bienes del sector agropecuario y/o ganadero|Recolección de bienes del sector agropecuario y/o ganadero|Recolección de bienes del sector agropecuario y/o ganadero|6040800000000000000|D|0|X|X
+2|604.81|1|P|G|X|X|Gastos no deducibles (sin requisitos fiscales)|Gastos no deducibles (sin requisitos fiscales)|6040810000000000000|D|0|X|X
+2|604.82|1|P|G|COMIDA:1:0:0:0:8.5;G-OTRO:1:0:0:0:100|Comida de trabajo;Otro gasto|Otros gastos|Otros gastos de fabricación|6040820000000000000|D|0|X|X
+1|605|1|G|G|X|X|Mano de obra directa|Mano de obra directa|6050000000000000000|D|1|X|X
+2|605.01|1|G|G|X|X|Mano de obra|Mano de obra|6050010000000000000|D|0|X|X
+2|605.02|1|N|G|X|X|Sueldos y Salarios|Sueldos y Salarios|6050020000000000000|D|0|X|X
+2|605.03|1|N|G|X|X|Compensaciones|Compensaciones|6050030000000000000|D|0|X|X
+2|605.04|1|N|G|X|X|Tiempos extras|Tiempos extras|6050040000000000000|D|0|X|X
+2|605.05|1|N|G|X|X|Premios de asistencia|Premios de asistencia|6050050000000000000|D|0|X|X
+2|605.06|1|N|G|X|X|Premios de puntualidad|Premios de puntualidad|6050060000000000000|D|0|X|X
+2|605.07|1|N|G|X|X|Vacaciones|Vacaciones|6050070000000000000|D|0|X|X
+2|605.08|1|N|G|X|X|Prima vacacional|Prima vacacional|6050080000000000000|D|0|X|X
+2|605.09|1|N|G|X|X|Prima dominical|Prima dominical|6050090000000000000|D|0|X|X
+2|605.1|1|N|G|X|X|Días festivos|Días festivos|6050100000000000000|D|0|X|X
+2|605.11|1|N|G|X|X|Gratificaciones|Gratificaciones|6050110000000000000|D|0|X|X
+2|605.12|1|N|G|X|X|Primas de antigüedad|Primas de antigüedad|6050120000000000000|D|0|X|X
+2|605.13|1|N|G|X|X|Aguinaldo|Aguinaldo|6050130000000000000|D|0|X|X
+2|605.14|1|N|G|X|X|Indemnizaciones|Indemnizaciones|6050140000000000000|D|0|X|X
+2|605.15|1|N|G|X|X|Destajo|Destajo|6050150000000000000|D|0|X|X
+2|605.16|1|N|G|X|X|Despensa|Despensa|6050160000000000000|D|0|X|X
+2|605.17|1|N|G|X|X|Transporte|Transporte|6050170000000000000|D|0|X|X
+2|605.18|1|N|G|X|X|Servicio médico|Servicio médico|6050180000000000000|D|0|X|X
+2|605.19|1|N|G|X|X|Ayuda en gastos funerarios|Ayuda en gastos funerarios|6050190000000000000|D|0|X|X
+2|605.2|1|N|G|X|X|Fondo de ahorro|Fondo de ahorro|6050200000000000000|D|0|X|X
+2|605.21|1|N|G|X|X|Cuotas sindicales|Cuotas sindicales|6050210000000000000|D|0|X|X
+2|605.22|1|N|G|X|X|PTU|PTU|6050220000000000000|D|0|X|X
+2|605.23|1|N|G|X|X|Estímulo al personal|Estímulo al personal|6050230000000000000|D|0|X|X
+2|605.24|1|N|G|X|X|Previsión social|Previsión social|6050240000000000000|D|0|X|X
+2|605.25|1|N|G|X|X|Aportaciones para el plan de jubilación|Aportaciones para el plan de jubilación|6050250000000000000|D|0|X|X
+2|605.26|1|N|G|X|X|Otras prestaciones al personal|Otras prestaciones al personal|6050260000000000000|D|0|X|X
+2|605.27|1|N|G|X|X|Asimilados a salarios|Asimilados a salarios|6050270000000000000|D|0|X|X
+2|605.28|1|N|G|X|X|Cuotas al IMSS|Cuotas al IMSS|6050280000000000000|D|0|X|X
+2|605.29|1|N|G|X|X|Aportaciones al infonavit|Aportaciones al infonavit|6050290000000000000|D|0|X|X
+2|605.3|1|N|G|X|X|Aportaciones al SAR|Aportaciones al SAR|6050300000000000000|D|0|X|X
+2|605.31|1|G|G|X|X|Otros costos de mano de obra directa|Otros costos de mano de obra directa|6050310000000000000|D|0|X|X
+1|606|1|G|G|X|X|Facilidades administrativas fiscales|Facilidades administrativas fiscales|6060000000000000000|D|1|X|X
+2|606.01|1|G|G|X|X|Facilidades administrativas fiscales|Facilidades administrativas fiscales|6060010000000000000|D|0|X|X
+1|607|1|G|G|X|X|Participación de los trabajadores en las utilidades|Participación de los trabajadores en las utilidades|6070000000000000000|D|1|X|X
+2|607.01|1|G|G|X|X|Participación de los trabajadores en las utilidades|Participación de los trabajadores en las utilidades|6070010000000000000|D|0|X|X
+1|608|1|G|G|X|X|Participación en resultados de subsidiarias|Participación en resultados de subsidiarias|6080000000000000000|D|1|X|X
+2|608.01|1|G|G|X|X|Participación en resultados de subsidiarias|Participación en resultados de subsidiarias|6080010000000000000|D|0|X|X
+1|609|1|G|G|X|X|Participación en resultados de asociadas|Participación en resultados de asociadas|6090000000000000000|D|1|X|X
+2|609.01|1|G|G|X|X|Participación en resultados de asociadas|Participación en resultados de asociadas|6090010000000000000|D|0|X|X
+1|610|1|G|G|X|X|Participación de los trabajadores en las utilidades diferida|Participación de los trabajadores en las utilidades diferida|6100000000000000000|D|1|X|X
+2|610.01|1|G|G|X|X|Participación de los trabajadores en las utilidades diferida|Participación de los trabajadores en las utilidades diferida|6100010000000000000|D|0|X|X
+1|611|1|G|G|X|X|Impuesto Sobre la renta|Impuesto Sobre la renta|6110000000000000000|D|1|X|X
+2|611.01|1|G|G|X|X|Impuesto Sobre la renta|Impuesto Sobre la renta|6110010000000000000|D|0|X|X
+2|611.02|1|G|G|X|X|Impuesto Sobre la renta por remanente distribuible|Impuesto Sobre la renta por remanente distribuible|6110020000000000000|D|0|X|X
+1|612|1|G|G|X|X|Gastos no deducibles para CUFIN|Gastos no deducibles para CUFIN|6120000000000000000|D|1|X|X
+2|612.01|1|G|G|X|X|Gastos no deducibles para CUFIN|Gastos no deducibles para CUFIN|6120010000000000000|D|0|X|X
+1|613|1|G|G|X|X|Depreciación contable|Depreciación contable|6130000000000000000|A|1|X|X
+2|613.01|1|G|G|X|X|Depreciación de edificios|Depreciación de edificios|6130010000000000000|A|0|X|X
+2|613.02|1|G|G|X|X|Depreciación de maquinaria y equipo|Depreciación de maquinaria y equipo|6130020000000000000|A|0|X|X
+2|613.03|1|G|G|X|X|Depreciación de automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|Depreciación de automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|6130030000000000000|A|0|X|X
+2|613.04|1|G|G|X|X|Depreciación de mobiliario y equipo de oficina|Depreciación de mobiliario y equipo de oficina|6130040000000000000|A|0|X|X
+2|613.05|1|G|G|X|X|Depreciación de equipo de cómputo|Depreciación de equipo de cómputo|6130050000000000000|A|0|X|X
+2|613.06|1|G|G|X|X|Depreciación de equipo de comunicación|Depreciación de equipo de comunicación|6130060000000000000|A|0|X|X
+2|613.07|1|G|G|X|X|Depreciación de activos biológicos, vegetales y semovientes|Depreciación de activos biológicos, vegetales y semovientes|6130070000000000000|A|0|X|X
+2|613.08|1|G|G|X|X|Depreciación de otros activos fijos|Depreciación de otros activos fijos|6130080000000000000|A|0|X|X
+2|613.09|0|G|G|X|X|Depreciación de ferrocarriles|Depreciación de ferrocarriles|6130090000000000000|A|0|X|X
+2|613.1|0|G|G|X|X|Depreciación de embarcaciones|Depreciación de embarcaciones|6130100000000000000|A|0|X|X
+2|613.11|0|G|G|X|X|Depreciación de aviones|Depreciación de aviones|6130110000000000000|A|0|X|X
+2|613.12|1|G|G|X|X|Depreciación de troqueles, moldes, matrices y herramental|Depreciación de troqueles, moldes, matrices y herramental|6130120000000000000|A|0|X|X
+2|613.13|1|G|G|X|X|Depreciación de equipo de comunicaciones telefónicas|Depreciación de equipo de comunicaciones telefónicas|6130130000000000000|A|0|X|X
+2|613.14|1|G|G|X|X|Depreciación de equipo de comunicación satelital|Depreciación de equipo de comunicación satelital|6130140000000000000|A|0|X|X
+2|613.15|1|G|G|X|X|Depreciación de equipo de adaptaciones para personas con capacidades diferentes|Depreciación de equipo de adaptaciones para personas con capacidades diferentes|6130150000000000000|A|0|X|X
+2|613.16|0|G|G|X|X|Depreciación de maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|Depreciación de maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|6130160000000000000|A|0|X|X
+2|613.17|1|G|G|X|X|Depreciación de adaptaciones y mejoras|Depreciación de adaptaciones y mejoras|6130170000000000000|A|0|X|X
+2|613.18|1|G|G|X|X|Depreciación de otra maquinaria y equipo|Depreciación de otra maquinaria y equipo|6130180000000000000|A|0|X|X
+1|614|1|G|G|X|X|Amortización contable|Amortización contable|6140000000000000000|A|1|X|X
+2|614.01|1|G|G|X|X|Amortización de gastos diferidos|Amortización de gastos diferidos|6140010000000000000|A|0|X|X
+2|614.02|1|G|G|X|X|Amortización de gastos pre operativos|Amortización de gastos pre operativos|6140020000000000000|A|0|X|X
+2|614.03|1|G|G|X|X|Amortización de regalías, asistencia técnica y otros gastos diferidos|Amortización de regalías, asistencia técnica y otros gastos diferidos|6140030000000000000|A|0|X|X
+2|614.04|1|G|G|X|X|Amortización de activos intangibles|Amortización de activos intangibles|6140040000000000000|A|0|X|X
+2|614.05|1|G|G|X|X|Amortización de gastos de organización|Amortización de gastos de organización|6140050000000000000|A|0|X|X
+2|614.06|1|G|G|X|X|Amortización de investigación y desarrollo de mercado|Amortización de investigación y desarrollo de mercado|6140060000000000000|A|0|X|X
+2|614.07|1|G|G|X|X|Amortización de marcas y patentes|Amortización de marcas y patentes|6140070000000000000|A|0|X|X
+2|614.08|1|G|G|X|X|Amortización de crédito mercantil|Amortización de crédito mercantil|6140080000000000000|A|0|X|X
+2|614.09|1|G|G|X|X|Amortización de gastos de instalación|Amortización de gastos de instalación|6140090000000000000|A|0|X|X
+2|614.1|1|G|G|X|X|Amortización de otros activos diferidos|Amortización de otros activos diferidos|6140100000000000000|A|0|X|X
+|||||||Otros gastos y/o productos|Otros gastos y/o productos|||||
+1|701|1|G|G|X|X|Gastos financieros|Gastos financieros|7010000000000000000|D|1|X|X
+2|701.01|1|G|G|X|X|Pérdida cambiaria|Pérdida cambiaria|7010010000000000000|D|0|X|CC_DCEC
+2|701.02|0|G|G|X|X|Pérdida cambiaria nacional parte relacionada|Pérdida cambiaria nacional parte relacionada|7010020000000000000|D|0|X|X
+2|701.03|0|G|G|X|X|Pérdida cambiaria extranjero parte relacionada|Pérdida cambiaria extranjero parte relacionada|7010030000000000000|D|0|X|X
+2|701.04|1|G|G|X|X|Intereses a cargo bancario|Intereses a cargo bancario nacional|7010040000000000000|D|0|X|X
+2|701.05|0|G|G|X|X|Intereses a cargo bancario extranjero|Intereses a cargo bancario extranjero|7010050000000000000|D|0|X|X
+2|701.06|1|G|G|X|X|Intereses a cargo de personas física|Intereses a cargo de personas físicas nacional|7010060000000000000|D|0|X|X
+2|701.07|0|G|G|X|X|Intereses a cargo de personas físicas extranjero|Intereses a cargo de personas físicas extranjero|7010070000000000000|D|0|X|X
+2|701.08|1|G|G|X|X|Intereses a cargo de personas morales|Intereses a cargo de personas morales nacional|7010080000000000000|D|0|X|X
+2|701.09|0|G|G|X|X|Intereses a cargo de personas morales extranjero|Intereses a cargo de personas morales extranjero|7010090000000000000|D|0|X|X
+2|701.1|1|G|G|X|X|Comisiones bancarias|Comisiones bancarias|7010100000000000000|D|0|X|X
+2|701.11|1|G|G|X|X|Otros gastos financieros|Otros gastos financieros|7010110000000000000|D|0|X|X
+1|702|1|G|G|X|X|Productos financieros|Productos financieros|7020000000000000000|A|1|X|X
+2|702.01|1|G|G|X|X|Utilidad cambiaria|Utilidad cambiaria|7020010000000000000|A|0|X|CC_DCAF
+2|702.02|0|G|G|X|X|Utilidad cambiaria nacional parte relacionada|Utilidad cambiaria nacional parte relacionada|7020020000000000000|A|0|X|X
+2|702.03|0|G|G|X|X|Utilidad cambiaria extranjero parte relacionada|Utilidad cambiaria extranjero parte relacionada|7020030000000000000|A|0|X|X
+2|702.04|1|G|G|X|X|Intereses a favor bancarios|Intereses a favor bancarios nacional|7020040000000000000|A|0|X|X
+2|702.05|0|G|G|X|X|Intereses a favor bancarios extranjero|Intereses a favor bancarios extranjero|7020050000000000000|A|0|X|X
+2|702.06|1|G|G|X|X|Intereses a favor de personas físicas|Intereses a favor de personas físicas nacional|7020060000000000000|A|0|X|X
+2|702.07|0|G|G|X|X|Intereses a favor de personas físicas extranjero|Intereses a favor de personas físicas extranjero|7020070000000000000|A|0|X|X
+2|702.08|1|G|G|X|X|Intereses a favor de personas morales|Intereses a favor de personas morales nacional|7020080000000000000|A|0|X|X
+2|702.09|0|G|G|X|X|Intereses a favor de personas morales extranjero|Intereses a favor de personas morales extranjero|7020090000000000000|A|0|X|X
+2|702.1|1|G|G|X|X|Otros productos financieros|Otros productos financieros|7020100000000000000|A|0|X|X
+1|703|1|G|G|X|X|Otros gastos|Otros gastos|7030000000000000000|D|1|X|X
+2|703.01|0|G|G|X|X|Pérdida en venta y/o baja de terrenos|Pérdida en venta y/o baja de terrenos|7030010000000000000|D|0|X|X
+2|703.02|0|G|G|X|X|Pérdida en venta y/o baja de edificios|Pérdida en venta y/o baja de edificios|7030020000000000000|D|0|X|X
+2|703.03|0|G|G|X|X|Pérdida en venta y/o baja de maquinaria y equipo|Pérdida en venta y/o baja de maquinaria y equipo|7030030000000000000|D|0|X|X
+2|703.04|0|G|G|X|X|Pérdida en venta y/o baja de automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|Pérdida en venta y/o baja de automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|7030040000000000000|D|0|X|X
+2|703.05|0|G|G|X|X|Pérdida en venta y/o baja de mobiliario y equipo de oficina|Pérdida en venta y/o baja de mobiliario y equipo de oficina|7030050000000000000|D|0|X|X
+2|703.06|0|G|G|X|X|Pérdida en venta y/o baja de equipo de cómputo|Pérdida en venta y/o baja de equipo de cómputo|7030060000000000000|D|0|X|X
+2|703.07|0|G|G|X|X|Pérdida en venta y/o baja de equipo de comunicación|Pérdida en venta y/o baja de equipo de comunicación|7030070000000000000|D|0|X|X
+2|703.08|0|G|G|X|X|Pérdida en venta y/o baja de activos biológicos, vegetales y semovientes|Pérdida en venta y/o baja de activos biológicos, vegetales y semovientes|7030080000000000000|D|0|X|X
+2|703.09|0|G|G|X|X|Pérdida en venta y/o baja de otros activos fijos|Pérdida en venta y/o baja de otros activos fijos|7030090000000000000|D|0|X|X
+2|703.1|0|G|G|X|X|Pérdida en venta y/o baja de ferrocarriles|Pérdida en venta y/o baja de ferrocarriles|7030100000000000000|D|0|X|X
+2|703.11|0|G|G|X|X|Pérdida en venta y/o baja de embarcaciones|Pérdida en venta y/o baja de embarcaciones|7030110000000000000|D|0|X|X
+2|703.12|0|G|G|X|X|Pérdida en venta y/o baja de aviones|Pérdida en venta y/o baja de aviones|7030120000000000000|D|0|X|X
+2|703.13|0|G|G|X|X|Pérdida en venta y/o baja de troqueles, moldes, matrices y herramental|Pérdida en venta y/o baja de troqueles, moldes, matrices y herramental|7030130000000000000|D|0|X|X
+2|703.14|0|G|G|X|X|Pérdida en venta y/o baja de equipo de comunicaciones telefónicas|Pérdida en venta y/o baja de equipo de comunicaciones telefónicas|7030140000000000000|D|0|X|X
+2|703.15|0|G|G|X|X|Pérdida en venta y/o baja de equipo de comunicación satelital|Pérdida en venta y/o baja de equipo de comunicación satelital|7030150000000000000|D|0|X|X
+2|703.16|0|G|G|X|X|Pérdida en venta y/o baja de equipo de adaptaciones para personas con capacidades diferentes|Pérdida en venta y/o baja de equipo de adaptaciones para personas con capacidades diferentes|7030160000000000000|D|0|X|X
+2|703.17|0|G|G|X|X|Pérdida en venta y/o baja de maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|Pérdida en venta y/o baja de maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|7030170000000000000|D|0|X|X
+2|703.18|0|G|G|X|X|Pérdida en venta y/o baja de otra maquinaria y equipo|Pérdida en venta y/o baja de otra maquinaria y equipo|7030180000000000000|D|0|X|X
+2|703.19|1|G|G|X|X|Pérdida por enajenación de acciones|Pérdida por enajenación de acciones|7030190000000000000|D|0|X|X
+2|703.2|1|G|G|X|X|Pérdida por enajenación de partes sociales|Pérdida por enajenación de partes sociales|7030200000000000000|D|0|X|X
+2|703.21|1|G|G|X|X|Otros gastos|Otros gastos|7030210000000000000|D|0|X|X
+1|704|1|G|G|X|X|Otros productos|Otros productos|7040000000000000000|A|1|X|X
+2|704.01|0|G|G|X|X|Ganancia en venta y/o baja de terrenos|Ganancia en venta y/o baja de terrenos|7040010000000000000|A|0|X|X
+2|704.02|0|G|G|X|X|Ganancia en venta y/o baja de edificios|Ganancia en venta y/o baja de edificios|7040020000000000000|A|0|X|X
+2|704.03|0|G|G|X|X|Ganancia en venta y/o baja de maquinaria y equipo|Ganancia en venta y/o baja de maquinaria y equipo|7040030000000000000|A|0|X|X
+2|704.04|0|G|G|X|X|Ganancia en venta y/o baja de automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|Ganancia en venta y/o baja de automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques|7040040000000000000|A|0|X|X
+2|704.05|0|G|G|X|X|Ganancia en venta y/o baja de mobiliario y equipo de oficina|Ganancia en venta y/o baja de mobiliario y equipo de oficina|7040050000000000000|A|0|X|X
+2|704.06|0|G|G|X|X|Ganancia en venta y/o baja de equipo de cómputo|Ganancia en venta y/o baja de equipo de cómputo|7040060000000000000|A|0|X|X
+2|704.07|0|G|G|X|X|Ganancia en venta y/o baja de equipo de comunicación|Ganancia en venta y/o baja de equipo de comunicación|7040070000000000000|A|0|X|X
+2|704.08|0|G|G|X|X|Ganancia en venta y/o baja de activos biológicos, vegetales y semovientes|Ganancia en venta y/o baja de activos biológicos, vegetales y semovientes|7040080000000000000|A|0|X|X
+2|704.09|0|G|G|X|X|Ganancia en venta y/o baja de otros activos fijos|Ganancia en venta y/o baja de otros activos fijos|7040090000000000000|A|0|X|X
+2|704.1|0|G|G|X|X|Ganancia en venta y/o baja de ferrocarriles|Ganancia en venta y/o baja de ferrocarriles|7040100000000000000|A|0|X|X
+2|704.11|0|G|G|X|X|Ganancia en venta y/o baja de embarcaciones|Ganancia en venta y/o baja de embarcaciones|7040110000000000000|A|0|X|X
+2|704.12|0|G|G|X|X|Ganancia en venta y/o baja de aviones|Ganancia en venta y/o baja de aviones|7040120000000000000|A|0|X|X
+2|704.13|0|G|G|X|X|Ganancia en venta y/o baja de troqueles, moldes, matrices y herramental|Ganancia en venta y/o baja de troqueles, moldes, matrices y herramental|7040130000000000000|A|0|X|X
+2|704.14|0|G|G|X|X|Ganancia en venta y/o baja de equipo de comunicaciones telefónicas|Ganancia en venta y/o baja de equipo de comunicaciones telefónicas|7040140000000000000|A|0|X|X
+2|704.15|0|G|G|X|X|Ganancia en venta y/o baja de equipo de comunicación satelital|Ganancia en venta y/o baja de equipo de comunicación satelital|7040150000000000000|A|0|X|X
+2|704.16|0|G|G|X|X|Ganancia en venta y/o baja de equipo de adaptaciones para personas con capacidades diferentes|Ganancia en venta y/o baja de equipo de adaptaciones para personas con capacidades diferentes|7040160000000000000|A|0|X|X
+2|704.17|0|G|G|X|X|Ganancia en venta de maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|Ganancia en venta de maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente|7040170000000000000|A|0|X|X
+2|704.18|0|G|G|X|X|Ganancia en venta y/o baja de otra maquinaria y equipo|Ganancia en venta y/o baja de otra maquinaria y equipo|7040180000000000000|A|0|X|X
+2|704.19|1|G|G|X|X|Ganancia por enajenación de acciones|Ganancia por enajenación de acciones|7040190000000000000|A|0|X|X
+2|704.2|1|G|G|X|X|Ganancia por enajenación de partes sociales|Ganancia por enajenación de partes sociales|7040200000000000000|A|0|X|X
+2|704.21|1|G|G|X|X|Ingresos por estímulos fiscales|Ingresos por estímulos fiscales|7040210000000000000|A|0|X|X
+2|704.22|1|G|G|X|X|Ingresos por condonación de adeudo|Ingresos por condonación de adeudo|7040220000000000000|A|0|X|X
+2|704.23|1|G|G|X|X|Otros productos|Otros productos|7040230000000000000|A|0|X|X
+|||||||Cuentas de orden|Cuentas de orden|||||
+1|801|1|G|G|X|X|UFIN del ejercicio|UFIN del ejercicio|8010000000000000000|D|1|X|X
+2|801.01|1|G|G|X|X|UFIN|UFIN|8010010000000000000|D|0|X|X
+2|801.02|1|G|G|X|X|Contra cuenta UFIN|Contra cuenta UFIN|8010020000000000000|A|0|X|X
+1|802|1|G|G|X|X|CUFIN del ejercicio|CUFIN del ejercicio|8020000000000000000|D|1|X|X
+2|802.01|1|G|G|X|X|CUFIN|CUFIN|8020010000000000000|D|0|X|X
+2|802.02|1|G|G|X|X|Contra cuenta CUFIN|Contra cuenta CUFIN|8020020000000000000|A|0|X|X
+1|803|1|G|G|X|X|CUFIN de ejercicios anteriores|CUFIN de ejercicios anteriores|8030000000000000000|D|1|X|X
+2|803.01|1|G|G|X|X|CUFIN de ejercicios anteriores|CUFIN de ejercicios anteriores|8030010000000000000|D|0|X|X
+2|803.02|1|G|G|X|X|Contra cuenta CUFIN de ejercicios anteriores|Contra cuenta CUFIN de ejercicios anteriores|8030020000000000000|A|0|X|X
+1|804|1|G|G|X|X|CUFINRE del ejercicio|CUFINRE del ejercicio|8040000000000000000|D|1|X|X
+2|804.01|1|G|G|X|X|CUFINRE|CUFINRE|8040010000000000000|D|0|X|X
+2|804.02|1|G|G|X|X|Contra cuenta CUFINRE|Contra cuenta CUFINRE|8040020000000000000|A|0|X|X
+1|805|1|G|G|X|X|CUFINRE de ejercicios anteriores|CUFINRE de ejercicios anteriores|8050000000000000000|D|1|X|X
+2|805.01|1|G|G|X|X|CUFINRE de ejercicios anteriores|CUFINRE de ejercicios anteriores|8050010000000000000|D|0|X|X
+2|805.02|1|G|G|X|X|Contra cuenta CUFINRE de ejercicios anteriores|Contra cuenta CUFINRE de ejercicios anteriores|8050020000000000000|A|0|X|X
+1|806|1|G|G|X|X|CUCA del ejercicio|CUCA del ejercicio|8060000000000000000|D|1|X|X
+2|806.01|1|G|G|X|X|CUCA|CUCA|8060010000000000000|D|0|X|X
+2|806.02|1|G|G|X|X|Contra cuenta CUCA|Contra cuenta CUCA|8060020000000000000|A|0|X|X
+1|807|1|G|G|X|X|CUCA de ejercicios anteriores|CUCA de ejercicios anteriores|8070000000000000000|D|1|X|X
+2|807.01|1|G|G|X|X|CUCA de ejercicios anteriores|CUCA de ejercicios anteriores|8070010000000000000|D|0|X|X
+2|807.02|1|G|G|X|X|Contra cuenta CUCA de ejercicios anteriores|Contra cuenta CUCA de ejercicios anteriores|8070020000000000000|A|0|X|X
+1|808|0|G|G|X|X|Ajuste anual por inflación acumulable|Ajuste anual por inflación acumulable|8080000000000000000|D|1|X|X
+2|808.01|0|G|G|X|X|Ajuste anual por inflación acumulable|Ajuste anual por inflación acumulable|8080010000000000000|D|0|X|X
+2|808.02|0|G|G|X|X|Acumulación del ajuste anual inflacionario|Acumulación del ajuste anual inflacionario|8080020000000000000|A|0|X|X
+1|809|0|G|G|X|X|Ajuste anual por inflación deducible|Ajuste anual por inflación deducible|8090000000000000000|D|1|X|X
+2|809.01|0|G|G|X|X|Ajuste anual por inflación deducible|Ajuste anual por inflación deducible|8090010000000000000|D|0|X|X
+2|809.02|0|G|G|X|X|Deducción del ajuste anual inflacionario|Deducción del ajuste anual inflacionario|8090020000000000000|A|0|X|X
+1|810|0|G|G|X|X|Deducción de inversión|Deducción de inversión|8100000000000000000|D|1|X|X
+2|810.01|0|G|G|X|X|Deducción de inversión|Deducción de inversión|8100010000000000000|D|0|X|X
+2|810.02|0|G|G|X|X|Contra cuenta deducción de inversiones|Contra cuenta deducción de inversiones|8100020000000000000|A|0|X|X
+1|811|0|G|G|X|X|Utilidad o pérdida fiscal en venta y/o baja de activo fijo|Utilidad o pérdida fiscal en venta y/o baja de activo fijo|8110000000000000000|D|1|X|X
+2|811.01|0|G|G|X|X|Utilidad o pérdida fiscal en venta y/o baja de activo fijo|Utilidad o pérdida fiscal en venta y/o baja de activo fijo|8110010000000000000|D|0|X|X
+2|811.02|0|G|G|X|X|Contra cuenta utilidad o pérdida fiscal en venta y/o baja de activo fijo|Contra cuenta utilidad o pérdida fiscal en venta y/o baja de activo fijo|8110020000000000000|A|0|X|X
+1|812|0|G|G|X|X|Utilidad o pérdida fiscal en venta acciones o partes sociales|Utilidad o pérdida fiscal en venta acciones o partes sociales|8120000000000000000|D|1|X|X
+2|812.01|0|G|G|X|X|Utilidad o pérdida fiscal en venta acciones o partes sociales|Utilidad o pérdida fiscal en venta acciones o partes sociales|8120010000000000000|D|0|X|X
+2|812.02|0|G|G|X|X|Contra cuenta utilidad o pérdida fiscal en venta acciones o partes sociales|Contra cuenta utilidad o pérdida fiscal en venta acciones o partes sociales|8120020000000000000|A|0|X|X
+1|813|0|G|G|X|X|Pérdidas fiscales pendientes de amortizar actualizadas de ejercicios anteriores|Pérdidas fiscales pendientes de amortizar actualizadas de ejercicios anteriores|8130000000000000000|D|1|X|X
+2|813.01|0|G|G|X|X|Pérdidas fiscales pendientes de amortizar actualizadas de ejercicios anteriores|Pérdidas fiscales pendientes de amortizar actualizadas de ejercicios anteriores|8130010000000000000|D|0|X|X
+2|813.02|0|G|G|X|X|Actualización de pérdidas fiscales pendientes de amortizar de ejercicios anteriores|Actualización de pérdidas fiscales pendientes de amortizar de ejercicios anteriores|8130020000000000000|A|0|X|X
+1|814|0|G|G|X|X|Mercancías recibidas en consignación|Mercancías recibidas en consignación|8140000000000000000|D|1|X|X
+2|814.01|0|G|G|X|X|Mercancías recibidas en consignación|Mercancías recibidas en consignación|8140010000000000000|D|0|X|X
+2|814.02|0|G|G|X|X|Consignación de mercancías recibidas|Consignación de mercancías recibidas|8140020000000000000|A|0|X|X
+1|815|0|G|G|X|X|Crédito fiscal de IVA e IEPS por la importación de mercancías para empresas certificadas|Crédito fiscal de IVA e IEPS por la importación de mercancías para empresas certificadas|8150000000000000000|D|1|X|X
+2|815.01|0|G|G|X|X|Crédito fiscal de IVA e IEPS por la importación de mercancías|Crédito fiscal de IVA e IEPS por la importación de mercancías|8150010000000000000|D|0|X|X
+2|815.02|0|G|G|X|X|Importación de mercancías con aplicación de crédito fiscal de IVA e IEPS|Importación de mercancías con aplicación de crédito fiscal de IVA e IEPS|8150020000000000000|A|0|X|X
+1|816|0|G|G|X|X|Crédito fiscal de IVA e IEPS por la importación de activos fijos para empresas certificadas|Crédito fiscal de IVA e IEPS por la importación de activos fijos para empresas certificadas|8160000000000000000|D|1|X|X
+2|816.01|0|G|G|X|X|Crédito fiscal de IVA e IEPS por la importación de activo fijo|Crédito fiscal de IVA e IEPS por la importación de activo fijo|8160010000000000000|D|0|X|X
+2|816.02|0|G|G|X|X|Importación de activo fijo con aplicación de crédito fiscal de IVA e IEPS|Importación de activo fijo con aplicación de crédito fiscal de IVA e IEPS|8160020000000000000|A|0|X|X
+1|899|0|G|G|X|X|Otras cuentas de orden|Otras cuentas de orden|8990000000000000000|D|1|X|X
+2|899.01|0|G|G|X|X|Otras cuentas de orden|Otras cuentas de orden|8990010000000000000|D|0|X|X
+2|899.02|0|G|G|X|X|Contra cuenta otras cuentas de orden|Contra cuenta otras cuentas de orden|8990020000000000000|A|0|X|X
+n*|0|||||Código para uso exclusivo de contribuyentes del sector financiero|Código para uso exclusivo de contribuyentes del sector financiero|Código para uso exclusivo de contribuyentes del sector financiero|||||

@@ -121,7 +121,8 @@ public class JCFDVenFactCabGenSet extends JManejadorSet
 			pNode.setPais(m_RS.getString("Pais"));
 			pNode.setCP(m_RS.getString("CP"));
 			pNode.setMetodoDePago(m_RS.getString("MetodoDePago"));
-
+			pNode.setMonedaSat(m_RS.getString("MonedaSat"));
+			
 			m_Rows.addElement(pNode);
 
 		}

@@ -31,6 +31,9 @@
 	
 	JAdmInvservLineasSet lin = new JAdmInvservLineasSet(request);
 	JInvServUnidadesSet uni = new JInvServUnidadesSet(request);
+	JSatUnidadesSet sat = new JSatUnidadesSet(request);
+	sat.m_OrderBy = "Clave ASC";
+	sat.Open();
 	if( request.getParameter("proceso").equals("CAMBIAR_ELEMENTO") )
 	{
 		if(JUtil.getSesion(request).getSesion("INVSERV_LINEAS").getEspecial().equals("LINEAS"))
@@ -128,7 +131,7 @@ function enviarlo(formAct)
 		   <tr> 
             <td> <div align="right"><%= JUtil.Msj("GLB","GLB","GLB","TIPO") %></div></td>
             <td>
-			<select name="tipo" class="cpoColAzc"<%= (request.getParameter("proceso").equals("CAMBIAR_ELEMENTO")) ? " readonly=\"true\"" : "" %>>
+			<select name="tipo" class="cpoBco">
 <%
 		if(JUtil.getSesion(request).getSesion("INVSERV_LINEAS").getEspecial().equals("LINEAS"))
 		{
@@ -170,41 +173,24 @@ function enviarlo(formAct)
 		}
 		else
 		{
+			for(int i = 0; i < sat.getNumRows(); i++)
+			{	
 %>
-                <option value="P"<% if(request.getParameter("tipo") != null) {
-										if(request.getParameter("tipo").equals("P")) {
-											out.println(" selected");
+							<option value="<%=sat.getAbsRow(i).getClave()%>"<% 
+									if(request.getParameter("tipo") != null) {
+										if(request.getParameter("tipo").equals(Integer.toString(sat.getAbsRow(i).getClave()))) {
+											out.print(" selected");
 										}
 									 } else {
 										if(request.getParameter("proceso").equals("CAMBIAR_ELEMENTO")) { 
-											if(uni.getAbsRow(0).getID_InvServ().equals("P")) {
+											if(uni.getAbsRow(0).getID_SatUnidad() == sat.getAbsRow(i).getClave()) {
 												out.println(" selected"); 
 											}
 										}
-									 } %>><%= JUtil.Elm(Tipos,1) %></option>
-			     <option value="S"<% if(request.getParameter("tipo") != null) {
-										if(request.getParameter("tipo").equals("S")) {
-											out.println(" selected");
-										}
-									 } else {
-										if(request.getParameter("proceso").equals("CAMBIAR_ELEMENTO")) { 
-											if(uni.getAbsRow(0).getID_InvServ().equals("S")) {
-												out.println(" selected"); 
-											}
-										}
-									 } %>><%= JUtil.Elm(Tipos,2) %></option>
-				  <option value="G"<% if(request.getParameter("tipo") != null) {
-										if(request.getParameter("tipo").equals("G")) {
-											out.println(" selected");
-										}
-									 } else {
-										if(request.getParameter("proceso").equals("CAMBIAR_ELEMENTO")) { 
-											if(uni.getAbsRow(0).getID_InvServ().equals("G")) {
-												out.println(" selected"); 
-											}
-										}
-									 } %>><%= JUtil.Elm(Tipos,3) %></option>	
-<%
+									 }
+									 %>><%= sat.getAbsRow(i).getDescripcion() %></option>
+<%	
+			}
 		}
 %>
 					</select>

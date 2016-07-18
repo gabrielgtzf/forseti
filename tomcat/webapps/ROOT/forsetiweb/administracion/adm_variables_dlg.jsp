@@ -220,7 +220,7 @@ document.adm_variables_dlg.valor.value = '<% if(request.getParameter("valor") !=
 document.adm_variables_dlg.valor.value = '<% if(request.getParameter("valor") != null) { out.print( request.getParameter("valor") ); } else { out.print( JUtil.obtHoraTxt(varSet.getAbsRow(0).getVHora(), "hh:mm:ss") ); } %>'
 <%
 	}
-	else if(tipo.equals("STR"))
+	else if(tipo.equals("STR") || tipo.equals("ALFA"))
 	{
 %>
 document.adm_variables_dlg.valor.value = '<% if(request.getParameter("valor") != null) { out.print( request.getParameter("valor") ); } else { out.print( varSet.getAbsRow(0).getVAlfanumerico() ); } %>'

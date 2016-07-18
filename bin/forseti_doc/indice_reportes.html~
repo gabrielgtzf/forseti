@@ -1,0 +1,19 @@
+<table width="95%" cellpadding="1" cellspacing="0" align="center">
+<!--_ini_modulos-->
+  <tr bgcolor="fsi-color-modulo">
+    <td colspan="3" align="center"><font color="#FFFFFF">_modulo</font></td>
+  </tr>
+<!--_fin_modulos-->
+<!--_ini_submodulos-->
+  <tr bgcolor="#999999">
+    <td colspan="3" align="center"><font color="#FFFFFF">_submodulo</font></td>
+  </tr>
+<!--_fin_submodulos-->
+<!--_ini_reportes-->
+ <tr bgcolor="#EFEFEF">
+    <td width="10%" align="center"><a href="_href_reporte">_clave_reporte</a></td>
+    <td align="left">_descripcion_reporte</td>
+    <td align="center" width="26">_graficar_reporte</td>
+ </tr>
+<!--_fin_reportes-->
+</table>

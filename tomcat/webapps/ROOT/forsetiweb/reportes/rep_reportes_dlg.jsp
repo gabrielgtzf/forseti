@@ -15,7 +15,7 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<%@ page import="forseti.*, forseti.sets.*, java.util.*, java.io.*"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" import="forseti.*, forseti.sets.*, java.util.*, java.io.*, org.apache.commons.lang.mutable.MutableInt"%>
 <%
 	String rep_reportes_dlg = (String)request.getAttribute("rep_reportes_dlg");
 	if(rep_reportes_dlg == null)
@@ -24,6 +24,10 @@
       	despachador.forward(request,response);
 		return;
 	}
+	
+	JReportesAyudaSet ayu = new JReportesAyudaSet(request);
+	ayu.m_Where = "ID_Report = " + JUtil.p(request.getParameter("REPID"));
+	ayu.Open();
 	
    	JReportesBind1Set rep = new JReportesBind1Set(request, JUtil.getSesion(request).getID_Usuario(), request.getParameter("REPID"), "CEF-1");
 	rep.Open();
@@ -35,6 +39,7 @@
     boolean esGraf = rep.getAbsRow(0).getGraficar();
 	String fechasql1 = (String)request.getAttribute("fechasql1");
 	String fechasql2 = (String)request.getAttribute("fechasql2");
+	
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -48,12 +53,6 @@
 </script>
 <script language="JavaScript" type="text/javascript">
 <!--
-function ventanaIMP()
-{
-	parametrs = "toolbar=0,location=0,directories=0,status=1,menubar=1,scrollbars=1,resizable=1,width=0,height=0";
-	ventana = window.open('', 'ventImp', parametrs);
-	ventana.focus();
-}
 
 function enviarlo(formAct)
 {
@@ -63,57 +62,73 @@ function enviarlo(formAct)
 		if(!set.getAbsRow(i).getFromCatalog())
 		{
 			if(set.getAbsRow(i).getBindDataType().equals("INT"))
-			{ 
+			{
+				MutableInt propMin = new MutableInt(-999999999);
+				MutableInt propMax = new MutableInt(999999999); 
+				JUtil.getReporteFiltroProps(set.getAbsRow(i).getPriDefault(),propMin,propMax);
 %>
-	if(!esNumeroEntero("<%= set.getAbsRow(i).getPriDataName() %>:", formAct.<%= set.getAbsRow(i).getPriDataName() %>.value, -9999999999, 9999999999))
+	if(!esNumeroEntero("<%= set.getAbsRow(i).getPriDataName() %>:", formAct.<%= set.getAbsRow(i).getPriDataName() %>.value, <%= propMin.intValue() %>, <%= propMax.intValue() %>))
 		return false;
 <%	
 				if(set.getAbsRow(i).getIsRange())
 				{ 
+					JUtil.getReporteFiltroProps(set.getAbsRow(i).getSecDefault(),propMin,propMax);
 %>
-	if(!esNumeroEntero("<%= set.getAbsRow(i).getSecDataName() %>:", formAct.<%= set.getAbsRow(i).getSecDataName() %>.value, -9999999999, 9999999999))
+	if(!esNumeroEntero("<%= set.getAbsRow(i).getSecDataName() %>:", formAct.<%= set.getAbsRow(i).getSecDataName() %>.value, <%= propMin.intValue() %>, <%= propMax.intValue() %>))
 		return false;
 <%	
 				}				
 			}
 			else if(set.getAbsRow(i).getBindDataType().equals("BYTE"))
 			{ 
+				MutableInt propMin = new MutableInt(-254);
+				MutableInt propMax = new MutableInt(254); 
+				JUtil.getReporteFiltroProps(set.getAbsRow(i).getPriDefault(),propMin,propMax); 
 %>
-	if(!esNumeroEntero("<%= set.getAbsRow(i).getPriDataName() %>:", formAct.<%= set.getAbsRow(i).getPriDataName() %>.value, -254, 254))
+	if(!esNumeroEntero("<%= set.getAbsRow(i).getPriDataName() %>:", formAct.<%= set.getAbsRow(i).getPriDataName() %>.value, <%= propMin.intValue() %>, <%= propMax.intValue() %>))
 		return false;
 <%	
 				if(set.getAbsRow(i).getIsRange())
 				{ 
+					JUtil.getReporteFiltroProps(set.getAbsRow(i).getSecDefault(),propMin,propMax); 
 %>
-	if(!esNumeroEntero("<%= set.getAbsRow(i).getSecDataName() %>:", formAct.<%= set.getAbsRow(i).getSecDataName() %>.value, -254, 254))
+	if(!esNumeroEntero("<%= set.getAbsRow(i).getSecDataName() %>:", formAct.<%= set.getAbsRow(i).getSecDataName() %>.value, <%= propMin.intValue() %>, <%= propMax.intValue() %>))
 		return false;
 <%	
 				}				
 			}			
 			else if(set.getAbsRow(i).getBindDataType().equals("DECIMAL") || set.getAbsRow(i).getBindDataType().equals("MONEY"))
 			{ 
+				MutableInt propMin = new MutableInt(-999999999);
+				MutableInt propMax = new MutableInt(999999999); 
+				JUtil.getReporteFiltroProps(set.getAbsRow(i).getPriDefault(),propMin,propMax);
 %>
-	if(!esNumeroDecimal("<%= set.getAbsRow(i).getPriDataName() %>:", formAct.<%= set.getAbsRow(i).getPriDataName() %>.value, -9999999999, 9999999999, 9))
+	if(!esNumeroDecimal("<%= set.getAbsRow(i).getPriDataName() %>:", formAct.<%= set.getAbsRow(i).getPriDataName() %>.value, <%= propMin.intValue() %>, <%= propMax.intValue() %>, 9))
 		return false;
 <%		
 				if(set.getAbsRow(i).getIsRange())
 				{ 
+					JUtil.getReporteFiltroProps(set.getAbsRow(i).getSecDefault(),propMin,propMax);
 %>
-	if(!esNumeroDecimal("<%= set.getAbsRow(i).getSecDataName() %>:", formAct.<%= set.getAbsRow(i).getSecDataName() %>.value, -9999999999, 9999999999, 9))
+	if(!esNumeroDecimal("<%= set.getAbsRow(i).getSecDataName() %>:", formAct.<%= set.getAbsRow(i).getSecDataName() %>.value, <%= propMin.intValue() %>, <%= propMax.intValue() %>, 9))
 		return false;
 <%	
 				}				
 			}
 			else if(!set.getAbsRow(i).getBindDataType().equals("BOOL")) // STRING O CUALQUIER OTRO MAS MENOS BOOL
-			{ 
+			{
+				MutableInt propMin = new MutableInt(1);
+				MutableInt propMax = new MutableInt(254); 
+				JUtil.getReporteFiltroProps(set.getAbsRow(i).getPriDefault(),propMin,propMax); 
 %>
-	if(!esCadena("<%= set.getAbsRow(i).getPriDataName() %>:", formAct.<%= set.getAbsRow(i).getPriDataName() %>.value, 1, 254))
+	if(!esCadena("<%= set.getAbsRow(i).getPriDataName() %>:", formAct.<%= set.getAbsRow(i).getPriDataName() %>.value, <%= propMin.intValue() %>, <%= propMax.intValue() %>))
 		return false;
 <%		
 				if(set.getAbsRow(i).getIsRange())
 				{ 
+					JUtil.getReporteFiltroProps(set.getAbsRow(i).getSecDefault(),propMin,propMax); 
 %>
-	if(!esCadena("<%= set.getAbsRow(i).getSecDataName() %>:", formAct.<%= set.getAbsRow(i).getSecDataName() %>.value, 1, 254))
+	if(!esCadena("<%= set.getAbsRow(i).getSecDataName() %>:", formAct.<%= set.getAbsRow(i).getSecDataName() %>.value, <%= propMin.intValue() %>, <%= propMax.intValue() %>))
 		return false;
 <%	
 				}					
@@ -135,17 +150,22 @@ function enviarlo(formAct)
 		}	
 	}	
 %>
+	if(confirm("Estas a punto de descargar un reporte. Ten en cuenta que dependiendo de la cantidad de datos y sus opciones de exportación, este puede tardar desde unos cuantos segundos, hasta varios minutos, incluso horas.\n\nSe paciente por favor.\n\n¿Estas seguro que deseas cargar este reporte?"))
+	{
+		//formAct.aceptar.disabled = true;
+		return true;
+	}
+	else
+		return false;
 	
-	ventanaIMP();
-		
-	return true;
 }
+
 -->
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../../compfsi/estilos.css" rel="stylesheet" type="text/css"></head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
-<form onSubmit="return enviarlo(this)" action="/servlet/CEFReportesDlg" method="post" enctype="application/x-www-form-urlencoded" name="rep_reportes_dlg" target="ventImp">
+<form onSubmit="return enviarlo(this); " action="/servlet/CEFReportesDlg" method="post" enctype="application/x-www-form-urlencoded" name="rep_reportes_dlg">
 <div id="topbar"> 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr> 
@@ -156,12 +176,8 @@ function enviarlo(formAct)
 	   <table width="100%" bordercolor="#333333" border="1" cellpadding="4" cellspacing="0">
           <tr>
             <td align="right" class="clockCef"> 
-              <%  if(JUtil.getSesion(request).getID_Mensaje() == 0) { %>
-        			<input type="submit" name="aceptar" disabled="true" value="<%= JUtil.Msj("GLB","GLB","GLB","ACEPTAR") %>">
-        			<%  } else { %>
-        			<input type="submit" name="aceptar" value="<%= JUtil.Msj("GLB","GLB","GLB","ACEPTAR") %>">
-       				<%  } %>
-        			<input type="button" name="cancelar" onClick="javascript:history.back();" value="<%= JUtil.Msj("GLB","GLB","GLB","CANCELAR") %>">
+              		<input type="submit" name="aceptar" value="<%= JUtil.Msj("GLB","GLB","GLB","ACEPTAR") %>">
+       				<input type="button" name="cancelar" onClick="javascript:history.back();" value="<%= JUtil.Msj("GLB","GLB","GLB","CANCELAR") %>">
             </td>
           </tr>
         </table> 
@@ -178,20 +194,26 @@ function enviarlo(formAct)
 	out.println(mensaje);
 	//out.print(JUtil.depurarParametros(request));
 %>
-  <tr> 
-    <td>&nbsp;
-	  
-   </td>
-  </tr>
 <%
    if(request.getParameter("proceso").equals("CARGAR_REPORTE"))
    {
+%>
+   <tr> 
+     <td class="txtCuerpoNg">
+	 	<table width="100%" border="0" cellspacing="0" cellpadding="15">
+		 <tr> 
+     		<td class="txtCuerpoNg"><%= ayu.getAbsRow(0).getHelp() %></td>
+   		  </tr>
+		</table>
+	 </td>
+   </tr>
+   <tr> 
+     <td>&nbsp;</td>
+   </tr>
+<%
   	if (set.getNumRows() < 1)
   	{
 %>
-   <tr> 
-     <td align="center" class="titChico">&nbsp;</td>
-   </tr>
    <tr> 
      <td align="center" class="titChicoAzc">No existe filtro para este reporte, Presiona 
       aceptar para cargarlo o cancelar si no deseas verlo</td>
@@ -217,7 +239,7 @@ function enviarlo(formAct)
 			{
 				if(set.getAbsRow(i).getBindDataType().equals("INT") || set.getAbsRow(i).getBindDataType().equals("BYTE"))
 				{ 
-					if(set.getAbsRow(i).getPriDefault().equals("mes"))
+					if(set.getAbsRow(i).getPriDefault().equals("{mes}"))
 					{
 						Calendar fecha = GregorianCalendar.getInstance();
          				int mes = JUtil.obtMes(fecha);
@@ -239,28 +261,7 @@ function enviarlo(formAct)
 				  </select>
 <%
 					}
-					else if(set.getAbsRow(i).getPriDefault().length() > 0 && set.getAbsRow(i).getPriDefault().substring(0,1).equals("["))
-					{
-						Properties ops = new Properties();
-						JUtil.obtValoresFiltro(set.getAbsRow(i).getPriDefault(), ops);
-						ops.list(System.out);
-%>
-				<select class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>">				
-<%
-        				Enumeration np = ops.propertyNames();
-        				while(np.hasMoreElements())
-        				{
-            				String kp = (String)np.nextElement();
-            				String vp = ops.getProperty(kp, "");
-%>
-					<option value="<%= kp %>"><%= vp %></option>
-<%
-						}
-%>
-				</select>
-<%
-					}
-					else if(set.getAbsRow(i).getPriDefault().equals("ano"))
+					else if(set.getAbsRow(i).getPriDefault().equals("{ano}"))
 					{
 						Calendar fecha = GregorianCalendar.getInstance();
          				int ano = JUtil.obtAno(fecha);
@@ -268,10 +269,29 @@ function enviarlo(formAct)
 				  <input class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>" type="text" value="<%= ano %>" size="5" maxlength="4">
  <%
 					}
+					else if(set.getAbsRow(i).getPriDefault().length() > 0 && set.getAbsRow(i).getPriDefault().substring(0,1).equals("["))
+					{
+						Vector<JLlaveValor> ops = new Vector<JLlaveValor>();
+						JUtil.obtValoresFiltro(set.getAbsRow(i).getPriDefault(), ops);
+%>
+				<select class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>">				
+<%
+						for(JLlaveValor lv : ops)
+						{
+        					//System.out.println(lv.getLlave() + "=" + lv.getValor());
+%>
+					<option value="<%= lv.getLlave() %>"><%= lv.getValor() %></option>
+<%
+						}
+%>
+				</select>
+<%
+					}
 					else
 					{
+						int index = set.getAbsRow(i).getPriDefault().lastIndexOf('}') + 1;
 %>
-				  <input class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>" type="text" value="<%= set.getAbsRow(i).getPriDefault() %>" size="5" maxlength="12">
+				  <input class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>" type="text" value="<%= set.getAbsRow(i).getPriDefault().substring(index) %>" size="5" maxlength="12">
  <%
  					}
 					
@@ -280,7 +300,7 @@ function enviarlo(formAct)
 %>
 				  <span class="titChicoAzc"> - Desde</span><br>
 <%
-						if(set.getAbsRow(i).getSecDefault().equals("mes"))
+						if(set.getAbsRow(i).getSecDefault().equals("{mes}"))
 						{
 							Calendar fecha = GregorianCalendar.getInstance();
          					int mes = JUtil.obtMes(fecha);
@@ -302,27 +322,7 @@ function enviarlo(formAct)
 				  </select><span class="titChicoAzc"> - Hasta</span>
 <%
 						}
-						else if(set.getAbsRow(i).getSecDefault().length() > 0 && set.getAbsRow(i).getSecDefault().substring(0,1).equals("["))
-						{
-							Properties ops = new Properties();
-							JUtil.obtValoresFiltro(set.getAbsRow(i).getSecDefault(), ops);
-%>
-				<select class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>">				
-<%
-        					Enumeration np = ops.propertyNames();
-        					while(np.hasMoreElements())
-        					{
-            					String kp = (String)np.nextElement();
-            					String vp = ops.getProperty(kp, "");
-%>
-					<option value="<%= kp %>"><%= vp %></option>
-<%
-							}
-%>
-				</select><span class="titChicoAzc"> - Hasta</span>
-<%
-						}
-						else if(set.getAbsRow(i).getSecDefault().equals("ano"))
+						else if(set.getAbsRow(i).getSecDefault().equals("{ano}"))
 						{
 							Calendar fecha = GregorianCalendar.getInstance();
          					int ano = JUtil.obtAno(fecha);
@@ -330,10 +330,29 @@ function enviarlo(formAct)
 				  <input class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>" type="text" value="<%= ano %>" size="5" maxlength="4"><span class="titChicoAzc"> - Hasta</span>
  <%
 						}
+						else if(set.getAbsRow(i).getSecDefault().length() > 0 && set.getAbsRow(i).getSecDefault().substring(0,1).equals("["))
+						{
+							Vector<JLlaveValor> ops = new Vector<JLlaveValor>();
+							JUtil.obtValoresFiltro(set.getAbsRow(i).getSecDefault(), ops);
+%>
+				<select class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>">				
+<%
+							for(JLlaveValor lv : ops)
+							{
+        						//System.out.println(lv.getLlave() + "=" + lv.getValor());
+%>
+					<option value="<%= lv.getLlave() %>"><%= lv.getValor() %></option>
+<%
+							}
+%>
+				</select><span class="titChicoAzc"> - Hasta</span>
+<%
+						}
 						else
 						{
+							int index = set.getAbsRow(i).getSecDefault().lastIndexOf('}') + 1;
 %>
-				  <input class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>" type="text" value="<%= set.getAbsRow(i).getSecDefault() %>" size="5" maxlength="12"><span class="titChicoAzc"> - Hasta</span>
+				  <input class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>" type="text" value="<%= set.getAbsRow(i).getSecDefault().substring(index) %>" size="5" maxlength="12"><span class="titChicoAzc"> - Hasta</span>
  <%
  						}
 					}				
@@ -364,18 +383,16 @@ function enviarlo(formAct)
 				{ 
 					if(set.getAbsRow(i).getPriDefault().length() > 0 && set.getAbsRow(i).getPriDefault().substring(0,1).equals("["))
 					{
-						Properties ops = new Properties();
+						Vector<JLlaveValor> ops = new Vector<JLlaveValor>();
 						JUtil.obtValoresFiltro(set.getAbsRow(i).getPriDefault(), ops);
 %>
 				<select class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>">				
 <%
-        				Enumeration np = ops.propertyNames();
-        				while(np.hasMoreElements())
-        				{
-            				String kp = (String)np.nextElement();
-            				String vp = ops.getProperty(kp, "");
+						for(JLlaveValor lv : ops)
+						{
+        					//System.out.println(lv.getLlave() + "=" + lv.getValor());
 %>
-					<option value="<%= kp %>"><%= vp %></option>
+					<option value="<%= lv.getLlave() %>"><%= lv.getValor() %></option>
 <%
 						}
 %>
@@ -384,8 +401,9 @@ function enviarlo(formAct)
 					}
 					else
 					{
+						int index = set.getAbsRow(i).getPriDefault().lastIndexOf('}') + 1;
 %>
-				  <input class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>" type="text" value="<%= set.getAbsRow(i).getPriDefault() %>" size="10" maxlength="15">
+				  <input class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>" type="text" value="<%= set.getAbsRow(i).getPriDefault().substring(index) %>" size="10" maxlength="15">
  <%
  					}
 					
@@ -396,18 +414,16 @@ function enviarlo(formAct)
 <%	
 						if(set.getAbsRow(i).getSecDefault().length() > 0 && set.getAbsRow(i).getSecDefault().substring(0,1).equals("["))
 						{
-							Properties ops = new Properties();
+							Vector<JLlaveValor> ops = new Vector<JLlaveValor>();
 							JUtil.obtValoresFiltro(set.getAbsRow(i).getSecDefault(), ops);
 %>
 				<select class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>">				
 <%
-        					Enumeration np = ops.propertyNames();
-        					while(np.hasMoreElements())
-        					{
-            					String kp = (String)np.nextElement();
-            					String vp = ops.getProperty(kp, "");
+        					for(JLlaveValor lv : ops)
+							{
+        						//System.out.println(lv.getLlave() + "=" + lv.getValor());
 %>
-					<option value="<%= kp %>"><%= vp %></option>
+					<option value="<%= lv.getLlave() %>"><%= lv.getValor() %></option>
 <%
 							}
 %>
@@ -416,8 +432,9 @@ function enviarlo(formAct)
 						}
 						else
 						{
+							int index = set.getAbsRow(i).getSecDefault().lastIndexOf('}') + 1;
 %>
-				  <input class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>" type="text" value="<%= set.getAbsRow(i).getSecDefault() %>" size="10" maxlength="15"><span class="titChicoAzc"> - Hasta</span>
+				  <input class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>" type="text" value="<%= set.getAbsRow(i).getSecDefault().substring(index) %>" size="10" maxlength="15"><span class="titChicoAzc"> - Hasta</span>
  <%
  						}
 					}				
@@ -426,18 +443,16 @@ function enviarlo(formAct)
 				{
 					if(set.getAbsRow(i).getPriDefault().length() > 0 && set.getAbsRow(i).getPriDefault().substring(0,1).equals("["))
 					{
-						Properties ops = new Properties();
+						Vector<JLlaveValor> ops = new Vector<JLlaveValor>();
 						JUtil.obtValoresFiltro(set.getAbsRow(i).getPriDefault(), ops);
 %>
-				<select class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>">				
+				<select class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>">
 <%
-        				Enumeration np = ops.propertyNames();
-        				while(np.hasMoreElements())
-        				{
-            				String kp = (String)np.nextElement();
-            				String vp = ops.getProperty(kp, "");
+						for(JLlaveValor lv : ops)
+						{
+        					//System.out.println(lv.getLlave() + "=" + lv.getValor());
 %>
-					<option value="<%= kp %>"><%= vp %></option>
+					<option value="<%= lv.getLlave() %>"><%= lv.getValor() %></option>
 <%
 						}
 %>
@@ -446,8 +461,9 @@ function enviarlo(formAct)
 					}
 					else
 					{ 
+						int index = set.getAbsRow(i).getPriDefault().lastIndexOf('}') + 1;
 %>
-					<input class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>" type="text" value="<%= set.getAbsRow(i).getPriDefault() %>" size="35" maxlength="254">
+					<input class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>" type="text" value="<%= set.getAbsRow(i).getPriDefault().substring(index) %>" size="35" maxlength="254">
  <%
  					}
 					
@@ -458,18 +474,16 @@ function enviarlo(formAct)
 <%
 						if(set.getAbsRow(i).getSecDefault().length() > 0 && set.getAbsRow(i).getSecDefault().substring(0,1).equals("["))
 						{
-							Properties ops = new Properties();
+							Vector<JLlaveValor> ops = new Vector<JLlaveValor>();
 							JUtil.obtValoresFiltro(set.getAbsRow(i).getSecDefault(), ops);
 %>
 				<select class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>">				
 <%
-        					Enumeration np = ops.propertyNames();
-        					while(np.hasMoreElements())
-        					{
-            					String kp = (String)np.nextElement();
-            					String vp = ops.getProperty(kp, "");
+        					for(JLlaveValor lv : ops)
+							{
+        						//System.out.println(lv.getLlave() + "=" + lv.getValor());
 %>
-					<option value="<%= kp %>"><%= vp %></option>
+					<option value="<%= lv.getLlave() %>"><%= lv.getValor() %></option>
 <%
 							}
 %>
@@ -478,8 +492,9 @@ function enviarlo(formAct)
 						}
 						else
 						{
+							int index = set.getAbsRow(i).getSecDefault().lastIndexOf('}') + 1;
 %>				  
-				  <input class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>" type="text" value="<%= set.getAbsRow(i).getSecDefault() %>" size="35" maxlength="254"><span class="titChicoAzc"> - Hasta</span>
+				  <input class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>" type="text" value="<%= set.getAbsRow(i).getSecDefault().substring(index) %>" size="35" maxlength="254"><span class="titChicoAzc"> - Hasta</span>
 <%
 						}	
 					}				
@@ -487,6 +502,8 @@ function enviarlo(formAct)
 			}
 			else // Si son de catalogo
 			{
+				String titulocat = "";
+				
 				if(set.getAbsRow(i).getBindDataType().equals("INT") || 
 					  set.getAbsRow(i).getBindDataType().equals("BYTE") || 
 						 set.getAbsRow(i).getBindDataType().equals("STRING"))
@@ -494,29 +511,18 @@ function enviarlo(formAct)
 					JListasCatalogosSet cats = new  JListasCatalogosSet(request);
 					cats.ConCat(true);
 					
-					int idcatalogo; String pridefault, seguridad, sel_clause;
-					try {
-						idcatalogo = Integer.parseInt(set.getAbsRow(i).getSelect_Clause());
-					} catch(NumberFormatException e) {
-						idcatalogo = 0;
-					}
-					
-					if(idcatalogo == 0)
-					{
-						pridefault = set.getAbsRow(i).getPriDefault();
-						seguridad = "";
-						sel_clause = "";
-					}
-					else
-					{
-						cats.m_Where = "ID_Catalogo = '" + idcatalogo + "'";
-						cats.Open();
-						pridefault = cats.getAbsRow(0).getPriDefault();
-						seguridad = cats.getAbsRow(0).getSeguridad();
-						sel_clause = cats.getAbsRow(0).getSelect_Clause();
-					}
-					
-					if(seguridad.equals("")) // No es un catalogo de seguridad
+					String pridefault, secdefault, seguridad, sel_clause; boolean replong;
+					int idcatalogo = Integer.parseInt(set.getAbsRow(i).getSelect_Clause());
+					cats.m_Where = "ID_Catalogo = '" + idcatalogo + "'";
+					cats.Open();
+					titulocat = cats.getAbsRow(0).getNombre();
+					pridefault = cats.getAbsRow(0).getPriDefault();
+					secdefault = cats.getAbsRow(0).getSecDefault();
+					seguridad = cats.getAbsRow(0).getSeguridad();
+					sel_clause = cats.getAbsRow(0).getSelect_Clause();
+					replong = cats.getAbsRow(0).getRepLong();
+										
+					if(replong == true) // Es un catalogo largo, por lo tanto se muestra en input y no en select
 					{
 						JProcessSet setDesde = new JProcessSet(request);
 						setDesde.setSQL(pridefault);
@@ -525,18 +531,11 @@ function enviarlo(formAct)
 						String fsi_val = (setDesde.getNumRows() > 0) ? setDesde.getAbsRow(0).getSTS("Col1") : "";
 						String fsi_desc = (setDesde.getNumRows() > 0) ? setDesde.getAbsRow(0).getSTS("Col2") : "";
 %>
-				  <input class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>" type="text" readonly="true" value="<% if(request.getParameter(set.getAbsRow(i).getPriDataName()) != null) { out.print(request.getParameter(set.getAbsRow(i).getPriDataName())); } else { out.print(fsi_val); } %>" size="4" maxlength="254"><a href="javascript:abrirCatalogo('../../forsetiweb/listasfiltro_dlg.jsp?formul=rep_reportes_dlg&lista=<%= set.getAbsRow(i).getPriDataName() %>&idreporte=<%= request.getParameter("REPID") %>&idcolumna=<%= set.getAbsRow(i).getID_Column() %>&destino=<%= set.getAbsRow(i).getPriDataName() + "_FSIDESC" %>',250,350)"><img src="../../imgfsi/catalogo.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CATALOGO") %>" align="absmiddle" width="20" height="20" border="0"></a>
-				    <input class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() + "_FSIDESC" %>" type="text" readonly="true" value="<% if(request.getParameter(set.getAbsRow(i).getPriDataName()) != null) { out.print(request.getParameter(set.getAbsRow(i).getPriDataName() + "_FSIDESC")); } else { out.print(fsi_desc); } %>" size="35" maxlength="254">
+				  <input class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() %>" type="text" value="<% if(request.getParameter(set.getAbsRow(i).getPriDataName()) != null) { out.print(request.getParameter(set.getAbsRow(i).getPriDataName())); } else { out.print(fsi_val); } %>" size="12" maxlength="254"><a href="javascript:abrirCatalogo('../../forsetiweb/listasfiltro_dlg.jsp?formul=rep_reportes_dlg&lista=<%= set.getAbsRow(i).getPriDataName() %>&idreporte=<%= request.getParameter("REPID") %>&idcolumna=<%= set.getAbsRow(i).getID_Column() %>&destino=<%= set.getAbsRow(i).getPriDataName() + "_FSIDESC" %>&titulocat=<%= titulocat %>',250,350)"><img src="../../imgfsi/catalogo.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CATALOGO") %>" align="absmiddle" width="20" height="20" border="0"></a>
+				    <input class="cpoBco" name="<%= set.getAbsRow(i).getPriDataName() + "_FSIDESC" %>" type="text" readonly="true" value="<% if(request.getParameter(set.getAbsRow(i).getPriDataName()) != null) { out.print(request.getParameter(set.getAbsRow(i).getPriDataName() + "_FSIDESC")); } else { out.print(fsi_desc); } %>" size="45" maxlength="254">
 <%	
-						if(set.getAbsRow(i).getIsRange())
+						if(set.getAbsRow(i).getIsRange() && seguridad.equals(""))
 						{ 
-							String secdefault;
-						
-							if(idcatalogo == 0)
-								secdefault = set.getAbsRow(i).getSecDefault();
-							else
-								secdefault = cats.getAbsRow(0).getSecDefault();
-
 							JProcessSet setHasta = new JProcessSet(request);
 							setHasta.setSQL(secdefault);
 							setHasta.Open();
@@ -544,11 +543,11 @@ function enviarlo(formAct)
 							String fsi_val2 = (setHasta.getNumRows() > 0) ? setHasta.getAbsRow(0).getSTS("Col1") : "";
 							String fsi_desc2 = (setHasta.getNumRows() > 0) ? setHasta.getAbsRow(0).getSTS("Col2") : "";
 %>
-				  <span class="titChicoAzc"> - Desde</span><br><input class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>" type="text" readonly="true" value="<% if(request.getParameter(set.getAbsRow(i).getSecDataName()) != null) { out.print(request.getParameter(set.getAbsRow(i).getSecDataName())); } else { out.print(fsi_val2); } %>" size="4" maxlength="254"><a href="javascript:abrirCatalogo('../../forsetiweb/listasfiltro_dlg.jsp?formul=rep_reportes_dlg&lista=<%= set.getAbsRow(i).getSecDataName() %>&idreporte=<%= request.getParameter("REPID") %>&idcolumna=<%= set.getAbsRow(i).getID_Column() %>&destino=<%= set.getAbsRow(i).getSecDataName() + "_FSIDESC" %>',250,350)"><img src="../../imgfsi/catalogo.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CATALOGO") %>" align="absmiddle" width="20" height="20" border="0"></a>
-				    <input class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() + "_FSIDESC" %>" type="text" readonly="true" value="<% if(request.getParameter(set.getAbsRow(i).getSecDataName()) != null) { out.print(request.getParameter(set.getAbsRow(i).getSecDataName() + "_FSIDESC")); } else { out.print(fsi_desc2); } %>" size="35" maxlength="254"><span class="titChicoAzc"> - Hasta</span>
+				  <span class="titChicoAzc"> - Desde</span><br><input class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>" type="text" value="<% if(request.getParameter(set.getAbsRow(i).getSecDataName()) != null) { out.print(request.getParameter(set.getAbsRow(i).getSecDataName())); } else { out.print(fsi_val2); } %>" size="12" maxlength="254"><a href="javascript:abrirCatalogo('../../forsetiweb/listasfiltro_dlg.jsp?formul=rep_reportes_dlg&lista=<%= set.getAbsRow(i).getSecDataName() %>&idreporte=<%= request.getParameter("REPID") %>&idcolumna=<%= set.getAbsRow(i).getID_Column() %>&destino=<%= set.getAbsRow(i).getSecDataName() + "_FSIDESC" %>&titulocat=<%= titulocat %>',250,350)"><img src="../../imgfsi/catalogo.gif" title="<%= JUtil.Msj("GLB","GLB","DLG","CATALOGO") %>" align="absmiddle" width="20" height="20" border="0"></a>
+				    <input class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() + "_FSIDESC" %>" type="text" readonly="true" value="<% if(request.getParameter(set.getAbsRow(i).getSecDataName()) != null) { out.print(request.getParameter(set.getAbsRow(i).getSecDataName() + "_FSIDESC")); } else { out.print(fsi_desc2); } %>" size="45" maxlength="254"><span class="titChicoAzc"> - Hasta</span>
 <%
 						}
-					} // Es de seguridad, Solo se define si no es rango
+					} // Es catalogo corto: replong == false
 					else
 					{
 						JProcessSet setcat = new JProcessSet(request);
@@ -569,6 +568,24 @@ function enviarlo(formAct)
 %>
 				</select>
 <%
+						if(set.getAbsRow(i).getIsRange() && seguridad.equals(""))
+						{
+%>
+				<span class="titChicoAzc"> - Desde</span><br>
+				<select class="cpoBco" name="<%= set.getAbsRow(i).getSecDataName() %>">				
+<%
+        					for(int p = (setcat.getNumRows()-1); p >= 0; p--)
+        					{
+								String fsi_val = setcat.getAbsRow(p).getSTS("Col1");
+								String fsi_desc = setcat.getAbsRow(p).getSTS("Col2");
+%>
+					<option value="<%= fsi_val %>"><%= fsi_desc %></option>
+<%
+							}
+%>
+				</select><span class="titChicoAzc"> - Hasta</span>
+<% 
+						}
 					}
 				}
 			}
@@ -635,35 +652,49 @@ function enviarlo(formAct)
               SI </td>
             <td><input type="radio" name="fsi_sino" value="0" checked>
               NO </td>
-            <td> </td>
-            <td> </td>
+            <td colspan="2"> 
+              <select name="formato" style="width:100%;">
+                <option value="gif" selected>Graphics Interchange Format (.gif)</option>
+                <option value="png">Portable Network Graphics (.png)</option>
+              </select> </td>
           </tr>
           <tr> 
             <td>Graficar como: </td>
-            <td> <input type="radio" name="fsi_graf" value="BAR" checked> BARRAS</td>
-            <td> <input type="radio" name="fsi_graf" value="LIN"> LINEAS</td>
-            <td>  <input type="radio" name="fsi_graf" value="CIRC"> CIRCULAR</td>
-            <td> <input type="radio" name="fsi_graf" value="AREA"> AREAS </td>
+            <td> <input type="radio" name="fsi_graf" value="BAR" checked>
+              BARRAS</td>
+            <td> <input type="radio" name="fsi_graf" value="LIN">
+              LINEAS</td>
+            <td> <input type="radio" name="fsi_graf" value="CIRC">
+              CIRCULAR</td>
+            <td> <input type="radio" name="fsi_graf" value="AREA">
+              AREAS </td>
           </tr>
           <tr> 
             <td>Variacion:</td>
-            <td><input type="radio" name="fsi_tipo" value="0" checked> NORMAL</td>
-            <td><input type="radio" name="fsi_tipo" value="1"> EN PILAS</td>
-            <td><input type="radio" name="fsi_tipo" value="2"> PORCENTAJE</td>
+            <td><input type="radio" name="fsi_tipo" value="0" checked>
+              NORMAL</td>
+            <td><input type="radio" name="fsi_tipo" value="1">
+              EN PILAS</td>
+            <td><input type="radio" name="fsi_tipo" value="2">
+              PORCENTAJE</td>
             <td></td>
           </tr>
           <tr> 
             <td>Direccion de datos: </td>
-            <td> <input type="radio" name="fsi_encols" value="0" checked> EN FILAS</td>
-            <td>  <input type="radio" name="fsi_encols" value="1"> EN COLUMNAS</td>
-            <td>  </td>
+            <td> <input type="radio" name="fsi_encols" value="1" checked>
+              EN COLUMNAS</td>
+			<td> <input type="radio" name="fsi_encols" value="0">
+              EN FILAS</td>
+            <td> </td>
             <td> </td>
           </tr>
           <tr> 
             <td>Mostrar lineas eje: </td>
-            <td> <input type="radio" name="fsi_linejes" value="1" checked> SI</td>
-            <td>  <input type="radio" name="fsi_linejes" value="0"> NO</td>
-            <td>  </td>
+            <td> <input type="radio" name="fsi_linejes" value="1" checked>
+              SI</td>
+            <td> <input type="radio" name="fsi_linejes" value="0">
+              NO</td>
+            <td> </td>
             <td> </td>
           </tr>
         </table>
@@ -679,7 +710,8 @@ function enviarlo(formAct)
     		<td colspan="2">
 			<input name="proceso" type="hidden" value="CARGAR_REPORTE">
 			<input name="subproceso" type="hidden" value="GENERAR">
-			<input name="REPID" type="hidden" value="<%= request.getParameter("REPID") %>">&nbsp;</td>
+			<input name="REPID" type="hidden" value="<%= request.getParameter("REPID") %>">
+			&nbsp;</td>
 	 	  </tr>
          </table>
       </td>

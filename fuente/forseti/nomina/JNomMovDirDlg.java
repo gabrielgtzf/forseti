@@ -372,6 +372,37 @@ public class JNomMovDirDlg extends JForsetiApl
 	        				rec.agregaPartida(clave, descripcion, 0.00F, 0.00F, -(gravado + exento), esDeduccion);
 	        			}
 	        			
+	        			for(int i = 0; i< nomrecxml.getIncapacidades().size(); i++)
+	        			{
+	        				Properties incapacidad = (Properties)nomrecxml.getIncapacidades().elementAt(i);
+	        				
+	        				float dias = Float.parseFloat(incapacidad.getProperty("DiasIncapacidad"));
+	    	 				int tipo = Integer.parseInt(incapacidad.getProperty("TipoIncapacidad"));
+	    	 				if(tipo == 1)
+	    	 					rec.setIXA(dias);
+	    	 				else if(tipo == 2)
+	    	 					rec.setIXE(dias);
+	    	 				else
+	    	 					rec.setIXM(dias);
+	    	 					  
+	        			}
+	        			
+	        			for(int i = 0; i< nomrecxml.getHorasExtras().size(); i++)
+	        			{
+	        				Properties horasextra = (Properties)nomrecxml.getHorasExtras().elementAt(i);
+	        				
+	        				byte dias = Byte.parseByte(horasextra.getProperty("Dias"));
+	    	 				String tipo = horasextra.getProperty("TipoHoras");
+	    	 				float horas = Float.parseFloat(horasextra.getProperty("HorasExtra"));
+	    	 				
+	    	 				rec.setDiasHorasExtras(dias);
+	    	 				if(tipo.equals("Dobles") || tipo.equals("dobles"))
+	    	 					rec.setHE(horas);
+	    	 				else // Triples o triples
+	    	 					rec.setHT(horas);
+	  		  
+	        			}
+	  
 	        			rec.establecerResultados();
 	        		  
 	        			if( (JUtil.redondear(rec.getSumGravado() + rec.getSumExento() + rec.getSumDeduccion(),2) - JUtil.redondear(Float.parseFloat(nomrecxml.getComprobante().getProperty("total")),2)) > 0.1 || 
@@ -1670,7 +1701,7 @@ public class JNomMovDirDlg extends JForsetiApl
 		  if(desde.getTime() > hasta.getTime())
 		  {
 			  idmensaje = 3;
-			  mensaje += "ERROR: La fecha de inicio de nomina no puede ser mayor a la del final. Diferencia " + ((hasta.getTime()/(3600*24*1000)) - (desde.getTime()/(3600*24*1000))) + " dia(s) <br>";
+			  mensaje += "ERROR: La fecha de inicio de nómina no puede ser mayor a la del final. Diferencia " + ((hasta.getTime()/(3600*24*1000)) - (desde.getTime()/(3600*24*1000))) + " dia(s) <br>";
 			  getSesion(request).setID_Mensaje(idmensaje, mensaje);
 			  return false;
 		  }

@@ -209,6 +209,12 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				 </tr>
 				 
 
+              	 <tr>
+				 	<td width="5" valign="top" class="txtSubMenu"><font color="#0099FF">-</font></td>
+                    <td valign="top"><a href="051101.html" class="txtSubMenu" target="_self"><font color="#0099FF">Reportes</font></a></td>
+				 </tr>
+				 
+
 				</table>
 				
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -239,6 +245,14 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				  <tr>
 					<td> 
                     
+ 
+				
+ 
+				
+ 
+				
+ 
+				
  
 				
  
@@ -1244,7 +1258,23 @@ momento de capturar una partida en una compra o gasto. Calcular este IVA
 que figura en los catálogos. Esto no es imperativo, gracias a la 
 complejidad que acarrea la automatización de la captura por medio de 
 CFDIs que nos expiden nuestros proveedores, y por lo tanto, podrás 
-cambiar el IVA al momento de la captura. <br />
+cambiar el IVA al momento de la captura.</li>
+ <li>
+<strong>Pago.</strong> Es el tipo de pago establecido para de esta entidad. Estos pueden ser los siguientes:<br />
+<ul>
+ <li>
+<strong>Contado.</strong> Esta entidad generará exclusivamente compras o gastos de contado. 
+Generará los retiros del banco o caja al momento de agregar.</li>
+ <li>
+<strong>Crédito.</strong> Esta entidad generará exclusivamente compras o gastos a crédito. Se puede usar por ejemplo,
+ para compras por mayoreo donde tengamos crédito. Generará las cuentas por pagar al momento de agregar.</li>
+ <li>
+<strong>Mixto.</strong> Esta entidad generará compras o gastos de contado o de crédito según se decida al momento de agregar el registro.</li>
+ <li>
+<strong>Ninguno.</strong> Esta entidad generará la pura compra o gasto, sin 
+movimiento de caja o banco, ni movimiento de cuenta por pagar. Esta 
+opción no lleva ningún seguimiento del pago.</li>
+</ul>
 </li>
  <li>
 <strong>Compra / Gasto.</strong> Ingresa aquí el número de la próxima compra o gasto de esta entidad.</li>
@@ -1420,7 +1450,7 @@ agregar una devolución,
 siempre y cuando, el objeto anterior "No manejar movimientos al almacén 
 de productos" <strong>NO</strong> este seleccionado.</li>
  <li>
-<strong>Tipo.</strong> Es el tipo de manejo de esta entidad. Estos pueden ser los siguientes:<br />
+<strong>Pago.</strong> Es el tipo de manejo del pago de esta entidad. Estos pueden ser los siguientes:<br />
 <ul>
  <li>
 <strong>Contado.</strong> Esta entidad generará exclusivamente ventas de contado. 
@@ -1431,7 +1461,10 @@ tienda. Generará los depósitos de banco o caja al momento de agregar.<br />
 <strong>Crédito.</strong> Esta entidad generará exclusivamente ventas a crédito. Se puede usar por ejemplo
  para puntos de venta de distribución por mayoreo. Generará las cuentas por cobrar al momento de agregar.</li>
  <li>
-<strong>Mixto.</strong> Esta entidad generará ventas de contado o de crédito, según sea decidido al momento de la captura. </li>
+<strong>Mixto.</strong> Esta entidad generará ventas de contado o de crédito según se decida al momento de agregar la venta.</li>
+ <li>
+<strong>Ninguno.</strong> Esta entidad generará la pura venta, sin movimiento de caja o banco, ni movimiento de cuenta por cobrar. Esta opción no lleva ningún seguimiento del cobro.<br />
+</li>
 </ul>
 </li>
  <li>
@@ -1727,6 +1760,14 @@ representará el elemento "ExpedidoEn" de los archivos xml de los CFDs generados
 
 			  
 
+			  
+
+			  
+
+			  
+
+			  
+
                     </td>
 				  </tr>
 				  <tr>
@@ -1775,7 +1816,7 @@ representará el elemento "ExpedidoEn" de los archivos xml de los CFDs generados
 
 				<tr>
 				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
-                    <td valign="top"><a href="051006.html" class="txtPag" target="_self"><font color="#0099FF">CFDI y CE</font></a><br><font color="#999999">Módulo de gestión de comprobantes fiscales digitales y contabilidad electrónica.</font></td>
+                    <td valign="top"><a href="051006.html" class="txtPag" target="_self"><font color="#0099FF">CFDI, CE y GDE</font></a><br><font color="#999999">Módulo de gestión de comprobantes fiscales digitales, contabilidad electrónica y otros documentos.</font></td>
 				 </tr>
 				
 
@@ -1788,12 +1829,6 @@ representará el elemento "ExpedidoEn" de los archivos xml de los CFDs generados
 				<tr>
 				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
                     <td valign="top"><a href="051008.html" class="txtPag" target="_self"><font color="#0099FF">Monedas</font></a><br><font color="#999999">Módulo de Monedas del sistema</font></td>
-				 </tr>
-				
-
-				<tr>
-				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
-                    <td valign="top"><a href="051101.html" class="txtPag" target="_self"><font color="#0099FF">Reportes y gráficas</font></a><br><font color="#999999">Reportes y gráficas en el CEF y SAF</font></td>
 				 </tr>
 				
 

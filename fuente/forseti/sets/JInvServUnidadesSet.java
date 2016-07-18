@@ -51,7 +51,7 @@ public class JInvServUnidadesSet extends JManejadorSet
 			pNode.setID_Unidad(m_RS.getString("ID_Unidad"));
 			pNode.setID_InvServ(m_RS.getString("ID_InvServ"));
 			pNode.setDescripcion(m_RS.getString("Descripcion"));
-
+			pNode.setID_SatUnidad(m_RS.getInt("ID_SatUnidad"));
 			m_Rows.addElement(pNode);
 
 		}

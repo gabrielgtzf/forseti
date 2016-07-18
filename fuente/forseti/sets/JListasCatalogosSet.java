@@ -56,6 +56,7 @@ public class JListasCatalogosSet extends JManejadorSet
 			pNode.setSecDefault(m_RS.getString("SecDefault"));
 			pNode.setSeguridad(m_RS.getString("Seguridad"));
 			pNode.setAplRep(m_RS.getBoolean("AplRep"));
+			pNode.setRepLong(m_RS.getBoolean("RepLong"));
 
 			m_Rows.addElement(pNode);
 

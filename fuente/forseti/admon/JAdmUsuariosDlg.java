@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import forseti.JForsetiApl;
 import forseti.JRetFuncBas;
+import forseti.JUsuariosSetV2;
 import forseti.JUtil;
 
 public class JAdmUsuariosDlg extends JForsetiApl
@@ -34,7 +35,16 @@ public class JAdmUsuariosDlg extends JForsetiApl
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException
     {
-      doPost(request, response);
+		//Establece la sesion para cambio de contraseña
+		if(request.getParameter("proceso") != null && request.getParameter("proceso").equals("CAMBIAR_CONTRASENA") &&
+				getSesion(request).getEst("ADM_USUARIOS") == false)
+		{
+	        getSesion(request).EstablecerCEF(request, "adm_usuarios.png", "ADM_USUARIOS");
+	  	  	getSesion(request).getSesion("ADM_USUARIOS").setParametros("", "", "", "", "", "");
+	  	  	getSesion(request).getSesion("ADM_USUARIOS").setOrden(null,"");
+	  	  	getSesion(request).getSesion("ADM_USUARIOS").setEspecial("");
+		}
+		doPost(request, response);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -48,7 +58,36 @@ public class JAdmUsuariosDlg extends JForsetiApl
 
       if(request.getParameter("proceso") != null && !request.getParameter("proceso").equals(""))
       {
-        if(request.getParameter("proceso").equals("AGREGAR_USUARIO"))
+    	 if(request.getParameter("proceso").equals("CAMBIAR_CONTRASENA"))
+         {
+    		 if(getSesion(request).getID_Usuario().compareToIgnoreCase("cef-su") == 0)
+     	  	 {
+                 idmensaje = 3; mensaje = "ERROR: No se puede cambiar la contraseña del usuario de sistema. Esta se debe cambiar desde los parámetros de la base de datos (Empresa) en el SAF";
+                 getSesion(request).setID_Mensaje(idmensaje, mensaje);
+                 irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+                 return;
+             }
+    		 
+    		 if(request.getParameter("subproceso") != null && request.getParameter("subproceso").equals("ENVIAR"))
+    		 {
+    			 // Verificacion
+    			 if(VerificarParametrosPass(request, response))
+    			 {
+    				 CambiarPass(request, response);
+    				 return;
+    			 }
+    			 irApag("/forsetiweb/administracion/adm_usuarios_dlg_pass.jsp", request, response);
+    			 return;
+    		 }
+    		 else // Como el subproceso no es ENVIAR, abre la ventana del proceso de CAMBIADO para cargar el cambio
+    		 {
+    			 getSesion(request).setID_Mensaje(idmensaje, mensaje);
+    			 irApag("/forsetiweb/administracion/adm_usuarios_dlg_pass.jsp", request, response);
+    			 return;
+    		 }
+         
+        }
+    	else if(request.getParameter("proceso").equals("AGREGAR_USUARIO"))
         {
           // Revisa si tiene permisos
           if(!getSesion(request).getPermiso("ADM_USUARIOS_AGREGAR"))
@@ -413,7 +452,63 @@ public class JAdmUsuariosDlg extends JForsetiApl
       }
 
     }
+    
+    public boolean VerificarParametrosPass(HttpServletRequest request, HttpServletResponse response)
+    	  throws ServletException, IOException
+    {
+    	short idmensaje = -1; String mensaje = "";
+    	// Verificacion
+    	if(request.getParameter("contrasenaact") != null && request.getParameter("contrasena") != null  && request.getParameter("passconf") != null &&
+    			!request.getParameter("contrasenaact").equals("") && !request.getParameter("contrasena").equals("")  && !request.getParameter("passconf").equals(""))
+    	{
+    		JUsuariosSetV2 usr = new JUsuariosSetV2(request);
+           	usr.m_Where = "ID_Usuario = '" + p(getSesion(request).getID_Usuario()) + "'";
+           	usr.Open();
+           	
+    		if(!request.getParameter("contrasenaact").equals(usr.getAbsRow(0).getPassword()))
+    		{
+    			idmensaje = 3; mensaje = "ERROR: La contraseña actual ingresada no coincide con tu contraseña actual registrada.<br>";
+    			getSesion(request).setID_Mensaje(idmensaje, mensaje);
+    			return false;
+    		}
+    		if(!request.getParameter("contrasena").equals(request.getParameter("passconf")))
+    		{
+    			idmensaje = 3; mensaje = JUtil.Msj("CEF","ADM_USUARIOS","DLG","MSJ-PROCERR",2);//"ERROR: La contraseña y su confirmación no coinciden. <br>";
+    			getSesion(request).setID_Mensaje(idmensaje, mensaje);
+    			return false;
+    		}
+    		if(request.getParameter("contrasena").length() < 4 || request.getParameter("contrasena").compareToIgnoreCase(p(getSesion(request).getID_Usuario())) == 0)
+    		{
+    			idmensaje = 1; mensaje = JUtil.Msj("CEF","ADM_USUARIOS","DLG","MSJ-PROCERR",3);//"PRECAUCION: La contraseña es demasiado sencilla, esta debe tener por lo menos 4 caracteres. <br>";
+    			getSesion(request).setID_Mensaje(idmensaje, mensaje);
+    			return false;
+    		}
+    	          
+    		return true;
+    	}
+    	else
+    	{
+    		idmensaje = 3; mensaje = JUtil.Msj("GLB", "GLB", "GLB", "PARAM-NULO");
+    		getSesion(request).setID_Mensaje(idmensaje, mensaje);
+    		return false;
+    	}
 
+    }
+    
+    public void CambiarPass(HttpServletRequest request, HttpServletResponse response)
+    	      throws ServletException, IOException
+    {
+    	JRetFuncBas rfb = new JRetFuncBas();
+    	  	
+    	String str = "SELECT * FROM sp_usuarios_cambiar('" + p(getSesion(request).getID_Usuario()) + "','" + q(request.getParameter("contrasena")) + "','" + p(getSesion(request).getNombreUsuario()) + 
+    					"') as ( err integer, res varchar, clave varchar ) ";
+
+    	doCallStoredProcedure(request, response, str, rfb);
+
+    	RDP("CEF",getSesion(request).getConBD(),(rfb.getIdmensaje() == 0 ? "OK" : (rfb.getIdmensaje() == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(),"ADM_USUARIOS_AGREGAR","AUSR|" + rfb.getClaveret() + "|||",rfb.getRes());
+    	irApag("/forsetiweb/administracion/adm_usuarios_dlg_pass.jsp", request, response);
+    	   
+    }
     
     public boolean VerificarParametros(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException

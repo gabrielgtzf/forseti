@@ -43,7 +43,7 @@
 
 	JAdmFormatosSet setFmt = new JAdmFormatosSet(request);
 	setFmt.m_OrderBy = "ID_Formato ASC";
-	setFmt.m_Where = "Tipo = 'COMP_COMPRAS' or Tipo = 'COMP_GASTOS'";
+	setFmt.m_Where = "Tipo = 'COMP_FAC' or Tipo = 'COMP_GAS' or Tipo = 'COMP_ORD' or Tipo = 'COMP_REC' or Tipo = 'COMP_DEV'";
 	setFmt.Open();
 	
 	JContaPolizasClasificacionesSet setCls = new JContaPolizasClasificacionesSet(request);
@@ -177,8 +177,55 @@ function enviarlo(formAct)
               <input name="idbodega_nombre" type="text" id="idbodega_nombre" size="25" maxlength="250" readonly="true"></td>
           </tr>
           <tr> 
-            <td height="15"> <div align="right"><%= JUtil.Msj("GLB","GLB","GLB","IVA") %></div></td>
-            <td colspan="3"><input name="ivaporcentual" type="text" id="ivaporcentual" size="7" maxlength="10"></td>
+            <td align="right"><%= JUtil.Msj("GLB","GLB","GLB","IVA") %></td>
+            <td><input name="ivaporcentual" type="text" id="ivaporcentual" size="7" maxlength="10"></td>
+			<td align="right"><%= JUtil.Msj("GLB","GLB","GLB","PAGO") %></td>
+			<td><select name="tipopago" class="cpoBco">
+                <option value="0"<% if(request.getParameter("tipopago") != null) {
+										if(request.getParameter("tipopago").equals("0")) {
+											out.print(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_ENTIDAD")) { 
+											if(set.getAbsRow(0).getTipoCobro() == 0) {
+												out.print(" selected"); 
+											}
+										}
+									 } %>><%= JUtil.Msj("GLB","GLB","GLB","CONTADO") %></option>
+                <option value="1"<% if(request.getParameter("tipopago") != null) {
+										if(request.getParameter("tipopago").equals("1")) {
+											out.print(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_ENTIDAD")) { 
+											if(set.getAbsRow(0).getTipoCobro() == 1) {
+												out.print(" selected"); 
+											}
+										}
+									 } %>><%= JUtil.Msj("GLB","GLB","GLB","CREDITO") %></option>
+				<option value="2"<% if(request.getParameter("tipopago") != null) {
+										if(request.getParameter("tipopago").equals("2")) {
+											out.print(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_ENTIDAD")) { 
+											if(set.getAbsRow(0).getTipoCobro() == 2) {
+												out.print(" selected"); 
+											}
+										}
+									 } %>><%= JUtil.Msj("GLB","GLB","GLB","MIXTO") %></option>
+				<option value="3"<% if(request.getParameter("tipopago") != null) {
+										if(request.getParameter("tipopago").equals("3")) {
+											out.print(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_ENTIDAD")) { 
+											if(set.getAbsRow(0).getTipoCobro() == 3) {
+												out.print(" selected"); 
+											}
+										}
+									 } %>><%= JUtil.Msj("GLB","GLB","GLB","NINGUN") %></option>
+              </select> </td>
           </tr>
           <tr> 
             <td height="15"> <div align="right"><%= JUtil.Msj("GLB","GLB","GLB","COMPRA") %> / <%= JUtil.Msj("GLB","GLB","GLB","GASTO") %></div></td>

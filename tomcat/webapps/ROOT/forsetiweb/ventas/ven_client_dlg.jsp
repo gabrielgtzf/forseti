@@ -44,7 +44,25 @@
 	JSatBancosSet setBan = new JSatBancosSet(request);
     setBan.m_OrderBy = "Clave ASC";
     setBan.Open();
+	JSatMetodosPagoCFDISet setMP = new JSatMetodosPagoCFDISet(request);
+    setMP.m_OrderBy = "Clave ASC";
+    setMP.Open();
 
+	JSatPaisesSet paisSet = new JSatPaisesSet(request);
+	paisSet.ConCat(true);
+	paisSet.m_OrderBy = "Nombre ASC";
+	paisSet.Open();
+	
+	JSatEstadosSet estSet = new JSatEstadosSet(request);
+	estSet.ConCat(true);
+	if(request.getParameter("pais") != null && (request.getParameter("pais").equals("MEX") || request.getParameter("pais").equals("USA") || request.getParameter("pais").equals("CAN")))
+		estSet.m_Where = "CodPais3 = '" + JUtil.p(request.getParameter("pais")) + "'";
+	else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE") && (set.getAbsRow(0).getPais().equals("MEX") || set.getAbsRow(0).getPais().equals("USA") || set.getAbsRow(0).getPais().equals("CAN")))
+		estSet.m_Where = "CodPais3 = '" + set.getAbsRow(0).getPais() + "'";
+	else
+		estSet.m_Where = "CodPais3 = 'MEX'";
+	estSet.m_OrderBy = "Nombre ASC";
+	estSet.Open();
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -147,8 +165,8 @@ function enviarlo(formAct)
               <input name="cuenta_nombre" type="text" id="cuenta_nombre" size="50" maxlength="250" readonly="true"></td>
           </tr>
           <tr> 
-            <td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","RFC") %></td>
-            <td><input name="rfc" type="text" id="rfc" size="15" maxlength="15"></td>
+            <td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","RFC") %> / <%= JUtil.Msj("GLB","GLB","GLB","RFC",2) %></td>
+            <td><input name="rfc" type="text" id="rfc" size="15" maxlength="40"></td>
           </tr>
 		  <tr> 
             <td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","STATUS") %></td>
@@ -188,6 +206,191 @@ function enviarlo(formAct)
           </tr>
         </table>
 		<table width="100%" border="0" cellspacing="2" cellpadding="0">
+		  <tr> 
+		    <td><%= JUtil.Msj("GLB","GLB","GLB","PAIS") %></td>
+            <td><select name="pais" onChange="javascript:establecerProcesoSVE(this.form.subproceso, 'ACTUALIZAR'); this.form.submit();">
+                		<option value=""<% if(request.getParameter("pais") != null) {
+										if(request.getParameter("pais").equals("")) {
+											out.println(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { 
+											if(set.getAbsRow(0).getPais().equals("")) {
+												out.println(" selected"); 
+											}
+										}
+									 } %>>--- <%= JUtil.Msj("GLB","GLB","GLB","PAIS") %> ---</option>
+                <%
+								  for(int i = 0; i< paisSet.getNumRows(); i++)
+								  {
+		%>
+                <option value="<%= paisSet.getAbsRow(i).getAlfa3() %>"<% 
+									if(request.getParameter("pais") != null) {
+										if(request.getParameter("pais").equals(paisSet.getAbsRow(i).getAlfa3())) {
+											out.print(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { 
+											if(set.getAbsRow(0).getPais().equals(paisSet.getAbsRow(i).getAlfa3())) {
+												out.println(" selected"); 
+											}
+										}
+									 }	  %>> 
+                <%=  paisSet.getAbsRow(i).getNombre()  %>
+                </option>
+                <%
+								  }
+				%>
+              </select></td>
+            <td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","ESTADO") %></td>
+			<td>
+<%
+	if(request.getParameter("pais") != null)
+	{
+		if(request.getParameter("pais").equals("MEX") || request.getParameter("pais").equals("USA") || request.getParameter("pais").equals("CAN"))
+		{
+%>
+			  <select name="estado">
+                		<option value=""<% if(request.getParameter("estado") != null) {
+										if(request.getParameter("estado").equals("")) {
+											out.println(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { 
+											if(set.getAbsRow(0).getEstado().equals("")) {
+												out.println(" selected"); 
+											}
+										}
+									 } %>>--- <%= JUtil.Msj("GLB","GLB","GLB","ESTADO") %> ---</option>
+                <%
+								  for(int i = 0; i< estSet.getNumRows(); i++)
+								  {
+		%>
+                <option value="<%= estSet.getAbsRow(i).getCodEstado() %>"<% 
+									if(request.getParameter("estado") != null) {
+										if(request.getParameter("estado").equals(estSet.getAbsRow(i).getCodEstado())) {
+											out.print(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { 
+											if(set.getAbsRow(0).getEstado().equals(estSet.getAbsRow(i).getCodEstado())) {
+												out.println(" selected"); 
+											}
+										}
+									 }	  %>> 
+                <%=  estSet.getAbsRow(i).getNombre()  %>
+                </option>
+                <%
+								  }
+				%>
+              </select>
+<%
+		}
+		else
+		{
+%>  
+			  <input name="estado" type="text" id="estado" size="30" maxlength="40">
+<%
+		}
+	}
+	else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE"))
+	{
+		if(set.getAbsRow(0).getPais().equals("MEX") || set.getAbsRow(0).getPais().equals("USA") || set.getAbsRow(0).getPais().equals("CAN"))
+		{
+%>
+			  <select name="estado">
+                <option value=""<% if(request.getParameter("estado") != null) {
+										if(request.getParameter("estado").equals("")) {
+											out.println(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { 
+											if(set.getAbsRow(0).getEstado().equals("")) {
+												out.println(" selected"); 
+											}
+										}
+									 } %>>--- <%= JUtil.Msj("GLB","GLB","GLB","ESTADO") %> ---</option>
+                <%
+								  for(int i = 0; i< estSet.getNumRows(); i++)
+								  {
+		%>
+                <option value="<%= estSet.getAbsRow(i).getCodEstado() %>"<% 
+									if(request.getParameter("estado") != null) {
+										if(request.getParameter("estado").equals(estSet.getAbsRow(i).getCodEstado())) {
+											out.print(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { 
+											if(set.getAbsRow(0).getEstado().equals(estSet.getAbsRow(i).getCodEstado())) {
+												out.println(" selected"); 
+											}
+										}
+									 }	  %>> 
+                <%=  estSet.getAbsRow(i).getNombre()  %>
+                </option>
+                <%
+								  }
+				%>
+              </select>
+<%	
+		}
+		else
+		{
+%>  
+			  <input name="estado" type="text" id="estado" size="30" maxlength="40">
+<%
+		}
+	}
+	else
+	{
+%> 
+			  <input name="estado" type="text" id="estado" size="20" maxlength="40">
+<%
+	}
+%>
+			</td>
+			<td>Pedimento</td>
+			<td>
+			  <select name="pedimento">
+                <option value="--"<% 
+					   				 if(request.getParameter("pedimento") != null) {
+										if(request.getParameter("pedimento").equals("--")) {
+											out.print(" selected");
+										}
+									 } else {
+										if(request.getParameter("proceso").equals("CAMBIAR_CLIENTE") || request.getParameter("proceso").equals("CONSULTAR_CLIENTE")) { 
+											if(set.getAbsRow(0).getPedimento().equals("--")) {
+												out.println(" selected"); 
+											}
+										}
+									 } %>>No requiere pedimento</option>
+                <option value="A1"<% 
+					   				 if(request.getParameter("pedimento") != null) {
+										if(request.getParameter("pedimento").equals("A1")) {
+											out.print(" selected");
+										}
+									 } else {
+										if(request.getParameter("proceso").equals("CAMBIAR_CLIENTE") || request.getParameter("proceso").equals("CONSULTAR_CLIENTE")) { 
+											if(set.getAbsRow(0).getPedimento().equals("A1")) {
+												out.println(" selected"); 
+											}
+										}
+									 } %>>Exportacion o Importacion Definitiva</option>
+              </select>
+			</td>
+	      </tr>
+		  <tr> 
+		    <td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","MUNICIPIO") %></td>
+            <td><input name="municipio" type="text" id="municipio" size="30" maxlength="40"></td>
+            <td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","LOCALIDAD") %></td>
+            <td colspan="3"><input name="poblacion" type="text" id="poblacion" size="50" maxlength="80"></td>
+          </tr>
+          <tr> 
+            <td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","CP") %></td>
+            <td><input name="cp" type="text" id="cp" size="7" maxlength="7"></td>
+			<td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","COLONIA") %></td>
+            <td colspan="3"><input name="colonia" type="text" id="colonia" size="30" maxlength="40"></td>
+          </tr>
           <tr> 
             <td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","CALLE") %></td>
             <td><input name="direccion" type="text" id="direccion" size="50" maxlength="80"></td>
@@ -199,25 +402,6 @@ function enviarlo(formAct)
             <td width="15%"> 
               <input name="noint" type="text" id="noint" size="10" maxlength="10">
             </td>
-          </tr>
-          <tr> 
-            <td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","COLONIA") %></td>
-            <td><input name="colonia" type="text" id="colonia" size="30" maxlength="40"></td>
-            <td><%= JUtil.Msj("GLB","GLB","GLB","LOCALIDAD") %></td>
-            <td colspan="3"><input name="poblacion" type="text" id="poblacion" size="50" maxlength="80"></td>
-          </tr>
-          <tr> 
-            <td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","MUNICIPIO") %></td>
-            <td><input name="municipio" type="text" id="municipio" size="30" maxlength="40"></td>
-            <td><%= JUtil.Msj("GLB","GLB","GLB","CP") %></td>
-            <td colspan="3"><input name="cp" type="text" id="cp" size="7" maxlength="7"></td>
-          </tr>
-          <tr> 
-            <td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","ESTADO") %></td>
-            <td><input name="estado" type="text" id="estado" size="30" maxlength="40"> 
-            </td>
-            <td><%= JUtil.Msj("GLB","GLB","GLB","PAIS") %></td>
-            <td colspan="3"><input name="pais" type="text" id="pais" size="15" maxlength="20"></td>
           </tr>
           <tr> 
             <td width="10%"><%= JUtil.Msj("GLB","GLB","GLB","TEL") %></td>
@@ -313,7 +497,30 @@ function enviarlo(formAct)
           </tr>
 		  <tr> 
             <td width="20%"><%= JUtil.Msj("GLB","GLB","GLB","METODO_PAGO") %></td>
-            <td width="80%" valign="top"><input name="metododepago" type="text" id="metododepago" size="35" maxlength="254"></td>
+            <td width="80%" valign="top">
+				<select name="metododepago" class"cpoBco">
+<%
+		for(int i = 0; i < setMP.getNumRows(); i++)
+		{	
+%>
+							<option value="<%=setMP.getAbsRow(i).getClave()%>"<% 
+									if(request.getParameter("metododepago") != null) {
+										if(request.getParameter("metododepago").equals(setMP.getAbsRow(i).getClave())) {
+											out.print(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { 
+											if(set.getAbsRow(0).getMetodoDePago().equals(setMP.getAbsRow(i).getClave())) {
+												out.println(" selected"); 
+											}
+										}
+									 }
+									 %>><%= setMP.getAbsRow(i).getNombre() %></option>
+<%	
+		}
+%>				
+				</select>
+			</td>
           </tr>
 		  <tr> 
             <td width="20%"><%= JUtil.Msj("GLB","GLB","GLB","BANCO") %></td>
@@ -368,8 +575,17 @@ document.ven_client_dlg.poblacion.value = '<% if(request.getParameter("poblacion
 document.ven_client_dlg.noext.value = '<% if(request.getParameter("noext") != null) { out.print( request.getParameter("noext") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( set.getAbsRow(0).getNoExt() ); } else { out.print(""); } %>'  
 document.ven_client_dlg.noint.value = '<% if(request.getParameter("noint") != null) { out.print( request.getParameter("noint") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( set.getAbsRow(0).getNoInt() ); } else { out.print(""); } %>'  
 document.ven_client_dlg.municipio.value = '<% if(request.getParameter("municipio") != null) { out.print( request.getParameter("municipio") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( set.getAbsRow(0).getMunicipio() ); } else { out.print(""); } %>'  
+<%
+	if(request.getParameter("pais") != null && (request.getParameter("pais").equals("MEX") || request.getParameter("pais").equals("USA") || request.getParameter("pais").equals("CAN")))
+	{
+	}
+	else
+	{
+%>
 document.ven_client_dlg.estado.value = '<% if(request.getParameter("estado") != null) { out.print( request.getParameter("estado") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( set.getAbsRow(0).getEstado() ); } else { out.print(""); } %>'  
-document.ven_client_dlg.pais.value = '<% if(request.getParameter("pais") != null) { out.print( request.getParameter("pais") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( set.getAbsRow(0).getPais() ); } else { out.print(""); } %>'  
+<%
+	}
+%>
 document.ven_client_dlg.cp.value = '<% if(request.getParameter("cp") != null) { out.print( request.getParameter("cp") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( set.getAbsRow(0).getCP() ); } else { out.print(""); } %>'  
 document.ven_client_dlg.fax.value = '<% if(request.getParameter("fax") != null) { out.print( request.getParameter("fax") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( set.getAbsRow(0).getFax() ); } else { out.print(""); } %>'  
 document.ven_client_dlg.tel.value = '<% if(request.getParameter("tel") != null) { out.print( request.getParameter("tel") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( smod.getAbsRow(0).getTel() ); } else { out.print(""); } %>'  
@@ -377,7 +593,6 @@ document.ven_client_dlg.correo.value = '<% if(request.getParameter("correo") != 
 document.ven_client_dlg.atnpagos.value = '<% if(request.getParameter("atnpagos") != null) { out.print( request.getParameter("atnpagos") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( set.getAbsRow(0).getAtnPagos() ); } else { out.print(""); } %>'  
 document.ven_client_dlg.atncompras.value = '<% if(request.getParameter("atncompras") != null) { out.print( request.getParameter("atncompras") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( smod.getAbsRow(0).getContacto() ); } else { out.print(""); } %>'  
 document.ven_client_dlg.fecha.value = '<% if(request.getParameter("fecha") != null) { out.print( request.getParameter("fecha") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( JUtil.obtFechaTxt(set.getAbsRow(0).getUltimaCompra(), "dd/MMM/yyyy") ); } else { out.print(JUtil.obtFechaTxt(new Date(), "dd/MMM/yyyy") ); } %>'
-document.ven_client_dlg.metododepago.value = '<% if(request.getParameter("metododepago") != null) { out.print( request.getParameter("metododepago") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( set.getAbsRow(0).getMetodoDePago() ); } else { out.print(JUtil.Msj("GLB","GLB","GLB","METODO_PAGO",2)); } %>'
 document.ven_client_dlg.obs.value = '<% if(request.getParameter("obs") != null) { out.print( request.getParameter("obs") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( set.getAbsRow(0).getObs() ); } else { out.print(""); } %>'
 document.ven_client_dlg.prespmostr.checked = <% if( (request.getParameter("proceso").equals("CAMBIAR_CLIENTE") && request.getParameter("subproceso") == null) || request.getParameter("proceso").equals("CONSULTAR_CLIENTE") ) { out.print( (set.getAbsRow(0).getPrecioEspMostr() ? "true" : "false" ) ); } else if(request.getParameter("prespmostr") != null ) { out.print("true"); } else { out.print("false"); } %>  
 document.ven_client_dlg.idvendedor.value = '<% if(request.getParameter("idvendedor") != null) { out.print( request.getParameter("idvendedor") ); } else if(!request.getParameter("proceso").equals("AGREGAR_CLIENTE")) { out.print( set.getAbsRow(0).getID_Vendedor() ); } else { out.print("0"); } %>'  

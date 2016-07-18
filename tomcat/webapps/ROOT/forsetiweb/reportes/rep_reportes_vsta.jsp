@@ -15,7 +15,7 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<%@ page import="forseti.*, forseti.sets.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="forseti.*, forseti.sets.*" %>
 <%
 	String rep_reportes = (String)request.getAttribute("rep_reportes");
 	if(rep_reportes == null)
@@ -32,13 +32,18 @@
 	String coletq = JUtil.Msj("CEF","REP_REPORTES","VISTA","COLUMNAS",1);
 	int etq = 1, col = 1;
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+<meta charset="utf-8"/>
 <script language="JavaScript" type="text/javascript" src="../../compfsi/comps.js">
 </script>
 <script language="JavaScript" type="text/javascript" src="../../compfsi/staticbar.js">
 </script>
+<%
+	if(request.getParameter("tipo").indexOf('_') == -1)
+	{
+%>
 <script language="JavaScript" type="text/javascript">
 <!-- 
 if(top.location == self.location) {
@@ -55,11 +60,13 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 }
 -->
 </script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%
+	}
+%>
 <link href="../../compfsi/estilos.css" rel="stylesheet" type="text/css">
 </head>
 <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0">
-<form action="/servlet/CEFReportesDlg" method="post" enctype="application/x-www-form-urlencoded" name="rep_reportes" target="_self">
+<form  action="/servlet/CEFReportesDlg" method="post" enctype="application/x-www-form-urlencoded" name="rep_reportes" target="_self">
 <div id="topbar">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
@@ -90,8 +97,21 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
         <tr>
           <td width="3%" align="center" class="titChico">&nbsp;</td>
           <td width="12%" align="left" class="titChico"><%= JUtil.Elm(colvsta,col++) %></td>
-          <td width="50%" align="left" class="titChico"><%= JUtil.Elm(colvsta,col++) %></td>
+          <td align="left" class="titChico"><%= JUtil.Elm(colvsta,col++) %></td>
+<%
+	if(request.getParameter("tipo").indexOf('_') == -1)
+	{
+%>
 		  <td width="25%" align="left" class="titChico"><%= JUtil.Elm(colvsta,col++) %></td>
+<%
+	}
+	else
+	{
+%>
+		  <!--td width="25%" align="left" class="titChico"><%= JUtil.Elm(colvsta,col++) %></td-->
+<%
+	}
+%>
 		  <td width="10%" align="center" class="titChico"><%= JUtil.Elm(colvsta,col++) %></td>
         </tr>
 	 </table>
@@ -120,8 +140,21 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 		 <tr <%= clase %>>
 		  <td width="3%" align="center"><input type="radio" name="REPID" value="<%= set.getAbsRow(i).getID_Report() %>"></td>
 		  <td width="12%" align="left"><%= set.getAbsRow(i).getID_Report() %></td>
- 		  <td width="50%" align="left"><%= set.getAbsRow(i).getDescription() %></td>
-  		  <td width="25%" align="left"><%= set.getAbsRow(i).getTipo() %></td>
+ 		  <td align="left"><%= set.getAbsRow(i).getDescription() %></td>
+<%
+	if(request.getParameter("tipo").indexOf('_') == -1)
+	{
+%>
+		  <td width="25%" align="left"><%= set.getAbsRow(i).getTipo() %></td>
+<%
+	}
+	else
+	{
+%>
+		  <!--td width="25%" align="left"><%= set.getAbsRow(i).getTipo() %></td-->
+<%
+	}
+%>
   		  <td width="10%" align="center"><%= (set.getAbsRow(i).getGraficar()) ? "X" : "&nbsp;" %></td>
          </tr>		
 <%

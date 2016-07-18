@@ -27,6 +27,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+
 import forseti.JRetFuncBas;
 import forseti.JSubirArchivo;
 import forseti.JUtil;
@@ -37,6 +39,13 @@ import forseti.sets.JAyudaPaginasEnlacesSet;
 import forseti.sets.JAyudaPaginasSubTiposTiposSet;
 import forseti.sets.JAyudaSubTipoSet;
 import forseti.sets.JAyudaTipoSet;
+import forseti.sets.JBDSSet;
+import forseti.sets.JReportesAyudaSet;
+import forseti.sets.JReportesFiltroSet;
+import forseti.sets.JReportesSentenciasColumnasSet;
+import forseti.sets.JReportesSentenciasSet;
+import forseti.sets.JReportesSet;
+import forseti.sets.JUsuariosPermisosCatalogoSet;
 import fsi_admin.JFsiForsetiApl;
 
 @SuppressWarnings("serial")
@@ -577,7 +586,6 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
         irApag("/forsetiadmin/administracion/ayuda_pagina_dlg.jsp", request, response);
         	
 	}   
-
     
     public void Eliminar(HttpServletRequest request, HttpServletResponse response)
     	throws ServletException, IOException
@@ -714,23 +722,23 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
         String t_menus = "", f_menus = "";
         String p_menus = p.substring(ini_index+16,fin_index);
         // p_menu:  <td height="30" align="center" valign="middle" bgcolor="fsi-bgcolor-menu"><a class="txtMenu" href="fsi-href-menu" target="_self">fsi-descripcion-menu</a></td>
-		JAyudaTipoSet set = new JAyudaTipoSet(null);
-		set.m_OrderBy = "ID_Tipo ASC"; 
-		set.ConCat(true);
-		set.Open();
-		for(int i=0; i < set.getNumRows(); i++)
+		JAyudaTipoSet menu = new JAyudaTipoSet(null);
+		menu.m_OrderBy = "ID_Tipo ASC"; 
+		menu.ConCat(true);
+		menu.Open();
+		for(int i=0; i < menu.getNumRows(); i++)
 		{
 			int mod = i % 2;
 			
 			t_menus = p_menus;
 			String bgcolor;
-			if(set.getAbsRow(i).getDescripcion().equals("CEF"))
+			if(menu.getAbsRow(i).getDescripcion().equals("CEF"))
 				bgcolor = "#0099FF"; // Azul Cef
-			else if(set.getAbsRow(i).getDescripcion().equals("SAF"))
+			else if(menu.getAbsRow(i).getDescripcion().equals("SAF"))
 				bgcolor = "#FF6600"; // Naranja Saf ( Color principal forseti )
-			else if(set.getAbsRow(i).getDescripcion().equals("REF"))
+			else if(menu.getAbsRow(i).getDescripcion().equals("REF"))
 				bgcolor = "#FFCC00"; 
-			else if(set.getAbsRow(i).getDescripcion().equals("SOF"))
+			else if(menu.getAbsRow(i).getDescripcion().equals("SOF"))
 				bgcolor = "#339933"; // Verde CEF ( Da concordancia con openSUSE )
 			else
 				bgcolor = mod == 0 ? "#999999" : "#888888";
@@ -739,7 +747,7 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
 			
 			JAyudaPaginasSubTiposTiposSet st = new JAyudaPaginasSubTiposTiposSet(null);
 			st.m_OrderBy = "ID_SubTipo DESC, ID_Pagina ASC";
-			st.m_Where = "ID_Tipo = '" + p(set.getAbsRow(i).getID_Tipo()) + "' and Status = '2'";
+			st.m_Where = "ID_Tipo = '" + p(menu.getAbsRow(i).getID_Tipo()) + "' and Status = '2'";
 			st.ConCat(true);
 			st.Open();
 			if(st.getNumRows() > 0)
@@ -753,7 +761,7 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
 			else
 				t_menus = JUtil.replace(t_menus, "fsi-href-menu", "#");
 			
-			t_menus = JUtil.replace(t_menus, "fsi-descripcion-menu", set.getAbsRow(i).getDescripcion());
+			t_menus = JUtil.replace(t_menus, "fsi-descripcion-menu", menu.getAbsRow(i).getDescripcion());
 		
 			f_menus += t_menus + "\n";
 		}
@@ -773,11 +781,11 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
 		//Empieza con el archivo index
 		String pag = fin_plant;
 		
-		JAyudaSubTipoSet setsub = new JAyudaSubTipoSet(null);
-		setsub.ConCat(true);
-		setsub.m_Where = "ID_Tipo = '01'"; // Menus de generalidades
-		setsub.m_OrderBy = "ID_SubTipo ASC";
-		setsub.Open();
+		JAyudaSubTipoSet submenu = new JAyudaSubTipoSet(null);
+		submenu.ConCat(true);
+		submenu.m_Where = "ID_Tipo = '01'"; // Menus de generalidades
+		submenu.m_OrderBy = "ID_SubTipo ASC";
+		submenu.Open();
 		
 		JAyudaPaginaModuloSet pags = new JAyudaPaginaModuloSet(request,"");
 		pags.m_Where = "Status = '3'";
@@ -794,15 +802,15 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
 			String menu01 = "<table width=\"100%\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\">\n";
 			
 			//System.out.println("SetSubTipo: 01 = " + setsub.getNumRows());
-			if(setsub.getNumRows() > 0 && setsub.getNumRows() < 4)
+			if(submenu.getNumRows() > 0 && submenu.getNumRows() < 4)
 			{
 				menu01 += "<tr>\n";
 				for(int i = 1; i < 3; i++ )
 				{
-					menu01 += "<td valign=\"top\" width=\"30%\"><strong>" + setsub.getAbsRow(i).getDescripcion() + "</strong><br>\n";
+					menu01 += "<td valign=\"top\" width=\"30%\"><strong>" + submenu.getAbsRow(i).getDescripcion() + "</strong><br>\n";
 					JAyudaPaginaModuloSet pagsub = new JAyudaPaginaModuloSet(request,"");
 					pagsub.ConCat(true);
-					pagsub.m_Where = "ID_SubTipo = '" + p(setsub.getAbsRow(i).getID_SubTipo()) + "' and Status <> '3'";
+					pagsub.m_Where = "ID_SubTipo = '" + p(submenu.getAbsRow(i).getID_SubTipo()) + "' and Status <> '3'";
 					pagsub.m_OrderBy = "ID_Pagina ASC";
 					
 					pagsub.Open();
@@ -855,30 +863,35 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
        	System.out.println(p_paginas);*/
        	
 		//Ahora genera las páginas completas
+        String cefrep_cuerpo_final = "";
+        String safrep_cuerpo_final = "";
+        String cefrep_pagina_final = "";
+        String safrep_pagina_final = "";
+        
         cuerpo_plant = null; //libera memoria del cuerpo       	
-       	for(int i = 0; i < set.getNumRows(); i++)
+       	for(int i = 0; i < menu.getNumRows(); i++)
 		{
-			String mid = set.getAbsRow(i).getID_Tipo();
+			String mid = menu.getAbsRow(i).getID_Tipo();
 			String color;
-			if(set.getAbsRow(i).getDescripcion().equals("CEF"))
+			if(menu.getAbsRow(i).getDescripcion().equals("CEF"))
 				color = "#0099FF"; // Azul Cef
-			else if(set.getAbsRow(i).getDescripcion().equals("SAF"))
+			else if(menu.getAbsRow(i).getDescripcion().equals("SAF"))
 				color = "#FF6600"; // Naranja Saf ( Color principal forseti )
-			else if(set.getAbsRow(i).getDescripcion().equals("REF"))
+			else if(menu.getAbsRow(i).getDescripcion().equals("REF"))
 				color = "#FFCC00"; // ó FF0000 que es amarillo
-			else if(set.getAbsRow(i).getDescripcion().equals("SOF"))
+			else if(menu.getAbsRow(i).getDescripcion().equals("SOF"))
 				color = "#339933"; // Verde CEF ( Da concordancia con openSUSE )
 			else
 				color = "#444444";
 		
-			setsub.m_Where = "ID_Tipo = '" + p(mid) + "'";
-			setsub.m_OrderBy = "ID_SubTipo ASC"; 
-			setsub.ConCat(true);
-			setsub.Open();
+			submenu.m_Where = "ID_Tipo = '" + p(mid) + "'";
+			submenu.m_OrderBy = "ID_SubTipo ASC"; 
+			submenu.ConCat(true);
+			submenu.Open();
 			
 			//Construye este submenu
 			String f_submenu = "", t_submenu = ""; 
-			for(int ism = 0; ism < setsub.getNumRows(); ism++)
+			for(int ism = 0; ism < submenu.getNumRows(); ism++)
 			{
 				t_submenu = p_submenu;
 				
@@ -886,7 +899,7 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
 					
 				JAyudaPaginasSubTiposTiposSet st = new JAyudaPaginasSubTiposTiposSet(null);
 				st.m_OrderBy = "Status DESC, ID_Pagina ASC";
-				st.m_Where = "ID_SubTipo = '" + p(setsub.getAbsRow(ism).getID_SubTipo()) + "' and (Status = '1' or Status = '2')";
+				st.m_Where = "ID_SubTipo = '" + p(submenu.getAbsRow(ism).getID_SubTipo()) + "' and (Status = '1' or Status = '2')";
 				st.ConCat(true);
 				st.Open();
 				if(st.getNumRows() > 0)
@@ -894,7 +907,7 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
 				else
 					t_submenu = JUtil.replace(t_submenu, "fsi-href-submenu", "#");
 					
-				t_submenu = JUtil.replace(t_submenu, "fsi-descripcion-submenu", setsub.getAbsRow(ism).getDescripcion());
+				t_submenu = JUtil.replace(t_submenu, "fsi-descripcion-submenu", submenu.getAbsRow(ism).getDescripcion());
 				
 				f_submenu += t_submenu + "\n";
 			}
@@ -902,9 +915,9 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
 			//System.out.println(f_submenu);
 			
 				
-			for(int ism = 0; ism < setsub.getNumRows(); ism++)
+			for(int ism = 0; ism < submenu.getNumRows(); ism++)
 			{
-				pags.m_Where = "ID_SubTipo = '" + p(setsub.getAbsRow(ism).getID_SubTipo()) + "' and Status <> '3' and Tipo = 'COMPLETA'";
+				pags.m_Where = "ID_SubTipo = '" + p(submenu.getAbsRow(ism).getID_SubTipo()) + "' and Status <> '3' and Tipo = 'COMPLETA'";
 				pags.m_OrderBy = "ID_Pagina ASC";
 				pags.ConCat(true);
 				pags.Open();
@@ -936,7 +949,13 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
 					f_cuerpo = ""; t_cuerpo = p_cuerpo;
 					t_cuerpo = JUtil.replace(t_cuerpo, "fsi-color-titulo", color);
 					t_cuerpo = JUtil.replace(t_cuerpo, "fsi-cuerpo-titulo", pags.getAbsRow(ip).getDescripcion());
-					t_cuerpo = JUtil.replace(t_cuerpo, "fsi-cuerpo-todo", pagset.getAbsRow(0).getCuerpo());
+					//Si es la página de reportes del Saf o Cef manda a crearla
+					if(pags.getAbsRow(ip).getID_Alternativo().equals("FSI-SAFREP"))
+						t_cuerpo = generarIndiceReportes(t_cuerpo, "fsi-cuerpo-todo", "SAF", color, pags.getAbsRow(ip).getID_Alternativo());
+					else if(pags.getAbsRow(ip).getID_Alternativo().equals("FSI-CEFREP"))
+						t_cuerpo = generarIndiceReportes(t_cuerpo, "fsi-cuerpo-todo", "CEF", color, pags.getAbsRow(ip).getID_Alternativo());
+					else
+						t_cuerpo = JUtil.replace(t_cuerpo, "fsi-cuerpo-todo", pagset.getAbsRow(0).getCuerpo());
 					
 					f_cuerpo = t_cuerpo + "\n";
 					
@@ -975,8 +994,30 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
 					cuerpo_final = JUtil.replace(cuerpo_final, "_paginas", f_paginas);
 					String pagina_final = fin_plant;
 					pagina_final = JUtil.replace(pagina_final, "_cuerpo_completo", cuerpo_final);
-						 
-						
+					//Si es el de reportes del saf construye plantilla de página de reportes del SAF
+					if(pags.getAbsRow(ip).getID_Alternativo().equals("FSI-SAFREP"))
+					{
+						safrep_cuerpo_final = fin_cuerpo_plant;
+						safrep_cuerpo_final = JUtil.replace(safrep_cuerpo_final, "_submenu", f_submenu);
+						safrep_cuerpo_final = JUtil.replace(safrep_cuerpo_final, "_cuerpo", p_cuerpo);
+						safrep_cuerpo_final = JUtil.replace(safrep_cuerpo_final, "_enlacestit", f_enlacestit);
+						safrep_cuerpo_final = JUtil.replace(safrep_cuerpo_final, "_enlaces", f_enlaces);
+						safrep_cuerpo_final = JUtil.replace(safrep_cuerpo_final, "_paginas", f_paginas);
+						safrep_pagina_final = fin_plant;
+						safrep_pagina_final = JUtil.replace(safrep_pagina_final, "_cuerpo_completo", safrep_cuerpo_final);
+					}
+					//Si es el de reportes del cef construye plantilla de página de reportes del CEF
+					if(pags.getAbsRow(ip).getID_Alternativo().equals("FSI-CEFREP"))
+					{
+						cefrep_cuerpo_final = fin_cuerpo_plant;
+						cefrep_cuerpo_final = JUtil.replace(cefrep_cuerpo_final, "_submenu", f_submenu);
+						cefrep_cuerpo_final = JUtil.replace(cefrep_cuerpo_final, "_cuerpo", p_cuerpo);
+						cefrep_cuerpo_final = JUtil.replace(cefrep_cuerpo_final, "_enlacestit", f_enlacestit);
+						cefrep_cuerpo_final = JUtil.replace(cefrep_cuerpo_final, "_enlaces", f_enlaces);
+						cefrep_cuerpo_final = JUtil.replace(cefrep_cuerpo_final, "_paginas", f_paginas);
+						cefrep_pagina_final = fin_plant;
+						cefrep_pagina_final = JUtil.replace(cefrep_pagina_final, "_cuerpo_completo", cefrep_cuerpo_final);
+					}
 					//Ahora guarda el html
 					//System.out.println(pags.getAbsRow(ip).getID_Pagina() + ".html");
 			  		
@@ -992,6 +1033,15 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
 				        pwp = new PrintWriter(fwp);
 				        pwp.println(pagina_final);
 				        fwp.close();
+			        }
+			        // Si esta página es la de reportes del SAF o CEF, genera las páginas de cada reporte sus estructuras
+			        if(pags.getAbsRow(ip).getID_Alternativo() != null && 
+			        		(pags.getAbsRow(ip).getID_Alternativo().equals("FSI-SAFREP") || pags.getAbsRow(ip).getID_Alternativo().equals("FSI-CEFREP")))
+			        {
+			        	if(pags.getAbsRow(ip).getID_Alternativo().equals("FSI-SAFREP"))
+				        	GenerarAyudaReportes(var.getAbsRow(0).getVAlfanumerico() + "/webapps/ROOT/forsetidoc/", safrep_pagina_final, "SAF", color);
+				        else
+				        	GenerarAyudaReportes(var.getAbsRow(0).getVAlfanumerico() + "/webapps/ROOT/forsetidoc/", cefrep_pagina_final, "CEF", color);
 			        }
 				}
 			}
@@ -1097,5 +1147,434 @@ public class JAyudaPaginaDlg extends JFsiForsetiApl
         getSesion(request).setID_Mensaje(idmensaje, mensaje);
 		irApag("/forsetiadmin/caja_mensajes.jsp", request, response);
 	    return;
+	}
+	
+	private void GenerarAyudaReportes(String path, String pagina_final, String interfaz, String color) 
+			throws IOException
+	{
+		//carga el archivo de ayuda que contienen la plantilla completa
+		String ps = ""; 
+		FileReader file         = new FileReader("/usr/local/forseti/bin/forseti_doc/estructura_reportes.html");
+		BufferedReader buff     = new BufferedReader(file);
+		boolean eof             = false;
+		while(!eof)
+		{
+			String line = buff.readLine();
+			if(line == null)
+				eof = true;
+			else
+				ps += line + "\n";
+		}
+		buff.close();
+		file.close();
+		buff = null;
+		file = null;
+				
+		// extrae el inicio de la plantilla
+		int fin_index = ps.indexOf("<!--_ini_datos_cabecero-->");
+		String p_inicio = ps.substring(0,fin_index);
+		// extrae los datos del cabecero
+		int ini_index = fin_index + 26;
+		fin_index = ps.indexOf("<!--_fin_datos_cabecero-->");
+		String p_cabecero = ps.substring(ini_index, fin_index);
+		//extrae inicio de cabecero
+		ini_index = 0;
+		fin_index = p_cabecero.indexOf("<!--_ini_titulo_cabecero-->");
+		String p_ini_datos_cabecero = p_cabecero.substring(ini_index, fin_index);
+		//Extrae titulo del cabecero
+		ini_index = fin_index + 27;
+		fin_index = p_cabecero.indexOf("<!--_fin_titulo_cabecero-->");
+		String p_titulo_cabecero = p_cabecero.substring(ini_index, fin_index);
+		//Extrae columnas del cabecero
+		ini_index = p_cabecero.indexOf("<!--_ini_columnas_cabecero-->") + 29;
+		fin_index = p_cabecero.indexOf("<!--_fin_columnas_cabecero-->");
+		String p_columnas_cabecero = p_cabecero.substring(ini_index, fin_index);
+		//extrae final de cabecero
+		ini_index = fin_index + 29;
+		String p_fin_datos_cabecero = p_cabecero.substring(ini_index);
+		
+		// extrae los datos del filtro
+		ini_index = ps.indexOf("<!--_ini_datos_filtro-->") + 24;
+		fin_index = ps.indexOf("<!--_fin_datos_filtro-->");
+		String p_filtro = ps.substring(ini_index, fin_index);
+		//extrae inicio de filtro
+		ini_index = 0;
+		fin_index = p_filtro.indexOf("<!--_ini_titulo_filtro-->");
+		String p_ini_datos_filtro = p_filtro.substring(ini_index, fin_index);
+		//Extrae titulo del filtro
+		ini_index = fin_index + 25;
+		fin_index = p_filtro.indexOf("<!--_fin_titulo_filtro-->");
+		String p_titulo_filtro = p_filtro.substring(ini_index, fin_index);
+		//Extrae columnas del filtro
+		ini_index = p_filtro.indexOf("<!--_ini_columnas_filtro-->") + 27;
+		fin_index = p_filtro.indexOf("<!--_fin_columnas_filtro-->");
+		String p_columnas_filtro = p_filtro.substring(ini_index, fin_index);
+		//extrae final de filtro
+		ini_index = fin_index + 27;
+		String p_fin_datos_filtro = p_filtro.substring(ini_index);
+		
+		// extrae los datos del nivel
+		ini_index = ps.indexOf("<!--_ini_datos_nivel-->") + 23;
+		fin_index = ps.indexOf("<!--_fin_datos_nivel-->");
+		String p_nivel = ps.substring(ini_index, fin_index);
+		//extrae inicio de nivel
+		ini_index = 0;
+		fin_index = p_nivel.indexOf("<!--_ini_titulo_nivel-->");
+		String p_ini_datos_nivel = p_nivel.substring(ini_index, fin_index);
+		//Extrae titulo del nivel
+		ini_index = fin_index + 24;
+		fin_index = p_nivel.indexOf("<!--_fin_titulo_nivel-->");
+		String p_titulo_nivel = p_nivel.substring(ini_index, fin_index);
+		//Extrae columnas del nivel
+		ini_index = p_nivel.indexOf("<!--_ini_columnas_nivel-->") + 26;
+		fin_index = p_nivel.indexOf("<!--_fin_columnas_nivel-->");
+		String p_columnas_nivel = p_nivel.substring(ini_index, fin_index);
+		//Extrae agregados del nivel
+		ini_index = p_nivel.indexOf("<!--_ini_agregados_nivel-->") + 27;
+		fin_index = p_nivel.indexOf("<!--_fin_agregados_nivel-->");
+		String p_agregados_nivel = p_nivel.substring(ini_index, fin_index);
+		//Extrae codigo del nivel
+		ini_index = p_nivel.indexOf("<!--_ini_codigo_nivel-->") + 24;
+		fin_index = p_nivel.indexOf("<!--_fin_codigo_nivel-->");
+		String p_codigo_nivel = p_nivel.substring(ini_index, fin_index);
+		//extrae final de nivel
+		ini_index = fin_index + 24;
+		String p_fin_datos_nivel = p_nivel.substring(ini_index);
+				
+		//extrae el fin de la plantilla
+		ini_index = ps.indexOf("<!--_fin_datos_nivel-->") + 23;
+		String p_final = ps.substring(ini_index);
+		
+		
+		String nbd = ""; 
+		if(interfaz.equals("CEF"))
+		{
+			//System.out.println("Reportes del CEF");
+			JAdmVariablesSet var = new JAdmVariablesSet(null);
+			var.ConCat(true);
+			var.m_Where = "ID_Variable = 'IDEMPAYUDA'";
+			var.Open();
+			JBDSSet set = new JBDSSet(null);
+	    	set.ConCat(true);
+	    	set.m_Where = "ID_BD = '" + var.getAbsRow(0).getVEntero() + "'";
+	    	set.Open();
+	    	if(set.getNumRows() == 0)
+	    		return;
+	    	if(!set.getAbsRow(0).getSU().equals("3"))
+	    		return;
+	    	nbd = set.getAbsRow(0).getNombre();
+	  	}
+		
+		JReportesSet prm = new JReportesSet(null);
+		if(interfaz.equals("SAF"))
+	  		prm.ConCat(true);
+	  	else
+	  	{
+	  		prm.ConCat(3);
+	  		prm.setBD(nbd);
+	  	}
+		prm.m_OrderBy = "ID_Report ASC";
+		prm.Open();
+		JUsuariosPermisosCatalogoSet pc = new JUsuariosPermisosCatalogoSet(null);
+		if(interfaz.equals("SAF"))
+	  		pc.ConCat(true);
+	  	else
+	  	{
+	  		pc.ConCat(3);
+	  		pc.setBD(nbd);
+	  	}
+		pc.Open();
+		//System.out.println(prm.getSQL());
+		for(int k = 0; k < prm.getNumRows(); k++)
+		{
+			//Inicia por la ayuda
+			JReportesAyudaSet as = new JReportesAyudaSet(null);
+			if(interfaz.equals("SAF"))
+		  		as.ConCat(true);
+		  	else
+		  	{
+		  		as.ConCat(3);
+		  		as.setBD(nbd);
+		  	}
+			as.m_Where = "ID_Report = '" + prm.getAbsRow(k).getID_Report() + "'";
+			as.Open();
+			  
+			String inicio = p_inicio;
+			inicio = JUtil.replace(inicio, "fsi-color-interfaz", color);
+			inicio = JUtil.replace(inicio, "_documentacion", as.getAbsRow(0).getHelp());
+					 
+			int index = prm.getAbsRow(k).getTipo().indexOf('_');
+			String base = prm.getAbsRow(k).getTipo().substring(0,index);
+			String modulo = prm.getAbsRow(k).getTipo(); 
+			String basedesc = "", modulodesc = "";
+			for(int p = 0; p < pc.getNumRows(); p++)
+			{
+				if(pc.getAbsRow(p).getID_Permiso().equals(modulo))
+					modulodesc = pc.getAbsRow(p).getModulo();
+				if(pc.getAbsRow(p).getID_Permiso().equals(base))
+					basedesc = pc.getAbsRow(p).getModulo();
+			}
+			String pagfin = pagina_final;
+			String pathfin = path;
+			if(interfaz.equals("SAF"))
+				pathfin += "FSI-SAFREP-" + prm.getAbsRow(k).getID_Report() + ".html";
+			else
+				pathfin += "FSI-CEFREP-" + prm.getAbsRow(k).getID_Report() + ".html";
+			
+			pagfin = JUtil.replace(pagfin, "fsi-color-titulo", color);
+			pagfin = JUtil.replace(pagfin, "fsi-cuerpo-titulo", prm.getAbsRow(k).getDescription());
+			
+			String cuerpo = p_ini_datos_cabecero + "\n";
+			
+			String titulo = p_titulo_cabecero;
+			titulo = JUtil.replace(titulo, "fsi-color-modulo", color);
+			cuerpo += titulo + "\n";
+			
+			String columnas = p_columnas_cabecero;
+			columnas = JUtil.replace(columnas, "_clave", Integer.toString(prm.getAbsRow(k).getID_Report()));
+			columnas = JUtil.replace(columnas, "_descripcion", prm.getAbsRow(k).getDescription());
+			columnas = JUtil.replace(columnas, "_base", basedesc);
+			columnas = JUtil.replace(columnas, "_modulo", modulodesc);
+			columnas = JUtil.replace(columnas, "_graficar", (prm.getAbsRow(k).getGraficar() ? "<img src=\"../forsetidoc/IMG/chart.png\" style=\"border:0px solid;margin:0px;\" />" : "&nbsp;"));
+			cuerpo += columnas + "\n";
+			
+			cuerpo += p_fin_datos_cabecero + "\n";
+			
+			//Ahora el filtro
+			JReportesFiltroSet fs = new JReportesFiltroSet(null);
+			if(interfaz.equals("SAF"))
+		  		fs.ConCat(true);
+		  	else
+		  	{
+		  		fs.ConCat(3);
+		  		fs.setBD(nbd);
+		  	}
+			fs.m_Where = "ID_Report = '" + prm.getAbsRow(k).getID_Report() + "'";
+			fs.m_OrderBy = "ID_Column ASC";
+			fs.Open();
+			
+			if(fs.getNumRows() > 0)
+			{
+				cuerpo += p_ini_datos_filtro + "\n";
+				
+				titulo = p_titulo_filtro;
+				titulo = JUtil.replace(titulo, "fsi-color-modulo", color);
+				cuerpo += titulo + "\n";
+				
+				for(int fsi = 0; fsi < fs.getNumRows(); fsi++)
+				{
+					columnas = p_columnas_filtro;
+					columnas = JUtil.replace(columnas, "_objeto", fs.getAbsRow(fsi).getPriDataName());
+					columnas = JUtil.replace(columnas, "_descripcion", fs.getAbsRow(fsi).getInstructions());
+					columnas = JUtil.replace(columnas, "_tipo_dato", fs.getAbsRow(fsi).getBindDataType());
+					columnas = JUtil.replace(columnas, "_rango", (fs.getAbsRow(fsi).getIsRange() ? "<img src=\"../forsetidoc/IMG/range.png\" style=\"border:0px solid;margin:0px;\" />" : "&nbsp;"));
+					cuerpo += columnas + "\n";
+				}
+				cuerpo += p_fin_datos_filtro + "\n";
+				
+			}
+			//Fin del filtro
+			//Ahora los niveles
+			JReportesSentenciasSet ss = new JReportesSentenciasSet(null);
+			JReportesSentenciasColumnasSet cs = new JReportesSentenciasColumnasSet(null);
+			if(interfaz.equals("SAF"))
+			{
+				ss.ConCat(true);
+				cs.ConCat(true);
+			}
+			else
+		  	{
+				ss.ConCat(3);
+		  		ss.setBD(nbd);
+		  		cs.ConCat(3);
+		  		cs.setBD(nbd);
+		  	}
+			for(int niv = 1; niv <= 3; niv++)
+			{
+				cs.m_Where = "ID_Report = '" + prm.getAbsRow(k).getID_Report() + "' and ID_Sentence = '" + niv + "' and ID_IsCompute = '0'";
+				cs.m_OrderBy = "ID_Column ASC";
+				cs.Open();
+				ss.m_Where = "ID_Report = '" + prm.getAbsRow(k).getID_Report() + "' and ID_Sentence = '" + niv + "' and ID_IsCompute = '0'";
+				ss.Open();
+				if(cs.getNumRows() > 0)
+				{
+					cuerpo += p_ini_datos_nivel + "\n";
+					titulo = p_titulo_nivel;
+					titulo = JUtil.replace(titulo, "_nivel", Integer.toString(niv));
+					cuerpo += titulo + "\n";
+					for(int csi = 0; csi < cs.getNumRows(); csi++)
+					{
+						columnas = p_columnas_nivel;
+						columnas = JUtil.replace(columnas, "_columna", cs.getAbsRow(csi).getColName());
+						columnas = JUtil.replace(columnas, "_tipo_dato", cs.getAbsRow(csi).getBindDataType());
+						cuerpo += columnas + "\n";
+					}
+					String codigo = p_codigo_nivel;
+					codigo = JUtil.replace(codigo, "fsi-color-interfaz", color);
+					codigo = JUtil.replace(codigo, "_codigo", ss.getAbsRow(0).getSelect_Clause());
+					cuerpo += codigo + "\n";
+					cuerpo += p_fin_datos_nivel + "\n";
+				}
+				cs.m_Where = "ID_Report = '" + prm.getAbsRow(k).getID_Report() + "' and ID_Sentence = '" + niv + "' and ID_IsCompute = '1'";
+				cs.m_OrderBy = "ID_Column ASC";
+				cs.Open();
+				ss.m_Where = "ID_Report = '" + prm.getAbsRow(k).getID_Report() + "' and ID_Sentence = '" + niv + "' and ID_IsCompute = '1'";
+				ss.Open();
+				if(cs.getNumRows() > 0)
+				{
+					cuerpo += p_ini_datos_nivel + "\n";
+					for(int csi = 0; csi < cs.getNumRows(); csi++)
+					{
+						String agregados = p_agregados_nivel;
+						agregados = JUtil.replace(agregados, "_columna", cs.getAbsRow(csi).getColName());
+						agregados = JUtil.replace(agregados, "_tipo_dato", cs.getAbsRow(csi).getBindDataType());
+						cuerpo += agregados + "\n";
+					}
+					String codigo = p_codigo_nivel;
+					codigo = JUtil.replace(codigo, "fsi-color-interfaz", color);
+					codigo = JUtil.replace(codigo, "_codigo", ss.getAbsRow(0).getSelect_Clause());
+					cuerpo += codigo + "\n";
+					cuerpo += p_fin_datos_nivel + "\n";
+				}
+				//Fin del nivel
+			}
+			
+			String pagina = inicio  + "\n" + cuerpo  + "\n" + p_final;
+			
+			pagfin = JUtil.replace(pagfin, "fsi-cuerpo-todo", pagina);
+			
+			FileWriter fwp = new FileWriter(pathfin);
+	        PrintWriter pwp = new PrintWriter(fwp);
+	        pwp.println(pagfin);
+	        fwp.close();
+		}
+		
+	}
+	
+	private String generarIndiceReportes(String t_cuerpo, String remplazo, String interfaz, String color, String href) 
+			throws IOException
+	{
+		//carga el archivo de ayuda que contienen la plantilla completa
+		String ps = ""; 
+		FileReader file         = new FileReader("/usr/local/forseti/bin/forseti_doc/indice_reportes.html");
+		BufferedReader buff     = new BufferedReader(file);
+		boolean eof             = false;
+		while(!eof)
+		{
+			String line = buff.readLine();
+			if(line == null)
+				eof = true;
+			else
+				ps += line + "\n";
+		}
+		buff.close();
+		file.close();
+		buff = null;
+		file = null;
+		
+		// extrae el inicio de la plantilla
+        int ini_index = ps.indexOf("<!--_ini_modulos-->");
+        String p_inicio = ps.substring(0,ini_index);
+        // extrae los módulos
+        ini_index += 19;
+        int fin_index = ps.indexOf("<!--_fin_modulos-->");
+        String p_modulos = ps.substring(ini_index, fin_index);
+        //extrae los submodulos
+        ini_index = ps.indexOf("<!--_ini_submodulos-->") + 22;
+        fin_index = ps.indexOf("<!--_fin_submodulos-->");
+        String p_submodulos = ps.substring(ini_index, fin_index);
+        //extrae los reportes
+        ini_index = ps.indexOf("<!--_ini_reportes-->") + 20;
+        fin_index = ps.indexOf("<!--_fin_reportes-->");
+        String p_reportes = ps.substring(ini_index, fin_index);
+        //extrae el fin de la plantilla
+        ini_index = fin_index + 20;
+        String p_final = ps.substring(ini_index);
+        String cuerpo = "";
+        String nbd = ""; 
+		if(interfaz.equals("CEF"))
+		{
+			//System.out.println("Reportes del CEF");
+			JAdmVariablesSet var = new JAdmVariablesSet(null);
+			var.ConCat(true);
+			var.m_Where = "ID_Variable = 'IDEMPAYUDA'";
+			var.Open();
+			JBDSSet set = new JBDSSet(null);
+	    	set.ConCat(true);
+	    	set.m_Where = "ID_BD = '" + var.getAbsRow(0).getVEntero() + "'";
+	    	set.Open();
+	    	if(set.getNumRows() == 0)
+	    		return JUtil.replace(t_cuerpo, "fsi-cuerpo-todo", "&nbsp;");
+	    	if(!set.getAbsRow(0).getSU().equals("3"))
+	    		return JUtil.replace(t_cuerpo, "fsi-cuerpo-todo", "&nbsp;");
+	    	nbd = set.getAbsRow(0).getNombre();
+	  	}
+		
+		JUsuariosPermisosCatalogoSet pc = new JUsuariosPermisosCatalogoSet(null);
+		if(interfaz.equals("SAF"))
+	  		pc.ConCat(true);
+	  	else
+	  	{
+	  		pc.ConCat(3);
+	  		pc.setBD(nbd);
+	  	}
+		pc.Open();
+
+		for(int p = 0; p < pc.getNumRows(); p++)
+		{
+			if(pc.getAbsRow(p).getID_Permiso().indexOf('_',0) == -1)
+			{
+				String modulos = p_modulos;
+				modulos = JUtil.replace(modulos, "fsi-color-modulo", color);
+				modulos = JUtil.replace(modulos, "_modulo", pc.getAbsRow(p).getModulo());
+				cuerpo += modulos + "\n";
+				
+				JUsuariosPermisosCatalogoSet pct = new JUsuariosPermisosCatalogoSet(null);
+				if(interfaz.equals("SAF"))
+			  		pct.ConCat(true);
+			  	else
+			  	{
+			  		pct.ConCat(3);
+			  		pct.setBD(nbd);
+			  	}
+				pct.m_Where = "ID_Permiso LIKE '" + JUtil.p(pc.getAbsRow(p).getID_Permiso()) + "_%'";
+				pct.Open();
+	
+				for (int i = 0; i < pct.getNumRows(); i++) 
+				{
+					if(StringUtils.countMatches(pct.getAbsRow(i).getID_Permiso(), "_") == 1)
+					{
+						String submodulos = p_submodulos;
+						submodulos = JUtil.replace(submodulos, "_submodulo", pct.getAbsRow(i).getModulo());
+						cuerpo += submodulos + "\n";
+						
+						JReportesSet prm = new JReportesSet(null);
+						if(interfaz.equals("SAF"))
+					  		prm.ConCat(true);
+					  	else
+					  	{
+					  		prm.ConCat(3);
+					  		prm.setBD(nbd);
+					  	}
+						prm.m_OrderBy = "ID_Report ASC";
+						prm.m_Where = "Tipo = '" + JUtil.p(pct.getAbsRow(i).getID_Permiso()) + "'";
+						prm.Open();
+						//System.out.println(prm.getSQL());
+						for(int k = 0; k < prm.getNumRows(); k++)
+						{
+							String reportes = p_reportes;
+							reportes = JUtil.replace(reportes, "_href_reporte", href + "-" + prm.getAbsRow(k).getID_Report() + ".html");
+							reportes = JUtil.replace(reportes, "_clave_reporte", Integer.toString(prm.getAbsRow(k).getID_Report()));
+							reportes = JUtil.replace(reportes, "_descripcion_reporte", prm.getAbsRow(k).getDescription());
+							reportes = JUtil.replace(reportes, "_graficar_reporte", (prm.getAbsRow(k).getGraficar() ? "<img src=\"../forsetidoc/IMG/chart.png\" style=\"border:0px solid;margin:0px;\" />" : "&nbsp;"));
+							cuerpo += reportes + "\n";
+							
+						}
+					}
+				}
+			}
+		}	
+		String pagina = p_inicio  + "\n" + cuerpo  + "\n" + p_final;
+		return JUtil.replace(t_cuerpo, "fsi-cuerpo-todo", pagina);
 	}
 }

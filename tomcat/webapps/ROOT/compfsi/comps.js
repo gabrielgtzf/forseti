@@ -140,7 +140,7 @@ function establecerDobleProcesoSVE(m_Objeto, m_Proceso, m_Objeto2, m_Proceso2)
 
 function ventanaEmergente(ancho, alto)
 {
-	parametrs = "toolbar=1,location=1,directories=1,status=1,menubar=1,scrollbars=1,resizable=1,width=" + ancho + ",height=" + alto;
+	parametrs = "toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=1,width=" + ancho + ",height=" + alto;
 	ventana = window.open('', 'ventEm', parametrs);
 	ventana.focus();
 }

@@ -52,6 +52,7 @@ public class JRepGenSes
 	private String m_Tabla;
 	private String m_Columna;
 	private String m_statusFiltro;
+	private String m_Documentacion;
 	
 	private String m_TituloFuente;
 	private String m_TituloGrosor;
@@ -239,6 +240,7 @@ public class JRepGenSes
 		m_Tabla = "TBL_BD";
 		m_Columna = "ID_BD";
 		m_statusFiltro = "ND";
+		m_Documentacion = "";
 		
 		m_TabPrintPntL1 = 0;
 		m_TabPrintPntCL1 = 0;
@@ -454,7 +456,115 @@ public class JRepGenSes
 		}
 	}
 	
-	 
+	public void actCols(String L, HttpServletRequest request)
+	{
+        if(L.equals("L1"))
+           	m_AnchoColsL1 = 0F;
+        if(L.equals("L2")) 
+        	m_AnchoColsL2 = 0F;
+        if(L.equals("L3")) 
+        	m_AnchoColsL3 = 0F;
+        if(L.equals("CL1")) 
+        	m_AnchoColsCL1 = 0F;
+        if(L.equals("CL2")) 
+        	m_AnchoColsCL2 = 0F;
+        if(L.equals("CL3")) 
+       		m_AnchoColsCL3 = 0F;
+        
+      	JRepGenSesPart pMD; 
+	        
+      	if(L.equals("L1")) 
+      	{
+      		for(int i = 0; i < m_ColsL1.size(); i++)
+          	{
+      			pMD = (JRepGenSesPart)m_ColsL1.elementAt(i);
+      			String nombre = pMD.getColName();
+      			String bdt = pMD.getBindDataType();
+				boolean ws = (request.getParameter("FSI_WS_" + L + "_" + nombre) == null) ? false : true;
+				String format = request.getParameter("FSI_FMT_" + L + "_" + nombre);
+				float anc = (request.getParameter("FSI_ANC_" + L + "_" + nombre) == null) ? JUtil.redondear((100F/m_ColsL1.size()), 2) : Float.parseFloat(request.getParameter("FSI_ANC_" + L + "_" + nombre));
+		        m_AnchoColsL1 += anc;
+		        String alh = request.getParameter("FSI_ALH_" + L + "_" + nombre);
+		        pMD.setPartida(nombre, bdt, ws, format, anc, alh);
+          	}
+      	}
+      	if(L.equals("L2")) 
+      	{
+      		for(int i = 0; i < m_ColsL2.size(); i++)
+          	{
+      			pMD = (JRepGenSesPart)m_ColsL2.elementAt(i);
+      			String nombre = pMD.getColName();
+      			String bdt = pMD.getBindDataType();
+				boolean ws = (request.getParameter("FSI_WS_" + L + "_" + nombre) == null) ? false : true;
+				String format = request.getParameter("FSI_FMT_" + L + "_" + nombre);
+				float anc = (request.getParameter("FSI_ANC_" + L + "_" + nombre) == null) ? JUtil.redondear((100F/m_ColsL2.size()), 2) : Float.parseFloat(request.getParameter("FSI_ANC_" + L + "_" + nombre));
+		        m_AnchoColsL2 += anc;
+		        String alh = request.getParameter("FSI_ALH_" + L + "_" + nombre);
+		        pMD.setPartida(nombre, bdt, ws, format, anc, alh);
+          	}
+      	}
+      	if(L.equals("L3")) 
+      	{
+      		for(int i = 0; i < m_ColsL3.size(); i++)
+          	{
+      			pMD = (JRepGenSesPart)m_ColsL3.elementAt(i);
+      			String nombre = pMD.getColName();
+      			String bdt = pMD.getBindDataType();
+				boolean ws = (request.getParameter("FSI_WS_" + L + "_" + nombre) == null) ? false : true;
+				String format = request.getParameter("FSI_FMT_" + L + "_" + nombre);
+				float anc = (request.getParameter("FSI_ANC_" + L + "_" + nombre) == null) ? JUtil.redondear((100F/m_ColsL3.size()), 2) : Float.parseFloat(request.getParameter("FSI_ANC_" + L + "_" + nombre));
+		        m_AnchoColsL3 += anc;
+		        String alh = request.getParameter("FSI_ALH_" + L + "_" + nombre);
+		        pMD.setPartida(nombre, bdt, ws, format, anc, alh);
+          	}
+      	}
+      	if(L.equals("CL1")) 
+      	{
+      		for(int i = 0; i < m_ColsCL1.size(); i++)
+          	{
+      			pMD = (JRepGenSesPart)m_ColsCL1.elementAt(i);
+      			String nombre = pMD.getColName();
+      			String bdt = pMD.getBindDataType();
+				boolean ws = (request.getParameter("FSI_WS_" + L + "_" + nombre) == null) ? false : true;
+				String format = request.getParameter("FSI_FMT_" + L + "_" + nombre);
+				float anc = (request.getParameter("FSI_ANC_" + L + "_" + nombre) == null) ? JUtil.redondear((100F/m_ColsCL1.size()), 2) : Float.parseFloat(request.getParameter("FSI_ANC_" + L + "_" + nombre));
+		        m_AnchoColsCL1 += anc;
+		        String alh = request.getParameter("FSI_ALH_" + L + "_" + nombre);
+		        pMD.setPartida(nombre, bdt, ws, format, anc, alh);
+          	}
+      	}
+      	if(L.equals("CL2")) 
+      	{
+      		for(int i = 0; i < m_ColsCL2.size(); i++)
+          	{
+      			pMD = (JRepGenSesPart)m_ColsCL2.elementAt(i);
+      			String nombre = pMD.getColName();
+      			String bdt = pMD.getBindDataType();
+				boolean ws = (request.getParameter("FSI_WS_" + L + "_" + nombre) == null) ? false : true;
+				String format = request.getParameter("FSI_FMT_" + L + "_" + nombre);
+				float anc = (request.getParameter("FSI_ANC_" + L + "_" + nombre) == null) ? JUtil.redondear((100F/m_ColsCL2.size()), 2) : Float.parseFloat(request.getParameter("FSI_ANC_" + L + "_" + nombre));
+		        m_AnchoColsCL2 += anc;
+		        String alh = request.getParameter("FSI_ALH_" + L + "_" + nombre);
+		        pMD.setPartida(nombre, bdt, ws, format, anc, alh);
+          	}
+      	}
+      	if(L.equals("CL3")) 
+      	{
+      		for(int i = 0; i < m_ColsCL3.size(); i++)
+          	{
+      			pMD = (JRepGenSesPart)m_ColsCL3.elementAt(i);
+      			String nombre = pMD.getColName();
+      			String bdt = pMD.getBindDataType();
+				boolean ws = (request.getParameter("FSI_WS_" + L + "_" + nombre) == null) ? false : true;
+				String format = request.getParameter("FSI_FMT_" + L + "_" + nombre);
+				float anc = (request.getParameter("FSI_ANC_" + L + "_" + nombre) == null) ? JUtil.redondear((100F/m_ColsCL3.size()), 2) : Float.parseFloat(request.getParameter("FSI_ANC_" + L + "_" + nombre));
+		        m_AnchoColsCL3 += anc;
+		        String alh = request.getParameter("FSI_ALH_" + L + "_" + nombre);
+		        pMD.setPartida(nombre, bdt, ws, format, anc, alh);
+          	}
+      	}
+	}
+	
 	@SuppressWarnings("unchecked")
 	private void configurarFiltro(HttpServletRequest request)
 	{
@@ -518,6 +628,30 @@ public class JRepGenSes
 		}
 		
 		m_statusFiltro = "PRO";
+	}
+	
+	public void actFil(HttpServletRequest request)
+	{
+		JRepGenSesFiltro fil;
+		
+		for(int i = 0; i < m_Filtro.size(); i++)
+      	{
+			fil = (JRepGenSesFiltro)m_Filtro.elementAt(i);
+  			
+			String pridataname = fil.getPriDataName();
+			String pridefault = request.getParameter("FIL_PDF_" + pridataname);
+			String secdataname = fil.getSecDataName();
+			String secdefault = (secdataname.equals("") ? "" : request.getParameter("FIL_SDF_" + pridataname));
+			boolean isrange = fil.getIsRange();
+			String instructions = request.getParameter("FIL_INS_" + pridataname);
+			String binddatatype = request.getParameter("FIL_BDT_" + pridataname);
+			int idcatalogo = Integer.parseInt(request.getParameter("FIL_IDC_" + pridataname));
+			boolean fromcatalog = idcatalogo == 0 ? false : true;
+			
+			fil.setPartida(instructions, isrange, pridataname, pridefault, 
+					secdataname, secdefault, binddatatype, fromcatalog, idcatalogo);
+			
+      	}
 	}
 	
 	public String getNombreBase(int ind)
@@ -696,6 +830,7 @@ public class JRepGenSes
 		m_Tabla = "TBL_BD";
 		m_Columna = "ID_BD";
 		m_statusFiltro = "ND";
+		m_Documentacion = "";
 		
 		m_TabPrintPntL1 = 0;
 		m_TabPrintPntCL1 = 0;
@@ -1002,11 +1137,11 @@ public class JRepGenSes
 		m_TabPrintPntL3 = Float.parseFloat(request.getParameter("tabprintpntL3"));
 		m_TabPrintPntCL3 = Float.parseFloat(request.getParameter("tabprintpntCL3"));
 
-	    if(!m_SCL1.equals(request.getParameter("select_clauseL1")))
+		if(!m_SCL1.equals(request.getParameter("select_clauseL1")))
 	    {
 	    	m_SCL1 = request.getParameter("select_clauseL1");
 	    	
-	    	if(request.getParameter("select_clauseL1").equals("")) // Cadena Vacia
+	    	if(request.getParameter("select_clauseL1").trim().equals("")) // Cadena Vacia
 	    	{
 	    		m_prepL1.removeAllElements();
 	    		m_statusL1 = "ND";
@@ -1026,7 +1161,7 @@ public class JRepGenSes
 	    {
 	    	m_CSCL1 = request.getParameter("select_clauseCL1");
 	    	
-	    	if(request.getParameter("select_clauseCL1").equals(""))
+	    	if(request.getParameter("select_clauseCL1").trim().equals(""))
 	    		m_statusCL1 = "ND";
 	    	else
 	    		m_statusCL1 = "NP";
@@ -1038,7 +1173,7 @@ public class JRepGenSes
 	    {
 	    	m_SCL2 = request.getParameter("select_clauseL2");
 	    	
-	    	if(request.getParameter("select_clauseL2").equals("")) // Cadena Vacia
+	    	if(request.getParameter("select_clauseL2").trim().equals("")) // Cadena Vacia
 	    	{
 	    		m_prepL2.removeAllElements();
 	    		m_statusL2 = "ND";
@@ -1056,7 +1191,7 @@ public class JRepGenSes
 	    {
 	    	m_CSCL2 = request.getParameter("select_clauseCL2");
 	    	
-	    	if(request.getParameter("select_clauseCL2").equals(""))
+	    	if(request.getParameter("select_clauseCL2").trim().equals(""))
 	    		m_statusCL2 = "ND";
 	    	else
 	    		m_statusCL2 = "NP";
@@ -1068,7 +1203,7 @@ public class JRepGenSes
 	    {
 	    	m_SCL3 = request.getParameter("select_clauseL3");
 	    	
-	    	if(request.getParameter("select_clauseL3").equals("")) // Cadena Vacia
+	    	if(request.getParameter("select_clauseL3").trim().equals("")) // Cadena Vacia
 	    	{
 	    		m_prepL3.removeAllElements();
 	    		m_statusL3 = "ND";
@@ -1086,7 +1221,7 @@ public class JRepGenSes
 	    {
 	    	m_CSCL3 = request.getParameter("select_clauseCL3");
 	    	
-	    	if(request.getParameter("select_clauseCL3").equals(""))
+	    	if(request.getParameter("select_clauseCL3").trim().equals(""))
 	    		m_statusCL3 = "ND";
 	    	else
 	    		m_statusCL3 = "NP";
@@ -1992,6 +2127,16 @@ public class JRepGenSes
 	public void setBDP(String BDP)
 	{
 		m_BDP = BDP;
+	}
+
+	public void setDocumentacion(String Documentacion) 
+	{
+		m_Documentacion = Documentacion;
+	}
+	
+	public String getDocumentacion() 
+	{
+		return m_Documentacion;
 	}
 }
 

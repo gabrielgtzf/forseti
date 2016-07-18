@@ -40,6 +40,7 @@ public class view_compras_entidades_ids
 	private String m_Fmt_Recepcion;
 	private int m_Recepcion;
 	private boolean m_Fija;
+	private int m_TipoCobro;
 	
 	public void setDoc(long Doc)
 	{
@@ -240,6 +241,16 @@ public class view_compras_entidades_ids
 	public boolean getFija() 
 	{
 		return m_Fija;
+	}
+
+	public int getTipoCobro() 
+	{
+		return m_TipoCobro;
+	}
+
+	public void setTipoCobro(int TipoCobro) 
+	{
+		m_TipoCobro = TipoCobro;	
 	}
 }
 

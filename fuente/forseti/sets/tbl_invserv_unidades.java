@@ -22,6 +22,7 @@ public class tbl_invserv_unidades
 	private String m_ID_Unidad;
 	private String m_ID_InvServ;
 	private String m_Descripcion;
+	private int m_ID_SatUnidad;
 
 	public void setID_Unidad(String ID_Unidad)
 	{
@@ -54,6 +55,15 @@ public class tbl_invserv_unidades
 		return m_Descripcion;
 	}
 
+	public void setID_SatUnidad(int ID_SatUnidad) 
+	{
+		m_ID_SatUnidad = ID_SatUnidad;
+	}
+
+	public int getID_SatUnidad() 
+	{
+		return m_ID_SatUnidad;
+	}
 
 }
 

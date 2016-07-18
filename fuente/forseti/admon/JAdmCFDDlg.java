@@ -165,6 +165,7 @@ public class JAdmCFDDlg extends JForsetiApl
         }
       	else if(request.getParameter("proceso").equals("CAMBIAR_EMISOR"))
         {
+      		System.out.println(request.getParameter("cfd_regimenfiscal"));
       		// Revisa si tiene permisos
       		if(!getSesion(request).getPermiso("ADM_CFDI_AGREGAR"))
 	        {
@@ -183,6 +184,11 @@ public class JAdmCFDDlg extends JForsetiApl
                     return;
       			}
       			
+      			irApag("/forsetiweb/administracion/adm_cfd_dlg.jsp", request, response);
+	    		return;
+      		}
+      		else if(request.getParameter("subproceso") != null && request.getParameter("subproceso").equals("ACTUALIZAR"))
+      		{
       			irApag("/forsetiweb/administracion/adm_cfd_dlg.jsp", request, response);
 	    		return;
       		}
@@ -236,6 +242,11 @@ public class JAdmCFDDlg extends JForsetiApl
       		   	irApag("/forsetiweb/administracion/adm_cfd_dlg_exprec.jsp", request, response);
               	return;
       		}
+      		else if(request.getParameter("subproceso") != null && request.getParameter("subproceso").equals("ACTUALIZAR"))
+      		{
+      			irApag("/forsetiweb/administracion/adm_cfd_dlg_exprec.jsp", request, response);
+              	return;
+      		}
       		else // Como el subproceso no es ENVIAR, abre la ventana del proceso de CAMBIADO para cargar el cambio
       		{
         		getSesion(request).setID_Mensaje(idmensaje, mensaje);
@@ -271,6 +282,11 @@ public class JAdmCFDDlg extends JForsetiApl
 		      			}
 		      			irApag("/forsetiweb/administracion/adm_cfd_dlg_exprec.jsp", request, response);
 		        	   	return;
+		      		}
+		      		else if(request.getParameter("subproceso") != null && request.getParameter("subproceso").equals("ACTUALIZAR"))
+		      		{
+		      			irApag("/forsetiweb/administracion/adm_cfd_dlg_exprec.jsp", request, response);
+		              	return;
 		      		}
 		      		else // Como el subproceso no es ENVIAR, abre la ventana del proceso de CAMBIADO para cargar el cambio
 		      		{
@@ -1039,7 +1055,10 @@ public class JAdmCFDDlg extends JForsetiApl
 			    request.getParameter("cfd_noint") != null && request.getParameter("cfd_colonia") != null && request.getParameter("cfd_localidad") != null &&
 			    request.getParameter("cfd_cp") != null && request.getParameter("cfd_municipio") != null && request.getParameter("cfd_estado") != null && 
 			    request.getParameter("cfd_pais") != null && 
-			    !request.getParameter("cfd_id_exprec").equals("") && !request.getParameter("cfd_pais").equals("") )
+			    !request.getParameter("cfd_id_exprec").equals("") && !request.getParameter("cfd_pais").equals("") &&
+			    !request.getParameter("cfd_calle").equals("") && !request.getParameter("cfd_noext").equals("") &&
+	    		!request.getParameter("cfd_colonia").equals("") && !request.getParameter("cfd_cp").equals("") &&
+	    		!request.getParameter("cfd_municipio").equals("") && !request.getParameter("cfd_estado").equals(""))
 		{
 			return true;
 		}
@@ -1070,7 +1089,7 @@ public class JAdmCFDDlg extends JForsetiApl
 		    {
 		    	if(request.getParameter("cfd_regimenfiscal").equals("") || request.getParameter("rfc").equals("") ||
 		    		request.getParameter("cfd_calle").equals("") || request.getParameter("cfd_noext").equals("") ||
-		    		request.getParameter("cfd_colonia").equals("") || request.getParameter("cfd_localidad").equals("") ||
+		    		request.getParameter("cfd_colonia").equals("") ||
 		    		request.getParameter("cfd_cp").equals("") || request.getParameter("cfd_municipio").equals("") || 
 		    		request.getParameter("cfd_estado").equals("") || request.getParameter("cfd_pais").equals("") )
 		    	{

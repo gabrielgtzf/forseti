@@ -102,6 +102,7 @@ public class view_cfd_nomina_recibos_cab_generar
 	private float m_IXE;
 	private float m_IXM;
 	private int m_DiasHorasExtras;
+	private String m_MonedaSat;
 
 	public void setID_Sucursal(byte ID_Sucursal)
 	{
@@ -914,6 +915,15 @@ public class view_cfd_nomina_recibos_cab_generar
 		return m_DiasHorasExtras;
 	}
 
+	public void setMonedaSat(String MonedaSat) 
+	{
+		m_MonedaSat = MonedaSat;
+	}
+
+	public String getMonedaSat() 
+	{
+		return m_MonedaSat;
+	}
 
 }
 

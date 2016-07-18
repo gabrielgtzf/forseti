@@ -26,7 +26,7 @@
 		return;
  	}
 	
-	String titulo = request.getParameter("lista");
+	String titulo = request.getParameter("titulocat");
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -61,12 +61,14 @@ function transferirClave(clave, destino)
 		<table width="100%" border="0" cellspacing="5" cellpadding="0">
           <tr> 
             <td width="75" class="titChico">
+				<input name="titulocat" type="hidden" value="<%= request.getParameter("titulocat") %>">
 				<input name="formul" type="hidden" value="<%= request.getParameter("formul") %>">
 				<input name="lista" type="hidden" value="<%= request.getParameter("lista") %>">
 				<input name="destino" type="hidden" value="<%= request.getParameter("destino") %>">
 				<input name="nombre" type="hidden" value="<%= request.getParameter("nombre") %>">
 				<input name="idreporte" type="hidden" value="<%= request.getParameter("idreporte") %>">
 				<input name="idcolumna" type="hidden" value="<%= request.getParameter("idcolumna") %>">
+				<input name="entidad" type="hidden">
 				<input name="descripcion" type="hidden" value="<%= (request.getParameter("descripcion") == null) ? "" : request.getParameter("descripcion") %>">
 				<%= JUtil.Msj("GLB","GLB","GLB","DESCRIPCION") %></td>
             <td width="100"> 
@@ -103,6 +105,7 @@ function transferirClave(clave, destino)
 	else
 	{
 		String select;
+		String where_alternativo = "";
 		JReportesBindFSet setF = new JReportesBindFSet(request);
     	setF.m_Where = "ID_Report = '" + JUtil.p(request.getParameter("idreporte")) + "' and ID_Column = '" + JUtil.p(request.getParameter("idcolumna")) + "'";
        	setF.Open();
@@ -125,9 +128,28 @@ function transferirClave(clave, destino)
 				cats.m_Where = "ID_Catalogo = '" + idcatalogo + "'";
 				cats.Open();
 				select = cats.getAbsRow(0).getSelect_Clause();
+				
+				// aqui ejecuta el switch para hacer where_alternativo a algunos catalogos
+				switch(idcatalogo)
+				{ 
+					case 16:
+						//select = " Clave, Descripcion, Especial FROM view_catalog_provee_poriden ";
+						where_alternativo = "ID_Entidad = '" + JUtil.p(request.getParameter("entidad")) + "'";
+						break;
+					case 44:
+						//select = " Clave, Descripcion, Especial FROM view_catalog_client_poriden ";
+						where_alternativo = "ID_Entidad = '" + JUtil.p(request.getParameter("entidad")) + "'";
+						break;
+					case 48:
+						//select = " Clave, Descripcion, Especial FROM view_catalog_client ";
+						where_alternativo = "ID_Sucursal = '" + JUtil.p(request.getParameter("entidad")) + "'";
+						break;
+					default:
+						//select = " * from view_catalog_usuarios ";
+						where_alternativo = "";
+						break;
+				} 
 			}
-		
-			
 		}
 		else
 			select = " * from view_catalog_usuarios ";
@@ -136,10 +158,20 @@ function transferirClave(clave, destino)
 		set.setSelect(select);
 
 		if(request.getParameter("descripcion").equals("*"))
-			set.m_Where = "";	
+		{
+			if(!where_alternativo.equals(""))
+				set.m_Where = where_alternativo;
+			else
+				set.m_Where = "";
+		}	
 		else
-			set.m_Where = "Descripcion like '%" + JUtil.p(request.getParameter("descripcion")) + "%'";
-	
+		{
+			if(!where_alternativo.equals(""))
+				set.m_Where = where_alternativo + " and Descripcion ILIKE '%" + JUtil.p(request.getParameter("descripcion")) + "%'";
+			else
+				set.m_Where = "Descripcion ILIKE '%" + JUtil.p(request.getParameter("descripcion")) + "%'";
+		}
+		
 		set.m_OrderBy = "Descripcion ASC"; 
 		set.Open();
 		if(set.getNumRows() < 1)
@@ -169,6 +201,42 @@ function transferirClave(clave, destino)
 	</td>
   </tr>
 </table>
+<script language="JavaScript" type="text/javascript">
+<!-- 
+<% 
+	if(request.getParameter("entidad") != null)
+	{
+%>
+//Entidad dif null
+try 
+{
+    document.listas.entidad.value = <%= request.getParameter("entidad") %>;
+	//alert("Request Entidad: " + <%= request.getParameter("entidad") %> + ":" + document.listas.entidad.value);
+}
+catch(err) 
+{
+    //alert("Request Excepción: " + err.message);
+}
+<%
+	}
+	else 
+	{
+%>
+//Entidad es null
+try 
+{
+	document.listas.entidad.value = opener.document.<%= request.getParameter("formul") %>.Entidad.value
+	//alert("Opener Entidad: " + opener.document.<%= request.getParameter("formul") %>.Entidad.value + ":" + document.listas.entidad.value);
+}
+catch(err) 
+{
+    //alert("Opener Excepción: " + err.message);
+}
+<%
+	}
+%>
+-->
+</script>
 </form> 
 </body>
 </html>

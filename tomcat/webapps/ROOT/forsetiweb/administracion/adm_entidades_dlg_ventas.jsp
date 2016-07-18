@@ -169,7 +169,7 @@ function enviarlo(formAct)
               <input name="idbodega_nombre" type="text" id="idbodega_nombre" size="25" maxlength="250" readonly="true"></td>
           </tr>
           <tr> 
-            <td> <div align="right"><%= JUtil.Msj("GLB","GLB","GLB","TIPO") %></div></td>
+            <td> <div align="right"><%= JUtil.Msj("GLB","GLB","GLB","PAGO") %></div></td>
             <td> <select name="tipopago" class="cpoBco">
                 <option value="0"<% if(request.getParameter("tipopago") != null) {
 										if(request.getParameter("tipopago").equals("0")) {
@@ -204,6 +204,17 @@ function enviarlo(formAct)
 											}
 										}
 									 } %>><%= JUtil.Msj("GLB","GLB","GLB","MIXTO") %></option>
+				<option value="3"<% if(request.getParameter("tipopago") != null) {
+										if(request.getParameter("tipopago").equals("3")) {
+											out.print(" selected");
+										}
+									 } else {
+										if(!request.getParameter("proceso").equals("AGREGAR_ENTIDAD")) { 
+											if(set.getAbsRow(0).getTipoCobro() == 3) {
+												out.print(" selected"); 
+											}
+										}
+									 } %>><%= JUtil.Msj("GLB","GLB","GLB","NINGUN") %></option>
               </select> </td>
             <td align="right"><%= JUtil.Msj("GLB","GLB","GLB","VENDEDOR") %></td>
             <td> <input name="idvendedor" type="text" id="idvendedor" size="7" maxlength="10"> 

@@ -412,7 +412,7 @@ public class JVenClientDlg extends JForsetiApl
          request.getParameter("fecha") != null && request.getParameter("obs") != null && request.getParameter("idvendedor") != null &&
          request.getParameter("noext") != null && request.getParameter("noint") != null && request.getParameter("municipio") != null &&
          request.getParameter("estado") != null && request.getParameter("pais") != null && request.getParameter("metododepago") != null &&
-         request.getParameter("status") != null && request.getParameter("id_satbanco") != null && request.getParameter("smtp") != null &&
+         request.getParameter("status") != null && request.getParameter("id_satbanco") != null && request.getParameter("smtp") != null && request.getParameter("pedimento") != null &&
          !request.getParameter("numero").equals("") &&  
          !request.getParameter("dias").equals("") && !request.getParameter("limite").equals("") && !request.getParameter("descuento").equals("") &&
          !request.getParameter("cuenta").equals("") && !request.getParameter("nombre").equals("") && !request.getParameter("fecha").equals("") && 
@@ -421,13 +421,16 @@ public class JVenClientDlg extends JForsetiApl
       {
     	if(!request.getParameter("rfc").equals(""))
       	{
-      		String rfcfmt = JUtil.fco(JUtil.frfc(request.getParameter("rfc")));
-      		if(rfcfmt.equals("") || rfcfmt.length() > 13 || rfcfmt.length() < 12)
-      		{
-      			idmensaje = 1; mensaje = "PRECAUCION: El RFC esta mal, puede que contenga caracteres no validos";
-      			getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
-      			return false;
-      		}
+    		if(request.getParameter("pais").equals("MEX"))
+			{
+	      		String rfcfmt = JUtil.fco(JUtil.frfc(request.getParameter("rfc")));
+	      		if(rfcfmt.equals("") || rfcfmt.length() > 13 || rfcfmt.length() < 12)
+	      		{
+	      			idmensaje = 1; mensaje = "PRECAUCION: El RFC esta mal, puede que contenga caracteres no validos";
+	      			getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
+	      			return false;
+	      		}
+			}
       	}
     	  
         if(request.getParameter("proceso").equals("CAMBIAR_CLIENTE"))
@@ -503,18 +506,29 @@ public class JVenClientDlg extends JForsetiApl
     public void Cambiar(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException
     {
-      String str = "select * from sp_client_client_cambiar('CL','" + p(request.getParameter("id")) + "','" + p(JUtil.obtCuentas(request.getParameter("cuenta"),(byte)19)) + "',null,'" + p(request.getParameter("nombre")) + "','0.00','" + getSesion(request).getSesion("VEN_CLIENT").getEspecial() + "','" + p(JUtil.fco(JUtil.frfc(request.getParameter("rfc")))) + "','" +
-              p(request.getParameter("atncompras")) + "','" + p(request.getParameter("atnpagos")) + "','" + p(request.getParameter("colonia")) + "','" + p(request.getParameter("cp")) + "','" + p(request.getParameter("direccion")) + "','" + p(request.getParameter("correo")) + "','" + p(request.getParameter("fax")) + "','" + p(request.getParameter("poblacion")) +
-              "','" + p(request.getParameter("tel")) + "','0.00','" + p(request.getParameter("descuento")) + "','" + p(request.getParameter("dias")) + "','" + p(request.getParameter("limite")) + "','" + p(JUtil.obtFechaSQL(request.getParameter("fecha"))) + "','" + p(request.getParameter("obs")) + "','" + (request.getParameter("prespmostr") != null ? "1" : "0") + "','" + p(request.getParameter("idvendedor"))
-              + "','" + p(request.getParameter("noext")) + "','" + p(request.getParameter("noint")) + "','" + p(request.getParameter("municipio")) + "','" + p(request.getParameter("estado")) + "','" + p(request.getParameter("pais")) + "','" + p(request.getParameter("metododepago")) + "','" + p(request.getParameter("status")) + "','" + p(request.getParameter("id_satbanco")) + "','" + p(request.getParameter("smtp")) + "') as ( err integer, res varchar, clave integer );";
-     
-      JRetFuncBas rfb = new JRetFuncBas();
-		
-      doCallStoredProcedure(request, response, str, rfb);
- 
-      RDP("CEF",getSesion(request).getConBD(),(rfb.getIdmensaje() == 0 ? "OK" : (rfb.getIdmensaje() == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(), "VEN_CLIENT_CAMBIAR", "VCLI|" + rfb.getClaveret() + "|" + getSesion(request).getSesion("VEN_CLIENT").getEspecial() + "||",rfb.getRes());
-      irApag("/forsetiweb/ventas/ven_client_dlg.jsp", request, response);
-         
+    	String rfc, registro_tributario;
+    	if(request.getParameter("pais").equals("MEX"))
+    	{
+    		rfc = p(JUtil.fco(JUtil.frfc(request.getParameter("rfc"))));
+    		registro_tributario = rfc;
+    	}
+    	else
+    	{
+    		rfc = "XEXX010101000";
+    		registro_tributario = p(request.getParameter("rfc"));
+    	}
+    	String str = "select * from sp_client_client_cambiar('CL','" + p(request.getParameter("id")) + "','" + p(JUtil.obtCuentas(request.getParameter("cuenta"),(byte)19)) + "',null,'" + p(request.getParameter("nombre")) + "','0.00','" + getSesion(request).getSesion("VEN_CLIENT").getEspecial() + "','" + rfc + "','" +
+	              p(request.getParameter("atncompras")) + "','" + p(request.getParameter("atnpagos")) + "','" + p(request.getParameter("colonia")) + "','" + p(request.getParameter("cp")) + "','" + p(request.getParameter("direccion")) + "','" + p(request.getParameter("correo")) + "','" + p(request.getParameter("fax")) + "','" + p(request.getParameter("poblacion")) +
+	              "','" + p(request.getParameter("tel")) + "','0.00','" + p(request.getParameter("descuento")) + "','" + p(request.getParameter("dias")) + "','" + p(request.getParameter("limite")) + "','" + p(JUtil.obtFechaSQL(request.getParameter("fecha"))) + "','" + p(request.getParameter("obs")) + "','" + (request.getParameter("prespmostr") != null ? "1" : "0") + "','" + p(request.getParameter("idvendedor"))
+	              + "','" + p(request.getParameter("noext")) + "','" + p(request.getParameter("noint")) + "','" + p(request.getParameter("municipio")) + "','" + p(request.getParameter("estado")) + "','" + p(request.getParameter("pais")) + "','" + p(request.getParameter("metododepago")) + "','" + p(request.getParameter("status")) + "','" + p(request.getParameter("id_satbanco")) + "','" + p(request.getParameter("smtp")) + "','" + registro_tributario + "','" + p(request.getParameter("pedimento")) + "') as ( err integer, res varchar, clave integer );";
+	     
+    	JRetFuncBas rfb = new JRetFuncBas();
+			
+    	doCallStoredProcedure(request, response, str, rfb);
+	 
+    	RDP("CEF",getSesion(request).getConBD(),(rfb.getIdmensaje() == 0 ? "OK" : (rfb.getIdmensaje() == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(), "VEN_CLIENT_CAMBIAR", "VCLI|" + rfb.getClaveret() + "|" + getSesion(request).getSesion("VEN_CLIENT").getEspecial() + "||",rfb.getRes());
+    	irApag("/forsetiweb/ventas/ven_client_dlg.jsp", request, response);
+	         
     }
 
     public void AltaCXC(HttpServletRequest request, HttpServletResponse response)
@@ -563,19 +577,30 @@ public class JVenClientDlg extends JForsetiApl
     public void Agregar(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException
     {
-      String str = "select * from sp_client_client_agregar('CL','" + p(request.getParameter("numero")) + "','" + p(JUtil.obtCuentas(request.getParameter("cuenta"),(byte)19)) + "',null,'" + p(request.getParameter("nombre")) + "','0.00','" + getSesion(request).getSesion("VEN_CLIENT").getEspecial() + "','" + p(JUtil.fco(JUtil.frfc(request.getParameter("rfc")))) + "','" +
+    	String rfc, registro_tributario;
+    	if(request.getParameter("pais").equals("MEX"))
+    	{
+    		rfc = p(JUtil.fco(JUtil.frfc(request.getParameter("rfc"))));
+    		registro_tributario = rfc;
+    	}
+    	else
+    	{
+    		rfc = "XEXX010101000";
+    		registro_tributario = p(request.getParameter("rfc"));
+    	}
+    	String str = "select * from sp_client_client_agregar('CL','" + p(request.getParameter("numero")) + "','" + p(JUtil.obtCuentas(request.getParameter("cuenta"),(byte)19)) + "',null,'" + p(request.getParameter("nombre")) + "','0.00','" + getSesion(request).getSesion("VEN_CLIENT").getEspecial() + "','" + rfc + "','" +
           p(request.getParameter("atncompras")) + "','" + p(request.getParameter("atnpagos")) + "','" + p(request.getParameter("colonia")) + "','" + p(request.getParameter("cp")) + "','" + p(request.getParameter("direccion")) + "','" + p(request.getParameter("correo")) + "','" + p(request.getParameter("fax")) + "','" + p(request.getParameter("poblacion")) +
           "','" + p(request.getParameter("tel")) + "','0.00','" + p(request.getParameter("descuento")) + "','" + p(request.getParameter("dias")) + "','" + p(request.getParameter("limite")) + "','" + p(JUtil.obtFechaSQL(request.getParameter("fecha"))) + "','" + p(request.getParameter("obs")) + "','" + (request.getParameter("prespmostr") != null ? "1" : "0") + "','" + p(request.getParameter("idvendedor"))
-          + "','" + p(request.getParameter("noext")) + "','" + p(request.getParameter("noint")) + "','" + p(request.getParameter("municipio")) + "','" + p(request.getParameter("estado")) + "','" + p(request.getParameter("pais")) + "','" + p(request.getParameter("metododepago")) + "','" + p(request.getParameter("status")) + "','" + p(request.getParameter("id_satbanco")) + "','" + p(request.getParameter("smtp")) + "') as ( err integer, res varchar, clave integer );";
+          + "','" + p(request.getParameter("noext")) + "','" + p(request.getParameter("noint")) + "','" + p(request.getParameter("municipio")) + "','" + p(request.getParameter("estado")) + "','" + p(request.getParameter("pais")) + "','" + p(request.getParameter("metododepago")) + "','" + p(request.getParameter("status")) + "','" + p(request.getParameter("id_satbanco")) + "','" + p(request.getParameter("smtp")) + "','" + registro_tributario + "','" + p(request.getParameter("pedimento")) + "') as ( err integer, res varchar, clave integer );";
       
-      //doDebugSQL(request, response, str);
+    	//doDebugSQL(request, response, str);
       
-      JRetFuncBas rfb = new JRetFuncBas();
+    	JRetFuncBas rfb = new JRetFuncBas();
 		
-      doCallStoredProcedure(request, response, str, rfb);
+    	doCallStoredProcedure(request, response, str, rfb);
  
-      RDP("CEF",getSesion(request).getConBD(),(rfb.getIdmensaje() == 0 ? "OK" : (rfb.getIdmensaje() == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(), "VEN_CLIENT_AGREGAR", "VCLI|" + rfb.getClaveret() + "|" + getSesion(request).getSesion("VEN_CLIENT").getEspecial() + "||",rfb.getRes());
-      irApag("/forsetiweb/ventas/ven_client_dlg.jsp", request, response);
+    	RDP("CEF",getSesion(request).getConBD(),(rfb.getIdmensaje() == 0 ? "OK" : (rfb.getIdmensaje() == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(), "VEN_CLIENT_AGREGAR", "VCLI|" + rfb.getClaveret() + "|" + getSesion(request).getSesion("VEN_CLIENT").getEspecial() + "||",rfb.getRes());
+    	irApag("/forsetiweb/ventas/ven_client_dlg.jsp", request, response);
       
     }
 

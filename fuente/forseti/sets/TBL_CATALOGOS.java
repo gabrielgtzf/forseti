@@ -27,6 +27,7 @@ public class TBL_CATALOGOS
 	private String m_SecDefault;
 	private String m_Seguridad;
 	private boolean m_AplRep;
+	private boolean m_RepLong;
 
 	public void setID_Catalogo(int ID_Catalogo)
 	{
@@ -99,6 +100,14 @@ public class TBL_CATALOGOS
 		return m_AplRep;
 	}
 
+	public void setRepLong(boolean RepLong) 
+	{
+		m_RepLong = RepLong;
+	}
 
+	public boolean getRepLong() 
+	{
+		return m_RepLong;
+	}
 }
 

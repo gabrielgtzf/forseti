@@ -209,6 +209,12 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				 </tr>
 				 
 
+              	 <tr>
+				 	<td width="5" valign="top" class="txtSubMenu"><font color="#0099FF">-</font></td>
+                    <td valign="top"><a href="051101.html" class="txtSubMenu" target="_self"><font color="#0099FF">Reportes</font></a></td>
+				 </tr>
+				 
+
 				</table>
 				
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -234,14 +240,543 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				<table width="100%" border="0" cellspacing="0" cellpadding="10">
 				  
 				  <tr>
-					<td class="txtTit" align="center"><font color="#0099FF">CFDI y CE</font></td>
+					<td class="txtTit" align="center"><font color="#0099FF">CFDI, CE y GDE</font></td>
 				  </tr>
 				  <tr>
 					<td> 
-                    El módulo de CFDI y CE del Centro de Control del CEF, te permite gestionar los Comprobantes Fiscales Digitales por Internet, así como también, la Contabilidad Electrónica, ambos, son requerimientos del SAT para cualquier empresa. ¿ Qué son, y cómo funcionan CFDI y CE ?. A continuación, se muestran las respuestas a estas preguntas:<br />
-<br />CFDI, mejor conocida como facturación electrónica por internet, o simplemente facturación electrónica, es el proceso de generar, ya sea una factura, una remisión, una carta porte, un recibo de nómina, etc., en un archivo con formato XML (lenguaje de marcas extensible utilizado para almacenar datos en forma legible), y a este archivo, agregarle un sello digital generado por medio de un certificado expedido por el SAT, exclusivamente para nuestra empresa, para que posteriormente, enviemos este archivo a un PAC (Proveedor Autorizado de Certificación), el cual, funje como un auditor de Hacienda que verifica la autenticidad de este sello, y nos genera otro sello llamado "timbre", el cual es anexado al archivo XML. Posteriormente, con el XML timbrado, se genera un segundo archivo con extensión PDF (formato de documento portátil utilizado para almacenar documentos digitales y que sean legíbles independientemente de la plataforma de software o hardware). Este formato es de tipo compuesto (imagen vectorial, mapa de bits y texto).
+                    
  
 				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				
+ 
+				El módulo de CFDI, CE y GDE del Centro de Control del CEF, te permite gestionar los Comprobantes Fiscales Digitales por Internet, la Contabilidad Electrónica y los documentos externos cargados al sistema, todos estos son requerimientos del SAT para cualquier empresa. ¿Qué son y cómo funcionan CFDI, CE y GDE?. A continuación, se muestran las respuestas a estas preguntas:<br />
+<p>
+<strong>¿Qué es CFDI?<br />
+</strong>
+</p>
+<p>
+<strong>CFDI,</strong> mejor conocida como facturación electrónica por internet, o simplemente facturación electrónica, es el proceso de generar, ya sea una factura, una remisión, una carta porte, un recibo de nómina, etc., en un archivo con formato XML (lenguaje de marcas extensible utilizado para almacenar datos en forma legible) y a este archivo agregarle un sello digital generado por medio de un certificado expedido por el SAT exclusivamente para nuestra empresa. Este archivo xml es llamado CFD, y es enviado a un PAC (Proveedor Autorizado de Certificación) el cual funje como un auditor de hacienda que verifica la autenticidad del sello digital y nos genera otro sello llamado "timbre", el cual es anexado a este CFD convirtiéndolo en un CFDI. Posteriormente, con este CFDI se debe generar un segundo archivo con extensión PDF el cual es utilizado para la impresión.</p>
+<p>
+<strong>¿Cómo funciona CFDI?</strong>
+
+</p>
+<p>En forseti, puedes generar los CFDIs al agregar una factura desde el 
+módulo de facturación, un recibo de nómina desde el módulo de nómina, 
+etc., sin embargo, para que el servidor pueda realizar esta tarea será 
+necesario configurarlo bajo dos escenarios:</p>
+<ul>
+ <li>Realizar las configuraciones necesarias para que tu propio servidor
+ se conecte directamente al PAC Edicom a través de la API JPacConn.</li>
+ <li>Obtener una cuenta (usuario y contraseña) en un servidor forseti 
+externo y que este brinde el servicio de timbrado a tu servidor a través
+ de su API. Esta es la opción mas sencilla de configurar, además con 
+esta opción liberas a tu servidor de la carga que conlleva el timbrado y
+ el costo por el servicio es mínimo, por lo regular será un 20% mas caro
+ que un timbre directo con Edicom. Esta opción también te permitirá 
+utilizar las APIs de envío de correo automático y de alojamiento de 
+archivos en la nube a través de esta misma cuenta ya que seguramente 
+también estarán activadas. <br />
+</li>
+</ul>
+<p>La sección <strong>Propiedades del Servidor</strong> de la documentación del <a href="https://localhost:8443/servlet/040201.html">SAF / Servidor y Empresas</a>, abarca los aspectos de las APIs y la configuración para estas.</p>
+<p>Teniendo nuestro servidor con disponibilidad del servicio de timbrado
+ bajo cualquiera de los escenarios anteriores, el siguiente paso es 
+configurar nuestra empresa en este módulo con los elementos necesarios 
+para nuestros CFDIs:</p>
+<ul>
+ <li>
+<strong>Datos de Emisor.</strong> Son los datos de nuestra empresa, como RFC, domicilio, Régimen Fiscal, etc.</li>
+ <li>
+<strong>Certificado.</strong> Es el certificado proporcionado por el SAT.</li>
+ <li>
+<strong>Datos de Expedición.</strong> Son objetos que contienen el domicilio de 
+donde se expide el CFDI, por ejemplo, si tenemos sucursal DF y 
+Monterrey, tendremos que cargar ambos objetos de expedición y a cada 
+entidad de venta enlazarle su propio objeto.&nbsp;</li>
+</ul>
+<p>En este punto, ya podemos expedir CFDIs directamente desde forseti al
+ momento de agregar una factura, un recibo de nómina, un traspaso de 
+material, etc., siempre y cuando la entidad este enlazada a los 
+elementos anteriores. Revisa la documentación de <a href="https://localhost:8443/servlet/051004.html">Entidades</a> del Centro de Control del CEF si no sabes como enlazar.</p>
+
+<p>
+<strong>¿Qué es CE?<br />
+</strong>
+</p>
+<p>
+<strong>CE,</strong> acrónimo de contabilidad electrónica, es la obligación de llevar los registros y asientos contables (pólizas) a través de medios electrónicos tomando en cuenta la operación de actividades diarias. Este proceso 
+requiere el registro de póliza por póliza diariamente, y que lleven datos que son obligatorios, por ejemplo, quien emite y recibe 
+facturas, necesitará incluir en cada póliza la descripción de 
+los artículos, cantidades, costos unitarios y totales de los productos o
+ servicios, además de sus formas de pago, ya sea efectivo, por 
+transferencia, cheque o desconocido, por mencionar algunos. Es obligatorio ingresar de forma mensual la información al SAT por medio de reportes contables (catálogo de cuentas, balanza de comprobación, diario de pólizas, etc. ) los cuales deben de ser transformados en archivos electrónicos con la extensión XML.</p>
+<p>
+<strong>¿Cómo funciona CE?</strong>
+
+</p>
+<p>Cuando damos de alta entidades de compra, venta, bancos, cajas, etc.,
+ debemos indicar si se enlazan a la contabilidad o no. Las entidades que
+ enlazan a la contabilidad generan una póliza por cada registro, por 
+ejemplo, al agregar una factura se generará su póliza, y si esta generó 
+un CFDI, la información requerida por el SAT del archivo XML como el 
+UUID, total, RFC, etc., será anexada a la póliza en ese preciso momento.
+ En casos de compra o gastos, si estos se cargan a través del CFDI del 
+proveedor anexará también la información a la póliza. Así mismo, si 
+estos documentos fueron pagados de contado se anexará también a la 
+póliza la información del cobro o pago con objetos de cheque, 
+transferencia u otros métodos de pago, como lo requiere el SAT. Si la 
+compra o venta fue realizada a crédito, al momento de liquidar la cuenta
+ por cobrar o por pagar se generará una nueva póliza a la cual se le 
+anexarán los objetos de cheque, transferencia u otros métodos de pago.</p>
+<p>Al tener nuestras pólizas guardadas día a día con los objetos 
+requeridos por la contabilidad electrónica, será posible generar los 
+reportes en cualquier momento desde este módulo sin la necesidad de la 
+recaudación de información, y por ende, el doble trabajo que implica una
+ contabilidad independiente.</p>
+
+
+<p>
+<strong>¿Qué es GDE?</strong>
+</p>
+<p>
+<strong>GDE,</strong> acrónimo de gestión de documentos externos, abarca la carga al sistema de CFDIs expedidos por terceros que recibimos cuando hacemos una compra por ejemplo, o cuando nuestras
+ facturas y recibos de nómina electrónicos son generados por un servicio
+ externo, como por ejemplo, el portal del SAT u otro sistema diferente de forseti. También abarca objetos de facturas impresas con código de barras bidimensional (CBBs) y objetos de facturas extranjeras,los cuales deben capturarse manualmente subiendo su archivo escaneado de la factura, y son obligatorios para reportar en la 
+contabilidad electrónica.<br />
+</p>
+<strong>¿Cómo funciona GDE?</strong>
+
+<p>Cuando
+ cargamos un documento desde el módulo de compras, gastos, ventas o nómina y lo enlazamos a su 
+registro en forseti, en ese momento se agregará a la póliza del registro el objeto de contabilidad electrónica del documento CFDI, CBB o factura extranjera. Sobre este módulo podremos desasociar el documento para liberarlo y poderlo asociar a otro registro, también podremos eliminar documentos que no se pudieron asociar a ningún registro porque se cargaron en una entidad diferente. La eliminación liberará el documento para poderlo cargar sobre la entidad a la que pertenece. &nbsp; <br />
+</p>En el panel izquierdo de este módulo veremos las siguientes fichas:<br />
+
+<ul>
+ <li>
+<strong>Emisor</strong>. Esta ficha nos dirigirá a la sección de gestión de los datos del emisor de CFDI.</li>
+ <li>
+<strong>Certificados</strong>. La ficha de certificados nos dirigirá a la sección donde se gestionan los certificados digitales de la empresa que serán utilizados por CFDI.</li>
+ <li>
+<strong>Expeditores</strong>. Esta ficha nos dirigirá a la sección de gestión de elementos de expedición de CFDI.</li>
+ <li>
+<strong>Catálogo</strong>. Es la sección de gestión y generación del reporte mensual del catálogo de cuentas para la contabilidad electrónica.</li>
+ <li>
+<strong>Balanza</strong>. Es la sección de gestión y generación del reporte mensual de la balanza de comprobación para la contabilidad electrónica.</li>
+ <li>
+<strong>Pólizas.</strong> Es la sección de gestión y generación del reporte de pólizas para la contabilidad electrónica.</li>
+ <li>
+<strong>Documentos.</strong> Esta ficha nos dirigirá a la sección de gestión de documentos externos CFDI, CBB y Facturas Extranjeras.<br />
+</li>
+</ul>
+<p>El panel inferior, estando en cualquiera de las secciones de gestión de CFDI o CE aparece vacío, sin embargo, estando en la sección de documentos veremos las siguientes fichas:</p>
+<ul>
+ <li>
+<strong>Especial</strong>. La ficha de especial, permite filtrar documentos cargados de cierto mes específico, que no aparezca como meses.</li>
+ <li>
+<strong>Hoy</strong>. Filtra y muestra solo los documentos cargados de hoy (Esta es la selección por defecto).</li>
+ <li>
+<strong>Semana</strong>. Filtra y muestra los documentos cargados pertenecientes a los últimos siete días.</li>
+ <li>
+<strong>Meses... </strong>Esta ficha filtra y muestra los documentos cargados del mes seleccionado.</li>
+</ul>
+<p>El panel derecho, estando en cualquiera de las secciones de gestión 
+de CFDI o CE aparece vacío, sin embargo, estando en la sección de 
+documentos veremos las siguientes fichas:</p>
+<ul>
+ <li>
+<div align="justify">
+<strong>CFDIs.</strong> Esta ficha muestra los CFDIs cargados de compras o gastos. Los CFDIs de compras o gastos son aquellos que recibimos al hacer una compra, donde el elemento receptor pertenece a nuestra empresa o persona y el emisor es nuestro proveedor.</div>
+</li>
+ <li>
+<strong>CBB/Ext.</strong> Muestra los objetos dados de alta como CBBs o facturas extranjeras sobre los módulos de compras o gastos.</li>
+ <li>
+<strong>Terceros.</strong> Esta ficha muestra los CFDIs de nuestras facturas, cargados sobre el módulo de ventas. Los CFDIs externos de ventas son las facturas electrónicas que 
+generamos a través de terceros y enlazamos a nuestro registro de factura en forseti.</li>
+ <li>
+<strong>Recibos.</strong> Esta ficha muestra los CFDIs de nuestros empleados, cargados 
+sobre el módulo de nómina. Los CFDIs externos de nómina son los recibos electrónicos que 
+generamos a través de terceros y enlazamos al registro de nómina del empleado
+ en forseti.</li>
+</ul>Las columnas por defecto que muestra el panel de cuerpo principal 
+estando en cada sección son
+ las siguientes:
+<ul>
+ <li>
+<strong>Emisor.</strong> <br />
+<ul>
+ <li>
+<strong>Atributo.</strong> Es el nombre del atributo del emisor de CFDIs, por ejemplo: Nombre, RFC, Calle, Colonia, etc.</li>
+ <li>
+<strong>Valor.</strong> Es el valor asignado al atributo.</li>
+</ul>
+</li>
+ <li>
+<strong>Certificados.<br />
+</strong>
+<ul>
+ <li>
+<strong>Número.</strong> Es el número de certificado cargado al sistema.</li>
+ <li>
+<strong>Archivo.</strong> Es el nombre del archivo del certificado cargado al sistema.</li>
+ <li>
+<strong>Caducidad.</strong> Es la fecha de expiración del certificado.</li>
+ <li>
+<strong>Hora.</strong> Es la hora en que expira. <br />
+</li>
+</ul>
+</li>
+ <li>
+<strong>Expeditores.<br />
+</strong>
+<ul>
+ <li>
+<strong>Cve.</strong> Es la clave numérica de este objeto de expedición.</li>
+ <li>
+<strong>Nombre.</strong> Es el nombre para identificar este objeto de expedición.<br />
+</li>
+ <li>
+<strong>Calle.</strong> La calle y los campos subsecuentes son los atributos del elemento "ExpedidoEn" del CFDI que se generará.<br />
+</li>
+ <li>
+<strong>Ext.</strong> Se refiere al número exterior "NoExt".<br />
+</li>
+ <li>
+<strong>Int.</strong> Es el número interior "NoInt".<br />
+</li>
+ <li>
+<strong>Col.</strong> El atributo "Colonia".<br />
+</li>
+ <li>
+<strong>Localidad.</strong>
+</li>
+ <li>
+<strong>Municipio.</strong>
+</li>
+ <li>
+<strong>Estado.</strong>
+</li>
+ <li>
+<strong>Pais.</strong>
+</li>
+ <li>
+<strong>CP.</strong> Código Postal.</li>
+</ul>
+</li>
+ <li>
+<strong>Catálogo, Balanza </strong>y<strong> Pólizas.</strong> Sobre estas tres secciones de la contabilidad electrónica se muestran las mismas columnas pertenecientes al estado de los reportes mensuales de cada sección.<br />
+<ul>
+ <li>
+<strong>Mes.</strong> Es el mes del periodo contable dado de alta en forseti. Se mostrarán todos los meses dados de alta en el sistema, excepto los de cierre de año (mes especial).<br />
+</li>
+ <li>
+<strong>Año.</strong> Es el año del mes.</li>
+ <li>
+<strong>Generado.</strong> Una "X" indica que el reporte de este periodo ya ha sido generado. "---" Indica que no se ha generado aún.</li>
+ <li>
+<strong>Errores.</strong> En reportes generados, arrojará el número de errores detectados por el sistema en la última generación. Si no se ha generado el reporte en ninguna ocasión en este periodo, no mostrará nada.</li>
+ <li>
+<strong>Alertas.</strong> En reportes generados, arrojará el número de 
+alertas detectadas por el sistema en la última generación. Si no se ha 
+generado el reporte en ninguna ocasión en este periodo, no mostrará 
+nada.<br />
+</li>
+</ul>
+</li>
+ <li>
+<strong>Documentos. </strong>Sobre la sección de documentos, estando en las vistas de CFDIs, Terceros y Recibos, se muestran las siguientes columnas:<strong><br />
+</strong>
+<ul>
+ <li>
+<strong>Enlace.</strong> Muestra el enlace de este documento con su registro en forseti. Los enlaces de compras y ventas se muestran a manera de <strong>"Entidad/Mod3:Num"</strong>. Entidad es la ficha de la entidad de compra - gasto o venta (según estemos en la la vista de CFDIs o Terceros). Mod3 se refiere a la clave de tres letras del módulo al cual está enlazado el documento. Num es el número del registro en forseti. Los enlaces de recibos de nómina (sobre la vista de Recibos) se muestran a manera de <strong>"Entidad/Número:Año:Clave"</strong>.
+ Entidad es la ficha de la entidad de la nómina. Numero:Año se refiere al número y año de la nómina y la Clave 
+al Identificador del empleado en el catálogo de empleados.<br />
+Los siguientes son ejemplos de enlace de la vista CFDIs: <strong>Monterrey/FAC:19456</strong>, significa que este documento se enlaza a una factura de compra (FAC) de la entidad de compra de Monterrey y que el registro de esta compra tiene el número 19456. <strong>GastosDF/GAS:23234,</strong> significa que este documento se enlaza a una factura de gastos (GAS) de 
+la entidad de compra de GastosDF y que el registro de este gasto tiene
+ el número 23234. Ahora un ejemplo de enlace de la vista de Terceros y Recibos respectivamente: <strong>Monterrey/DSV:456,</strong> significa que este documento se enlaza a una devolución sobre venta (DSV) de la entidad de ventas de Monterrey con número 456. <strong>General/24:2015:GUFG01,</strong> es un enlace al recibo del empleado con clave GUFG01 de la nómina 24 del 2015 de la entidad dada de alta como General. <strong>NOTA MUY IMPORTANTE:</strong> Los documentos de cualquiera de las vistas que no han sido enlazados aun, solo muestran la entidad sobre la que se cargó.<br />
+</li>
+ <li>
+<strong>Fecha.</strong> Es la fecha de generación del CFD.</li>
+ <li>
+<strong>Total.</strong> Es el monto del atributo total del elemento Comprobante del CFDI.</li>
+ <li>
+<strong>Efecto.</strong> Este puede ser Ingreso, Egreso o Traslado según sea el caso del CFDI.</li>
+ <li>
+<strong>UUID.</strong> Es el identificador único asignado al CFDI por el PAC. <br />
+</li>
+ <li>
+<strong>RFC.</strong> Es el RFC ya sea del Emisor o Receptor según sea un comprobante que recibimos por compras, o uno que enviamos por ventas o recibo de nómina.<br />
+</li>
+ <li>
+<strong>Timbre.</strong> Es la fecha y hora en que fue timbrado el CFD por el PAC, convirtiéndolo en CFDI.</li>
+</ul>
+</li>
+ <li>
+Estando en la vista de CBB/Ext se muestran las siguientes columnas:
+<ul>
+ <li>
+<strong>Tipo.</strong> Muestra el tipo y enlace de este documento con su registro en forseti a manera de <strong>"Tipo: Entidad/Mod3:Num"</strong>.
+ Tipo puede ser "CBB" o "EXT" según sea una factura impresa con código de barras bidimensional o una factura extranjera. El siguiente es un ejemplo de enlace de esta vista: <strong>CBB: GastosDF/GAS:</strong>
+<strong>23235,</strong>
+ significa que este documento es una factura impresa con código de barras bidimensional que enlaza a una factura de gastos (GAS) de 
+la entidad de compra de GastosDF y que el registro de este gasto tiene
+ el número 23235. <strong>NOTA MUY IMPORTANTE:</strong> Los documentos que no han sido enlazados aun, solo muestran el tipo y la entidad sobre la que se cargó.</li>
+ <li>
+<strong>Factura.</strong> En documentos CBB muestra la serie seguida del folio. En documentos de facturas extranjeras, es el número de la factura.<br />
+</li>
+ <li>
+<strong>Fecha.</strong> Es la fecha del documento. <br />
+</li>
+ <li>
+<strong>Nombre.</strong> Es el nombre del archivo de imagen escaneado de la factura original de este registro de documento.<br />
+</li>
+ <li>
+<strong>Mon.</strong> La clave de la moneda del documento según el módulo de monedas del centro de control.<br />
+</li>
+ <li>
+<strong>TC.</strong> Es el tipo de cambio. En la moneda 1 perteneciente a la moneda nacional el tipo de cambio siempre es 1.00.<br />
+</li>
+ <li>
+<strong>Total.</strong> Es el importe total de este registro</li>
+</ul>
+</li>
+</ul>
+<h2 align="center">
+<strong>Procesos del Módulo de CFDI, CE y GDE</strong>
+</h2>
+<p>En
+ el módulo de CFDI, CE y GDE intervienen los procesos primarios de 
+cambiar emisor, agregar certificado, agregar expeditor, cambiar expeditor, generar archivos xml, consultar estatus, consultar archivo, validar archivo, descargar archivo, desenlazar documento y eliminar documento.</p>
+<p>
+<strong>PROCESO DE LA SECCION DE EMISOR DE CFDI.</strong><br />
+</p>
+<p>
+<strong>Cambiar emisor.</strong>
+</p>
+<p>Permite definir los datos del emisor de los CFDIs que se generarán directamente en forseti a través de la API JPacConn al agregar una venta, un traspaso, un recibo de nómina, etc., desde sus módulos. El formulario para definir los datos del emisor contiene los siguientes objetos:</p>
+<ul>
+ <li>
+<strong>Nombre.</strong> Este es un campo informativo que pertenece al nombre de la empresa o persona física registrado al momento de agregar la empresa desde el CEF.<br />
+</li>
+ <li>
+<strong>RFC.</strong> Debes ingresar aquí el RFC de la empresa o persona física. Este
+ RFC debe estar limpio, sin guiones, y con mayúsculas.
+</li>
+ <li>
+<strong>CFD.</strong> Puede ser cualquiera de las dos siguientes opciones:<br />
+<ul>
+ <li>
+<strong>No.</strong> No se generarán CFDIs, incluso si las entidades indican que si.</li>
+ <li>
+<strong>CFDI 3.2.</strong> Se generarán CFDIs con la versión 3.2 al agregar registros desde los módulos de ventas, traspasos y nóminas cuando sus entidades indiquen que se deben de generar.</li>
+</ul>
+</li>
+ <li>
+<strong>Calle.</strong> La calle y los campos subsecuentes son atributos de la dirección del emisor.<br />
+</li>
+ <li>
+<strong>No. Exterior.</strong> Se refiere al número exterior "NoExt".<br />
+</li>
+ <li>
+<strong>No. Interior.</strong> Es el número interior "NoInt".<br />
+</li>
+ <li>
+<strong>Col.</strong> El atributo "Colonia".<br />
+</li>
+ <li>
+<strong>Localidad.</strong>
+</li>
+ <li>
+<strong>Código Postal<br />
+</strong>
+</li>
+ <li>
+<strong>Municipio.</strong>
+</li>
+ <li>
+<strong>Estado.</strong>
+</li>
+ <li>
+<strong>País.</strong>
+</li>
+ <li>
+<strong>Régimen Fiscal.</strong> Debes indicar aquí el régimen del alta en hacienda de la persona moral o física.</li>
+</ul>
+<strong>PROCESO DE LA SECCION DE CERTIFICADOS DE CFDI.</strong>
+
+<p>
+<strong>Agregar certificado.</strong>
+</p>
+<p>Permite agregar al sistema el certificado digital asignado a este emisor por el SAT. Los certificados constan de dos archivos, el certificado .cer y la llave .key que requiere de una contraseña. Esta llave pertenece a este certificado exclusivamente. Al agregar, tanto el certificado como la llave se guardan en formato PEM. PEM es una forma de codificación de certificados X.509 y su mayor beneficio es que son mas seguros para guardarlos, que guardar los archivos .cer, .key y la contraseña, por lo tanto, la contraseña introducida para la verificación de la llave y a su vez del certificado, solo se utilizará al agregarlo y no, por cada CFD que se genere. El formulario para agregar el certificado contiene los siguientes objetos:</p>
+<ul>
+ <li>
+<strong>Archivo cer.</strong> Debes seleccionar del diálogo la ruta completa del archivo .cer</li>
+ <li>
+<strong>Archivo key. </strong>Debes seleccionar del diálogo la ruta completa del archivo .key</li>
+ 
+</ul>Ya que se han agregado y verificado que los archivos cer y key pertenecen a certificados X.509, el sistema mostrara nos dirigirá al siguiente formulario:<ul>
+ <li>
+<strong>Contraseña.</strong> Debes indicar aquí la contraseña para el archivo de llave. NOTA: Como ya se ha dicha anteriormente, esta contraseña no se guardará en la base de datos ya que el sistema utiliza la codificación de certificados PEM para todo el trabajo posterior.</li>
+</ul>
+<strong>PROCESOS DE LA SECCION DE EXPEDITORES DE CFDI.</strong><br />
+
+<p>
+<strong>Agregar expeditor.</strong>
+</p>Este proceso permite definir nuevos objetos de expedición. El formulario para definición contiene los siguientes objetos:<br />
+<ul>
+ <li>
+<strong>Clave.</strong> Indica aquí la clave numérica de este objeto de expedición.</li>
+ <li>
+<strong>Nombre.</strong> Proporciona una pequeña descripción que identifique este objeto de expedición.<br />
+</li>
+ <li>
+<strong>Calle.</strong><br />
+</li>
+ <li>
+<strong>No. Exterior.</strong><br />
+</li>
+ <li>
+<strong>No. Interior.</strong><br />
+</li>
+ <li>
+<strong>Colonia.</strong><br />
+</li>
+ <li>
+<strong>Localidad.</strong>
+</li>
+ <li>
+<strong>Código Postal.<br />
+</strong>
+</li>
+ <li>
+<strong>Municipio.</strong>
+</li>
+ <li>
+<strong>Estado.</strong>
+</li>
+ <li>
+<strong>País.</strong>
+<span style="font-size: large;">
+</span>
+</li>
+</ul>
+<p>
+<strong>Cambiar expeditor.</strong><br />
+</p>
+<p>Permite cambiar los datos del objeto de expedición seleccionado.</p>
+<p>
+<strong>PROCESOS DE LAS SECCIONES DE CATALOGO, BALANZA Y POLIZAS DE CE.</strong><br />
+
+</p>
+<p>
+<strong>Generar archivos xml.</strong>
+</p>Este proceso permite crear, o volver a crear en caso de que ya se haya creado antes, el reporte mensual del catálogo, balanza o pólizas (según la sección en la que estemos) perteneciente al mes seleccionado de la lista. La definición del reporte del catálogo no requiere de parámetros. Para la generación del reporte de la balanza contamos con el siguiente formulario:<br />
+<ul>
+ <li>
+<strong>Tipo de envío.</strong> Debes seleccionar la opción del tipo de envío:<br />
+<ul>
+ <li>
+<strong>Normal</strong>
+</li>
+ <li>
+<strong>Complementaria</strong>.</li>
+</ul>
+</li>
+</ul>
+<p>El formulario para la definición del reporte de pólizas contiene los siguientes objetos:</p>
+<ul>
+ <li>
+<strong>Tipo de solicitud.</strong> Debes seleccionar la opción para el tipo de solicitud:<br />
+<ul>
+ <li>
+<strong>Acto de fiscalización.</strong>
+</li>
+ <li>
+<strong>Fiscalización compulsa.</strong>
+</li>
+ <li>
+<strong>Devolución.</strong>
+</li>
+ <li>
+<strong>Compensación.</strong>
+</li>
+</ul>
+</li>
+ <li>
+<strong>Número de orden. </strong>Indica aquí el número de la orden proporcionada por el SAT.<strong><br />
+</strong>
+</li>
+ <li>
+<strong>Número de trámite. </strong>El número de trámite se debe proporcionar aquí.<strong><br />
+</strong>
+</li>
+</ul>
+<p>
+<strong>Consultar estatus.</strong>
+</p>Este proceso permite consultar en linea el archivo de registro de errores y alertas de la generación del reporte del mes seleccionado. Los errores y alertas son la primera fase de verificación antes de la validación, por ejemplo, si un RFC está mal formado, enviará el error al archivo de registro o si un número de cheque o cuenta contiene caracteres alfanuméricos enviará la alerta. Lo ideal será no encontrar ni errores ni alertas.<br />
+<p>
+<strong>Consultar archivo.</strong>
+</p>Este proceso permite consultar en linea el archivo xml del reporte generado del mes seleccionado.<br />
+
+<p>
+<strong>Validar archivo.</strong>
+</p>
+<p>Este proceso permite validar el archivo xml en forma y sintaxis antes de enviarlo. Si el archivo de registro de estatus ya no contiene errores, debes proceder a validar. La validación es la última fase de verificación del archivo xml y por lo tanto, un reporte validado debe ser aceptado por el SAT. La validación detecta errores mas profundos, por ejemplo, si un código agrupador es nulo, mandará el error al registro de errores y alertas, sin embargo, si existe el código agrupador pero no es válido para el SAT, no será reportado en el registro de errores sino será reportado hasta esta validación.</p>
+<p>
+<strong>Descargar archivo.</strong>
+</p>
+<p>Este proceso permite descargar del servidor el archivo xml del reporte generado del mes seleccionado. El reporte será comprimido en formato ZIP y su nombre será el apropiado (según RFC, periodo y tipo de reporte) para cumplir con los requerimientos del SAT.</p>
+<p>
+<strong>PROCESOS DE LA SECCION DE DOCUMENTOS DE GDE.</strong><br />
+
+</p>
+<p>
+<strong>Desenlazar documento.</strong>
+</p>
+<p>Este proceso permite eliminar el enlace entre el documento seleccionado de la lista y el registro de forseti. Por ejemplo, si tenemos un CFDI enlazado a un registro de compra en forseti, al quitar el enlace, el objeto de contabilidad electrónica "CompNal" (Comprobante Nacional) se eliminará de la póliza de este registro y el CFDI quedará disponible para enlazarlo a otra compra diferente de la misma entidad de compra.</p>
+<p>
+<strong>Eliminar documento.</strong>
+</p>
+<p>Permite eliminar el documento seleccionado de la lista cuando no está enlazado a ningún registro en forseti. Este proceso debe utilizarse cuando el documento se haya cargado en una entidad diferente de su objetivo (para que posteriormente se cargue en su entidad) o cuando por alguna circunstancia no se pueda enlazar al registro. <br />
+</p>
+<h2 align="center">
+<strong>Errores comunes del módulo de CFDI, CE y GDE.</strong><br />
+</h2>
+<ul>
+ <li>
+<strong>PRECAUCION: No se pueden generar los archivos XML de la Contabilidad Electrónica, porque el mes seleccionado no esta cerrado aun.</strong> Es absolutamente indispensable cerrar el periodo del reporte que se intenta generar desde el módulo de periodos del centro de control del CEF.</li>
+ <li>
+<strong>PRECAUCION: No se puede eliminar el documento porque ya se encuentra enlazado a un registro.</strong> Por motivos de integridad referencial, para eliminar un documento externo necesitas forzosamente desenlazarlo primero de su registro en forseti.<br />
+</li>
+</ul>
+			  
+
+			  
+
+			  
+
 			  
 
                     </td>
@@ -292,7 +827,7 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 
 				<tr>
 				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
-                    <td valign="top"><a href="051006.html" class="txtPag" target="_self"><font color="#0099FF">CFDI y CE</font></a><br><font color="#999999">Módulo de gestión de comprobantes fiscales digitales y contabilidad electrónica.</font></td>
+                    <td valign="top"><a href="051006.html" class="txtPag" target="_self"><font color="#0099FF">CFDI, CE y GDE</font></a><br><font color="#999999">Módulo de gestión de comprobantes fiscales digitales, contabilidad electrónica y otros documentos.</font></td>
 				 </tr>
 				
 
@@ -305,12 +840,6 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				<tr>
 				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
                     <td valign="top"><a href="051008.html" class="txtPag" target="_self"><font color="#0099FF">Monedas</font></a><br><font color="#999999">Módulo de Monedas del sistema</font></td>
-				 </tr>
-				
-
-				<tr>
-				    <td width="5" valign="top" class="txtPag"><font color="#0099FF">-</font></td>     
-                    <td valign="top"><a href="051101.html" class="txtPag" target="_self"><font color="#0099FF">Reportes y gráficas</font></a><br><font color="#999999">Reportes y gráficas en el CEF y SAF</font></td>
 				 </tr>
 				
 

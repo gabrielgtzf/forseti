@@ -44,6 +44,8 @@ import forseti.sets.JBDSSet;
 import forseti.sets.JCFDCompSet;
 import forseti.sets.JClientClientMasSetV2;
 import forseti.sets.JClientClientSetV2;
+import forseti.sets.JComercioExteriorDetDescEspSet;
+import forseti.sets.JComercioExteriorDetSet;
 import forseti.sets.JPublicContMonedasSetV2;
 import forseti.sets.JPublicInvServInvCatalogSetV2;
 import forseti.sets.JVentasCotizacionesSet;
@@ -435,7 +437,6 @@ public class JVenFactDlg extends JForsetiApl
 		        			  	  rec.setRFC(venfactxml.getRFC_Emisor());
 		        			      rec.setNumero(setcli2.getAbsRow(0).getNumero());
 		        			      rec.setColonia(setcli.getAbsRow(0).getColonia());
-		        			      rec.setForma_Pago((setcli2.getAbsRow(0).getDias() < 1) ? "contado" : "credito");
 		        			      rec.setCP(setcli.getAbsRow(0).getCP());
 		        			      rec.setDireccion(setcli.getAbsRow(0).getDireccion());
 		        			      rec.setPoblacion(setcli.getAbsRow(0).getPoblacion());
@@ -734,10 +735,11 @@ public class JVenFactDlg extends JForsetiApl
         			  {
         				  if(moddes.equals("FACTURAS"))
         				  {
+        					  HttpSession ses = request.getSession(true);
+    						  JVenFactSes rec = (JVenFactSes)ses.getAttribute("ven_fact_dlg");
+    						  
         					  if(request.getParameter("forma_pago").equals("contado"))
         					  {
-        						  HttpSession ses = request.getSession(true);
-        						  JVenFactSes rec = (JVenFactSes)ses.getAttribute("ven_fact_dlg");
         						  request.setAttribute("fsipg_tipo","ventas");
         						  request.setAttribute("fsipg_proc", "deposito");
         						  request.setAttribute("fsipg_total",rec.getTotal());
@@ -819,6 +821,101 @@ public class JVenFactDlg extends JForsetiApl
         			  return;
         		  }
         	  }
+          }
+          else if(request.getParameter("proceso").equals("DATOS_EXPORTACION"))
+          {
+        	 // Revisa si tiene permisos
+        	 if(!getSesion(request).getPermiso("VEN_FAC_AGREGAR"))
+             {
+        		  idmensaje = 3; mensaje += MsjPermisoDenegado(request, "CEF", "VEN_FAC_AGREGAR");
+                  getSesion(request).setID_Mensaje(idmensaje, mensaje);
+                  RDP("CEF",getSesion(request).getConBD(),"NA",getSesion(request).getID_Usuario(), "VEN_FAC_AGREGAR", "VFAC||||",mensaje);
+                  irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+                  return;
+             }
+
+             if(request.getParameter("subproceso") == null) // Como el subproceso no es ENVIAR ni AGR_PART ni EDIT_PART ni BORR_PART, abre la ventana del proceso de AGREGADO para agregar `por primera vez
+             {
+            	if(request.getParameter("ID") != null)
+                {
+              		String[] valoresParam = request.getParameterValues("ID");
+              		if(valoresParam.length == 1)
+              		{	
+              			if(moddes.equals("FACTURAS"))
+              			{
+              				JVentasFactSetV2 SetMod = new JVentasFactSetV2(request);
+              				SetMod.m_Where = "ID_Factura = '" + p(request.getParameter("ID")) + "'";
+              				SetMod.Open();
+        	            	
+              				if(SetMod.getAbsRow(0).getStatus().equals("C"))
+  		      	      		{
+  		      	      			idmensaje = 1;
+  		      	      			mensaje += "PRECAUCION: Esta venta ya esta cancelada, no se puede gestionar información de exportación<br>";
+  		      	      			getSesion(request).setID_Mensaje(idmensaje, mensaje);
+  		      	      			irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+  		      	      			return;
+  		      	      		} 
+              				
+              				if(setids.getAbsRow(0).getCFD() && SetMod.getAbsRow(0).getTFD() >= 2)
+  		      	      		{
+  		      	      			idmensaje = 1;
+  		      	      			mensaje += "PRECAUCION: Esta venta ya esta sellada. No se puede gestionar información de exportación porque ya está gestionada en el complemento de la factura electrónica generada por forseti<br>";
+  		      	      			getSesion(request).setID_Mensaje(idmensaje, mensaje);
+  		      	      			irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+  		      	      			return;
+  		      	      		}
+              				
+              				JClientClientMasSetV2 cli = new JClientClientMasSetV2(request);
+              				cli.m_Where = "ID_Clave = '" + SetMod.getAbsRow(0).getID_Cliente() + "'";
+              				cli.Open();
+              				
+              				if(SetMod.getAbsRow(0).getID_Cliente() == 0 || SetMod.getAbsRow(0).getMoneda() == 1 || cli.getAbsRow(0).getPais().equals("MEX") || cli.getAbsRow(0).getPedimento().equals("--"))
+              				{
+              					idmensaje = 1;
+  		      	      			mensaje += "PRECAUCION: Este cliente es nacional, o es un cliente extranjero con el cual no manejamos exportaciones definitivas, o en su defecto, la venta no fue realizada en moneda extranjera. No se puede gestionar información de exportación<br>";
+  		      	      			getSesion(request).setID_Mensaje(idmensaje, mensaje);
+  		      	      			irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+  		      	      			return;
+              				}
+  		       			}
+              			else // sale si no es factura
+              				return;
+                  	  
+              			getSesion(request).setID_Mensaje(idmensaje, mensaje);
+  	    	            irApag("/forsetiweb/ventas/ven_fact_dlg_datexp.jsp", request, response);
+  	    	            return;
+                    }
+                    else
+                    {
+                  	  idmensaje = 1; mensaje += JUtil.Msj("GLB", "VISTA", "GLB", "SELEC-PROC", 2); 
+                  	  getSesion(request).setID_Mensaje(idmensaje, mensaje);
+                  	  irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+                  	  return;    
+                    }
+                }
+                else
+                {
+                	  idmensaje = 3; mensaje += JUtil.Msj("GLB", "VISTA", "GLB", "SELEC-PROC", 1); 
+                	  getSesion(request).setID_Mensaje(idmensaje, mensaje);
+                	  irApag("/forsetiweb/caja_mensajes.jsp", request, response);
+                	  return;    
+                }              
+              }
+              else
+              {
+              		// Solicitud de envio a procesar
+            	  	if(request.getParameter("subproceso").equals("ENVIAR"))
+            	  	{
+            	  		if(VerificarParametrosDatosExportacion(request, response))
+            	  		{
+            	  			DatosExportacion(request, response);
+            	  			return;
+            	  		}
+           		  	 
+            	  		irApag("/forsetiweb/ventas/ven_fact_dlg_datexp.jsp", request, response);  
+            	  		return;
+            	  	}
+              }
           }
           else if(request.getParameter("proceso").equals("CARGAR_VENTA"))
           {
@@ -1581,8 +1678,13 @@ public class JVenFactDlg extends JForsetiApl
             			rec.setMoneda(SetCab.getAbsRow(0).getMoneda());
             			rec.setNumero((int)SetCab.getAbsRow(0).getNumero());
 	    	            rec.setColonia(SetCab.getAbsRow(0).getColonia());
-	    	            rec.setForma_Pago( ( (SetCab.getAbsRow(0).getCondicion() == 0) ? "contado" : "credito" ));
-	    	            rec.setCP(SetCab.getAbsRow(0).getCP());
+	    	            if(SetCab.getAbsRow(0).getCondicion() == 0)
+	    	            	rec.setForma_Pago("contado");
+	    	            else if(SetCab.getAbsRow(0).getCondicion() == 1)
+	    	            	rec.setForma_Pago("credito");
+	    	            else
+	    	            	rec.setForma_Pago("ninguno");
+		    	        rec.setCP(SetCab.getAbsRow(0).getCP());
 	    	            rec.setDescuento(SetCab.getAbsRow(0).getDescuento());
 	    	            rec.setDireccion(SetCab.getAbsRow(0).getDireccion());
 	    	            rec.setImporte(SetCab.getAbsRow(0).getImporte());
@@ -1814,8 +1916,13 @@ public class JVenFactDlg extends JForsetiApl
             		rec.setMoneda(SetCab.getAbsRow(0).getMoneda());
             		rec.setNumero((int)SetCab.getAbsRow(0).getNumero());
             		rec.setColonia(SetCab.getAbsRow(0).getColonia());
-            		rec.setForma_Pago( ( (SetCab.getAbsRow(0).getCondicion() == 0) ? "contado" : "credito" ));
-            		rec.setCP(SetCab.getAbsRow(0).getCP());
+            		if(SetCab.getAbsRow(0).getCondicion() == 0)
+    	            	rec.setForma_Pago("contado");
+    	            else if(SetCab.getAbsRow(0).getCondicion() == 1)
+    	            	rec.setForma_Pago("credito");
+    	            else
+    	            	rec.setForma_Pago("ninguno");
+	    	        rec.setCP(SetCab.getAbsRow(0).getCP());
             		rec.setDescuento(SetCab.getAbsRow(0).getDescuento());
             		rec.setDireccion(SetCab.getAbsRow(0).getDireccion());
             		rec.setImporte(SetCab.getAbsRow(0).getImporte());
@@ -2276,8 +2383,13 @@ public class JVenFactDlg extends JForsetiApl
 	    	            rec.setMoneda(SetCab.getAbsRow(0).getMoneda());
 	    	            rec.setNumero((int)SetCab.getAbsRow(0).getNumero());
 	    	            rec.setColonia(SetCab.getAbsRow(0).getColonia());
-	    	            rec.setForma_Pago( ( (SetCab.getAbsRow(0).getCondicion() == 0) ? "contado" : "credito" ));
-	    	            rec.setCP(SetCab.getAbsRow(0).getCP());
+	    	            if(SetCab.getAbsRow(0).getCondicion() == 0)
+	    	            	rec.setForma_Pago("contado");
+	    	            else if(SetCab.getAbsRow(0).getCondicion() == 1)
+	    	            	rec.setForma_Pago("credito");
+	    	            else
+	    	            	rec.setForma_Pago("ninguno");
+		    	        rec.setCP(SetCab.getAbsRow(0).getCP());
 	    	            rec.setDescuento(SetCab.getAbsRow(0).getDescuento());
 	    	            rec.setDireccion(SetCab.getAbsRow(0).getDireccion());
 	    	            rec.setImporte(SetCab.getAbsRow(0).getImporte());
@@ -2328,6 +2440,9 @@ public class JVenFactDlg extends JForsetiApl
   	       				  moddes.equals("COTIZACIONES") ||
   	       				  		moddes.equals("REMISIONES") )
   	       	  		{
+  	       	  			HttpSession ses = request.getSession(true);
+     	  				JVenFactSes rec = (JVenFactSes)ses.getAttribute("ven_fact_dlg");	
+ 			  
   	       	  			if(request.getParameter("fecha") == null  || request.getParameter("referencia") == null || 
   	       	  					request.getParameter("fecha").equals("") )
   	       	  			{
@@ -2338,9 +2453,6 @@ public class JVenFactDlg extends JForsetiApl
   	       	  			}
   	       	  			else if(request.getParameter("forma_pago").equals("contado"))
   	       	  			{
-  	       	  				HttpSession ses = request.getSession(true);
-  	       	  				JVenFactSes rec = (JVenFactSes)ses.getAttribute("ven_fact_dlg");	
-         			  
   	       	  				request.setAttribute("fsipg_tipo","ventas");
   	       	  				request.setAttribute("fsipg_proc", "deposito");
   	       	  				request.setAttribute("fsipg_total",rec.getTotal());
@@ -2505,8 +2617,13 @@ public class JVenFactDlg extends JForsetiApl
 	    	            rec.setMoneda(SetCab.getAbsRow(0).getMoneda());
 	    	            rec.setNumero((int)SetCab.getAbsRow(0).getNumero());
 	    	            rec.setColonia(SetCab.getAbsRow(0).getColonia());
-	    	            rec.setForma_Pago( ( (SetCab.getAbsRow(0).getCondicion() == 0) ? "contado" : "credito" ));
-	    	            rec.setCP(SetCab.getAbsRow(0).getCP());
+	    	            if(SetCab.getAbsRow(0).getCondicion() == 0)
+	    	            	rec.setForma_Pago("contado");
+	    	            else if(SetCab.getAbsRow(0).getCondicion() == 1)
+	    	            	rec.setForma_Pago("credito");
+	    	            else
+	    	            	rec.setForma_Pago("ninguno");
+		    	        rec.setCP(SetCab.getAbsRow(0).getCP());
 	    	            rec.setDescuento(SetCab.getAbsRow(0).getDescuento());
 	    	            rec.setDireccion(SetCab.getAbsRow(0).getDireccion());
 	    	            rec.setImporte(SetCab.getAbsRow(0).getImporte());
@@ -2665,8 +2782,13 @@ public class JVenFactDlg extends JForsetiApl
     	            	rec.setMoneda(SetCab.getAbsRow(0).getMoneda());
     	            	rec.setNumero((int)SetCab.getAbsRow(0).getNumero());
     	            	rec.setColonia(SetCab.getAbsRow(0).getColonia());
-    	            	rec.setForma_Pago( ( (SetCab.getAbsRow(0).getCondicion() == 0) ? "contado" : "credito" ));
-    	            	rec.setCP(SetCab.getAbsRow(0).getCP());
+    	            	if(SetCab.getAbsRow(0).getCondicion() == 0)
+	    	            	rec.setForma_Pago("contado");
+	    	            else if(SetCab.getAbsRow(0).getCondicion() == 1)
+	    	            	rec.setForma_Pago("credito");
+	    	            else
+	    	            	rec.setForma_Pago("ninguno");
+		    	        rec.setCP(SetCab.getAbsRow(0).getCP());
     	            	rec.setDescuento(SetCab.getAbsRow(0).getDescuento());
     	            	rec.setDireccion(SetCab.getAbsRow(0).getDireccion());
     	            	rec.setImporte(SetCab.getAbsRow(0).getImporte());
@@ -2948,8 +3070,13 @@ public class JVenFactDlg extends JForsetiApl
             			rec.setMoneda(SetCab.getAbsRow(0).getMoneda());
     	            	rec.setNumero((int)SetCab.getAbsRow(0).getNumero());
     	            	rec.setColonia(SetCab.getAbsRow(0).getColonia());
-    	            	rec.setForma_Pago( ( (SetCab.getAbsRow(0).getCondicion() == 0) ? "contado" : "credito" ));
-    	            	rec.setCP(SetCab.getAbsRow(0).getCP());
+    	            	if(SetCab.getAbsRow(0).getCondicion() == 0)
+	    	            	rec.setForma_Pago("contado");
+	    	            else if(SetCab.getAbsRow(0).getCondicion() == 1)
+	    	            	rec.setForma_Pago("credito");
+	    	            else
+	    	            	rec.setForma_Pago("ninguno");
+		    	        rec.setCP(SetCab.getAbsRow(0).getCP());
     	            	rec.setDescuento(SetCab.getAbsRow(0).getDescuento());
     	            	rec.setDireccion(SetCab.getAbsRow(0).getDireccion());
     	            	rec.setImporte(SetCab.getAbsRow(0).getImporte());
@@ -3016,8 +3143,8 @@ public class JVenFactDlg extends JForsetiApl
        				  			return;
        				  		}
        				  	}
-            			else
-                		{
+            			else if(rec.getForma_Pago().equals("credito"))
+           				{
            					 request.setAttribute("fsipg_tipo","ventas");
            					 if(VerificarParametrosDev(request, response) && VerificarSaldo(request, response))
            					 {
@@ -3025,7 +3152,15 @@ public class JVenFactDlg extends JForsetiApl
            						 return;
            					 }
            				}
-            			
+            			else //Ningun pago
+            			{
+            				request.setAttribute("fsipg_tipo","ventas");
+            				if(VerificarParametrosDev(request, response))
+            				{
+            					AgregarDev(request, response, setids);
+            					return;
+            				}
+            			}
             		}
             		
             		irApag("/forsetiweb/ventas/ven_fact_dlg.jsp", request, response);  
@@ -3207,14 +3342,14 @@ public class JVenFactDlg extends JForsetiApl
    	        getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
    	        return false;
         }
-            
+          
         if(rec.getForma_Pago().equals("credito") && rec.getClave() == 0)
-        {
-  	        idmensaje = 1; mensaje.append("PRECAUCION: Una venta de mostrador no se puede pagar a crédito <br>");
-  	        getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
-   	        return false;
-        }
-        
+	    {
+        	idmensaje = 1; mensaje.append("PRECAUCION: Una venta de mostrador no se puede pagar a crédito <br>");
+        	getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
+        	return false;
+	    }
+                
         if(request.getParameter("tipomov").equals("FACTURAS") || request.getParameter("tipomov").equals("REMISIONES"))
         {
         	idmensaje = rec.VerificacionesFinales(request, mensaje);
@@ -3234,6 +3369,163 @@ public class JVenFactDlg extends JForsetiApl
         
         return true;
 	
+    }
+    
+    public boolean VerificarParametrosDatosExportacion(HttpServletRequest request, HttpServletResponse response)
+        	throws ServletException, IOException
+    {
+    	short idmensaje = -1; StringBuffer mensaje = new StringBuffer(254);
+    	
+    	if(request.getParameter("tipooperacion") != null &&
+    		request.getParameter("certificadoorigen") != null &&
+    		request.getParameter("numcertificadoorigen") != null &&
+    		request.getParameter("numeroexportadorconfiable") != null &&
+    		request.getParameter("incoterm") != null &&
+    		request.getParameter("subdivision") != null &&
+    		request.getParameter("observaciones") != null &&
+    		request.getParameter("tipocambiousd") != null &&
+    		request.getParameter("totalusd") != null &&
+    		request.getParameter("emisor_curp") != null &&
+    		request.getParameter("receptor_curp") != null &&
+    		request.getParameter("receptor_numregidtrib") != null &&
+    		request.getParameter("destinatario_numregidtrib") != null &&
+    		request.getParameter("destinatario_rfc") != null &&
+    		request.getParameter("destinatario_curp") != null &&
+    		request.getParameter("destinatario_nombre") != null &&
+    		request.getParameter("destinatario_domicilio_calle") != null &&
+    		request.getParameter("destinatario_domicilio_numeroexterior") != null &&
+    		request.getParameter("destinatario_domicilio_numerointerior") != null &&
+    		request.getParameter("destinatario_domicilio_colonia") != null &&
+    		request.getParameter("destinatario_domicilio_localidad") != null &&
+    		request.getParameter("destinatario_domicilio_referencia") != null &&
+    		request.getParameter("destinatario_domicilio_municipio") != null &&
+    		request.getParameter("destinatario_domicilio_estado") != null &&
+    		request.getParameter("destinatario_domicilio_pais") != null &&
+    		request.getParameter("destinatario_domicilio_codigopostal") != null )
+    	{
+    		if(request.getParameter("tipooperacion").equals("-"))
+    		{
+    			idmensaje = 3; mensaje.append("ERROR: Es indispensable seleccionar el tipo de operación de comercio exterior <br>");
+       	        getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
+       	        return false;
+    		}
+    		
+    		boolean flag = true;
+    		double tcusd, totusd;
+    		try 
+     	   	{
+    			tcusd = (request.getParameter("tipocambiousd").equals("") ? 0.00 : Double.parseDouble(request.getParameter("tipocambiousd")));
+    			totusd = (request.getParameter("totalusd").equals("") ? 0.00 : Double.parseDouble(request.getParameter("totalusd")));
+    			  
+    			if( tcusd < 0.0 || totusd < 0.0)
+    				flag = false;
+    		
+     	   	}
+     	   	catch(NumberFormatException e) 
+     	   	{
+     	   		flag = false;
+     	   	}
+    		if(!flag)
+    		{
+    			idmensaje = 1;
+    			mensaje.append("PRECAUCION: El tipo de cambio, el total o ambos, son incorrectos o son menores que cero. <br>");
+    			getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
+    			return false;
+    		}
+    		//Para el atributo cce:ComercioExterior:TipoOperacion, si la clave registrada es {A}, no deben existir los atributos [ClaveDePedimento]-1, [CertificadoOrigen]-1, [NumCertificadoOrigen], [NumeroExportadorConfiable], [Incoterm], [Subdivision]-1, [TipoCambioUSD] y [TotalUSD], ni el nodo [Mercancias].            
+    		if(request.getParameter("tipooperacion").equals("A") && (!request.getParameter("certificadoorigen").equals("-1") || !request.getParameter("numcertificadoorigen").equals("") || !request.getParameter("numeroexportadorconfiable").equals("") || !request.getParameter("incoterm").equals("") || !request.getParameter("subdivision").equals("-1") || !request.getParameter("tipocambiousd").equals("") || !request.getParameter("totalusd").equals("")))
+    		{
+    			idmensaje = 1; mensaje.append("PRECAUCION: En operaciones de servicios, no se deben establecer valores de Certificado de origen, No. del certificado de origen, No. de exportador, Termino comercial, Subdivision en factura, Total ni Tipo de cambio <br>");
+       	        getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
+       	        return false;
+    		}
+    		//Para el atributo cce:ComercioExterior:TipoOperacion, si la clave registrada es {1} ó {2}, deben existir los atributos [ClaveDePedimento], [CertificadoOrigen], [Incoterm], [Subdivision], [TipoCambioUSD] y [TotalUSD], así como el nodo [Mercancias].
+    		if(request.getParameter("tipooperacion").equals("2") && (request.getParameter("certificadoorigen").equals("-1") || request.getParameter("incoterm").equals("") || request.getParameter("subdivision").equals("-1") || request.getParameter("tipocambiousd").equals("") || request.getParameter("totalusd").equals("")))
+    		{
+    			idmensaje = 1; mensaje.append("PRECAUCION: En operaciones de bienes, se deben establecer los valores de Certificado de origen, No. del certificado de origen, No. de importador, Termino comercial, Subdivision en factura, Total y Tipo de cambio <br>");
+       	        getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
+       	        return false;
+    		}
+    		//Para el atributo cce:ComercioExterior:CertificadoOrigen, si el valor es cero, no debe registrarse el atributo [NumCertificadoOrigen].
+    		if(request.getParameter("certificadoorigen").equals("0") && !request.getParameter("numcertificadoorigen").equals(""))
+    		{
+    			idmensaje = 1; mensaje.append("PRECAUCION: Cuando no funje como certificado de origen, no debe capturarse ningun no. de certificado de origen <br>");
+       	        getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
+       	        return false;
+    		}
+    		//Para el nodo cce:ComercioExterior:Destinartario, debe existir al menos uno de los atributos [NumRegIdTrib] o [Rfc]
+    		if(request.getParameter("destinatario_numregidtrib").equals("") && request.getParameter("destinatario_rfc").equals(""))
+    		{
+    			idmensaje = 1; mensaje.append("PRECAUCION: Se debe registrar por lo menos el RFC o el Registro Tributario del Destinatario <br>");
+       	        getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
+       	        return false;
+    		}
+    		//El atributo cce:ComercioExterior:Destinatario:Rfc no debe ser rfc genérico {XAXX010101000} ni {XEXX010101000}.
+    		if(request.getParameter("destinatario_rfc").equals("XAXX010101000") || request.getParameter("destinatario_rfc").equals("XEXX010101000"))
+    		{
+    			idmensaje = 1; mensaje.append("PRECAUCION: El RFC del Destinatario no debe ser rfc genérico {XAXX010101000} ni {XEXX010101000} <br>");
+       	        getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
+       	        return false;
+    		}
+    		
+    		// Ahora verifica las mercancias
+    		JComercioExteriorDetSet det = new JComercioExteriorDetSet(request,"COMPRA");
+    		det.m_Where = "ID_VC = '" + p(request.getParameter("ID")) + "'";
+    		det.m_OrderBy = "Partida ASC";
+    		det.Open();
+    		String noidentificacion = "", fraccionarancelaria = "";
+    		double cantidadaduana = 0.0, valorunitarioaduana = 0.0, valordolares = 0.0; 
+    		
+    		flag = true;
+    		for(int i = 0; i< det.getNumRows(); i++)
+    		{
+    		   noidentificacion = request.getParameter("noidentificacion_" + det.getAbsRow(i).getPartida());
+         	   fraccionarancelaria = request.getParameter("fraccionarancelaria_" + det.getAbsRow(i).getPartida());
+        	   if(fraccionarancelaria.equals(""))
+        	   {
+        		   flag = false;
+        		   break;
+        	   }
+        	   
+        	   try 
+        	   {
+        		   cantidadaduana = Double.parseDouble(request.getParameter("cantidadaduana_" + det.getAbsRow(i).getPartida()));
+        		   valorunitarioaduana = Double.parseDouble(request.getParameter("valorunitarioaduana_" + det.getAbsRow(i).getPartida()));
+        		   valordolares = Double.parseDouble(request.getParameter("valordolares_" + det.getAbsRow(i).getPartida()));
+        		   	  
+        		   if( cantidadaduana < 0.0 || valorunitarioaduana < 0.0 || valordolares < 0.0)
+        		   {
+        			   flag = false;
+        			   break;
+        		   }
+        	   }
+        	   catch(NumberFormatException e) 
+        	   {
+        		   flag = false;
+        		   break;
+        	   }
+           }
+           if(!flag)
+           {
+               idmensaje = 1;
+               mensaje.append("PRECAUCION: El arancel o la candidad, costo o valor del producto " + noidentificacion + " es incorreco o es menor que cero. <br>");
+               getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
+               return false;
+           }
+    		
+           return true;
+           
+    	}
+    	else
+    	{
+    		idmensaje = 3;
+            mensaje.append("ERROR: Alguno de los parametros del cabecero es nulo. <br>");
+            getSesion(request).setID_Mensaje(idmensaje, mensaje.toString());
+            return false;
+    	}
+    	
+    	
+    	
     }
 
     public short AgregarCabeceroDev(HttpServletRequest request, HttpServletResponse response)
@@ -3394,7 +3686,15 @@ public class JVenFactDlg extends JForsetiApl
     		"','" + rec.getPartida(i).getIEPS() + "','" + rec.getPartida(i).getImporteIEPS() + "','" + rec.getPartida(i).getIVARet() + "','" + rec.getPartida(i).getImporteIVARet() + "','" + rec.getPartida(i).getISRRet() + "','" + rec.getPartida(i).getImporteISRRet() + 
     		"','" + p(rec.getPartida(i).getID_Tipo()) + "','" + p(rec.getPartida(i).getUnidad()) + "','" + rec.getPartida(i).getPrecio() + "');";
         }
-      
+     
+    	int forma_pago;
+    	if(rec.getForma_Pago().equals("contado"))
+    		forma_pago = 0;
+    	else if(rec.getForma_Pago().equals("credito"))
+    		forma_pago = 1;
+    	else //Ninguno
+    		forma_pago = 3;
+    	
     	String str, del;
     	if(idmodAgregar4.equals("VFAC"))
     	{
@@ -3419,7 +3719,7 @@ public class JVenFactDlg extends JForsetiApl
     		}
     		
     		str = "select * from sp_ventas_facturas_agregar('" + rec.getID_Entidad() + "','" + rec.getFactNum() + "','" + rec.getClave() + "','" + p(JUtil.obtFechaSQL(request.getParameter("fecha"))) + "','" + p(request.getParameter("referencia")) + 
-    	        	"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + (rec.getForma_Pago().equals("contado") ? "0" : "1" ) + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
+    	        	"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + forma_pago + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
     	        	"','" + rec.getIVA() + "','" + rec.getTotal() + "','" + (Float)request.getAttribute("fsipg_efectivo") + "','" + (Float)request.getAttribute("fsipg_bancos") + "','" + (Float)request.getAttribute("fsipg_cambio") + 
     	        	"','" + rec.getID_Bodega() + "','" + p(id_enlace) + "','" + rec.getID_Vendedor() + "','" + p(idmod4) + "','" + p(rec.getUUID()) + "','" + rec.getIEPS() + "','" + rec.getIVARet() + "','" + rec.getISRRet() + "') as ( err integer, res varchar, clave integer );";
     	    	    		
@@ -3434,7 +3734,7 @@ public class JVenFactDlg extends JForsetiApl
     			str = "select * from sp_ventas_remisiones_agregar('";
     		
     		str += rec.getID_Entidad() + "','" + rec.getFactNum() + "','" + rec.getClave() + "','" + p(JUtil.obtFechaSQL(request.getParameter("fecha"))) + "','" + p(request.getParameter("referencia")) + 
-        	"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + (rec.getForma_Pago().equals("contado") ? "0" : "1" ) + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
+        	"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + forma_pago + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
         	"','" + rec.getIVA() + "','" + rec.getTotal() + "','0','0','0" + 
         	"','" + rec.getID_Bodega() + "','" + p(id_enlace) + "','" + rec.getID_Vendedor() + "','" + p(idmod4) + "','" + p(rec.getUUID()) + "','" + rec.getIEPS() + "','" + rec.getIVARet() + "','" + rec.getISRRet() + "') as ( err integer, res varchar, clave integer );";
     		
@@ -3506,7 +3806,7 @@ public class JVenFactDlg extends JForsetiApl
     		"','" + p(rec.getPartida(i).getID_Tipo()) + "','" + p(rec.getPartida(i).getUnidad()) + "','" + rec.getPartida(i).getPrecio() + "');";
         }
       
-       	if(rec.getForma_Pago().equals("contado"))
+    	if(rec.getForma_Pago().equals("contado"))
 			tbl += "\n\n" + request.getAttribute("fsipg_tmppagos");
 		else
 		{
@@ -3525,7 +3825,15 @@ public class JVenFactDlg extends JForsetiApl
 			tbl += "Cheque character varying(20) NOT NULL\n";
 			tbl += "); \n\n";
 		}
-		  		
+		
+    	int forma_pago;
+    	if(rec.getForma_Pago().equals("contado"))
+    		forma_pago = 0;
+    	else if(rec.getForma_Pago().equals("credito"))
+    		forma_pago = 1;
+    	else //Ninguno
+    		forma_pago = 3;
+    	
        	String str, devrebperm;
        	
        	if(rec.getDevReb().equals("DEV"))
@@ -3536,17 +3844,25 @@ public class JVenFactDlg extends JForsetiApl
        	if(rec.getForma_Pago().equals("contado"))
        	{	
        		str = "select * from sp_ventas_devoluciones_agregar('" + rec.getID_Entidad() + "','" + rec.getFactNum() + "','" + rec.getClave() + "','" + p(JUtil.obtFechaSQL(rec.getFecha())) + "','" + p(request.getParameter("referencia")) + 
-    			"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + (rec.getForma_Pago().equals("contado") ? "0" : "1" ) + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
+    			"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + forma_pago + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
  	        	"','" + rec.getIVA() + "','" + rec.getTotal() + "','" + (Float)request.getAttribute("fsipg_efectivo") + "','" + (Float)request.getAttribute("fsipg_bancos") + "','" + (Float)request.getAttribute("fsipg_cambio") + 
  	        	"','" + rec.getID_Bodega() + "','" + rec.getID_Factura() + "','" + rec.getID_Vendedor() + "',null,'','" + p(rec.getDevReb()) + "','" + rec.getIEPS() + "','" + rec.getIVARet() + "','" + rec.getISRRet() + "') as ( err integer, res varchar, clave integer );";
        	}
-       	else
+       	else if(rec.getForma_Pago().equals("credito"))
        	{
        		str = "select * from sp_ventas_devoluciones_agregar('" + rec.getID_Entidad() + "','" + rec.getFactNum() + "','" + rec.getClave() + "','" + p(JUtil.obtFechaSQL(rec.getFecha())) + "','" + p(request.getParameter("referencia")) + 
-    			"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + (rec.getForma_Pago().equals("contado") ? "0" : "1" ) + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
+    			"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + forma_pago + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
  	        	"','" + rec.getIVA() + "','" + rec.getTotal() + "','0','0','0" + 
  	        	"','" + rec.getID_Bodega() + "','" + rec.getID_Factura() + "','" + rec.getID_Vendedor() + "','" + (Integer)request.getAttribute("fsipg_id_concepto") + "','" + p((String)request.getAttribute("fsipg_desc_concepto")) + "','" + p(rec.getDevReb()) + "','" + rec.getIEPS() + "','" + rec.getIVARet() + "','" + rec.getISRRet() + "') as ( err integer, res varchar, clave integer );";
        	}
+       	else //if(rec.getForma_Pago().equals("ninguno"))
+       	{
+       		str = "select * from sp_ventas_devoluciones_agregar('" + rec.getID_Entidad() + "','" + rec.getFactNum() + "','" + rec.getClave() + "','" + p(JUtil.obtFechaSQL(rec.getFecha())) + "','" + p(request.getParameter("referencia")) + 
+    			"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + forma_pago + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
+ 	        	"','" + rec.getIVA() + "','" + rec.getTotal() + "','0','0','0" + 
+ 	        	"','" + rec.getID_Bodega() + "','" + rec.getID_Factura() + "','" + rec.getID_Vendedor() + "','-1','','" + p(rec.getDevReb()) + "','" + rec.getIEPS() + "','" + rec.getIVARet() + "','" + rec.getISRRet() + "') as ( err integer, res varchar, clave integer );";
+       	}
+       	
     	//doDebugSQL(request, response, str + "<p>" + tbl);
         JRetFuncBas rfb = new JRetFuncBas();
   		
@@ -3632,7 +3948,14 @@ public class JVenFactDlg extends JForsetiApl
     		"','" +	p(rec.getPartida(i).getID_Tipo()) + "','" + p(rec.getPartida(i).getUnidad()) + "','" + rec.getPartida(i).getPrecio() + "');";
         }
 
-       
+    	int forma_pago;
+    	if(rec.getForma_Pago().equals("contado"))
+    		forma_pago = 0;
+    	else if(rec.getForma_Pago().equals("credito"))
+    		forma_pago = 1;
+    	else //Ninguno
+    		forma_pago = 3;
+        	
     	String str, del;
     	if(tipomov.equals("FACTURAS"))
     	{
@@ -3657,7 +3980,7 @@ public class JVenFactDlg extends JForsetiApl
     		}
     		
     		str = "select * from sp_ventas_facturas_agregar('" + rec.getID_Entidad() + "','" + rec.getFactNum() + "','" + rec.getClave() + "','" + p(JUtil.obtFechaSQL(rec.getFecha())) + "','" + p(rec.getReferencia()) + 
-    	        	"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + (rec.getForma_Pago().equals("contado") ? "0" : "1" ) + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
+    	        	"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + forma_pago + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
     	        	"','" + rec.getIVA() + "','" + rec.getTotal() + "','" + (Float)request.getAttribute("fsipg_efectivo") + "','" + (Float)request.getAttribute("fsipg_bancos") + "','" + (Float)request.getAttribute("fsipg_cambio") + 
     	        	"','" + rec.getID_Bodega() + "',null,'" + rec.getID_Vendedor() + "',null,'" + p(rec.getUUID()) + "','" + rec.getIEPS() + "','" + rec.getIVARet() + "','" + rec.getISRRet() + "') as ( err integer, res varchar, clave integer );";
     	    	    		
@@ -3674,7 +3997,7 @@ public class JVenFactDlg extends JForsetiApl
     			str = "select * from sp_ventas_cotizaciones_agregar('";
     		
     		str += rec.getID_Entidad() + "','" + rec.getFactNum() + "','" + rec.getClave() + "','" + p(JUtil.obtFechaSQL(rec.getFecha())) + "','" + p(rec.getReferencia()) + 
-        	"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + (rec.getForma_Pago().equals("contado") ? "0" : "1" ) + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
+        	"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + forma_pago + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
         	"','" + rec.getIVA() + "','" + rec.getTotal() + "','" + (Float)request.getAttribute("fsipg_efectivo") + "','" + (Float)request.getAttribute("fsipg_bancos") + "','" + (Float)request.getAttribute("fsipg_cambio") + 
         	"','" + rec.getID_Bodega() + "',null,'" + rec.getID_Vendedor() + "',null,'" + p(rec.getUUID()) + "','" + rec.getIEPS() + "','" + rec.getIVARet() + "','" + rec.getISRRet() + "') as ( err integer, res varchar, clave integer );";
     		
@@ -3690,7 +4013,25 @@ public class JVenFactDlg extends JForsetiApl
 
 		short idmensaje = (short)rfb.getIdmensaje();
 		String mensaje = rfb.getRes();
-		if(rfb.getIdmensaje() == 0 && tipomov.equals("FACTURAS"))
+		
+		RDP("CEF",getSesion(request).getConBD(),(idmensaje == 0 ? "OK" : (idmensaje == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(), idmod + "_AGREGAR", idmod4 + "|" + rfb.getClaveret() + "|" + getSesion(request).getSesion(idmod).getEspecial() + "||",mensaje);
+		
+        if(idmensaje == 0 && tipomov.equals("FACTURAS") && rec.getClave() != 0 && rec.getID_Moneda() != 1)
+        {
+        	JClientClientMasSetV2 cli = new JClientClientMasSetV2(request);
+			cli.m_Where = "ID_Clave = '" + rec.getClave() + "'";
+			cli.Open();
+			
+			if(!cli.getAbsRow(0).getPais().equals("MEX") && !cli.getAbsRow(0).getPedimento().equals("--"))
+			{
+				String ID = rfb.getClaveret();
+				request.setAttribute("ID_Factura", ID);
+				irApag("/forsetiweb/ventas/ven_fact_dlg_datexp.jsp", request, response);
+      			return;
+			}
+        }
+        
+        if(rfb.getIdmensaje() == 0 && tipomov.equals("FACTURAS"))
         {
 			StringBuffer sb_mensaje = new StringBuffer();
 			idmensaje = generarCFDI(request, response, "FACTURAS", Integer.parseInt(rfb.getClaveret()), Long.toString(rec.getClave()), set, (byte)0, sb_mensaje);
@@ -3704,9 +4045,8 @@ public class JVenFactDlg extends JForsetiApl
 			mensaje += "<br>" + sb_mensaje.toString();
 			getSesion(request).setID_Mensaje((short)rfb.getIdmensaje(), mensaje);
         }
-                    
-        RDP("CEF",getSesion(request).getConBD(),(idmensaje == 0 ? "OK" : (idmensaje == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(), idmod + "_AGREGAR", idmod4 + "|" + rfb.getClaveret() + "|" + getSesion(request).getSesion(idmod).getEspecial() + "||",mensaje);
-		irApag("/forsetiweb/ventas/ven_fact_dlg.jsp", request, response);
+        
+        irApag("/forsetiweb/ventas/ven_fact_dlg.jsp", request, response);
         
     }
 
@@ -3748,8 +4088,15 @@ public class JVenFactDlg extends JForsetiApl
     		"','" + rec.getPartida(i).getIEPS() + "','" + rec.getPartida(i).getImporteIEPS() + "','" + rec.getPartida(i).getIVARet() + "','" + rec.getPartida(i).getImporteIVARet() + "','" + rec.getPartida(i).getISRRet() + "','" + rec.getPartida(i).getImporteISRRet() + 
     		"','" + p(rec.getPartida(i).getID_Tipo()) + "','" + p(rec.getPartida(i).getUnidad()) + "','" + rec.getPartida(i).getPrecio() + "');";
         }
-
        
+    	int forma_pago;
+    	if(rec.getForma_Pago().equals("contado"))
+    		forma_pago = 0;
+    	else if(rec.getForma_Pago().equals("credito"))
+    		forma_pago = 1;
+    	else //Ninguno
+    		forma_pago = 3;
+        
     	String str, del;
     
     	if(tipomov.equals("PEDIDOS"))
@@ -3758,7 +4105,7 @@ public class JVenFactDlg extends JForsetiApl
 			str = "select * from sp_ventas_cotizaciones_cambiar('";
 		
 		str += rec.getID_Entidad() + "','" + p(request.getParameter("ID")) + "','" + rec.getClave() + "','" + p(JUtil.obtFechaSQL(rec.getFecha())) + "','" + rec.getReferencia() + 
-    	"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + (rec.getForma_Pago().equals("contado") ? "0" : "1" ) + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
+    	"','" + rec.getID_Moneda() + "','" + rec.getTC() + "','" + forma_pago + "','" + p(rec.getObs())+ "','" + rec.getImporte() + "','" + rec.getDescuento() + "','" + rec.getSubTotal() + 
     	"','" + rec.getIVA() + "','" + rec.getTotal() + "','" + (Float)request.getAttribute("fsipg_efectivo") + "','" + (Float)request.getAttribute("fsipg_bancos") + "','" + (Float)request.getAttribute("fsipg_cambio") + 
     	"','" + rec.getID_Bodega() + "',null,'" + rec.getID_Vendedor() + "',null,'" + p(rec.getUUID()) + "','" + rec.getIEPS() + "','" + rec.getIVARet() + "','" + rec.getISRRet() + "') as ( err integer, res varchar, clave integer );";
 		
@@ -3844,5 +4191,100 @@ public class JVenFactDlg extends JForsetiApl
 		irApag("/forsetiweb/caja_mensajes.jsp", request, response);
 		return;
 	}
-    
+
+	public void DatosExportacion(HttpServletRequest request, HttpServletResponse response)
+        	throws ServletException, IOException
+    {
+		String tbl = "CREATE LOCAL TEMPORARY TABLE _TMP_VENTAS_FACTURAS_COMEXT_DET (\n";
+		tbl += "  partida smallint NOT NULL, \n";
+		tbl += "  noidentificacion character varying(100) NOT NULL, \n";
+		tbl += "  fraccionarancelaria character varying(12) NOT NULL, \n";
+		tbl += "  cantidadaduana numeric(9,3) NOT NULL, \n";
+		tbl += "  unidadaduana smallint NOT NULL, \n";
+		tbl += "  valorunitarioaduana numeric(19,2) NOT NULL, \n";
+		tbl += "  valordolares numeric(19,2) NOT NULL \n";
+		tbl += ");\n";
+		tbl += "CREATE LOCAL TEMPORARY TABLE _TMP_VENTAS_FACTURAS_COMEXT_DET_DESCESP (\n";
+		tbl += "  partida smallint NOT NULL, \n";
+		tbl += "  descripcion smallint NOT NULL, \n";
+		tbl += "  marca character varying(35) NOT NULL, \n";
+		tbl += "  modelo character varying(80) NOT NULL, \n";
+		tbl += "  submodelo character varying(50) NOT NULL, \n";
+		tbl += "  numeroserie character varying(40) NOT NULL \n";
+		tbl += ");\n";
+		
+		JComercioExteriorDetSet det = new JComercioExteriorDetSet(request,"VENTA");
+		det.m_Where = "ID_VC = '" + p(request.getParameter("ID")) + "'";
+		det.m_OrderBy = "Partida ASC";
+		det.Open();
+				
+        for(int i = 0; i< det.getNumRows(); i++)
+        {
+            tbl += "INSERT INTO _TMP_VENTAS_FACTURAS_COMEXT_DET \n";
+            tbl += "VALUES('" + det.getAbsRow(i).getPartida() + "','" 
+            + p(request.getParameter("noidentificacion_" + det.getAbsRow(i).getPartida())) + "','"
+            + p(request.getParameter("fraccionarancelaria_" + det.getAbsRow(i).getPartida())) + "','"
+            + p(request.getParameter("cantidadaduana_" + det.getAbsRow(i).getPartida())) + "','"
+            + p(request.getParameter("unidadaduana_" + det.getAbsRow(i).getPartida())) + "','"
+            + p(request.getParameter("valorunitarioaduana_" + det.getAbsRow(i).getPartida())) + "','"
+            + p(request.getParameter("valordolares_" + det.getAbsRow(i).getPartida())) + "'); \n";
+            
+            JComercioExteriorDetDescEspSet esp = new JComercioExteriorDetDescEspSet(request,"VENTA");
+			esp.m_Where = "ID_VC = '" + p(request.getParameter("ID")) + "' and Partida = '" + det.getAbsRow(i).getPartida() + "'";
+			esp.m_OrderBy = "Descripcion ASC";
+			esp.Open();
+		
+			for(int j = 0; j < esp.getNumRows(); j++)
+			{
+				tbl += "INSERT INTO _TMP_VENTAS_FACTURAS_COMEXT_DET_DESCESP \n";
+	            tbl += "VALUES('" + det.getAbsRow(i).getPartida() + "','" 
+	            + esp.getAbsRow(j).getDescripcion() + "','"
+	            + p(request.getParameter("marca_" + esp.getAbsRow(j).getPartida() + "_" + esp.getAbsRow(j).getDescripcion())) + "','"
+	            + p(request.getParameter("modelo_" + esp.getAbsRow(j).getPartida() + "_" + esp.getAbsRow(j).getDescripcion())) + "','"
+				+ p(request.getParameter("submodelo_" + esp.getAbsRow(j).getPartida() + "_" + esp.getAbsRow(j).getDescripcion()))  + "','"
+	            + p(request.getParameter("numeroserie_" + esp.getAbsRow(j).getPartida() + "_" + esp.getAbsRow(j).getDescripcion()))  + "'); \n";
+			}
+        }
+        
+        double tcusd = (!request.getParameter("tipocambiousd").equals("") ? Double.parseDouble(request.getParameter("tipocambiousd")) : 0.0 );
+        double totusd = (!request.getParameter("totalusd").equals("") ? Double.parseDouble(request.getParameter("totalusd")) : 0.0 ); 
+    	
+        String str = "select * from sp_ventas_facturas_comext('" +
+        	p(request.getParameter("ID")) + "','" +
+        	p(request.getParameter("tipooperacion")) + "','" +
+        	p(request.getParameter("certificadoorigen")) + "','" +
+        	p(request.getParameter("numcertificadoorigen")) + "','" +
+        	p(request.getParameter("numeroexportadorconfiable")) + "','" +
+        	p(request.getParameter("incoterm")) + "','" +
+        	p(request.getParameter("subdivision")) + "','" +
+        	p(request.getParameter("observaciones")) + "','" +
+        	tcusd + "','" +
+        	totusd + "','" +
+        	p(request.getParameter("emisor_curp")) + "','" +
+        	p(request.getParameter("receptor_curp")) + "','" +
+        	p(request.getParameter("receptor_numregidtrib")) + "','" +
+        	p(request.getParameter("destinatario_numregidtrib")) + "','" +
+        	p(request.getParameter("destinatario_rfc")) + "','" +
+        	p(request.getParameter("destinatario_curp")) + "','" +
+        	p(request.getParameter("destinatario_nombre")) + "','" +
+        	p(request.getParameter("destinatario_domicilio_calle")) + "','" +
+        	p(request.getParameter("destinatario_domicilio_numeroexterior")) + "','" +
+        	p(request.getParameter("destinatario_domicilio_numerointerior")) + "','" +
+        	p(request.getParameter("destinatario_domicilio_colonia")) + "','" +
+        	p(request.getParameter("destinatario_domicilio_localidad")) + "','" +
+        	p(request.getParameter("destinatario_domicilio_referencia")) + "','" +
+        	p(request.getParameter("destinatario_domicilio_municipio")) + "','" +
+        	p(request.getParameter("destinatario_domicilio_estado")) + "','" +
+        	p(request.getParameter("destinatario_domicilio_pais")) + "','" +
+        	p(request.getParameter("destinatario_domicilio_codigopostal")) + "') as (err integer, res varchar, clave integer)";
+            //doDebugSQL(request,response,tbl + "<br>" + str);
+        JRetFuncBas rfb = new JRetFuncBas();
+		
+        doCallStoredProcedure(request, response, tbl, str, "DROP TABLE _TMP_VENTAS_FACTURAS_COMEXT_DET; DROP TABLE _TMP_VENTAS_FACTURAS_COMEXT_DET_DESCESP;", rfb);
+   
+        //No registra agregado de la exportacion porque se duplicaría el registro de la factura.... Ya que se considera parte de esta factura
+    	//RDP("CEF",getSesion(request).getConBD(),(idmensaje == 0 ? "OK" : (idmensaje == 4 ? "AL" : "ER")),getSesion(request).getID_Usuario(), idmodAgregar + "_AGREGAR", idmodAgregar4 + "|" + rfb.getClaveret() + "|" + getSesion(request).getSesion(idmod).getEspecial() + "||",mensaje);
+        irApag("/forsetiweb/ventas/ven_fact_dlg_datexp.jsp", request, response);
+            
+    }
 }

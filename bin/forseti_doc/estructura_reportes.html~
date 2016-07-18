@@ -1,0 +1,112 @@
+<table width="95%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+  <td>
+    _documentacion
+    <br>
+  </td>
+</tr>
+<tr>
+  <td class="txtTit" align="center" bgcolor="fsi-color-interfaz"><font color="#FFFFFF"><strong>Estructura del reporte</strong></td>
+</tr>
+<!--_ini_datos_cabecero-->
+<tr>
+  <td>
+    <table width="100%" cellpadding="2" cellspacing="3" align="center">
+<!--_ini_titulo_cabecero-->
+      <tr bgcolor="#999999">
+	<td colspan="5" align="center"><font color="#FFFFFF"><strong>Datos del Cabecero</strong></font></td>
+      </tr>
+      <tr bgcolor="#999999">
+	<td width="10%" align="center"><font color="#FFFFFF">Clave</font></td>
+	<td><font color="#FFFFFF">Descripción</font></td>
+	<td width="15%"><font color="#FFFFFF">Base</font></td>
+	<td width="15%"><font color="#FFFFFF">Módulo</font></td>
+	<td width="26" align="center">&nbsp;</td>
+      </tr>
+<!--_fin_titulo_cabecero-->
+<!--_ini_columnas_cabecero-->
+      <tr bgcolor="#EFEFEF">
+	<td width="10%" align="center">_clave</td>
+	<td>_descripcion</td>
+	<td width="20%">_base</td>
+	<td width="25%">_modulo</td>
+	<td width="26" align="center">_graficar</td>
+      </tr>
+<!--_fin_columnas_cabecero-->
+    </table>
+  </td>
+</tr>
+<!--_fin_datos_cabecero-->
+<!--_ini_datos_filtro-->
+<tr>
+  <td>
+    <table width="100%" cellpadding="2" cellspacing="3" align="center">
+<!--_ini_titulo_filtro-->
+      <tr bgcolor="#999999">
+	<td colspan="4" align="center"><font color="#FFFFFF"><strong>Filtro<strong></font></td>
+      </tr>
+      <tr bgcolor="#999999">
+	<td width="15%" align="center"><font color="#FFFFFF">Objeto</font></td>
+	<td><font color="#FFFFFF">Descripción</font></td>
+	<td width="10%"><font color="#FFFFFF">Tipo de dato</font></td>
+	<td width="26">&nbsp;</td>
+      </tr>
+<!--_fin_titulo_filtro-->
+<!--_ini_columnas_filtro-->
+      <tr bgcolor="#EFEFEF">
+	<td width="15%" align="center">_objeto</td>
+	<td>_descripcion</td>
+	<td width="10%">_tipo_dato</td>
+	<td width="26">_rango</td>
+      </tr>
+<!--_fin_columnas_filtro-->
+    </table>
+  </td>
+</tr>
+<!--_fin_datos_filtro-->
+<!--_ini_datos_nivel-->
+<tr>
+  <td>
+    <table width="100%" cellpadding="2" cellspacing="3" align="center">
+<!--_ini_titulo_nivel-->
+      <tr bgcolor="#999999">
+	<td colspan="2" align="center"><font color="#FFFFFF"><strong>Datos del Nivel _nivel<strong></font></td>
+      </tr>
+      <tr bgcolor="#999999">
+	<td width="45%"><font color="#FFFFFF">Nombre de Columna</font></td>
+	<td><font color="#FFFFFF">Tipo de Dato</font></td>
+      </tr>
+<!--_fin_titulo_nivel-->
+<!--_ini_columnas_nivel-->
+      <tr bgcolor="#EFEFEF">
+	<td width="45%">_columna</td>
+	<td>_tipo_dato</td>
+      </tr>
+<!--_fin_columnas_nivel-->
+<!--_ini_agregados_nivel-->
+      <tr bgcolor="#CCCCCC">
+	<td width="45%"><font color="#FFFFFF">_columna</font></td>
+	<td><font color="#FFFFFF">_tipo_dato</font></td>
+      </tr>
+<!--_fin_agregados_nivel-->
+<!--_ini_codigo_nivel-->
+      <tr>
+	<td colspan="2">
+	  <table width="100%" cellpadding="2" cellspacing="3" border="0">
+	    <tr>
+	      <td align="center" bgcolor="fsi-color-interfaz"><font color="#FFFFFF">Código fuente</td>
+	    </tr>
+	    <tr>
+	      <td class="txtEnl">
+		<font color="#999999">_codigo</font>
+	      </td>
+	    </tr>
+	  </table>
+	</td>
+      </tr>
+<!--_fin_codigo_nivel-->
+    </table>
+  </td>
+</tr>
+<!--_fin_datos_nivel-->
+</table>

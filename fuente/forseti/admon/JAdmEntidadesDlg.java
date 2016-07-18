@@ -500,17 +500,17 @@ public class JAdmEntidadesDlg extends JForsetiApl
 		    && !request.getParameter("cfd").equals(""))
 	
 	    {
-		    JPublicBodegasCatSetV2 set = new JPublicBodegasCatSetV2(request);
-		    set.m_Where = "ID_Bodega = '" + p(request.getParameter("idbodega")) + "'";
-			set.Open();
-			
-			if(set.getNumRows() < 1 )
-		    {
-				idmensaje = 1; mensaje = JUtil.Msj("CEF","ALM_TRASPASOS","SES","MSJ-PROCERR"); //"PRECAUCION: No existe la bodega especificada <br>";
-			    getSesion(request).setID_Mensaje(idmensaje, mensaje);
-			    return false;
-		    }
-			
+	    	JPublicBodegasCatSetV2 set = new JPublicBodegasCatSetV2(request);
+	    	set.m_Where = "ID_Bodega = '" + p(request.getParameter("idbodega")) + "'";
+	    	set.Open();
+				
+	    	if(set.getNumRows() < 1 )
+	    	{
+	    		idmensaje = 1; mensaje = JUtil.Msj("CEF","ALM_TRASPASOS","SES","MSJ-PROCERR"); //"PRECAUCION: No existe la bodega especificada <br>";
+	    		getSesion(request).setID_Mensaje(idmensaje, mensaje);
+	    		return false;
+	    	}
+	    		    	
 			// Verifica el vendedor
 		    JVendedoresSet setven  = new JVendedoresSet(request);
 		    setven.m_Where = "ID_Vendedor = '" + p(request.getParameter("idvendedor")) + "'";
@@ -582,11 +582,11 @@ public class JAdmEntidadesDlg extends JForsetiApl
 	    if(request.getParameter("identidad") != null && request.getParameter("ficha") != null && request.getParameter("tipo") != null
 		   	&& request.getParameter("serie") != null  && request.getParameter("numero") != null && request.getParameter("idbodega") != null
 		    && request.getParameter("orden") != null && request.getParameter("recepcion") != null && request.getParameter("devolucion") != null && request.getParameter("ivaporcentual") != null
-		    /*&& request.getParameter("infoplantoc") != null && request.getParameter("infogasrec") != null*/   
+		    && request.getParameter("tipopago") != null     
 		    && !request.getParameter("identidad").equals("") && !request.getParameter("ficha").equals("") && !request.getParameter("tipo").equals("")
 		  	&& !request.getParameter("serie").equals("")  && !request.getParameter("numero").equals("") && !request.getParameter("idbodega").equals("")
 		    && !request.getParameter("orden").equals("") && !request.getParameter("recepcion").equals("") && !request.getParameter("devolucion").equals("") && !request.getParameter("ivaporcentual").equals("")
-		    /*&& !request.getParameter("infoplantoc").equals("") && !request.getParameter("infogasrec").equals("")*/)
+		    && !request.getParameter("tipopago").equals("") )
 		{
 	    	
 		    JPublicBodegasCatSetV2 set = new JPublicBodegasCatSetV2(request);
@@ -601,14 +601,15 @@ public class JAdmEntidadesDlg extends JForsetiApl
 			    return false;
 		    }
 		    // Verifica que si la entidad es fija ( NO CONTABLE ) el iva sea 0
-		    Float iva = Float.parseFloat(request.getParameter("ivaporcentual"));
-		    if(request.getParameter("fija") != null && iva != 0.0)
+		    //Float iva = Float.parseFloat(request.getParameter("ivaporcentual"));
+		    /*
+			if(request.getParameter("fija") != null && iva != 0.0)
 		    {
 				idmensaje = 1; mensaje = JUtil.Msj("CEF","ADM_ENTIDADES","DLG","MSJ-PROCERR",2); //"PRECAUCION: Como esta entidad se establece como fija, el IVA debe ser 0 <br>";
 			    getSesion(request).setID_Mensaje(idmensaje, mensaje);
 			    return false;
 		    }
-		    
+		    */
 		    return true;
 		}
 		else
@@ -944,7 +945,7 @@ public class JAdmEntidadesDlg extends JForsetiApl
           
           str += " sp_compras_entidades_cambiar('" + p(request.getParameter("identidad")) + "','" + p(request.getParameter("tipo")) + "','" + p(request.getParameter("serie")) + "','" + p(request.getParameter("numero")) + "','" + p(request.getParameter("ficha")) + "','" + (request.getParameter("formato").equals("NINGUNO") ? "" : p(request.getParameter("formato"))) + "','" + 
           p(request.getParameter("idbodega")) + "','" + (request.getParameter("fija") == null ? "0" : "1") + "','" + (request.getParameter("fijacost") == null ? "0" : "1") + "','" + p(request.getParameter("devolucion")) + "','" + p(request.getParameter("orden")) + "','" + (request.getParameter("fmt_devolucion").equals("NINGUNO") ? "" : p(request.getParameter("fmt_devolucion"))) + "','" + (request.getParameter("fmt_orden").equals("NINGUNO") ? "" : p(request.getParameter("fmt_orden"))) + "','" + request.getParameter("ivaporcentual") +
-          "','" + /*p(request.getParameter("infoplantoc"))*/"-1" + "','" + /*p(request.getParameter("infogasrec"))*/"-1" + "','" + p(request.getParameter("idclasificacion")) + "','" + p(request.getParameter("status")) + "','" + p(request.getParameter("recepcion")) + "','" + (request.getParameter("fmt_recepcion").equals("NINGUNO") ? "" : p(request.getParameter("fmt_recepcion"))) + "') ";
+          "','" + /*p(request.getParameter("infoplantoc"))*/"-1" + "','" + /*p(request.getParameter("infogasrec"))*/"-1" + "','" + p(request.getParameter("idclasificacion")) + "','" + p(request.getParameter("status")) + "','" + p(request.getParameter("recepcion")) + "','" + (request.getParameter("fmt_recepcion").equals("NINGUNO") ? "" : p(request.getParameter("fmt_recepcion"))) + "','" + p(request.getParameter("tipopago")) + "') ";
       	
           irA = "/forsetiweb/administracion/adm_entidades_dlg_compras.jsp";
       }
@@ -992,7 +993,7 @@ public class JAdmEntidadesDlg extends JForsetiApl
       else if(ent.equals("PRODUCCION"))
       {
     	  str += " sp_prod_entidades_cambiar('" + p(request.getParameter("identidad")) + "','" + p(request.getParameter("serie")) + "','" + p(request.getParameter("numero")) + "','" + 
-    	  	p(request.getParameter("ficha")) + "','" +	p(request.getParameter("descripcion")) + "','" + (request.getParameter("formato").equals("NINGUNO") ? "" : p(request.getParameter("formato"))) + "','" + p(request.getParameter("idbodegamp")) + "','" + p(request.getParameter("idbodegamp")) + "','" + 
+    	  	p(request.getParameter("ficha")) + "','" +	p(request.getParameter("descripcion")) + "','" /* + (request.getParameter("formato").equals("NINGUNO") ? "" : p(request.getParameter("formato"))) */ + "','" + p(request.getParameter("idbodegamp")) + "','" + p(request.getParameter("idbodegamp")) + "','" + 
 			p(request.getParameter("idclasificacion")) + "','" + p(request.getParameter("status")) + "') ";
 
     	  irA = "/forsetiweb/administracion/adm_entidades_dlg_produccion.jsp";
@@ -1145,7 +1146,7 @@ public class JAdmEntidadesDlg extends JForsetiApl
             
             str += " sp_compras_entidades_agregar('" + p(request.getParameter("identidad")) + "','" + p(request.getParameter("tipo")) + "','" + p(request.getParameter("serie")) + "','" + p(request.getParameter("numero")) + "','" + p(request.getParameter("ficha")) + "','" + (request.getParameter("formato").equals("NINGUNO") ? "" : p(request.getParameter("formato"))) + "','" + 
             p(request.getParameter("idbodega")) + "','" + (request.getParameter("fija") == null ? "0" : "1") + "','" + (request.getParameter("fijacost") == null ? "0" : "1") + "','" + p(request.getParameter("devolucion")) + "','" + p(request.getParameter("orden")) + "','" + (request.getParameter("fmt_devolucion").equals("NINGUNO") ? "" : p(request.getParameter("fmt_devolucion"))) + "','" + (request.getParameter("fmt_orden").equals("NINGUNO") ? "" : p(request.getParameter("fmt_orden"))) + "','" + p(request.getParameter("ivaporcentual")) +
-          	"','" + /*p(request.getParameter("infoplantoc"))*/"-1" + "','" + /*p(request.getParameter("infogasrec"))*/"-1" + "','" + p(request.getParameter("idclasificacion")) + "','" + p(request.getParameter("status")) + "','" + p(request.getParameter("recepcion")) + "','" + (request.getParameter("fmt_recepcion").equals("NINGUNO") ? "" : p(request.getParameter("fmt_recepcion"))) + "') ";
+          	"','" + /*p(request.getParameter("infoplantoc"))*/"-1" + "','" + /*p(request.getParameter("infogasrec"))*/"-1" + "','" + p(request.getParameter("idclasificacion")) + "','" + p(request.getParameter("status")) + "','" + p(request.getParameter("recepcion")) + "','" + (request.getParameter("fmt_recepcion").equals("NINGUNO") ? "" : p(request.getParameter("fmt_recepcion"))) + "','" + p(request.getParameter("tipopago")) + "') ";
         	
             irA = "/forsetiweb/administracion/adm_entidades_dlg_compras.jsp";
         }
@@ -1193,7 +1194,7 @@ public class JAdmEntidadesDlg extends JForsetiApl
         else if(ent.equals("PRODUCCION"))
         {
         	str += " sp_prod_entidades_agregar('" + p(request.getParameter("identidad")) + "','" + p(request.getParameter("serie")) + "','" + p(request.getParameter("numero")) + "','" + 
-        		p(request.getParameter("ficha")) + "','" +	p(request.getParameter("descripcion")) + "','" + (request.getParameter("formato").equals("NINGUNO") ? "" : p(request.getParameter("formato"))) + "','" + p(request.getParameter("idbodegamp")) + "','" + p(request.getParameter("idbodegamp")) + "','" + 
+        		p(request.getParameter("ficha")) + "','" +	p(request.getParameter("descripcion")) + "','" /* + (request.getParameter("formato").equals("NINGUNO") ? "" : p(request.getParameter("formato"))) */ + "','" + p(request.getParameter("idbodegamp")) + "','" + p(request.getParameter("idbodegamp")) + "','" + 
       			p(request.getParameter("idclasificacion")) + "','" + p(request.getParameter("status")) + "') ";
       	
         	irA = "/forsetiweb/administracion/adm_entidades_dlg_produccion.jsp";

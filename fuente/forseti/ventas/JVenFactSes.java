@@ -170,6 +170,8 @@ public class JVenFactSes extends JSesionRegsObjs
 		  m_Forma_Pago = "contado";
 	  else if(set.getAbsRow(0).getTipoCobro() == 1)
 		  m_Forma_Pago = "credito";
+	  else if(set.getAbsRow(0).getTipoCobro() == 3)
+		  m_Forma_Pago = "ninguno";
 	  else
 		  m_Forma_Pago = "contado";
 	  m_CambioNumero = set.getAbsRow(0).getCambioNumero();
@@ -913,11 +915,13 @@ public class JVenFactSes extends JSesionRegsObjs
 	  m_AuditarAlm = set.getAbsRow(0).getAuditarAlm();
 	  m_ManejoStocks = set.getAbsRow(0).getManejoStocks();
 	  m_FijaCost = set.getAbsRow(0).getFijaCost();
-	  m_PagoMixto = set.getAbsRow(0).getTipoCobro() == 2 ? true : false; 
+	  m_PagoMixto = set.getAbsRow(0).getTipoCobro() == 2 ? true : false;
 	  if(set.getAbsRow(0).getTipoCobro() == 0)
 		  m_Forma_Pago = "contado";
 	  else if(set.getAbsRow(0).getTipoCobro() == 1)
 		  m_Forma_Pago = "credito";
+	  else if(set.getAbsRow(0).getTipoCobro() == 3)
+		  m_Forma_Pago = "ninguno";
 	  else
 		  m_Forma_Pago = "contado";
 	  
@@ -1441,6 +1445,7 @@ public class JVenFactSes extends JSesionRegsObjs
 				  return 1;
 			  }
 		  }
+		  
 		  m_Forma_Pago = request.getParameter("forma_pago");
 		  
 		  byte idmoneda = Byte.parseByte(request.getParameter("idmoneda"));
@@ -2014,4 +2019,6 @@ public class JVenFactSes extends JSesionRegsObjs
   {
 	  return m_IVAPorcentual;
   }
+  
+  
 }

@@ -83,9 +83,10 @@ public abstract class JForsetiCFDEmisor extends JForsetiCFD
 	protected Element m_Comprobante;
 	protected Namespace m_ns;
 	protected Namespace m_nsnomina;
-	
+	protected Namespace m_nscce;
 	protected String m_CadenaOriginal;
 	protected String m_CadenaOriginalNom;
+	protected String m_CadenaOriginalComExt;
 	protected String [] m_LineaRep;
 	
 	public static final byte CFD_NO_EMISOR = 0;
@@ -190,27 +191,38 @@ public abstract class JForsetiCFDEmisor extends JForsetiCFD
 		
 		return true;
 	}
-	protected void comprobanteNuevo(String tipo)
+	protected void comprobanteNuevo(String [] complementos)
 	{
 		m_Comprobante = new Element("Comprobante", "cfdi", "http://www.sat.gob.mx/cfd/3");
 		m_ns = m_Comprobante.getNamespace();
 		
 		Namespace xsi = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
 		m_Comprobante.addNamespaceDeclaration(xsi);
+		String schemaLocation = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd";
 		
-		if(tipo.equals("NOM"))
+		for(int i = 0; i < complementos.length; i++)
 		{
-			m_nsnomina = Namespace.getNamespace("nomina","http://www.sat.gob.mx/nomina");
-			m_Comprobante.addNamespaceDeclaration(m_nsnomina);
-			m_Comprobante.setAttribute("schemaLocation", "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd http://www.sat.gob.mx/nomina http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina11.xsd", xsi);
+			if(complementos[i].equals("Nomina"))
+			{
+				schemaLocation += " http://www.sat.gob.mx/nomina http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina11.xsd";
+				m_nsnomina = Namespace.getNamespace("nomina","http://www.sat.gob.mx/nomina");
+				m_Comprobante.addNamespaceDeclaration(m_nsnomina);
+			}
+			else if(complementos[i].equals("ComercioExterior"))
+			{
+				schemaLocation += " http://www.sat.gob.mx/ComercioExterior http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior/ComercioExterior10.xsd";
+				m_nscce = Namespace.getNamespace("cce","http://www.sat.gob.mx/ComercioExterior");
+				m_Comprobante.addNamespaceDeclaration(m_nscce);
+			}
 		}
-		else
-			m_Comprobante.setAttribute("schemaLocation", "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd", xsi);
+		
+		m_Comprobante.setAttribute("schemaLocation", schemaLocation, xsi);
 		
 		m_Comprobante.setAttribute("version","3.2");
 		m_XMLDoc = new org.jdom.Document(m_Comprobante);
 		m_CadenaOriginal = "||3.2";
 		m_CadenaOriginalNom = "|1.1";
+		m_CadenaOriginalComExt = "|1.0";
 		m_LineaRep = new String [20];
 		
 	}
@@ -244,7 +256,6 @@ public abstract class JForsetiCFDEmisor extends JForsetiCFD
 	}
 	
 	// Estos son los métodos para capturar los distintos atributos y elementos del CFD
-	 
 	protected boolean generarElementoComprobante(String tipo, String serie, Integer folio, Calendar fecha, Integer noAprobacion, Integer anoAprobacion,
 										String tipoDeComprobante, String formaDePago, String condicionesDePago, Float subtotal,
 										Float descuento, Float TipoCambio, String Moneda, Float total, String noCertificado, String certificado, String metodoDePago, String LugarExpedicion)
@@ -830,6 +841,19 @@ public abstract class JForsetiCFDEmisor extends JForsetiCFD
 		try 
 		{
 			return new String(m_CadenaOriginalNom.getBytes("UTF8"), "UTF8");
+		} 
+		catch (UnsupportedEncodingException e) 
+		{
+			return "";
+		}
+		
+	}
+	
+	public String getCadenaOriginalComExtUTF8()
+	{
+		try 
+		{
+			return new String(m_CadenaOriginalComExt.getBytes("UTF8"), "UTF8");
 		} 
 		catch (UnsupportedEncodingException e) 
 		{

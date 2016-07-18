@@ -32,8 +32,12 @@ import forseti.sets.JAlmacenesMovimSetIdsV2;
 import forseti.sets.JCFDNomRecCabGenSet;
 import forseti.sets.JCFDVenFactCabGenSet;
 import forseti.sets.JCalculoNominaDetSet;
+import forseti.sets.JComercioExteriorCabSet;
+import forseti.sets.JComercioExteriorDetDescEspSet;
+import forseti.sets.JComercioExteriorDetSet;
 import forseti.sets.JNominaEntidadesSetIds;
 import forseti.sets.JPublicFormatosSetV2;
+import forseti.sets.JSatEstadosSet;
 import forseti.sets.JVentasEntidadesSetIdsV2;
 import forseti.sets.JVentasFactSetDetV2;
 
@@ -105,7 +109,8 @@ public class JForsetiCFDEntidad  extends JForsetiCFDEmisor
 	public void generarNomina(HttpServletRequest request, HttpServletResponse response, String tipo, int idnom, String idemp, JNominaEntidadesSetIds forSet, byte tfd) 
 			throws ServletException, IOException
 	{
-		comprobanteNuevo("NOM");
+		String [] complementos = new String [] {"Nomina"};
+		comprobanteNuevo(complementos);
 			
 		if(tfd == 0) // significa que no se ha hecho nada al registro
 		{
@@ -141,14 +146,33 @@ public class JForsetiCFDEntidad  extends JForsetiCFDEmisor
 			}
 			String Moneda = null;
 			if(set.getAbsRow(0).getMoneda() != 1)
-				Moneda = set.getAbsRow(0).getMonedaSim();
+				Moneda = set.getAbsRow(0).getMonedaSat();
 			Float TipoCambio = null;
 			if(set.getAbsRow(0).getMoneda() != 1)
 				TipoCambio = set.getAbsRow(0).getTC();
 			//Metodo de pago
 			
-			String LugarExpedicion = (set.getAbsRow(0).getCFD_ID_Expedicion() > 0) ?
-					xmlse(set.getAbsRow(0).getCFD_Estado()) : xmlse(m_CFD_Estado);
+			String LugarExpedicion;
+			if(set.getAbsRow(0).getCFD_ID_Expedicion() > 0)
+			{
+				JSatEstadosSet est = new JSatEstadosSet(request);
+				est.m_Where = "CodEstado = '" + JUtil.p(set.getAbsRow(0).getCFD_Estado()) + "' and CodPais3 = '" + JUtil.p(set.getAbsRow(0).getCFD_Pais()) + "'";
+				est.Open();
+				if(est.getNumRows() > 0)
+					LugarExpedicion = xmlse(est.getAbsRow(0).getNombre());
+				else
+					LugarExpedicion = xmlse(set.getAbsRow(0).getCFD_Estado());
+			}
+			else
+			{
+				JSatEstadosSet est = new JSatEstadosSet(request);
+				est.m_Where = "CodEstado = '" + JUtil.p(m_CFD_Estado) + "' and CodPais3 = '" + JUtil.p(m_CFD_Pais) + "'";
+				est.Open();
+				if(est.getNumRows() > 0)
+					LugarExpedicion = xmlse(est.getAbsRow(0).getNombre());
+				else
+					LugarExpedicion = xmlse(m_CFD_Estado);
+			}
 			// Empieza por el elemento comprobante
 			// Los folios son generales
 			String tipoCFD;
@@ -393,9 +417,6 @@ public class JForsetiCFDEntidad  extends JForsetiCFDEmisor
 			Deducciones.setAttribute("TotalExento", c6d(totdedexen));
 			coDeducciones += "|" + c6d(totdedexen);
 			
-			Element Incapacidades = new Element("Incapacidades", m_nsnomina);
-			Element HorasExtras = new Element("HorasExtras", m_nsnomina);
-			
 			for(int j = 0; j < dset.getNumRows(); j++)
 			{ 
 				if(!dset.getAbsRow(j).getEsDeduccion())
@@ -428,78 +449,123 @@ public class JForsetiCFDEntidad  extends JForsetiCFDEmisor
 					coDeduccion += "|" + c6d(0.0F);
 					Deducciones.addContent(Deduccion);
 				}
-				
-				if(dset.getAbsRow(j).getTipo().equals("IXA") || dset.getAbsRow(j).getTipo().equals("IXE") || dset.getAbsRow(j).getTipo().equals("IXM"))
-				{
-					bIncapacidades = true;
-					Element Incapacidad = new Element("Incapacidad", m_nsnomina);
-					if(dset.getAbsRow(j).getTipo().equals("IXA"))
-					{
-						Incapacidad.setAttribute("DiasIncapacidad", Float.toString(set.getAbsRow(0).getIXA()));
-						coIncapacidad += "|" + Float.toString(set.getAbsRow(0).getIXA());
-						Incapacidad.setAttribute("TipoIncapacidad","1");
-						coIncapacidad += "|1";
-					}
-					else if(dset.getAbsRow(j).getTipo().equals("IXE"))
-					{
-						Incapacidad.setAttribute("DiasIncapacidad", Float.toString(set.getAbsRow(0).getIXE()));
-						coIncapacidad += "|" + Float.toString(set.getAbsRow(0).getIXE());
-						Incapacidad.setAttribute("TipoIncapacidad","2");
-						coIncapacidad += "|2";
-					}
-					else // if(dset.getAbsRow(j).getTipo().equals("IXM"))
-					{
-						Incapacidad.setAttribute("DiasIncapacidad", Float.toString(set.getAbsRow(0).getIXM()));
-						coIncapacidad += "|" + Float.toString(set.getAbsRow(0).getIXM());
-						Incapacidad.setAttribute("TipoIncapacidad","3");
-						coIncapacidad += "|3";
-					}
-					Incapacidad.setAttribute("Descuento", c6d(dset.getAbsRow(j).getGravado() + dset.getAbsRow(j).getExento()));
-					coIncapacidad += "|" + c6d(dset.getAbsRow(j).getGravado() + dset.getAbsRow(j).getExento());
-					
-					Incapacidades.addContent(Incapacidad);
-				}
-				
-				if(dset.getAbsRow(j).getTipo().equals("IHEE") || dset.getAbsRow(j).getTipo().equals("IHEG") || 
-						dset.getAbsRow(j).getTipo().equals("IHDE") || dset.getAbsRow(j).getTipo().equals("IHDG") || 
-						dset.getAbsRow(j).getTipo().equals("IHTE") || dset.getAbsRow(j).getTipo().equals("IHTG"))
-				{
-					bHorasExtras = true;
-					Element HorasExtra = new Element("HorasExtra", m_nsnomina);
-					HorasExtra.setAttribute("Dias", Integer.toString(set.getAbsRow(0).getDiasHorasExtras()));
-					coHorasExtra += "|" + Integer.toString(set.getAbsRow(0).getDiasHorasExtras());
-					if(dset.getAbsRow(j).getTipo().equals("IHEE") || dset.getAbsRow(j).getTipo().equals("IHEG"))
-					{
-						HorasExtra.setAttribute("TipoHoras", "Dobles");
-						coHorasExtra += "|Dobles";
-						HorasExtra.setAttribute("HorasExtra", Integer.toString((int)set.getAbsRow(0).getHorasExtras()));
-						coHorasExtra += "|" + Integer.toString((int)set.getAbsRow(0).getHorasExtras());
-					}
-					else if(dset.getAbsRow(j).getTipo().equals("IHTE") || dset.getAbsRow(j).getTipo().equals("IHTG"))
-					{
-						HorasExtra.setAttribute("TipoHoras", "Triples");
-						coHorasExtra += "|Triples";
-						HorasExtra.setAttribute("HorasExtra", Integer.toString((int)set.getAbsRow(0).getHorasTriples()));
-						coHorasExtra += "|" + Integer.toString((int)set.getAbsRow(0).getHorasTriples());
-					}
-					else //if(dset.getAbsRow(j).getTipo().equals("IHDE") || dset.getAbsRow(j).getTipo().equals("IHDG"))
-					{
-						HorasExtra.setAttribute("TipoHoras", "Triples");
-						coHorasExtra += "|Triples";
-						HorasExtra.setAttribute("HorasExtra", Integer.toString((int)set.getAbsRow(0).getHorasDomingo()));
-						coHorasExtra += "|" + Integer.toString((int)set.getAbsRow(0).getHorasDomingo());
-					}
-					HorasExtra.setAttribute("ImportePagado", c6d(dset.getAbsRow(j).getGravado() + dset.getAbsRow(j).getExento()));
-					coHorasExtra += "|" + c6d(dset.getAbsRow(j).getGravado() + dset.getAbsRow(j).getExento());
-			
-					HorasExtras.addContent(HorasExtra);
-				}
 			}
 						
 			Nomina.addContent(Percepciones);
 			Nomina.addContent(Deducciones);
+			
+			Element Incapacidades = new Element("Incapacidades", m_nsnomina);
+			
+			if(set.getAbsRow(0).getIXA() > 0.0 || set.getAbsRow(0).getIXE() > 0.0 || set.getAbsRow(0).getIXM() > 0.0)
+			{
+				// || dset.getAbsRow(j).getTipo().equals("IXE") || dset.getAbsRow(j).getTipo().equals("IXM"))
+				bIncapacidades = true;
+				if(set.getAbsRow(0).getIXA() > 0.0)
+				{
+					Element Incapacidad = new Element("Incapacidad", m_nsnomina);
+					Incapacidad.setAttribute("DiasIncapacidad", Float.toString(set.getAbsRow(0).getIXA()));
+					coIncapacidad += "|" + Float.toString(set.getAbsRow(0).getIXA());
+					Incapacidad.setAttribute("TipoIncapacidad","1");
+					coIncapacidad += "|1";
+					float deduccion = 0.0F;
+					for(int j = 0; j < dset.getNumRows(); j++)
+					{ 
+						if(dset.getAbsRow(j).getTipo().equals("IXA"))
+							deduccion += dset.getAbsRow(j).getDeduccion();
+					}
+					Incapacidad.setAttribute("Descuento", c6d(deduccion));
+					coIncapacidad += "|" + c6d(deduccion);
+					Incapacidades.addContent(Incapacidad);	
+					
+				}
+				if(set.getAbsRow(0).getIXE() > 0.0)
+				{
+					Element Incapacidad = new Element("Incapacidad", m_nsnomina);
+					Incapacidad.setAttribute("DiasIncapacidad", Float.toString(set.getAbsRow(0).getIXE()));
+					coIncapacidad += "|" + Float.toString(set.getAbsRow(0).getIXE());
+					Incapacidad.setAttribute("TipoIncapacidad","2");
+					coIncapacidad += "|2";
+					float deduccion = 0.0F;
+					for(int j = 0; j < dset.getNumRows(); j++)
+					{ 
+						if(dset.getAbsRow(j).getTipo().equals("IXE"))
+							deduccion += dset.getAbsRow(j).getDeduccion();
+					}
+					Incapacidad.setAttribute("Descuento", c6d(deduccion));
+					coIncapacidad += "|" + c6d(deduccion);
+					Incapacidades.addContent(Incapacidad);
+				}
+				if(set.getAbsRow(0).getIXM() > 0.0)
+				{
+					Element Incapacidad = new Element("Incapacidad", m_nsnomina);
+					Incapacidad.setAttribute("DiasIncapacidad", Float.toString(set.getAbsRow(0).getIXM()));
+					coIncapacidad += "|" + Float.toString(set.getAbsRow(0).getIXM());
+					Incapacidad.setAttribute("TipoIncapacidad","3");
+					coIncapacidad += "|3";
+					float deduccion = 0.0F;
+					for(int j = 0; j < dset.getNumRows(); j++)
+					{ 
+						if(dset.getAbsRow(j).getTipo().equals("IXM"))
+							deduccion += dset.getAbsRow(j).getDeduccion();
+					}
+					Incapacidad.setAttribute("Descuento", c6d(deduccion));
+					coIncapacidad += "|" + c6d(deduccion);
+					Incapacidades.addContent(Incapacidad);
+				}
+				
+			}
+			
 			if(bIncapacidades)
 				Nomina.addContent(Incapacidades);
+			
+			Element HorasExtras = new Element("HorasExtras", m_nsnomina);
+		
+			if(set.getAbsRow(0).getHorasExtras() > 0.0 || set.getAbsRow(0).getHorasTriples() > 0.0)
+			{
+				bHorasExtras = true;
+				if(set.getAbsRow(0).getHorasExtras() > 0.0)
+				{
+					Element HorasExtra = new Element("HorasExtra", m_nsnomina);
+					HorasExtra.setAttribute("Dias", Integer.toString(set.getAbsRow(0).getDiasHorasExtras()));
+					coHorasExtra += "|" + Integer.toString(set.getAbsRow(0).getDiasHorasExtras());
+					HorasExtra.setAttribute("TipoHoras", "Dobles");
+					coHorasExtra += "|Dobles";
+					HorasExtra.setAttribute("HorasExtra", Integer.toString((int)set.getAbsRow(0).getHorasExtras()));
+					coHorasExtra += "|" + Integer.toString((int)set.getAbsRow(0).getHorasExtras());
+					float percepcion = 0.0F;
+					for(int j = 0; j < dset.getNumRows(); j++)
+					{ 
+						if(dset.getAbsRow(j).getTipo().equals("IHEE") || dset.getAbsRow(j).getTipo().equals("IHEG"))
+							percepcion += dset.getAbsRow(j).getGravado() + dset.getAbsRow(j).getExento();
+					}
+					HorasExtra.setAttribute("ImportePagado", c6d(percepcion));
+					coHorasExtra += "|" + c6d(percepcion);
+			
+					HorasExtras.addContent(HorasExtra);
+				}
+				if(set.getAbsRow(0).getHorasTriples() > 0.0)
+				{
+					Element HorasExtra = new Element("HorasExtra", m_nsnomina);
+					HorasExtra.setAttribute("Dias", Integer.toString(set.getAbsRow(0).getDiasHorasExtras()));
+					coHorasExtra += "|" + Integer.toString(set.getAbsRow(0).getDiasHorasExtras());
+					HorasExtra.setAttribute("TipoHoras", "Triples");
+					coHorasExtra += "|Triples";
+					HorasExtra.setAttribute("HorasExtra", Integer.toString((int)set.getAbsRow(0).getHorasTriples()));
+					coHorasExtra += "|" + Integer.toString((int)set.getAbsRow(0).getHorasTriples());
+					float percepcion = 0.0F;
+					for(int j = 0; j < dset.getNumRows(); j++)
+					{ 
+						if(dset.getAbsRow(j).getTipo().equals("IHDE") || dset.getAbsRow(j).getTipo().equals("IHDG") || 
+								dset.getAbsRow(j).getTipo().equals("IHTE") || dset.getAbsRow(j).getTipo().equals("IHTG"))
+							percepcion += dset.getAbsRow(j).getGravado() + dset.getAbsRow(j).getExento();
+					}
+					HorasExtra.setAttribute("ImportePagado", c6d(percepcion));
+					coHorasExtra += "|" + c6d(percepcion);
+			
+					HorasExtras.addContent(HorasExtra);
+				}
+			}
+			
 			if(bHorasExtras)
 				Nomina.addContent(HorasExtras);
 						
@@ -565,16 +631,36 @@ public class JForsetiCFDEntidad  extends JForsetiCFDEmisor
 	public void generarVenta(HttpServletRequest request, HttpServletResponse response, String tipo, int idfact, String idcli, JVentasEntidadesSetIdsV2 forSet, byte tfd) 
 		throws ServletException, IOException
 	{
-		String nomar;
+		String complementos [];
+		boolean bCce = false;
+		String nomar; 
 		
 		if(tipo.equals("FACTURAS"))
+		{
+			JComercioExteriorCabSet cce = new JComercioExteriorCabSet(request,"VENTA");
+			cce.m_Where = "ID_VC = '" + idfact + "'";
+			cce.Open();						
+			if(cce.getNumRows() > 0)
+			{
+				bCce = true;
+				complementos = new String [] {"ComercioExterior"};
+			}
+			else
+				complementos = new String [0]; 
 			nomar = "FAC";
+		}
 		else if(tipo.equals("REMISIONES"))
+		{
+			complementos = new String [0]; 
 			nomar = "REM";
+		}
 		else
+		{
+			complementos = new String [0]; 
 			nomar = "DSV";
+		}
 		
-		comprobanteNuevo(nomar);
+		comprobanteNuevo(complementos);
 		
 		if(tfd == 0) // significa que no se ha hecho nada al registro
 		{
@@ -607,14 +693,33 @@ public class JForsetiCFDEntidad  extends JForsetiCFDEmisor
 				descuento = set.getAbsRow(0).getDescuento();
 			String Moneda = null;
 			if(set.getAbsRow(0).getMoneda() != 1)
-				Moneda = set.getAbsRow(0).getMonedaSim();
+				Moneda = set.getAbsRow(0).getMonedaSat();
 			Float TipoCambio = null;
 			if(set.getAbsRow(0).getMoneda() != 1)
 				TipoCambio = set.getAbsRow(0).getTC();
 			//Metodo de pago
 			
-			String LugarExpedicion = (set.getAbsRow(0).getCFD_ID_Expedicion() > 0) ?
-					xmlse(set.getAbsRow(0).getCFD_Estado()) : xmlse(m_CFD_Estado);
+			String LugarExpedicion;
+			if(set.getAbsRow(0).getCFD_ID_Expedicion() > 0)
+			{
+				JSatEstadosSet est = new JSatEstadosSet(request);
+				est.m_Where = "CodEstado = '" + JUtil.p(set.getAbsRow(0).getCFD_Estado()) + "' and CodPais3 = '" + JUtil.p(set.getAbsRow(0).getCFD_Pais()) + "'";
+				est.Open();
+				if(est.getNumRows() > 0)
+					LugarExpedicion = xmlse(est.getAbsRow(0).getNombre());
+				else
+					LugarExpedicion = xmlse(set.getAbsRow(0).getCFD_Estado());
+			}
+			else
+			{
+				JSatEstadosSet est = new JSatEstadosSet(request);
+				est.m_Where = "CodEstado = '" + JUtil.p(m_CFD_Estado) + "' and CodPais3 = '" + JUtil.p(m_CFD_Pais) + "'";
+				est.Open();
+				if(est.getNumRows() > 0)
+					LugarExpedicion = xmlse(est.getAbsRow(0).getNombre());
+				else
+					LugarExpedicion = xmlse(m_CFD_Estado);
+			}
 			// Empieza por el elemento comprobante
 			// Los folios son generales
 			String tipoCFD;
@@ -793,8 +898,364 @@ public class JForsetiCFDEntidad  extends JForsetiCFDEmisor
 				m_LineaRep[7] = "0.0";
 			
 			m_Comprobante.addContent(Impuestos);
-			////////// Complemento No lo maneja forseti
+			
+			////////// Complemento De comercio exterior
+			if(bCce)
+			{
+				JComercioExteriorCabSet cceSet = new JComercioExteriorCabSet(request,"VENTA");
+				cceSet.m_Where = "ID_VC = '" + idfact + "'";
+				cceSet.Open();
+			
+				Element Complemento = new Element("Complemento", m_ns);
+				Element ComercioExterior = new Element("ComercioExterior", m_nscce);
+				Complemento.addContent(ComercioExterior);
+				
+				//a. Información del Nodo cce:ComercioExterior
+				//1. Version
+				ComercioExterior.setAttribute("Version","1.0");
+				//2. TipoOperacion
+				if(!cceSet.getAbsRow(0).getTipoOperacion().equals("-"))
+				{
+					ComercioExterior.setAttribute("TipoOperacion", cceSet.getAbsRow(0).getTipoOperacion());
+					m_CadenaOriginalComExt += "|" + cceSet.getAbsRow(0).getTipoOperacion();
+				}
+				else
+				{
+					m_StatusCFD = ERROR;
+					m_Error = "El Tipo de Operación del complemento de comercio exterior del CFDI no es válido. Debes corregir los datos de exportación de la factura para poder sellarla";
+					return;
+				}
+				//3. ClaveDePedimento
+				ComercioExterior.setAttribute("ClaveDePedimento", cceSet.getAbsRow(0).getClaveDePedimento());
+				m_CadenaOriginalComExt += "|" + cceSet.getAbsRow(0).getClaveDePedimento();
+				//4. CertificadoOrigen
+				if(cceSet.getAbsRow(0).getCertificadoOrigen() != -1)
+				{
+					ComercioExterior.setAttribute("CertificadoOrigen", Byte.toString(cceSet.getAbsRow(0).getCertificadoOrigen()));
+					m_CadenaOriginalComExt += "|" + Byte.toString(cceSet.getAbsRow(0).getCertificadoOrigen());
+				}
+				//5. NumCertificadoOrigen
+				String NumCertificadoOrigen = xmlse(cceSet.getAbsRow(0).getNumCertificadoOrigen());
+				if(!NumCertificadoOrigen.equals(""))
+				{
+					ComercioExterior.setAttribute("NumCertificadoOrigen", NumCertificadoOrigen);
+					m_CadenaOriginalComExt += "|" + NumCertificadoOrigen;
+				}
+				//6. NumeroExportadorConfiable
+				String NumeroExportadorConfiable = xmlse(cceSet.getAbsRow(0).getNumeroExportadorConfiable());
+				if(!NumeroExportadorConfiable.equals(""))
+				{
+					ComercioExterior.setAttribute("NumeroExportadorConfiable", NumeroExportadorConfiable);
+					m_CadenaOriginalComExt += "|" + NumeroExportadorConfiable;
+				}
+				//7. Incoterm
+				if(!cceSet.getAbsRow(0).getIncoterm().equals(""))
+				{
+					ComercioExterior.setAttribute("Incoterm", cceSet.getAbsRow(0).getIncoterm());
+					m_CadenaOriginalComExt += "|" + cceSet.getAbsRow(0).getIncoterm();
+				}
+				//8. Subdivision
+				if(cceSet.getAbsRow(0).getSubdivision() != -1)
+				{
+					ComercioExterior.setAttribute("Subdivision", Byte.toString(cceSet.getAbsRow(0).getSubdivision()));
+					m_CadenaOriginalComExt += "|" + Byte.toString(cceSet.getAbsRow(0).getSubdivision());
+				}
+				//9. Observaciones
+				String Observaciones = xmlse(cceSet.getAbsRow(0).getObservaciones());
+				if(!Observaciones.equals(""))
+				{
+					ComercioExterior.setAttribute("Observaciones", Observaciones);
+					m_CadenaOriginalComExt += "|" + Observaciones;
+				}
+				//10. TipoCambioUSD
+				if(cceSet.getAbsRow(0).getTipoCambioUsd() != 0.00)
+				{
+					ComercioExterior.setAttribute("TipoCambioUSD", c6d(cceSet.getAbsRow(0).getTipoCambioUsd()));
+					m_CadenaOriginalComExt += "|" + c6d(cceSet.getAbsRow(0).getTipoCambioUsd());
+				}
+				//11. TotalUSD
+				if(cceSet.getAbsRow(0).getTotalUsd() != 0.00)
+				{
+					ComercioExterior.setAttribute("TotalUSD", c6d(cceSet.getAbsRow(0).getTotalUsd()));
+					m_CadenaOriginalComExt += "|" + c6d(cceSet.getAbsRow(0).getTotalUsd());
+				}
+				//b. Información del Nodo cce:Emisor
+				//1. Curp
+				if(!cceSet.getAbsRow(0).getEmisor_Curp().equals(""))
+				{
+					String CURP = JUtil.frfc(cceSet.getAbsRow(0).getEmisor_Curp());
+					if(CURP.length() == 18)
+					{
+						Element Emisor = new Element("Emisor", m_nscce);
+						ComercioExterior.addContent(Emisor);
+						Emisor.setAttribute("Curp", CURP);
+						m_CadenaOriginalComExt += "|" + CURP;
+					}
+					else
+					{
+						m_StatusCFD = ERROR;
+						m_Error = "El CURP del emisor no parece ser válido. CURP: " + CURP;
+						return;
+					}
+				}
+				//c. Información del Nodo cce:Receptor
+				Element Receptor = new Element("Receptor", m_nscce);
+				ComercioExterior.addContent(Receptor);
+				//1. Curp
+				if(!cceSet.getAbsRow(0).getReceptor_Curp().equals(""))
+				{
+					String CURP = JUtil.frfc(cceSet.getAbsRow(0).getReceptor_Curp());
+					if(CURP.length() == 18)
+					{
+						Receptor.setAttribute("Curp", CURP);
+						m_CadenaOriginalComExt += "|" + CURP;
+					}
+					else
+					{
+						m_StatusCFD = ERROR;
+						m_Error = "El CURP del receptor no parece ser válido. CURP: " + CURP;
+						return;
+					}
+				}
+				//2. NumRegIdTrib
+				if(!cceSet.getAbsRow(0).getReceptor_NumRegIdTrib().equals(""))
+				{
+					Receptor.setAttribute("NumRegIdTrib", xmlse(cceSet.getAbsRow(0).getReceptor_NumRegIdTrib()));
+					m_CadenaOriginalComExt += "|" + xmlse(cceSet.getAbsRow(0).getReceptor_NumRegIdTrib());
+				}
+				else
+				{
+					m_StatusCFD = ERROR;
+					m_Error = "El Registro tributario del elemento Recepror del complemento de comercio exterior del CFDI es requerido. Debes corregir los datos de exportación de la factura para poder sellarla";
+					return;
+				}
+				//d. Información del Nodo cce:Destinatario
+				if(!cceSet.getAbsRow(0).getDestinatario_NumRegIdTrib().equals("") || !cceSet.getAbsRow(0).getDestinatario_RFC().equals("") ||
+						!cceSet.getAbsRow(0).getDestinatario_Curp().equals("") || !cceSet.getAbsRow(0).getDestinatario_Nombre().equals(""))
+				{
+					Element Destinatario = new Element("Destinatario", m_nscce);
+					ComercioExterior.addContent(Destinatario);
+					//1. NumRegIdTrib
+					if(!cceSet.getAbsRow(0).getDestinatario_NumRegIdTrib().equals(""))
+					{
+						Destinatario.setAttribute("NumRegIdTrib", xmlse(cceSet.getAbsRow(0).getDestinatario_NumRegIdTrib()));
+						m_CadenaOriginalComExt += "|" + xmlse(cceSet.getAbsRow(0).getDestinatario_NumRegIdTrib());
+					}
+					//2. Rfc
+					String rfcfmt = JUtil.fco(JUtil.frfc(cceSet.getAbsRow(0).getDestinatario_RFC()));
+					if(!rfcfmt.equals(""))
+					{
+						if(rfcfmt.length() == 13 || rfcfmt.length() == 12)
+						{
+							Destinatario.setAttribute("Rfc", rfcfmt); 
+							m_CadenaOriginalComExt += "|" + rfcfmt;
+						}
+						else
+						{
+							m_StatusCFD = ERROR;
+							m_Error = "El atributo RFC " + rfcfmt + " del Destinatario parece ser nulo o no contiene entre 12 y 13 caracteres";
+							return;
+						}
+					}
+					//3. Curp
+					if(!cceSet.getAbsRow(0).getDestinatario_Curp().equals(""))
+					{
+						String CURP = JUtil.frfc(cceSet.getAbsRow(0).getDestinatario_Curp());
+						if(CURP.length() == 18)
+						{
+							Destinatario.setAttribute("Curp", CURP);
+							m_CadenaOriginalComExt += "|" + CURP;
+						}
+						else
+						{
+							m_StatusCFD = ERROR;
+							m_Error = "El CURP del destinatario no parece ser válido. CURP: " + CURP;
+							return;
+						}
+					}
+					//4. Nombre
+					if(!cceSet.getAbsRow(0).getDestinatario_Nombre().equals(""))
+					{
+						Destinatario.setAttribute("Nombre", xmlse(cceSet.getAbsRow(0).getDestinatario_Nombre()));
+						m_CadenaOriginalComExt += "|" + xmlse(cceSet.getAbsRow(0).getDestinatario_Nombre());
+					}
+					//e. Información del Nodo cce:Destinatario:Domicilio
+					Element Domicilio = new Element("Domicilio", m_nscce);
+					Destinatario.addContent(Domicilio);
+					//1. Calle
+					if(!cceSet.getAbsRow(0).getDestinatario_Domicilio_Calle().equals(""))
+					{
+						Domicilio.setAttribute("Calle", JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Calle())); 
+						m_CadenaOriginalComExt += "|" + JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Calle());
+					}
+					else
+					{
+						m_StatusCFD = ERROR;
+						m_Error = "El atributo requerido Calle del Domicilio del Destinatario del complemento de comercio exterior es incorrecto";
+						return;
+					}
+					//2. NumeroExterior
+					if(!cceSet.getAbsRow(0).getDestinatario_Domicilio_NumeroExterior().equals(""))
+					{
+						Domicilio.setAttribute("NumeroExterior", JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_NumeroExterior())); 
+						m_CadenaOriginalComExt += "|" + JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_NumeroExterior());
+					}
+					//3. NumeroInterior
+					if(!cceSet.getAbsRow(0).getDestinatario_Domicilio_NumeroInterior().equals(""))
+					{
+						Domicilio.setAttribute("NumeroInterior", JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_NumeroInterior())); 
+						m_CadenaOriginalComExt += "|" + JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_NumeroInterior());
+					}
+					//4. Colonia
+					if(!cceSet.getAbsRow(0).getDestinatario_Domicilio_Colonia().equals(""))
+					{
+						Domicilio.setAttribute("Colonia", JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Colonia())); 
+						m_CadenaOriginalComExt += "|" + JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Colonia());
+					}
+					//5. Localidad
+					if(!cceSet.getAbsRow(0).getDestinatario_Domicilio_Localidad().equals(""))
+					{
+						Domicilio.setAttribute("Localidad", JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Localidad())); 
+						m_CadenaOriginalComExt += "|" + JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Localidad());
+					}
+					//6. Referencia
+					if(!cceSet.getAbsRow(0).getDestinatario_Domicilio_Referencia().equals(""))
+					{
+						Domicilio.setAttribute("Referencia", JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Referencia())); 
+						m_CadenaOriginalComExt += "|" + JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Referencia());
+					}
+					//7. Municipio
+					if(!cceSet.getAbsRow(0).getDestinatario_Domicilio_Municipio().equals(""))
+					{
+						Domicilio.setAttribute("Municipio", JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Municipio())); 
+						m_CadenaOriginalComExt += "|" + JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Municipio());
+					}
+					//8. Estado
+					if(!cceSet.getAbsRow(0).getDestinatario_Domicilio_Estado().equals(""))
+					{
+						Domicilio.setAttribute("Estado", JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Estado())); 
+						m_CadenaOriginalComExt += "|" + JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Estado());
+					}
+					else
+					{
+						m_StatusCFD = ERROR;
+						m_Error = "El atributo requerido Estado del Domicilio del Destinatario del complemento de comercio exterior es incorrecto";
+						return;
+					}
+					//9. Pais
+					if(!cceSet.getAbsRow(0).getDestinatario_Domicilio_Pais().equals(""))
+					{
+						Domicilio.setAttribute("Pais", JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Pais())); 
+						m_CadenaOriginalComExt += "|" + JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_Pais());
+					}
+					else
+					{
+						m_StatusCFD = ERROR;
+						m_Error = "El atributo requerido Pais del Domicilio del Destinatario del complemento de comercio exterior es incorrecto";
+						return;
+					}
+					//10. CodigoPostal
+					if(!cceSet.getAbsRow(0).getDestinatario_Domicilio_CodigoPostal().equals(""))
+					{
+						Domicilio.setAttribute("CodigoPostal", JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_CodigoPostal())); 
+						m_CadenaOriginalComExt += "|" + JUtil.fco(cceSet.getAbsRow(0).getDestinatario_Domicilio_CodigoPostal());
+					}
+					else
+					{
+						m_StatusCFD = ERROR;
+						m_Error = "El atributo requerido Codigo Postal del Domicilio del Destinatario del complemento de comercio exterior es incorrecto";
+						return;
+					}
+					
+				}
+				
+				//f. Información del Nodo cce:Mercancias:Mercancia
+				JComercioExteriorDetSet detSet = new JComercioExteriorDetSet(request,"VENTA");
+				detSet.m_Where = "ID_VC = '" + idfact + "'";
+				detSet.m_OrderBy = "Partida ASC";
+				detSet.Open();
+				
+				if(detSet.getNumRows() > 0)
+				{
+					Element Mercancias = new Element("Mercancias", m_nscce);
+					ComercioExterior.addContent(Mercancias);
+					
+					for(int j = 0; j < detSet.getNumRows(); j++)
+					{ 
+						Element Mercancia = new Element("Mercancia", m_nscce);
+						//1. NoIdentificacion
+						Mercancia.setAttribute("NoIdentificacion", xmlse(detSet.getAbsRow(j).getNoIdentificacion()));
+						m_CadenaOriginalComExt += "|" + xmlse(detSet.getAbsRow(j).getNoIdentificacion());
+						//2. FraccionArancelaria
+						Mercancia.setAttribute("FraccionArancelaria", xmlse(detSet.getAbsRow(j).getFraccionArancelaria()));
+						m_CadenaOriginalComExt += "|" + xmlse(detSet.getAbsRow(j).getFraccionArancelaria());
+						//3. CantidadAduana
+						Mercancia.setAttribute("CantidadAduana", c3d(detSet.getAbsRow(j).getCantidadAduana()));
+						m_CadenaOriginalComExt += "|" + c3d(detSet.getAbsRow(j).getCantidadAduana());
+						//4. UnidadAduana
+						Mercancia.setAttribute("UnidadAduana", Integer.toString(detSet.getAbsRow(j).getUnidadAduana()));
+						m_CadenaOriginalComExt += "|" + Integer.toString(detSet.getAbsRow(j).getUnidadAduana());
+						//5. ValorUnitarioAduana
+						Mercancia.setAttribute("ValorUnitarioAduana", c2d(detSet.getAbsRow(j).getValorUnitarioAduana()));
+						m_CadenaOriginalComExt += "|" + c2d(detSet.getAbsRow(j).getValorUnitarioAduana());
+						//6. ValorDolares
+						Mercancia.setAttribute("ValorDolares", c2d(detSet.getAbsRow(j).getValorDolares()));
+						m_CadenaOriginalComExt += "|" + c2d(detSet.getAbsRow(j).getValorDolares());
+						
+						//g. Información del Nodo cce:DescripcionesEspecificas
+						JComercioExteriorDetDescEspSet espSet = new JComercioExteriorDetDescEspSet(request,"VENTA");
+						espSet.m_Where = "ID_VC = '" + idfact + "' and Partida = '" + detSet.getAbsRow(j).getPartida() + "'";
+						espSet.m_OrderBy = "Descripcion ASC";
+						espSet.Open();
+						
+						for(int k = 0; k < espSet.getNumRows(); k++)
+						{
+							if(!espSet.getAbsRow(k).getMarca().equals("") || !espSet.getAbsRow(k).getModelo().equals("") ||
+									!espSet.getAbsRow(k).getSubModelo().equals("") || !espSet.getAbsRow(k).getNumeroSerie().equals(""))
+							{
+								Element DescripcionesEspecificas = new Element("DescripcionesEspecificas", m_nscce);
+								//1. Marca
+								if(!espSet.getAbsRow(k).getMarca().equals(""))
+								{
+									DescripcionesEspecificas.setAttribute("Marca", xmlse(espSet.getAbsRow(k).getMarca()));
+									m_CadenaOriginalComExt += "|" + xmlse(espSet.getAbsRow(k).getMarca());
+								}
+								else
+								{
+									m_StatusCFD = ERROR;
+									m_Error = "El atributo requerido Marca de las descripciones específicas de la mercancía " + detSet.getAbsRow(j).getNoIdentificacion() + " del complemento de comercio exterior es incorrecto";
+									return;
+								}
+								//2. Modelo
+								if(!espSet.getAbsRow(k).getModelo().equals(""))
+								{
+									DescripcionesEspecificas.setAttribute("Modelo", xmlse(espSet.getAbsRow(k).getModelo()));
+									m_CadenaOriginalComExt += "|" + xmlse(espSet.getAbsRow(k).getModelo());
+								}
+								//3. SubModelo
+								if(!espSet.getAbsRow(k).getSubModelo().equals(""))
+								{
+									DescripcionesEspecificas.setAttribute("SubModelo", xmlse(espSet.getAbsRow(k).getSubModelo()));
+									m_CadenaOriginalComExt += "|" + xmlse(espSet.getAbsRow(k).getSubModelo());
+								}
+								//4. NumeroSerie
+								if(!espSet.getAbsRow(k).getNumeroSerie().equals(""))
+								{
+									DescripcionesEspecificas.setAttribute("NumeroSerie", xmlse(espSet.getAbsRow(k).getNumeroSerie()));
+									m_CadenaOriginalComExt += "|" + xmlse(espSet.getAbsRow(k).getNumeroSerie());
+								}
+								Mercancia.addContent(DescripcionesEspecificas);
+							}
+						}
+						
+						Mercancias.addContent(Mercancia);
+					}
+				}
+				m_Comprobante.addContent(Complemento);
+			}
 			////////// Addenda No lo maneja forseti
+			if(bCce)
+				m_CadenaOriginal += m_CadenaOriginalComExt;
 			
 			m_CadenaOriginal += "||";
 			m_LineaRep[8] = "1"; // Estado del comprobante 1 Vigente
@@ -851,7 +1312,7 @@ public class JForsetiCFDEntidad  extends JForsetiCFDEmisor
 				if(fi.getNumRows() < 1)
 				{
 					m_StatusCFD = JForsetiCFD.ERROR;
-					m_Error = "ERROR: El formato para la generaci&oacute; del PDF del CFDI no existe o es Nulo";
+					m_Error = "ERROR: El formato para la generación del PDF del CFDI no existe o es Nulo";
 					return;
 				}
 				
@@ -870,7 +1331,8 @@ public class JForsetiCFDEntidad  extends JForsetiCFDEmisor
 	public void generarTraslado(HttpServletRequest request, HttpServletResponse response, String tipo, int idfact, JAlmacenesMovimSetIdsV2 forSet, byte tfd) 
 		throws ServletException, IOException
 	{
-		comprobanteNuevo("TRS");
+		String complementos [] = new String [0];
+		comprobanteNuevo(complementos); // "TRS"
 		
 		if(tfd == 0) // significa que no se ha hecho nada al registro
 		{
@@ -896,8 +1358,27 @@ public class JForsetiCFDEntidad  extends JForsetiCFDEmisor
 			String condicionesDePago = null;
 			Float descuento = null;
 			//String metodoDePago = "No Identificado";
-			String LugarExpedicion = (set.getAbsRow(0).getCFD_ID_Expedicion() > 0) ?
-					xmlse(set.getAbsRow(0).getCFD_Estado()) : xmlse(m_CFD_Estado);
+			String LugarExpedicion;
+			if(set.getAbsRow(0).getCFD_ID_Expedicion() > 0)
+			{
+				JSatEstadosSet est = new JSatEstadosSet(request);
+				est.m_Where = "CodEstado = '" + JUtil.p(set.getAbsRow(0).getCFD_Estado()) + "' and CodPais3 = '" + JUtil.p(set.getAbsRow(0).getCFD_Pais()) + "'";
+				est.Open();
+				if(est.getNumRows() > 0)
+					LugarExpedicion = xmlse(est.getAbsRow(0).getNombre());
+				else
+					LugarExpedicion = xmlse(set.getAbsRow(0).getCFD_Estado());
+			}
+			else
+			{
+				JSatEstadosSet est = new JSatEstadosSet(request);
+				est.m_Where = "CodEstado = '" + JUtil.p(m_CFD_Estado) + "' and CodPais3 = '" + JUtil.p(m_CFD_Pais) + "'";
+				est.Open();
+				if(est.getNumRows() > 0)
+					LugarExpedicion = xmlse(est.getAbsRow(0).getNombre());
+				else
+					LugarExpedicion = xmlse(m_CFD_Estado);
+			}
 			// Empieza por el elemento comprobante
 			// Los folios son generales
 			String tipoCFD = null;

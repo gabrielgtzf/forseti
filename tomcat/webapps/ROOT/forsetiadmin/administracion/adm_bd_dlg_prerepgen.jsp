@@ -60,6 +60,7 @@
         			<%  } else { %>
         			<input type="submit" name="aceptar" value="<%= JUtil.Msj("GLB","GLB","GLB","ACEPTAR") %>">
        				<%  } %>
+					<input type="submit" onClick="javascript:establecerProcesoSVE(this.form.subproceso, 'DOCUMENTACION')" name="ayuda" value="<%= JUtil.Msj("SAF","ADMIN_BD","VISTA","DOCUMENTACION_REPORTE",3) %>" title="<%= JUtil.Msj("SAF","ADMIN_BD","VISTA","DOCUMENTACION_REPORTE",2) %>">
         			<input type="button" name="cancelar" onClick="javascript:document.location.href='/servlet/SAFAdmBDCtrl';" value="<%= JUtil.Msj("GLB","GLB","GLB","CANCELAR") %>">
             </td>
           </tr>
@@ -100,7 +101,7 @@
             <td colspan="2"><hr></td>
 		  </tr>
 		  <tr> 
-            <td class="titChicoNeg" colspan="2">O selecciona un reporte para cambiarlo o usarlo como plantilla para otro nuevo reporte...</td>
+            <td colspan="2" class="titChicoNeg">O selecciona un reporte para cambiarlo o usarlo como plantilla para otro nuevo reporte...</td>
 		  </tr>
 		  <tr> 
             <td colspan="2">
@@ -117,8 +118,9 @@
 %>
 				  <tr<%= (set.getAbsRow(i).getID_Report() >= 10000) ? " class=\"txtChicoNar\"" : "" %>> 
 				  	<td width="5%" align="center"><input type="radio" name="idreportplnt" value="<%=  set.getAbsRow(i).getID_Report() %>"></td>
-					<td width="10%"><%= set.getAbsRow(i).getID_Report() %></td>
+					<td width="7%"><%= set.getAbsRow(i).getID_Report() %></td>
 					<td><%= set.getAbsRow(i).getDescription() %></td>
+					<td width="20%"><%= set.getAbsRow(i).getTipo() %></td>
 				  </tr>
 <%
 			}

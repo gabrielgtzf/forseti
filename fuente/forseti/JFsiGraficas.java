@@ -469,4 +469,8 @@ public abstract class JFsiGraficas
 		
 	}
 
+	public BufferedImage getBufferedImage()
+	{
+		return m_img;
+	}
 }

@@ -80,7 +80,7 @@ public class JCatLineasCtrl extends JForsetiApl
     	  }
     	  else if(request.getParameter("entidad").equals("UNIDADES"))
     	  {
-    		  getSesion(request).getSesion("INVSERV_LINEAS").setEntidad("",JUtil.Elm(ent, 2));
+    		  getSesion(request).getSesion("INVSERV_LINEAS").setEntidad("ID_InvServ = 'P'",JUtil.Elm(ent, 2));
     		  getSesion(request).getSesion("INVSERV_LINEAS").setEspecial("UNIDADES");  
     	  }
           else

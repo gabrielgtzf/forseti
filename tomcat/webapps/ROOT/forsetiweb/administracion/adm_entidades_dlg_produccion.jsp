@@ -154,44 +154,6 @@ function enviarlo(formAct)
               <input name="idbodega_nombrept" type="text" id="idbodega_nombrept" size="25" maxlength="250" readonly="true"-->&nbsp;</td>
           </tr>
           <tr> 
-            <td align="right"><%= JUtil.Msj("GLB","GLB","GLB","FORMATO") %></td>
-            <td colspan="3">
-              <select style="width: 90%;" name="formato" class="cpoBco">
-                <option value="NINGUNO"<% if(request.getParameter("formato") != null) {
-										if(request.getParameter("formato").equals("NINGUNO")) {
-											out.println(" selected");
-										}
-									 } else {
-										if(!request.getParameter("proceso").equals("AGREGAR_ENTIDAD")) { 
-											if(set.getAbsRow(0).getFormato().equals("")) {
-												out.println(" selected"); 
-											}
-										}
-									 } %>>--- <%= JUtil.Msj("GLB","GLB","GLB","NINGUN") %> ---</option>
-                <%
-								  for(int i = 0; i< setFmt.getNumRows(); i++)
-								  {
-		%>
-                <option value="<%= setFmt.getAbsRow(i).getID_Formato() %>"<% 
-									if(request.getParameter("formato") != null) {
-										if(request.getParameter("formato").equals(setFmt.getAbsRow(i).getID_Formato())) {
-											out.print(" selected");
-										}
-									 } else {
-										if(!request.getParameter("proceso").equals("AGREGAR_ENTIDAD")) { 
-											if(set.getAbsRow(0).getFormato().equals(setFmt.getAbsRow(i).getID_Formato())) {
-												out.println(" selected"); 
-											}
-										}
-									 }	  %>> 
-                <%=  setFmt.getAbsRow(i).getDescripcion()  %>
-                </option>
-                <%
-								  }
-				%>
-              </select></td>
-          </tr>
-          <tr> 
             <td> <div align="right"><%= JUtil.Msj("GLB","GLB","GLB","STATUS") %></div></td>
             <td> 
               <select name="status" class="cpoBco">

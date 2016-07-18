@@ -41,6 +41,7 @@ public class TBL_COMPRAS_ENTIDADES
 	private String m_NombreBodega;
 	private long m_Recepcion;
 	private String m_Fmt_Recepcion;
+	private byte m_TipoCobro;
 	
 	public void setID_EntidadCompra(int ID_EntidadCompra)
 	{
@@ -251,6 +252,16 @@ public class TBL_COMPRAS_ENTIDADES
 	public String getFmt_Recepcion() 
 	{
 		return m_Fmt_Recepcion;
+	}
+
+	public void setTipoCobro(byte TipoCobro) 
+	{
+		m_TipoCobro = TipoCobro;
+	}
+	
+	public byte getTipoCobro()
+	{
+		return m_TipoCobro;
 	}
 }
 

@@ -209,6 +209,12 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				 </tr>
 				 
 
+              	 <tr>
+				 	<td width="5" valign="top" class="txtSubMenu"><font color="#0099FF">-</font></td>
+                    <td valign="top"><a href="051101.html" class="txtSubMenu" target="_self"><font color="#0099FF">Reportes</font></a></td>
+				 </tr>
+				 
+
 				</table>
 				
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -239,6 +245,8 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				  <tr>
 					<td> 
                     
+ 
+				
  
 				
  
@@ -647,7 +655,17 @@ sean diferentes, por ejemplo, dolares con euros.</li>
 </ol>
 <strong>B) Sobre un gasto a crédito.</strong> Cuando el gasto se haya establecido como "Crédito", se agregará un nuevo registro de cuenta por pagar siguiendo las reglas del módulo de cuentas por pagar y la deuda con este proveedor se actualizará. En caso de que la entidad de gasto esté enlazada a la contabilidad, se generará la póliza de diario del gasto de crédito.<br />
 <br />
-<strong>C) Sobre el movimiento al almacén de utensilios.</strong> El comportamiento para el movimiento de entrada al almacén de utensilios dependerá de varios factores al momento de ingresar el gasto:<br />
+<strong>C) Sobre un gasto sin ningún método de pago específico. </strong>Cuando
+ el gasto se haya
+ establecido sin ningún método de pago, no se agregará ni movimiento de 
+caja o banco, ni cuenta por pagar. En caso de que la entidad del gasto 
+esté enlazada a la contabilidad, se generará la póliza de diario del gasto con su partida doble a la cuenta especificada en la 
+variable "CC_COMPNP - Cuenta para registros de partida doble en compras o gastos 
+sin ningún tipo de pago, ni crédito, ni contado", establecida en el 
+módulo de variables de la sección de compras del centro de control del 
+CEF. (ver inciso E para determinación de la póliza) <br />
+<br />
+<strong>D) Sobre el movimiento al almacén de utensilios.</strong> El comportamiento para el movimiento de entrada al almacén de utensilios dependerá de varios factores al momento de ingresar el gasto:<br />
 <ol>
  <li>Si la entidad de gasto tiene seleccionada la opción "<strong>No manejar movimientos al almacén de 
 productos o utensilios", </strong>no se agregará ningún movimiento al almacén de utensilios al 
@@ -658,7 +676,7 @@ agregar este gasto.</li>
 </li>
 </ol>
 <strong>
-<strong>D) Sobre la póliza del gasto.</strong> </strong>En caso de que la entidad de gasto se enlace a la contabilidad, el 
+<strong>E) Sobre la póliza del gasto.</strong> </strong>En caso de que la entidad de gasto se enlace a la contabilidad, el 
 comportamiento para formar la póliza del gasto dependerá en gran medida de las propiedades especificadas en cada clave del catálogo de gastos. Para un detalle del seguimiento de esta póliza te sugiero revises la documentación del <a href="050405.html">catálogo de gastos</a>. <br />
 <strong><br />
 Consultar Gasto.</strong><br />
@@ -1209,6 +1227,8 @@ Los errores mas comunes en estos procesos son los siguientes:<br />
 
  
 				
+			  
+
 			  
 
 			  

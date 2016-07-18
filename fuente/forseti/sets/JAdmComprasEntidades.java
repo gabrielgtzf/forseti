@@ -69,6 +69,7 @@ public class JAdmComprasEntidades extends JManejadorSet
 			pNode.setStatus(m_RS.getString("Status"));
 			pNode.setRecepcion(m_RS.getLong("Recepcion"));
 			pNode.setFmt_Recepcion(m_RS.getString("Fmt_Recepcion"));
+			pNode.setTipoCobro(m_RS.getByte("TipoCobro"));
 			
 			m_Rows.addElement(pNode);
 

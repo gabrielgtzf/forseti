@@ -77,7 +77,8 @@ public class JProveeProveeMasSetV2 extends JManejadorSet
 			pNode.setMetodoDePago(m_RS.getString("MetodoDePago"));
 			pNode.setStatus(m_RS.getString("Status"));
 			pNode.setID_SatBanco(m_RS.getString("ID_SatBanco"));
-
+			pNode.setPedimento(m_RS.getString("Pedimento"));
+			
 			m_Rows.addElement(pNode);
 
 		}

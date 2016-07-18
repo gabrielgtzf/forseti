@@ -85,6 +85,7 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 			  <input name="proceso" type="hidden" value="ACTUALIZAR">
            	  <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'AGREGAR_ELEMENTO',<%= JUtil.Msj("CEF","INVSERV_LINEAS","VISTA","AGREGAR_ELEMENTO",4) %>,<%= JUtil.Msj("CEF","INVSERV_LINEAS","VISTA","AGREGAR_ELEMENTO",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","INVSERV_LINEAS","VISTA","AGREGAR_ELEMENTO") %>" alt="" title="<%= JUtil.Msj("CEF","INVSERV_LINEAS","VISTA","AGREGAR_ELEMENTO",2) %>" border="0">
               <input name="submit" type="image" onClick="javascript:establecerProcesoSVE(this.form.proceso, 'CAMBIAR_ELEMENTO',<%= JUtil.Msj("CEF","INVSERV_LINEAS","VISTA","CAMBIAR_ELEMENTO",4) %>,<%= JUtil.Msj("CEF","INVSERV_LINEAS","VISTA","CAMBIAR_ELEMENTO",5) %>)" src="../imgfsi/<%= JUtil.Msj("CEF","INVSERV_LINEAS","VISTA","CAMBIAR_ELEMENTO") %>" alt="" title="<%= JUtil.Msj("CEF","INVSERV_LINEAS","VISTA","CAMBIAR_ELEMENTO",2) %>" border="0">
+              <a href="/servlet/CEFReportesCtrl?tipo=INVSERV_LINEAS" target="_self"><img src="../imgfsi/rep_catalogos.png" alt="" title="<%= JUtil.Msj("GLB","GLB","GLB","REPORTES") %>" width="30" height="30" border="0"></a> 
               <a href="try { javascript:gestionarArchivos2('INVSERV_LINEAS', '<%= ent %>', document.cat_lineas.id.value, ''); } catch(err) { gestionarArchivos2('INVSERV_LINEAS', '<%= ent %>', '', ''); }" target="_self"><img src="../imgfsi/es_gestionar_archivos.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",5) %>" border="0"></a> 
 			  <a href="/servlet/CEFCatLineasCtrl" target="_self"><img src="../imgfsi/actualizar.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",1) %>" border="0"></a> 
             </div></td>
@@ -115,7 +116,7 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 		    <td width="3%" align="left">&nbsp;</td>
 			<td width="20%" align="left"><a class="titChico" href="/servlet/CEFCatLineasCtrl?orden=ID_Unidad&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
 			<td align="left"><a class="titChico" href="/servlet/CEFCatLineasCtrl?orden=Descripcion&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
-			<td width="20%" align="left"><a class="titChico" href="/servlet/CEFCatLineasCtrl?orden=ID_InvServ&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
+			<td width="20%" align="left"><a class="titChico" href="/servlet/CEFCatLineasCtrl?orden=ID_SatUnidad&etq=<%= JUtil.Elm(coletq,etq++) %>"><%= JUtil.Elm(colvsta,col++) %></a></td>
 		</tr>
 <%
 	}
@@ -169,22 +170,12 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 		set.Open();
 		for(int i=0; i < set.getNumRows(); i++)
 		{
-		  	String tipo;
-		
-	   		if(set.getAbsRow(i).getID_InvServ().equals("P"))
-				tipo = JUtil.Elm(tipos,1); 
-			else if(set.getAbsRow(i).getID_InvServ().equals("S"))
-				tipo = JUtil.Elm(tipos,2); 
-			else if(set.getAbsRow(i).getID_InvServ().equals("G"))
-				tipo = JUtil.Elm(tipos,3); 
-			else
-				tipo = "&nbsp;";
 %>
        <tr>
 	   		<td width="3%" align="left"><input type="radio" name="id" value="<%= set.getAbsRow(i).getID_Unidad() %>"></td>
 			<td width="20%" align="left"><%= set.getAbsRow(i).getID_Unidad() %></td>
 			<td align="left"><%= set.getAbsRow(i).getDescripcion() %></td>
-			<td width="20%" align="left"><%= tipo %></td>
+			<td width="20%" align="left"><%= set.getAbsRow(i).getID_SatUnidad() %></td>
        </tr>		
 <%
 		}

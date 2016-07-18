@@ -49,6 +49,7 @@ public class view_client_client_mas
 	private String m_MetodoDePago;
 	private String m_Status;
 	private String m_ID_SatBanco;
+	private String m_Pedimento;
 	
 	public String getNoExt() 
 	{
@@ -329,6 +330,16 @@ public class view_client_client_mas
 	public String getID_SatBanco()
 	{
 		return m_ID_SatBanco;		
+	}
+
+	public void setPedimento(String Pedimento) 
+	{
+		m_Pedimento = Pedimento;
+	}
+	
+	public String getPedimento() 
+	{
+		return m_Pedimento;
 	}
 }
 

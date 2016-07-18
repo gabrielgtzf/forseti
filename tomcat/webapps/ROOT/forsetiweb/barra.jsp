@@ -70,6 +70,14 @@ function runClock()
 	  <td width="5%" align="center" valign="top" class="clockCef"><strong><%= JUtil.Msj("GLB","BARRA","GLB","INFO", 4) %></strong></td>
       <td width="20%" align="left" valign="top" class="clockCef"><%= JUtil.getSesion(request).getNombreCompania() %></td>
       <td width="5%" align="center" valign="top" class="clockCef"><strong><%= JUtil.Msj("GLB","BARRA","GLB","INFO", 3) %></strong></td>
+<%
+	if(!JUtil.getSesion(request).getID_Usuario().equals("cef-su"))
+	{
+%>
+      <td width="16" valign="middle" class="clockCef"><a href="/servlet/CEFAdmUsuariosDlg?proceso=CAMBIAR_CONTRASENA" target="cuerpo"><img src="../imgfsi/usrpass_recargar.png" title="Pulsa aquí para cambiar tu contraseña" width="16" height="16" border="0"></a></td>
+<%
+	}
+%>
       <td align="left" valign="top" class="clockCef"><%= JUtil.getSesion(request).getNombreUsuario() %></td>
 	  <td width="7%" align="right" valign="top" class="clockCef" ><%= JUtil.obtFechaTxt(new java.util.Date(),"dd/MMM/yyyy" ) %></td>
       <td width="7%" align="left" valign="top"><input name="clockBox" type="text" class="clockCef" onFocus="blur();" size="10" maxlength="10"></td>

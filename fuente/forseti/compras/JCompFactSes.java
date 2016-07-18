@@ -94,7 +94,15 @@ public class JCompFactSes extends JVenFactSes
 		m_AuditarAlm = set.getAbsRow(0).getAuditarAlm();
 		m_ManejoStocks = set.getAbsRow(0).getManejoStocks();
 		m_FijaCost = false; //set.getAbsRow(0).getFijaCost();
-		m_Forma_Pago = "contado";
+		m_PagoMixto = set.getAbsRow(0).getTipoCobro() == 2 ? true : false; 
+		if(set.getAbsRow(0).getTipoCobro() == 0)
+			m_Forma_Pago = "contado";
+		else if(set.getAbsRow(0).getTipoCobro() == 1)
+			m_Forma_Pago = "credito";
+		else if(set.getAbsRow(0).getTipoCobro() == 3)
+			m_Forma_Pago = "ninguno";
+		else
+			m_Forma_Pago = "contado";
 		m_PrecioEspMostr = false;
 		m_ID_Moneda = 1;
 		m_TC = 1.0F;
@@ -166,7 +174,15 @@ public class JCompFactSes extends JVenFactSes
 		m_AuditarAlm = set.getAbsRow(0).getAuditarAlm();
 		m_ManejoStocks = set.getAbsRow(0).getManejoStocks();
 		m_FijaCost = false; //set.getAbsRow(0).getFijaCost();
-		m_Forma_Pago = "contado";
+		m_PagoMixto = set.getAbsRow(0).getTipoCobro() == 2 ? true : false; 
+		if(set.getAbsRow(0).getTipoCobro() == 0)
+			m_Forma_Pago = "contado";
+		else if(set.getAbsRow(0).getTipoCobro() == 1)
+			m_Forma_Pago = "credito";
+		else if(set.getAbsRow(0).getTipoCobro() == 3)
+			m_Forma_Pago = "ninguno";
+		else
+			m_Forma_Pago = "contado";
 		m_PrecioEspMostr = false;
 		m_ID_Moneda = 1;
 		m_TC = 1.0F;
@@ -211,11 +227,9 @@ public class JCompFactSes extends JVenFactSes
 			!request.getParameter("entrega").equals(""))
 		{
 			m_Referencia = request.getParameter("referencia");
-			m_Forma_Pago = request.getParameter("forma_pago");
 			m_Obs = request.getParameter("obs");
 			m_Fecha = JUtil.estFecha(request.getParameter("fecha")); 
 			m_FechaEntrega = JUtil.estFecha(request.getParameter("entrega"));
-			
 		}
 		else
 		{
@@ -242,7 +256,18 @@ public class JCompFactSes extends JVenFactSes
 	    }
 	   
 	    m_FactNum = factnum;
-	    		  
+	    
+	    if(!m_PagoMixto)
+	    {
+	    	if(!request.getParameter("forma_pago").equals(m_Forma_Pago))
+	    	{
+	    		sb_mensaje.append("PRECAUCION: No está permitido cambiar directamente la forma de pago en una Orden, Recepcion ó Factura. Este campo es exclusivamente informativo. Para cambiar la forma de pago, necesitas cambiarla desde los parámetros de la entidad de compra <br>");
+	    		return 1;
+	    	}
+	    }
+		  
+		m_Forma_Pago = request.getParameter("forma_pago");
+		  		  
 		byte idmoneda = Byte.parseByte(request.getParameter("idmoneda"));
 		float tc = Float.parseFloat(request.getParameter("tc"));
 
@@ -346,13 +371,21 @@ public class JCompFactSes extends JVenFactSes
 		  }
 		  
 		  m_FactNum = factnum;
-		 
 		  m_Referencia = request.getParameter("referencia");
-		  m_Forma_Pago = request.getParameter("forma_pago");
 		  m_Obs = request.getParameter("obs");
 		  m_Fecha = JUtil.estFecha(request.getParameter("fecha")); 
 		  m_FechaEntrega = JUtil.estFecha(request.getParameter("entrega"));
-				  
+		
+		  if(!m_PagoMixto)
+		  {
+			  if(!request.getParameter("forma_pago").equals(m_Forma_Pago))
+			  {
+				  sb_mensaje.append("PRECAUCION: No está permitido cambiar directamente la forma de pago en una Orden, Recepcion ó Factura. Este campo es exclusivamente informativo. Para cambiar la forma de pago, necesitas cambiarla desde los parámetros de la entidad de compra <br>");
+				  return 1;
+			  }
+		  }
+		  m_Forma_Pago = request.getParameter("forma_pago");
+		  
 		  byte idmoneda = Byte.parseByte(request.getParameter("idmoneda"));
 		  float tc = Float.parseFloat(request.getParameter("tc"));
 
@@ -497,7 +530,7 @@ public class JCompFactSes extends JVenFactSes
 			}
 			else
 			{
-				if(m_part_ID_Tipo.equals("G") && fprecio > set.getAbsRow(0).getPrecioMax())
+				if(m_part_ID_Tipo.equals("G") && set.getAbsRow(0).getPrecioMax() > 0.0 && fprecio > set.getAbsRow(0).getPrecioMax())
 				{
 					res = 1;
 					mensaje.append("PRECAUCION: El precio de este tipo de insumo o servicio, parece ser mayor al máximo permitido. No se puede agregar el gasto");
@@ -607,13 +640,21 @@ public class JCompFactSes extends JVenFactSes
 			}
 			else
 			{
-				// Aqui cambia la partida
-				JVenFactSesPart part = (JVenFactSesPart) m_Partidas.elementAt(indPartida);
-				part.setPartida(cantidad, m_part_Unidad, m_part_Clave, m_part_Clave, m_part_Descripcion, fprecio, fimporte, 
+				if(m_part_ID_Tipo.equals("G") && set.getAbsRow(0).getPrecioMax() > 0.0 && fprecio > set.getAbsRow(0).getPrecioMax())
+				{
+					res = 1;
+					mensaje.append("PRECAUCION: El precio de este tipo de insumo o servicio, parece ser mayor al máximo permitido. No se puede agregar el gasto");
+				}
+				else
+				{
+					// Aqui cambia la partida
+					JVenFactSesPart part = (JVenFactSesPart) m_Partidas.elementAt(indPartida);
+					part.setPartida(cantidad, m_part_Unidad, m_part_Clave, m_part_Clave, m_part_Descripcion, fprecio, fimporte, 
 						fdescuento, fiva, fieps, fivaret, fisrret, fimportedesc, fimporteiva, fimporteieps, fimporteivaret, fimporteisrret, ftotalpart, obs_partida, m_part_ID_Tipo);
 				 
-				establecerResultados();
-				resetearPart();
+					establecerResultados();
+					resetearPart();
+				}
 			}
 
 		}

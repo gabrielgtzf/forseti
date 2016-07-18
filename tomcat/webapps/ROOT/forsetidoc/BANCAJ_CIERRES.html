@@ -209,6 +209,12 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				 </tr>
 				 
 
+              	 <tr>
+				 	<td width="5" valign="top" class="txtSubMenu"><font color="#0099FF">-</font></td>
+                    <td valign="top"><a href="051101.html" class="txtSubMenu" target="_self"><font color="#0099FF">Reportes</font></a></td>
+				 </tr>
+				 
+
 				</table>
 				
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -245,8 +251,10 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
 				
  
 				
+ 
+				
 
-<p>El módulo de cierres de caja del CEF te permite gestionar las cuentas con los puntos de venta de tu empresa cuando estos manejan un fondo fijo de caja y utilizan un cierre para cubrir el reembolso de los gastos. Este módulo actúa conjuntamente con el módulo de cajas y vales de caja para generar los cierres. <br />
+<p>El módulo de cierres de caja del CEF te permite gestionar las cuentas con los puntos de venta de tu empresa cuando estos manejan un fondo fijo de caja y utilizan un cierre para cubrir el reembolso de los gastos. Este módulo actúa conjuntamente con el módulo de cajas, ventas y vales de caja para generar los cierres. <br />
 </p>
 <p>En el panel izquierdo, veremos las fichas de las <strong>entidades </strong>que
  dimos de alta previamente a través del módulo de Entidades de caja 
@@ -325,7 +333,7 @@ primarios de agregado y consulta.<br />
   <td>
 <strong>2</strong>
 </td>
-  <td>Cajas<br />
+  <td>Ventas<br />
 </td>
   <td>DEPOSITOS POR VENTA: Iztapalapa 39594 - Iztapalapa 39624</td>
   <td>$2,500.00</td>
@@ -396,13 +404,25 @@ primarios de agregado y consulta.<br />
 <strong>$2,600.00</strong>
 </td>
 </tr>
+ <tr>
+  <td>
+<strong>6</strong><br />
+</td>
+  <td>Ventas <br />
+</td>
+  <td>
+<strong>DESGLOSE DE FACTURAS EN ESTE CIERRE</strong><br />
+</td>
+  <td><br />
+</td>
+</tr>
 </tbody>
 </table>
 <ol>
  <li>Es el rango de movimientos de caja generados en el período de nuestro cierre, que en este caso, involucra 30 movimientos en el día. Este se determina desde el último cierre, al movimiento actual. En este ejemplo, el cierre del día anterior llegó al número 1553, por lo tanto, este cierre comienza en el número 1554 terminando en el número 1584, y el próximo cierre comenzará en el número 1585 a X número y así sucesivamente.<br />
 <br />
 </li>
- <li>Representa el monto total de movimientos de depósito generados por el módulo de ventas. De esta manera estaremos seguros del total de ventas de contado que se cargaron a esta caja. <strong>NOTA IMPORTANTE:</strong> La numeración de las ventas no indica que todas ellas fueron cargadas a la caja ya que podrían haber ventas a crédito en el rango de facturas si es que la entidad de ventas soporta ventas de crédito, no obstante, podremos estar seguros de que únicamente son las ventas de contado las que forman el monto total de depósitos por ventas. Esta numeración actúa de forma similar a como actúa la numeración de movimientos de caja anterior, por lo tanto, en nuestro ejemplo, el próximo cierre comenzará por la factura 39625.<br />
+ <li>Representa el <strong>monto total</strong> de movimientos de depósito generados por el módulo de ventas. De esta manera estaremos seguros del total de ventas de contado que se cargaron a esta caja. <strong>NOTA IMPORTANTE:</strong> La numeración de las ventas no indica que todas ellas fueron cargadas a la caja ya que podrían haber ventas a crédito en el rango de facturas si es que la entidad de ventas soporta ventas de crédito, no obstante, podremos estar seguros de que únicamente son las ventas de contado las que forman el monto total de depósitos por ventas. Esta numeración actúa de forma similar a como actúa la numeración de movimientos de caja anterior, por lo tanto, en nuestro ejemplo, el próximo cierre comenzará por la factura 39625.<br />
 <br />
 </li>
  <li>Es el total de gastos generados en el período del cierre, este dato lo toma directamente del total de vales de caja abiertos sin incluir los vales provisionales, porque estos, se quedarán en la caja en espera del gasto definitivo y no formarán parte del cierre. <strong>NOTA:</strong> En un cierre real desde este módulo, los gastos aparecerán desglosados vale por vale, y divididos por los tipos sin factura, facturas, pagos, otros y traspasados, por lo tanto, podremos verificar los documentos contra los vales registrados justo antes de la aplicación de un cierre.<br />
@@ -412,6 +432,9 @@ primarios de agregado y consulta.<br />
 <br />
 </li>
  <li>Es el total de vales provisionales que están aún en espera del gasto real. Al igual que los gastos, los vales provisionales también nos aparecerán desglosados para saber para qué se ha retirado el efectivo de la caja.<br />
+<br />
+</li>
+ <li>Mostrará el desglose de cada una de las facturas involucradas en este cierre, conteniendo la información de la entidad de venta, la fecha, el número, el estatus y el total de la factura. La suma de los totales de este desglose será igual al monto total establecido en el inciso 2 <br />
 </li>
 </ol>
 <p>Dentro de nuestro cierre, y a partir de los datos previamente explicados, nos aparecen los registros calculados de <strong>TRASPASO A GENERAR</strong>,<br />
@@ -430,14 +453,15 @@ primarios de agregado y consulta.<br />
 </ul>
 <p>Suponiendo que ya hemos verificado los comprobantes de los gastos de nuestro cierre, los vales provisionales, y hemos contado el efectivo que estamos recibiendo, y todo está correcto, al aplicar el cierre de caja se llevarán a cabo los siguientes procesos:</p>
 <ol>
- <li>Se verifica si existe la caja de destino para los fondos. Esta debe estar previamente configurada en el módulo de entidades del centro de control, de lo contrario, fallara al aplicar el cierre.<br />
+ <li>Se verifica si existe la caja de destino para los fondos. Esta debe estar previamente configurada en el módulo de entidades del centro de control, de lo contrario, fallara al aplicar el cierre.</li>
+ <li>Se verifica que no existan facturas revertidas. Las facturas revertidas afectan el cierre porque son facturas que necesitan forzosamente cancelarse, por lo tanto, al cancelarlas se regresa el dinero a la caja, lo cual causaría un cálculo erróneo del cierre.<br />
 </li>
  <li>Genera un traspaso de fondos por $2,500.00, lo cual generará el retiro en la caja de Iztapalapa y el depósito en la caja Matriz.</li>
  <li>Se generará el traspaso a la caja Matriz de los tipos de vale "sin factura", "facturas", "pagos", "otros" y "traspasar" que representan la cantidad de $350.</li>
  <li>En la caja de Iztapalapa quedará un saldo real de $450.00 compuesto por el fondo de $500.00 menos los $50.00 de vales provisionales.</li>
  <li>Suponiendo que la caja Matriz tenía un saldo real de $5,000.00, ahora su saldo real será de $7,150.00 compuesto de la siguiente manera:</li>
 </ol>
-<table  align="center" border="1">
+<table align="center" border="1">
 <tbody>
  <tr>
   <td>
@@ -490,34 +514,32 @@ primarios de agregado y consulta.<br />
  <li>El cuerpo del cierre muestra los elementos de toda la información que se despliega para poder llevar a cabo la revisión. En el cuerpo se mostrarán las siguientes columnas:<br />
 <ul>
  <li>
-<strong>Clave.</strong> Es la clave del gasto en caso de que este elemento sea un vale. De lo contrario aparece vacía. </li>
+<strong>Clave.</strong> Es la clave del gasto o de la entidad de venta en caso de que este elemento sea un vale o una factura del desglose de ventas respectivamente. Para cualquier otro tipo aparece vacía. </li>
  <li>
-<strong>Descripción.</strong> Es la descripción del elemento. Los elementos se dividen en "cabeceros" y "vales". En elementos de vales, se mostrará la fecha, seguida del concepto del vale. Los cabeceros pueden ser los siguientes:<br />
+<strong>Descripción.</strong> Es la descripción del elemento. Los elementos se dividen en "vales", "facturas" y "cabeceros".<br />
 <ul>
  <li>
-<strong>CIERRE Z.</strong> Es el rango de movimientos de caja involucrados en este cierre.<br />
-</li>
+<strong>Vales.</strong> En elementos de vales, se mostrará la fecha, seguida del concepto del vale.</li>
  <li>
-<strong>DEPÓSITOS POR VENTA. </strong>Es el total de depósitos por ventas de contado con esta caja.<strong><br />
-</strong>
-</li>
+<strong>Facturas.</strong> En elementos de facturas, se mostrará la fecha, número y estatus de la factura.</li>
+ <li> <strong>Cabeceros.</strong> Los cabeceros pueden ser los siguientes:<br />
+<ol>
  <li>
-<strong>RETIROS POR DEVOLUCIÓN.</strong> Es el total de retiros por motivo de devoluciones sobre ventas.<br />
-</li>
+<strong>CIERRE Z.</strong> Es el rango de movimientos de caja involucrados en este cierre.</li>
  <li>
-<strong>OTROS DEPÓSITOS.</strong> Es el total de depósitos por otros motivos que no sean ventas, como por ejemplo, depósitos directos a la caja.<br />
-</li>
+<strong>DEPÓSITOS POR VENTA. </strong>Es el total de depósitos por ventas de contado con esta caja.</li>
+ <li>
+<strong>RETIROS POR DEVOLUCIÓN.</strong> Es el total de retiros por motivo de devoluciones sobre ventas.</li>
+ <li>
+<strong>OTROS DEPÓSITOS.</strong> Es el total de depósitos por otros motivos que no sean ventas, como por ejemplo, depósitos directos a la caja.</li>
  <li>
 <strong>OTROS RETIROS.</strong> Es el total de retiros por otros motivos que no sean devoluciones sobre ventas, como por ejemplo, retiros directos a la caja.</li>
  <li>
-<strong>TRASPASO A GENERAR.</strong> Es el monto total del traspaso de fondos que se registrará al momento de aplicar el cierre, como un retiro en esta caja y un depósito en la caja de destino. <br />
-</li>
+<strong>TRASPASO A GENERAR.</strong> Es el monto total del traspaso de fondos que se registrará al momento de aplicar el cierre, como un retiro en esta caja y un depósito en la caja de destino.</li>
  <li>
-<strong>GASTOS POR VALES DE CAJA.</strong> Es la suma total de todos las vales de todos los tipos excepto del tipo "provisional".<br />
-</li>
+<strong>GASTOS POR VALES DE CAJA.</strong> Es la suma total de todos las vales de todos los tipos excepto del tipo "provisional".</li>
  <li>
-<strong>SIN COMPROBANTE.</strong> Es la suma total de todos los vales del tipo "sin factura".<br />
-</li>
+<strong>SIN COMPROBANTE.</strong> Es la suma total de todos los vales del tipo "sin factura".</li>
  <li>
 <strong>FACTURAS.</strong> Es la suma total de todos los vales del tipo "facturas".</li>
  <li>
@@ -527,20 +549,21 @@ primarios de agregado y consulta.<br />
  <li>
 <strong>OTROS VALES.</strong> Es la suma total de todos los vales del tipo "otros".</li>
  <li>
-<strong>EFECTIVO A TRASPASAR.</strong> Es el total de efectivo que debe entregar el encargado de la caja.<br />
-</li>
+<strong>EFECTIVO A TRASPASAR.</strong> Es el total de efectivo que debe entregar el encargado de la caja.</li>
  <li>
-<strong>FONDO DE CAJA.</strong> Es el fondo fijo de esta caja.<br />
-</li>
+<strong>FONDO DE CAJA.</strong> Es el fondo fijo de esta caja.</li>
  <li>
 <strong>VALES PROVISIONALES.</strong> Es la suma total de todos los vales del tipo "provisional".</li>
  <li>
-<strong>NETO DE EFECTIVO EN CAJA.</strong> Es el total en efectivo que debe haber en la caja en el momento justo de la verificación.<br />
+<strong>NETO DE EFECTIVO EN CAJA.</strong> Es el total en efectivo que debe haber en la caja en el momento justo de la verificación.</li>
+ <li>
+<strong>DESGLOSE DE FACTURAS EN ESTE CIERRE.</strong> Representa el punto a partir del cual se muestra el desglose de cada factura involucrada en este cierre</li>
+</ol>
 </li>
 </ul>
 </li>
  <li>
-<strong>Total.</strong> Es el monto total del cabecero o vale.</li>
+<strong>Total.</strong> Es el monto total del vale, factura o cabecero.</li>
 </ul>
 </li>
 </ul>
@@ -565,8 +588,15 @@ Entidades del Centro de Control, y debe ser una caja distinta a esta.<br />
 </li>
  <li>
 <strong>ERROR: El número inicial o final son Nulos. Es probable que no haya habido movimientos aun.</strong>
- Esto ocurre cuando se intenta generar un cierre que no tiene ningún movimiento de caja registrado a partir del último cierre generado.</li>
+ Esto ocurre cuando se intenta generar un cierre que no tiene ningún movimiento de caja registrado a partir del último cierre generado.<br />
+<br />
+</li>
+ <li>
+<strong>ERROR: Existen facturas revertidas en este cierre, no se puede generar el cierre hasta que se cancelen todas estas facturas.</strong> Supongamos que generamos un cierre del día por $1,000.00, estos se transfieren a la caja de destino, y la caja de origen termina con un saldo de $0.00 lo cual es absolutamente correcto. Ahora supongamos que dentro de este cierre existía una factura revertida (factura que debe cancelarse forzosamente) por $120.00. ¿Qué pasa cuando se cancela después de haber realizado el cierre?... En un principio, no debía haberse pagado, pero si de todas formas se pagó, cuando se cancela, el saldo de la caja de origen regresará a un estado negativo por -$120.00 y así se quedará por siempre. Esta situación puede ser evitada simplemente al no permitir generar cierres con facturas revertidas. <br />
+</li>
 </ul>
+			  
+
                     </td>
 				  </tr>
 				  <tr>

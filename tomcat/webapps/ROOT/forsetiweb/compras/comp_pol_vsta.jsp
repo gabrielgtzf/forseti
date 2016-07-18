@@ -84,6 +84,7 @@ if(parent.ztatuz.document.URL.indexOf('status.html') == -1) {
 <%
 	}
 %>
+              <a href="/servlet/CEFReportesCtrl?tipo=COMP_POL" target="_self"><img src="../imgfsi/rep_compras.png" alt="" title="<%= JUtil.Msj("GLB","GLB","GLB","REPORTES") %>" width="30" height="30" border="0"></a> 
               <a href="/servlet/CEFCompPoliticasCtrl" target="_self"><img src="../imgfsi/actualizar.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",1) %>" border="0"></a> 
               <a href="javascript:try { gestionarArchivos2('COMP_POL', '<%= ent %>', document.comp_pol.ID.value, ''); } catch(err) { gestionarArchivos2('COMP_POL', '<%= ent %>', '', ''); }" target="_self"><img src="../imgfsi/es_gestionar_archivos.png" alt="" title="<%= JUtil.Msj("GLB","VISTA","GLB","HERRAMIENTAS",5) %>" border="0"></a> 
 			</div></td>

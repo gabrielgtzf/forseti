@@ -106,6 +106,7 @@ public class JCFDNomRecCabGenSet extends JManejadorSet
 			pNode.setPais(m_RS.getString("Pais"));
 			pNode.setCP(m_RS.getString("CP"));
 			pNode.setMetodoDePago(m_RS.getString("MetodoDePago"));
+			pNode.setMonedaSat(m_RS.getString("MonedaSat"));
 			pNode.setCURP(m_RS.getString("CURP"));
 			pNode.setTipoRegimen(m_RS.getInt("TipoRegimen"));
 			pNode.setNumSeguridadSocial(m_RS.getString("NumSeguridadSocial"));

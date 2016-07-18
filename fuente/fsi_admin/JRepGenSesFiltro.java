@@ -42,6 +42,19 @@ public class JRepGenSesFiltro
 		m_ID_Catalogo = ID_Catalogo;
 	}
 
+	public void setPartida(String instructions, boolean isRange, String priDataName, String priDefault, String secDataName, String secDefault, String bindDataType, boolean fromCatalog, int ID_Catalogo) 
+	{
+		m_Instructions = instructions;
+		m_IsRange = isRange;
+		m_PriDataName = priDataName;
+		m_PriDefault = priDefault;
+		m_SecDataName = secDataName;
+		m_SecDefault = secDefault;
+		m_BindDataType = bindDataType;
+		m_FromCatalog = fromCatalog;
+		m_ID_Catalogo = ID_Catalogo;
+	}
+
 	public String getBindDataType() 
 	{
 		return m_BindDataType;

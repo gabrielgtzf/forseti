@@ -44,7 +44,8 @@
  * permisos para cambiar los objetos de esta base de datos.
  * Ya que este proceso se haya terminado, entonces se podrá accesar al SAF/Administración/Documentación de Ayuda,
  * para ir adaptando la documentación a las modificaciones del sistema.
- * 
+ * NOTA IMPORTANTE: Para que la documentación de los reportes del CEF se generen, tambiaen debes establecer el valor 
+ * entero de la variable IDEMPAYUDA con el ID de la base de datos de la cual deseas extraer los datos.
  */
 
 /* //Borra este inicio de comentario

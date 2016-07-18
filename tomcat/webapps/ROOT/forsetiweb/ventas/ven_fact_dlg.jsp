@@ -185,7 +185,7 @@ function enviarlo(formAct)
 					}
 <%
 	}
-	else
+	else if(rec.getForma_Pago().equals("credito"))
 	{
 %>
 					if(formAct.fsipg_idscon.value == null || formAct.fsipg_idscon.value == '')
@@ -200,7 +200,11 @@ function enviarlo(formAct)
 <%
 	}
 %>					
-				}			
+				}
+<%
+	if(!rec.getForma_Pago().equals("ninguno"))
+	{
+%>			
 				else if(formAct.forma_pago[0].checked)
 				{
 					if(formAct.fsipg_cambio.value == null || formAct.fsipg_cambio.value == '')
@@ -213,6 +217,9 @@ function enviarlo(formAct)
 						return true;
 					}
 				}
+<%
+	}
+%>
 			}
 			
 			if(confirm("<%= JUtil.Msj("GLB","GLB","GLB","CONFIRMACION") %>"))
@@ -298,12 +305,12 @@ function enviarlo(formAct)
 							<input name="clave" type="hidden" id="clave" value="<%= rec.getClave() %>">
 							<input name="numeroses" type="hidden" id="numeroses" value="<%= rec.getNumero() %>">
 							<input type="hidden" name="idpartida" value="<%= request.getParameter("idpartida") %>">
-							<input name='fsipg_idscon' type='hidden'>
-							<input name='fsipg_concepto' type='hidden'>
-							<input name='fsipg_cambio' type='hidden'>
-							<input name='fsipg_efectivo' type='hidden'>
-							<input name='fsipg_beneficiario' type='hidden' value="<%= rec.getNombre() %>">
-							<input name='fsipg_rfc' type='hidden' value="<%= rec.getRFC() %>">
+							<input name="fsipg_idscon" type="hidden">
+							<input name="fsipg_concepto" type="hidden">
+							<input name="fsipg_cambio" type="hidden">
+							<input name="fsipg_efectivo" type="hidden">
+							<input name="fsipg_beneficiario" type="hidden" value="<%= rec.getNombre() %>">
+							<input name="fsipg_rfc" type="hidden" value="<%= rec.getRFC() %>">
 <%		
 		if(cv.getNumRows() > 0)
 		{
@@ -349,20 +356,30 @@ function enviarlo(formAct)
 <% 
 		if( request.getParameter("proceso").equals("AGREGAR_VENTA")  ||  request.getParameter("proceso").equals("CAMBIAR_VENTA") ||  request.getParameter("proceso").equals("ENLAZAR_VENTA") ) 
 		{ 
+			if(rec.getForma_Pago().equals("ninguno"))
+			{
+%>
+					  <td class="titChicoAzc">
+					  	<input type="hidden" name="forma_pago" value="ninguno">Ninguno
+<%
+			}
+			else
+			{
 %>
 						 <td>
 							<input name="forma_pago" type="radio" value="contado"<% if(rec.getForma_Pago().equals("contado"))  { out.print(" checked");}%>>
                 				Contado<br>
                 			<input name="forma_pago" type="radio" value="credito"<%  if(rec.getForma_Pago().equals("credito"))  { out.print(" checked");}%>>
                 				Cr&eacute;dito
-<% 
+<%
+			} 
 		} 
 		else
 		{
 %>
 						  <td class="titChicoAzc">
 <%
-				if(rec.getForma_Pago().equals("contado"))  { out.print("Contado"); } else { out.print("Credito");}
+				if(rec.getForma_Pago().equals("contado")) { out.print("Contado"); } else if(rec.getForma_Pago().equals("credito")) { out.print("Cr&eacute;dito"); } else { out.print("Ninguno"); }
 		}
 %>
                           </td>

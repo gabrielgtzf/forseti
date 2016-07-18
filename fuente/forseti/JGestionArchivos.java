@@ -384,7 +384,6 @@ public class JGestionArchivos
 		}
 	}
 	
-	
 	public void DescargarArchivo(HttpServletRequest request, HttpServletResponse response, ServletContext context, String content_type)
 			throws ServletException
 	{
@@ -459,7 +458,7 @@ public class JGestionArchivos
 			ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
 			JBajarArchivo fd = new JBajarArchivo();
   		  	fd.doDownload(response, context, bais, content_type, byteArray.length, m_Nombre);
-  		  	System.out.println("Content-Length: "  + byteArray.length);
+  		  	//System.out.println("Content-Length: "  + byteArray.length);
 				        
 			multipart.disconnect();
 				
